@@ -247,11 +247,14 @@ export default function WorkArchive() {
             <p className="overview-hint mono-label">{t.overviewHint}</p>
             <div className="project-overview">
               {projects.map((project, index) => (
-                <article
+                <a
                   className={`overview-item${project.frame === "portrait" ? " overview-portrait" : ""}`}
                   key={project.id}
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
                   style={{ "--overview-index": index } as CSSProperties}
-                  aria-label={`${project.title} / ${t.filters[project.category]}`}
+                  aria-label={`${project.title} — ${t.view}`}
                 >
                   {project.mediaType === "video" ? (
                     <video
@@ -265,14 +268,14 @@ export default function WorkArchive() {
                     />
                   ) : (
                     <img
-                      className={`overview-media${project.fit === "contain" ? " media-contain" : ""}`}
+                      className="overview-media"
                       src={project.thumbnail}
                       alt=""
                     />
                   )}
                   <span className="overview-index">{project.id}</span>
                   <span className="overview-category mono-label">{t.filters[project.category]}</span>
-                </article>
+                </a>
               ))}
               <div className="overview-more">
                 <span className="mono-label">{t.moreTag}</span>
