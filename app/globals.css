@@ -1127,6 +1127,10 @@ html.archive-is-transitioning { overflow: hidden; }
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
   border: 1px solid rgba(17,17,15,.3);
   background: #d8d7d0;
   animation: overview-enter 620ms cubic-bezier(.16,1,.3,1) both;
@@ -1153,6 +1157,9 @@ html.archive-is-transitioning { overflow: hidden; }
   height: 100%;
   position: absolute;
   inset: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
   object-fit: cover;
   filter: grayscale(.65) saturate(.62) contrast(1.04);
   transform: scale(1.025);
@@ -1168,6 +1175,17 @@ html.archive-is-transitioning { overflow: hidden; }
 .overview-item:hover .overview-media {
   filter: grayscale(0) saturate(.96) contrast(1.03);
   transform: scale(1.07);
+}
+.overview-item:hover,
+.overview-item:focus-visible {
+  z-index: 2;
+}
+.overview-item:active {
+  transform: scale(.985);
+}
+.overview-item > .overview-index,
+.overview-item > .overview-category {
+  pointer-events: none;
 }
 .overview-item:focus-visible {
   outline: 2px solid var(--foreground);

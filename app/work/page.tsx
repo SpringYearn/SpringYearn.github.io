@@ -5,6 +5,7 @@ import {
   useMemo,
   useState,
   type CSSProperties,
+  type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
@@ -66,6 +67,21 @@ function resetPointerPosition(event: ReactPointerEvent<HTMLElement>) {
   element.style.setProperty("--pointer-y", "0");
   element.style.setProperty("--spot-x", "50%");
   element.style.setProperty("--spot-y", "50%");
+}
+
+function followOverviewLink(event: ReactMouseEvent<HTMLAnchorElement>) {
+  if (
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  ) {
+    return;
+  }
+
+  event.preventDefault();
+  window.location.assign(event.currentTarget.href);
 }
 
 export default function WorkArchive() {
@@ -251,8 +267,7 @@ export default function WorkArchive() {
                   className={`overview-item${project.frame === "portrait" ? " overview-portrait" : ""}`}
                   key={project.id}
                   href={project.href}
-                  target="_blank"
-                  rel="noreferrer"
+                  onClick={followOverviewLink}
                   style={{ "--overview-index": index } as CSSProperties}
                   aria-label={`${project.title} — ${t.view}`}
                 >
@@ -265,12 +280,14 @@ export default function WorkArchive() {
                       autoPlay
                       playsInline
                       preload="metadata"
+                      draggable={false}
                     />
                   ) : (
                     <img
                       className="overview-media"
                       src={project.thumbnail}
                       alt=""
+                      draggable={false}
                     />
                   )}
                   <span className="overview-index">{project.id}</span>
