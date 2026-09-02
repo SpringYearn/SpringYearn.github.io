@@ -13,6 +13,7 @@ type ToneOptions = {
 
 const interactiveSelector =
   'a[href], button:not(:disabled), [role="button"], input[type="button"], input[type="submit"]';
+const workGatewaySelector = '[data-audio="work-gateway"]';
 
 function playTone(context: AudioContext, options: ToneOptions) {
   const startAt = context.currentTime + (options.delay ?? 0);
@@ -60,6 +61,48 @@ function playHover(context: AudioContext) {
   });
 }
 
+function playGatewayClick(context: AudioContext) {
+  playTone(context, {
+    startFrequency: 520,
+    endFrequency: 760,
+    duration: 0.13,
+    level: 0.011,
+    type: "triangle",
+  });
+  playTone(context, {
+    startFrequency: 1180,
+    endFrequency: 1760,
+    duration: 0.1,
+    level: 0.017,
+    delay: 0.018,
+    type: "triangle",
+  });
+  playTone(context, {
+    startFrequency: 2140,
+    endFrequency: 3420,
+    duration: 0.17,
+    level: 0.01,
+    delay: 0.048,
+  });
+}
+
+function playGatewayHover(context: AudioContext) {
+  playTone(context, {
+    startFrequency: 1120,
+    endFrequency: 1510,
+    duration: 0.085,
+    level: 0.006,
+    type: "triangle",
+  });
+  playTone(context, {
+    startFrequency: 1880,
+    endFrequency: 2680,
+    duration: 0.12,
+    level: 0.005,
+    delay: 0.032,
+  });
+}
+
 export function InteractionAudio() {
   useEffect(() => {
     let context: AudioContext | null = null;
@@ -74,15 +117,20 @@ export function InteractionAudio() {
     const handlePointerDown = (event: PointerEvent) => {
       if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
 
+      const isWorkGateway =
+        event.target instanceof Element && Boolean(event.target.closest(workGatewaySelector));
+      const playTargetClick = (audioContext: AudioContext) =>
+        isWorkGateway ? playGatewayClick(audioContext) : playClick(audioContext);
+
       const audioContext = getContext();
       if (audioContext.state === "suspended") {
         void audioContext.resume().then(() => {
-          if (!disposed) playClick(audioContext);
+          if (!disposed) playTargetClick(audioContext);
         });
         return;
       }
 
-      if (audioContext.state === "running") playClick(audioContext);
+      if (audioContext.state === "running") playTargetClick(audioContext);
     };
 
     const handlePointerOver = (event: PointerEvent) => {
@@ -92,7 +140,10 @@ export function InteractionAudio() {
       if (!interactive || interactive === lastInteractive) return;
 
       lastInteractive = interactive;
-      if (context?.state === "running") playHover(context);
+      if (context?.state === "running") {
+        if (interactive.matches(workGatewaySelector)) playGatewayHover(context);
+        else playHover(context);
+      }
     };
 
     const handlePointerOut = (event: PointerEvent) => {

@@ -122,6 +122,20 @@ const capabilities = [
   "Color & Finishing",
 ];
 
+const softwareStack = [
+  "DaVinci Resolve",
+  "Blender",
+  "After Effects",
+  "Photoshop",
+  "Illustrator",
+  "MediBang Paint Pro",
+  "CapCut",
+  "PowerDirector",
+  "Fusion",
+  "Figma",
+  "Procreate",
+];
+
 const practiceHistory = [
   {
     year: { en: "2020", zh: "2020" },
@@ -432,6 +446,7 @@ export default function Home() {
           <Link
             className="work-gateway-link"
             href="/work"
+            data-audio="work-gateway"
             data-reveal
             onPointerMove={setPointerPosition}
             onPointerLeave={resetPointerPosition}
@@ -532,6 +547,15 @@ export default function Home() {
                 </li>
               ))}
             </ol>
+            <div className="software-stack" aria-label={language === "en" ? "Software toolkit" : "軟體工具"}>
+              <p className="mono-label">{language === "en" ? "Software / Toolkit" : "使用軟體／工具"}</p>
+              <ul>
+                {softwareStack.map((software) => (
+                  <li key={software}>{software}</li>
+                ))}
+                <li className="software-more">{language === "en" ? "And more…" : "以及更多⋯⋯"}</li>
+              </ul>
+            </div>
           </div>
           <div className="practice-card">
             <p className="mono-label">{t.experience}</p>

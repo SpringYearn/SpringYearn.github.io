@@ -1749,6 +1749,40 @@ html.archive-is-transitioning { overflow: hidden; }
   font-size: .58rem;
   letter-spacing: .08em;
 }
+.software-stack {
+  margin-top: 2.4rem;
+}
+.software-stack > p {
+  margin: 0 0 .75rem;
+  color: rgba(17,17,15,.58);
+}
+.software-stack ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(17,17,15,.32);
+}
+.software-stack li {
+  min-width: 0;
+  padding: .72rem .55rem .72rem 0;
+  border-bottom: 1px solid rgba(17,17,15,.24);
+  font-family: var(--font-mono);
+  font-size: clamp(.58rem, .72vw, .7rem);
+  line-height: 1.35;
+  letter-spacing: .035em;
+  color: rgba(17,17,15,.68);
+}
+.software-stack li:nth-child(3n + 2),
+.software-stack li:nth-child(3n + 3) {
+  padding-left: .65rem;
+  border-left: 1px solid rgba(17,17,15,.16);
+}
+.software-stack .software-more {
+  color: rgba(17,17,15,.42);
+  font-style: italic;
+}
 .practice-card {
   min-height: 420px;
   position: relative;
@@ -2289,6 +2323,10 @@ html.archive-is-transitioning { overflow: hidden; }
   .brand-logo-panel { min-height: 320px; padding: 2rem; }
   .brand-logo-panel img { width: 72%; }
   .capability-list li { font-size: 1.1rem; }
+  .software-stack ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .software-stack li:nth-child(3n + 2),
+  .software-stack li:nth-child(3n + 3) { padding-left: 0; border-left: 0; }
+  .software-stack li:nth-child(2n) { padding-left: .65rem; border-left: 1px solid rgba(17,17,15,.16); }
   .history-list::before { left: 1rem; }
   .history-entry { grid-template-columns: 2.5rem 1fr; gap: 1rem; }
   .history-time,

@@ -13,7 +13,7 @@ const siteOrigin =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
-  title: "SpringYearn — Visual Artist, Designer & Editor",
+  title: "SpringYearn",
   description:
     "The bilingual creative portfolio of SpringYearn, a Taiwan-based visual artist, designer and editor working across moving image, drawing, graphic design and 3D.",
   openGraph: {
@@ -38,8 +38,9 @@ export const metadata: Metadata = {
     images: [`${siteOrigin}/og.png`],
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
 };
 
