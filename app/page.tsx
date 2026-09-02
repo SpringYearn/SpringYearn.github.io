@@ -60,6 +60,8 @@ const copy = {
     emailCopied: "Address copied",
     socials: "Elsewhere / Creative traces",
     footer: "SpringYearn® — Visual Artist / Designer / Editor",
+    legacyNote: "Legacy site / no longer updated",
+    legacyEnter: "Open previous website",
     backTop: "Back to top",
   },
   zh: {
@@ -106,6 +108,8 @@ const copy = {
     emailCopied: "已複製信箱地址",
     socials: "其他地方 / 創作足跡",
     footer: "SpringYearn® — 視覺藝術家 / 設計師 / 剪輯師",
+    legacyNote: "舊網站／已停止更新",
+    legacyEnter: "進入舊版本網站",
     backTop: "回到頂端",
   },
 };
@@ -674,6 +678,18 @@ export default function Home() {
 
       <footer className="site-footer">
         <span>{t.footer}</span>
+        <details className="legacy-index">
+          <summary aria-label={language === "en" ? "Reveal legacy site" : "顯示舊網站入口"}>
+            SY / V.01
+          </summary>
+          <div className="legacy-index-panel">
+            <span>{t.legacyNote}</span>
+            <a href="https://springyearn.webflow.io/" target="_blank" rel="noreferrer">
+              {t.legacyEnter}
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+          </div>
+        </details>
         <a href="#top">
           {t.backTop}
           <ArrowUpRight aria-hidden="true" />

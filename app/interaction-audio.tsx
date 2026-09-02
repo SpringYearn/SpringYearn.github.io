@@ -63,26 +63,48 @@ function playHover(context: AudioContext) {
 
 function playGatewayClick(context: AudioContext) {
   playTone(context, {
-    startFrequency: 520,
-    endFrequency: 760,
+    startFrequency: 360,
+    endFrequency: 620,
+    duration: 0.22,
+    level: 0.01,
+    type: "triangle",
+  });
+  playTone(context, {
+    startFrequency: 660,
+    endFrequency: 880,
+    duration: 0.12,
+    level: 0.013,
+    delay: 0.006,
+    type: "triangle",
+  });
+  playTone(context, {
+    startFrequency: 990,
+    endFrequency: 1320,
     duration: 0.13,
     level: 0.011,
+    delay: 0.04,
     type: "triangle",
   });
   playTone(context, {
-    startFrequency: 1180,
-    endFrequency: 1760,
-    duration: 0.1,
-    level: 0.017,
-    delay: 0.018,
-    type: "triangle",
-  });
-  playTone(context, {
-    startFrequency: 2140,
-    endFrequency: 3420,
-    duration: 0.17,
+    startFrequency: 1320,
+    endFrequency: 1980,
+    duration: 0.16,
     level: 0.01,
-    delay: 0.048,
+    delay: 0.078,
+  });
+  playTone(context, {
+    startFrequency: 1980,
+    endFrequency: 2960,
+    duration: 0.2,
+    level: 0.008,
+    delay: 0.12,
+  });
+  playTone(context, {
+    startFrequency: 3520,
+    endFrequency: 4720,
+    duration: 0.15,
+    level: 0.005,
+    delay: 0.17,
   });
 }
 

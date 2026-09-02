@@ -2112,6 +2112,60 @@ html.archive-is-transitioning { overflow: hidden; }
   letter-spacing: .1em;
   text-transform: uppercase;
 }
+.legacy-index {
+  position: relative;
+  margin-left: auto;
+}
+.legacy-index summary {
+  list-style: none;
+  padding: .4rem 0;
+  color: rgba(17,17,15,.38);
+  cursor: pointer;
+  transition: color 220ms ease, letter-spacing 280ms cubic-bezier(.22,1,.36,1);
+}
+.legacy-index summary::-webkit-details-marker { display: none; }
+.legacy-index summary:hover,
+.legacy-index summary:focus-visible,
+.legacy-index[open] summary {
+  color: var(--foreground);
+  letter-spacing: .18em;
+}
+.legacy-index summary:focus-visible {
+  outline: 1px solid var(--foreground);
+  outline-offset: 4px;
+}
+.legacy-index-panel {
+  width: min(300px, 74vw);
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 1.2rem);
+  z-index: 65;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(17,17,15,.58);
+  background: rgba(240,239,233,.96);
+  box-shadow: 0 18px 55px rgba(17,17,15,.12);
+  backdrop-filter: blur(14px);
+  animation: legacy-index-in 320ms cubic-bezier(.22,1,.36,1) both;
+}
+.legacy-index-panel > span {
+  color: rgba(17,17,15,.52);
+  font-size: .75rem;
+  line-height: 1.45;
+  letter-spacing: .08em;
+}
+.legacy-index-panel > a {
+  justify-content: space-between;
+  padding-top: .85rem;
+  border-top: 1px solid rgba(17,17,15,.3);
+  font-size: .75rem;
+}
+@keyframes legacy-index-in {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.site-footer > a { margin-left: 1.2rem; }
 .site-footer a { display: inline-flex; align-items: center; gap: .5rem; }
 .site-footer svg { width: 13px; }
 
@@ -2340,6 +2394,9 @@ html.archive-is-transitioning { overflow: hidden; }
   .social-grid { grid-template-columns: 1fr; }
   .social-grid > :nth-child(2n) { padding-left: 0; border-left: 0; }
   .site-footer { min-height: 96px; align-items: flex-start; padding: 1.5rem 0; flex-direction: column; }
+  .legacy-index { margin-left: 0; }
+  .legacy-index-panel { left: 0; right: auto; }
+  .site-footer > a { margin-left: 0; }
   .archive-transition-content { width: min(100% - 32px, 1120px); min-height: 72svh; }
   .archive-transition-meta span:first-child { max-width: 180px; line-height: 1.5; }
   .archive-transition-stage { grid-template-columns: 1fr; align-content: center; gap: 1.8rem; }
