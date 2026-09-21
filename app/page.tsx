@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { ArrowUpRight, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SiteStatus } from "./site-status";
 
 type Language = "en" | "zh";
 const copy = {
@@ -676,6 +677,7 @@ export default function Home() {
         </div>
       </section>
 
+      <SiteStatus language={language} />
       <footer className="site-footer">
         <span>{t.footer}</span>
         <details className="legacy-index">

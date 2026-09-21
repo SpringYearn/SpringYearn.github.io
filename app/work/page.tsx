@@ -12,6 +12,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects, type Category, type Language } from "../portfolio-data";
+import { SiteStatus } from "../site-status";
 
 const copy = {
   en: {
@@ -366,6 +367,7 @@ export default function WorkArchive() {
         )}
       </section>
 
+      <SiteStatus language={language} />
       <footer className="site-footer">
         <span>{t.footer}</span>
         <a href="#top">
