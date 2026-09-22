@@ -17,6 +17,16 @@ Check the date without building: `node scripts/build-github.mjs --print-date`.
 The normal preview uses the initial fallback date; the production build embeds
 the resolved date with `NEXT_PUBLIC_SITE_UPDATED`.
 
+## Latest update summary
+
+The date opens a small bilingual update summary on hover, keyboard focus or tap.
+The popup and both pages read `latestUpdate.en` / `latestUpdate.zh` from
+`site-history.json`. For **every future website update**, replace these short
+visitor-facing notes with the actual changes in that release (for example, newly
+added works). Keep both languages in sync. Do not reuse the example as a claim
+that new works were added, and do not fill this with raw commit messages or
+technical build details. The date still follows the automated Git rule above.
+
 Visitors use Busuanzi's remotely persisted `site_uv` total, as documented at
 https://ibruce.info/2015/04/04/busuanzi/ . The HTTPS JSONP request sends only the
 public origin as its referrer. No account, secret, local counter, or historical

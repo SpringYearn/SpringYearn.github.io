@@ -1,5 +1,15 @@
 {
   "initialLastUpdated": "2026-09-02",
   "previousReleaseCommit": "e1b6642743d812be6fdfcb269381a1a1a712c0dd",
-  "timeZone": "Asia/Taipei"
+  "timeZone": "Asia/Taipei",
+  "latestUpdate": {
+    "en": [
+      "Added a compact update summary to the footer date.",
+      "View it with a hover, keyboard focus or tap."
+    ],
+    "zh": [
+      "新增日期懸停浮框，快速查看網站更新內容。",
+      "支援鍵盤聚焦與手機點按查看。"
+    ]
+  }
 }
