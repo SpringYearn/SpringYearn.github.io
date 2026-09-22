@@ -43,6 +43,7 @@ const copy = {
     updated: "Last updated",
     visitors: "Total visitors",
     replay: "Replay date animation",
+    replayVisitors: "Replay visitor count animation",
     pending: "Loading visitor count",
     unavailable: "Visitor count temporarily unavailable",
     note: "Estimated unique visitors since the counter was enabled. Different browsers or devices may count separately. Powered by Busuanzi.",
@@ -51,17 +52,34 @@ const copy = {
     updated: "最後更新日期",
     visitors: "總瀏覽人數",
     replay: "重播日期動畫",
+    replayVisitors: "重播瀏覽人數動畫",
     pending: "正在讀取瀏覽人數",
     unavailable: "瀏覽人數暫時無法讀取",
     note: "啟用後累計的訪客估計值；不同瀏覽器或裝置可能分別計算。統計由不蒜子提供。",
   },
 };
 
+function RollingDigits({ value, replay, className }: { value: string; replay: number; className: string }) {
+  return (
+    <span className={`${className}${replay ? " is-decoding" : ""}`} key={replay} aria-hidden="true">
+      {Array.from(value, (digit, index) => /\d/.test(digit) ? (
+        <span className="status-digit" key={index} style={{ "--digit-delay": `${index * 32}ms` } as CSSProperties}>
+          <span className="status-digit-reel">
+            {[7, 3, 1, 0].map((offset) => <span key={offset}>{(Number(digit) + offset) % 10}</span>)}
+          </span>
+        </span>
+      ) : <span className="status-date-separator" key={index}>{digit}</span>)}
+    </span>
+  );
+}
+
 export function SiteStatus({ language }: { language: "en" | "zh" }) {
   const t = copy[language];
   const root = useRef<HTMLDivElement>(null);
   const lastReplay = useRef(-Infinity);
   const [replay, setReplay] = useState(0);
+  const lastVisitorReplay = useRef(-Infinity);
+  const [visitorReplay, setVisitorReplay] = useState(0);
   const [visitors, setVisitors] = useState<number | null>(null);
   const [countState, setCountState] = useState<"loading" | "ready" | "unavailable">("loading");
 
@@ -73,6 +91,14 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
     setReplay((value) => value + 1);
   }, []);
 
+  const animateVisitors = useCallback(() => {
+    if (visitors === null || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const now = performance.now();
+    if (now - lastVisitorReplay.current < 1100) return;
+    lastVisitorReplay.current = now;
+    setVisitorReplay((value) => value + 1);
+  }, [visitors]);
+
   useEffect(() => {
     const element = root.current;
     if (!element || !("IntersectionObserver" in window)) return;
@@ -82,6 +108,18 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
     observer.observe(element);
     return () => observer.disconnect();
   }, [animateDate]);
+
+  useEffect(() => {
+    // Wait for a real count and visibility; scrolling before it loads is safe.
+    const element = root.current;
+    if (!element || visitors === null) return;
+    if (!("IntersectionObserver" in window)) { animateVisitors(); return; }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { animateVisitors(); observer.disconnect(); }
+    }, { threshold: 0.5 });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [visitors, animateVisitors]);
 
   useEffect(() => {
     // Local QA and the private backup must not contaminate the public total.
@@ -114,22 +152,23 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
       >
         <span className="status-label">{t.updated}</span>
         <time dateTime={lastUpdated} aria-label={lastUpdated}>
-          <span className={`status-date${replay ? " is-decoding" : ""}`} key={replay} aria-hidden="true">
-            {Array.from(displayDate, (digit, index) => /\d/.test(digit) ? (
-              <span className="status-digit" key={index} style={{ "--digit-delay": `${index * 32}ms` } as CSSProperties}>
-                <span className="status-digit-reel">
-                  {[7, 3, 1, 0].map((offset) => <span key={offset}>{(Number(digit) + offset) % 10}</span>)}
-                </span>
-              </span>
-            ) : <span className="status-date-separator" key={index}>{digit}</span>)}
-          </span>
+          <RollingDigits value={displayDate} replay={replay} className="status-date" />
         </time>
       </button>
-      <div className="status-visitors" tabIndex={0} aria-label={`${countLabel}. ${t.note}`}>
+      <button
+        type="button"
+        className="status-visitors"
+        onPointerEnter={animateVisitors}
+        onFocus={animateVisitors}
+        onClick={animateVisitors}
+        aria-label={`${countLabel}. ${countState === "ready" ? `${t.replayVisitors}. ` : ""}${t.note}`}
+      >
         <span className="status-label">{t.visitors}</span>
-        <span className="status-count" aria-live="polite" aria-label={countLabel}>{countText}</span>
+        <span className="status-count" aria-live="polite" aria-label={countLabel}>
+          {visitors === null ? "—" : <RollingDigits value={countText} replay={visitorReplay} className="status-count-digits" />}
+        </span>
         <span className="status-note" role="tooltip">{countState === "unavailable" ? `${t.unavailable}。` : ""}{t.note}</span>
-      </div>
+      </button>
     </div>
   );
 }

@@ -2120,7 +2120,8 @@ html.archive-is-transitioning { overflow: hidden; }
   gap: 1rem;
   position: relative;
 }
-.status-updated {
+.status-updated,
+.status-visitors {
   border: 0;
   padding: .5rem 0;
   background: transparent;
@@ -2137,8 +2138,10 @@ html.archive-is-transitioning { overflow: hidden; }
   font-variant-numeric: tabular-nums;
   letter-spacing: .035em;
 }
-.status-date { display: inline-flex; vertical-align: middle; position: relative; }
-.status-date::after {
+.status-date,
+.status-count-digits { display: inline-flex; vertical-align: middle; position: relative; }
+.status-date::after,
+.status-count-digits::after {
   content: "";
   position: absolute;
   inset: auto 0 -5px;
@@ -2157,7 +2160,7 @@ html.archive-is-transitioning { overflow: hidden; }
 }
 .is-decoding::after { animation: status-date-scan 950ms cubic-bezier(.22,1,.36,1) both; }
 .status-count { min-width: 4ch; text-align: right; }
-.status-visitors { padding-block: .5rem; cursor: help; }
+.status-visitors { padding-block: .5rem; cursor: pointer; }
 .status-note {
   position: absolute;
   bottom: calc(100% + .75rem);
