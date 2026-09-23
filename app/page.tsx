@@ -176,6 +176,17 @@ const practiceHistory = [
     },
   },
   {
+    year: { en: "2026", zh: "2026" },
+    href: "https://x.com/ValorantEsports/status/2102684410382287046?s=20",
+    phase: { en: "Official project", zh: "官方專案" },
+    partner: { en: "Riot Games × Rosewood Creative", zh: "Riot Games × Rosewood Creative" },
+    title: { en: "VALORANT Esports / Creator Editor", zh: "VALORANT Esports／Creator Editor" },
+    body: {
+      en: "Created an official VALORANT Esports video as a Creator Editor through Rosewood Creative.",
+      zh: "透過 Rosewood Creative 參與 Riot Games 官方 VALORANT Esports 影像製作，擔任 Creator Editor。",
+    },
+  },
+  {
     year: { en: "ONGOING", zh: "持續" },
     href: null,
     phase: { en: "Current practice", zh: "現在" },
