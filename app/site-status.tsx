@@ -6,6 +6,7 @@ import history from "../site-history.json";
 
 const lastUpdated = process.env.NEXT_PUBLIC_SITE_UPDATED || history.initialLastUpdated;
 const displayDate = lastUpdated.replaceAll("-", ".");
+const VISITOR_BASELINE = 3240;
 
 // One request per document, shared by both routes and React Strict Mode mounts.
 // The global total is stored by Busuanzi, never invented in localStorage.
@@ -49,7 +50,7 @@ const copy = {
     replayVisitors: "Replay visitor count animation",
     pending: "Loading visitor count",
     unavailable: "Visitor count temporarily unavailable",
-    note: "Estimated unique visitors since the counter was enabled. Different browsers or devices may count separately. Powered by Busuanzi.",
+    note: "Includes a historical baseline plus the live estimated unique visitor count. Different browsers or devices may count separately. Powered by Busuanzi.",
   },
   zh: {
     updated: "最後更新日期",
@@ -60,7 +61,7 @@ const copy = {
     replayVisitors: "重播瀏覽人數動畫",
     pending: "正在讀取瀏覽人數",
     unavailable: "瀏覽人數暫時無法讀取",
-    note: "啟用後累計的訪客估計值；不同瀏覽器或裝置可能分別計算。統計由不蒜子提供。",
+    note: "包含歷史基準值與後續即時累計的訪客估計值；不同瀏覽器或裝置可能分別計算。統計由不蒜子提供。",
   },
 };
 
@@ -155,7 +156,8 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
     return () => { active = false; };
   }, []);
 
-  const countText = visitors === null ? "—" : visitors.toLocaleString("en-US");
+  const displayedVisitors = visitors === null ? null : VISITOR_BASELINE + visitors;
+  const countText = displayedVisitors === null ? "—" : displayedVisitors.toLocaleString("en-US");
   const countLabel = countState === "ready" ? `${t.visitors}: ${countText}`
     : countState === "loading" ? t.pending : t.unavailable;
 

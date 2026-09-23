@@ -4,12 +4,12 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added the Riot Games × Rosewood Creative VALORANT Esports project to the homepage practice timeline.",
-      "Linked the entry to the official VALORANT Esports release on X."
+      "Added a historical baseline to the total visitor display while keeping live visitor growth intact.",
+      "The public count now continues increasing from the existing real Busuanzi visitor data."
     ],
     "zh": [
-      "在首頁創作時間線新增 Riot Games × Rosewood Creative 的 VALORANT Esports 官方專案。",
-      "新增官方 VALORANT Esports X 貼文連結。"
+      "為總瀏覽人數加入歷史基準值，同時保留後續真實訪客數持續累加。",
+      "公開顯示數字會繼續隨不蒜子的即時訪客資料增加。"
     ]
   }
 }
