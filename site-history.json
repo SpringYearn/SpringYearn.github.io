@@ -4,12 +4,12 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a historical baseline to the total visitor display while keeping live visitor growth intact.",
-      "The public count now continues increasing from the existing real Busuanzi visitor data."
+      "Added Discord to the contact links at the bottom of the homepage.",
+      "Updated the site log to reflect this contact link addition."
     ],
     "zh": [
-      "為總瀏覽人數加入歷史基準值，同時保留後續真實訪客數持續累加。",
-      "公開顯示數字會繼續隨不蒜子的即時訪客資料增加。"
+      "在首頁底部聯繫方式新增 Discord 連結。",
+      "同步更新網站的最後更新註記。"
     ]
   }
 }
