@@ -4,13 +4,25 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made past SY / CHANGELOG entries collapsed by default and expandable on demand across desktop and mobile."
+      "Added a new LAB / EXPERIMENTS section documenting eight DaVinci Resolve and Fusion development experiments.",
+      "Recorded completed tools, functional prototypes, active development and research-stage plugin work without changing existing site sections."
     ],
     "zh": [
-      "將過往 SY / CHANGELOG 更新日誌改為預設收起，桌機與手機都需手動展開後才顯示歷史版本。"
+      "新增 LAB / EXPERIMENTS 實驗區，整理 8 筆 DaVinci Resolve 與 Fusion 工具／插件開發紀錄。",
+      "依照實際進度標示已可用、可用原型、持續開發與研究階段，原有網站區塊維持不變。"
     ]
   },
   "releases": [
+    {
+      "version": "V.018",
+      "date": "2026-09-30",
+      "en": [
+        "Added LAB / EXPERIMENTS with eight Resolve and Fusion development records while preserving existing site sections."
+      ],
+      "zh": [
+        "新增 LAB / EXPERIMENTS，收錄 8 筆 Resolve／Fusion 開發紀錄，並保留既有網站區塊與功能。"
+      ]
+    },
     {
       "version": "V.017",
       "date": "2026-09-30",

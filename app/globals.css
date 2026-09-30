@@ -1928,6 +1928,133 @@ html.archive-is-transitioning { overflow: hidden; }
   color: rgba(17,17,15,.66);
 }
 
+.lab-section {
+  border-top: 1px solid var(--foreground);
+}
+.lab-heading {
+  margin-bottom: clamp(3.5rem, 7vw, 7rem);
+}
+.lab-heading > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.lab-heading h2 {
+  white-space: pre-line;
+}
+.lab-count {
+  color: rgba(17,17,15,.52);
+}
+.lab-intro {
+  max-width: 700px;
+  margin: 2rem 0 0;
+  font-size: clamp(.95rem, 1.4vw, 1.12rem);
+  line-height: 1.65;
+  color: rgba(17,17,15,.68);
+}
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgba(17,17,15,.5);
+  border-left: 1px solid rgba(17,17,15,.5);
+}
+.lab-card {
+  min-height: 360px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 2rem;
+  padding: clamp(1.2rem, 2.2vw, 2rem);
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(17,17,15,.5);
+  border-bottom: 1px solid rgba(17,17,15,.5);
+  background: rgba(240,239,233,.18);
+  transition: background 320ms ease, transform 420ms cubic-bezier(.22,1,.36,1);
+}
+.lab-card::before {
+  content: "";
+  width: 160px;
+  aspect-ratio: 1;
+  position: absolute;
+  right: -78px;
+  top: -78px;
+  border: 1px solid rgba(126,157,152,.24);
+  border-radius: 50%;
+  box-shadow: 0 0 0 28px rgba(126,157,152,.035);
+  transition: transform 520ms cubic-bezier(.22,1,.36,1), opacity 320ms ease;
+}
+.lab-card:hover {
+  background: rgba(217,229,226,.42);
+}
+.lab-card:hover::before {
+  transform: translate(-10px, 10px) scale(1.12);
+}
+.lab-card-top,
+.lab-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.lab-card-top {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(17,17,15,.18);
+}
+.lab-index {
+  font-weight: 650;
+}
+.lab-date {
+  color: rgba(17,17,15,.52);
+  font-variant-numeric: tabular-nums;
+}
+.lab-card-main {
+  position: relative;
+  z-index: 1;
+}
+.lab-type {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  color: rgba(17,17,15,.55);
+}
+.lab-card h3 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 3.2rem);
+  line-height: .96;
+  letter-spacing: -.055em;
+  font-weight: 560;
+}
+.lab-card-main p {
+  max-width: 610px;
+  margin: 1.25rem 0 0;
+  font-size: .88rem;
+  line-height: 1.65;
+  color: rgba(17,17,15,.66);
+}
+.lab-card-foot {
+  justify-content: flex-start;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(17,17,15,.18);
+  color: rgba(17,17,15,.62);
+}
+.lab-card-foot > span:last-child {
+  margin-left: auto;
+  color: rgba(17,17,15,.38);
+}
+.lab-status-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #7e9d98;
+  box-shadow: 0 0 0 4px rgba(126,157,152,.12);
+}
+
 .contact-section {
   min-height: 92svh;
   padding: clamp(6rem, 11vw, 11rem) 0 2.4rem;
@@ -2615,4 +2742,16 @@ html.archive-is-transitioning { overflow: hidden; }
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+@media (max-width: 760px) {
+  .lab-grid { grid-template-columns: 1fr; }
+  .lab-card { min-height: 320px; }
+}
+@media (max-width: 620px) {
+  .lab-heading { gap: 2.2rem; }
+  .lab-heading > div:first-child { gap: .7rem; }
+  .lab-intro { margin-top: 1.4rem; }
+  .lab-card { min-height: 300px; padding: 1.2rem; }
+  .lab-card h3 { font-size: clamp(1.7rem, 8vw, 2.5rem); }
 }
