@@ -4,12 +4,10 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added Discord to the contact links at the bottom of the homepage.",
-      "Updated the site log to reflect this contact link addition."
+      "Adjusted overview media on devices without hover support so project thumbnails display in full color by default."
     ],
     "zh": [
-      "在首頁底部聯繫方式新增 Discord 連結。",
-      "同步更新網站的最後更新註記。"
+      "調整不支援 Hover 的裝置顯示邏輯，讓作品總覽縮圖在手機等觸控裝置上預設直接顯示彩色。"
     ]
   }
 }
