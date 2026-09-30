@@ -1176,6 +1176,9 @@ html.archive-is-transitioning { overflow: hidden; }
   filter: grayscale(0) saturate(.96) contrast(1.03);
   transform: scale(1.07);
 }
+@media (hover: none) {
+  .overview-media { filter: grayscale(0) saturate(.96) contrast(1.03); }
+}
 .overview-item:hover,
 .overview-item:focus-visible {
   z-index: 2;
