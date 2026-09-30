@@ -2217,9 +2217,13 @@ html.archive-is-transitioning { overflow: hidden; }
 .status-update-list li { display: grid; grid-template-columns: 1.4rem 1fr; gap: .65rem; font-size: .875rem; line-height: 1.65; }
 .status-update-index { padding-top: .12rem; color: #65655f; font-family: var(--font-mono); font-size: .75rem; }
 .status-changelog { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(17,17,15,.2); }
-.status-changelog-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; }
+.status-changelog-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; list-style: none; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+.status-changelog-heading::-webkit-details-marker { display: none; }
 .status-changelog-heading strong { font-weight: 500; }
 .status-changelog-heading span { color: #77776f; font-size: .62rem; }
+.status-changelog-heading span::after { content: " +"; }
+.status-changelog[open] .status-changelog-heading span::after { content: " −"; }
+.status-changelog-heading:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
 .status-changelog-list { display: grid; list-style: none; margin: .75rem 0 0; padding: 0; }
 .status-changelog-list li { display: grid; grid-template-columns: 6.4rem 1fr; gap: 1rem; padding: .8rem 0; border-top: 1px solid rgba(17,17,15,.1); }
 .status-changelog-meta { display: flex; flex-direction: column; gap: .18rem; font-family: var(--font-mono); font-size: .66rem; line-height: 1.45; }

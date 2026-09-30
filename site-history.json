@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Expanded the footer update summary into a browsable SY / CHANGELOG with dated version history."
+      "Made past SY / CHANGELOG entries collapsed by default and expandable on demand across desktop and mobile."
     ],
     "zh": [
-      "將頁尾的本次更新資訊擴充為可回顧歷史版本的 SY / CHANGELOG。"
+      "將過往 SY / CHANGELOG 更新日誌改為預設收起，桌機與手機都需手動展開後才顯示歷史版本。"
     ]
   },
   "releases": [
+    {
+      "version": "V.017",
+      "date": "2026-09-30",
+      "en": [
+        "Changed past SY / CHANGELOG entries to stay collapsed by default and expand only when requested."
+      ],
+      "zh": [
+        "將過往 SY / CHANGELOG 更新日誌改為預設隱藏，需手動展開才顯示歷史版本。"
+      ]
+    },
     {
       "version": "V.016",
       "date": "2026-09-30",

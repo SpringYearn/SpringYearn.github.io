@@ -220,11 +220,11 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
               </li>
             ))}
           </ul>
-          <div className="status-changelog">
-            <div className="status-changelog-heading">
+          <details className="status-changelog">
+            <summary className="status-changelog-heading">
               <strong>{t.changelog}</strong>
               <span>{t.changelogHint}</span>
-            </div>
+            </summary>
             <ol className="status-changelog-list">
               {history.releases.slice(1).map((release) => (
                 <li key={release.version}>
@@ -236,7 +236,7 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
                 </li>
               ))}
             </ol>
-          </div>
+          </details>
         </PopoverContent>
       </Popover>
       <button
