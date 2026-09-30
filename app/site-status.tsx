@@ -46,6 +46,8 @@ const copy = {
     visitors: "Total visitors",
     replay: "Replay date animation",
     updateSummary: "Latest update",
+    changelog: "SY / Changelog",
+    changelogHint: "Update history",
     showUpdate: "View update summary",
     replayVisitors: "Replay visitor count animation",
     pending: "Loading visitor count",
@@ -57,6 +59,8 @@ const copy = {
     visitors: "總瀏覽人數",
     replay: "重播日期動畫",
     updateSummary: "本次更新",
+    changelog: "SY / 更新歷史",
+    changelogHint: "歷史版本",
     showUpdate: "查看更新內容",
     replayVisitors: "重播瀏覽人數動畫",
     pending: "正在讀取瀏覽人數",
@@ -203,7 +207,10 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
         >
           <div className="status-update-heading">
             <h3 id={summaryTitleId}>{t.updateSummary}</h3>
-            <time dateTime={lastUpdated}>{displayDate}</time>
+            <div className="status-update-meta">
+              <span>{history.releases[0].version}</span>
+              <time dateTime={lastUpdated}>{displayDate}</time>
+            </div>
           </div>
           <ul className="status-update-list">
             {history.latestUpdate[language].map((item, index) => (
@@ -213,6 +220,23 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
               </li>
             ))}
           </ul>
+          <div className="status-changelog">
+            <div className="status-changelog-heading">
+              <strong>{t.changelog}</strong>
+              <span>{t.changelogHint}</span>
+            </div>
+            <ol className="status-changelog-list">
+              {history.releases.slice(1).map((release) => (
+                <li key={release.version}>
+                  <div className="status-changelog-meta">
+                    <strong>{release.version}</strong>
+                    <time dateTime={release.date}>{release.date.replaceAll("-", ".")}</time>
+                  </div>
+                  <p>{release[language][0]}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </PopoverContent>
       </Popover>
       <button

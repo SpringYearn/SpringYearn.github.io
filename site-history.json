@@ -4,10 +4,102 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Adjusted overview media on devices without hover support so project thumbnails display in full color by default."
+      "Expanded the footer update summary into a browsable SY / CHANGELOG with dated version history."
     ],
     "zh": [
-      "調整不支援 Hover 的裝置顯示邏輯，讓作品總覽縮圖在手機等觸控裝置上預設直接顯示彩色。"
+      "將頁尾的本次更新資訊擴充為可回顧歷史版本的 SY / CHANGELOG。"
     ]
-  }
+  },
+  "releases": [
+    {
+      "version": "V.016",
+      "date": "2026-09-30",
+      "en": [
+        "Added a browsable SY / CHANGELOG to preserve and review site update history."
+      ],
+      "zh": [
+        "新增可瀏覽的 SY / CHANGELOG，用來保存並回顧網站更新歷史。"
+      ]
+    },
+    {
+      "version": "V.015",
+      "date": "2026-09-30",
+      "en": [
+        "Adjusted overview media on devices without hover support so project thumbnails display in full color by default."
+      ],
+      "zh": [
+        "調整不支援 Hover 的裝置顯示邏輯，讓作品總覽縮圖在手機等觸控裝置上預設直接顯示彩色。"
+      ]
+    },
+    {
+      "version": "V.014",
+      "date": "2026-09-30",
+      "en": [
+        "Added Discord to the contact links at the bottom of the homepage."
+      ],
+      "zh": [
+        "在首頁底部聯繫方式新增 Discord 連結。"
+      ]
+    },
+    {
+      "version": "V.013",
+      "date": "2026-09-23",
+      "en": [
+        "Added a historical baseline to the total visitor display while preserving live visitor growth."
+      ],
+      "zh": [
+        "為總瀏覽人數加入歷史基準值，同時保留後續真實訪客數持續累加。"
+      ]
+    },
+    {
+      "version": "V.012",
+      "date": "2026-09-23",
+      "en": [
+        "Added the Riot Games × Rosewood Creative VALORANT Esports project to the homepage practice timeline."
+      ],
+      "zh": [
+        "在首頁創作時間線新增 Riot Games × Rosewood Creative 的 VALORANT Esports 官方專案。"
+      ]
+    },
+    {
+      "version": "V.011",
+      "date": "2026-09-22",
+      "en": [
+        "Added a bilingual latest-update summary to the footer date interaction."
+      ],
+      "zh": [
+        "在頁尾最後更新日期加入雙語的本次更新摘要。"
+      ]
+    },
+    {
+      "version": "V.010",
+      "date": "2026-09-22",
+      "en": [
+        "Added rolling-digit animation to the total visitor count."
+      ],
+      "zh": [
+        "讓總瀏覽人數套用與更新日期一致的數字翻動效果。"
+      ]
+    },
+    {
+      "version": "V.009",
+      "date": "2026-09-22",
+      "en": [
+        "Added the footer last-updated date and shared visitor counter."
+      ],
+      "zh": [
+        "在頁尾新增最後更新日期與總瀏覽人數統計。"
+      ]
+    },
+    {
+      "version": "V.008",
+      "date": "2026-09-02",
+      "en": [
+        "Expanded the Work Archive with APP / UI, 3D, drawing and editing projects."
+      ],
+      "zh": [
+        "擴充 WORK ARCHIVE，新增 APP／UI、3D、繪畫與剪輯作品。"
+      ]
+    }
+  ]
 }
