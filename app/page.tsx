@@ -235,10 +235,10 @@ const labExperiments = [
     date: "2026.09",
     title: "FusionDynamics2D",
     type: "Fusion Lua / Physics",
-    status: { en: "In development", zh: "持續開發" },
+    status: { en: "0.3.5 / verified checkpoint", zh: "0.3.5／已驗證 checkpoint" },
     body: {
-      en: "A 2D rigid-body workflow for Fusion with gravity, collision logic, text and object splitting, per-object start frames, preview, Auto Alpha experiments, and baking motion back into native Fusion keyframes.",
-      zh: "為 Fusion 製作的 2D 剛體動力學工作流，包含重力、碰撞邏輯、文字與物件拆分、每物件起始影格、預覽、Auto Alpha 實驗，以及將模擬結果 Bake 回 Fusion 原生關鍵幀。",
+      en: "Latest verified checkpoint: 0.3.5-perbody. Per-object start frames, text/Follower animation handoff, Alpha handling and native keyframe Bake fixes are in place; 158 tests pass, with 46 Lua/Fuse files and 2 preview JavaScript files passing syntax checks. Resolve 21 visual acceptance, split-speed and hands-on workflow validation still remain.",
+      zh: "目前可驗證的最新 checkpoint 為 0.3.5-perbody。已完成每物件獨立起始影格、文字／Follower 動畫接手、Alpha 處理與原生關鍵幀 Bake 修正；158 項測試全數通過，46 份 Lua／Fuse 與 2 份預覽 JavaScript 亦通過語法檢查。Resolve 21 實機畫面、拆分速度與整體操作流程仍待最終驗收。",
     },
   },
   {

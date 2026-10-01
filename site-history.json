@@ -4,15 +4,25 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a new LAB / EXPERIMENTS section documenting eight DaVinci Resolve and Fusion development experiments.",
-      "Recorded completed tools, functional prototypes, active development and research-stage plugin work without changing existing site sections."
+      "Updated the FusionDynamics2D LAB entry to the latest verified 0.3.5-perbody checkpoint available from the Codex handoff.",
+      "Recorded the 158 passing tests, syntax-check coverage, completed per-object / Follower / Alpha / Bake work, and the remaining Resolve 21 acceptance items."
     ],
     "zh": [
-      "新增 LAB / EXPERIMENTS 實驗區，整理 8 筆 DaVinci Resolve 與 Fusion 工具／插件開發紀錄。",
-      "依照實際進度標示已可用、可用原型、持續開發與研究階段，原有網站區塊維持不變。"
+      "將 LAB 內的 FusionDynamics2D 更新至目前可驗證的 Codex 交接 checkpoint：0.3.5-perbody。",
+      "補上 158 項測試全通過、語法檢查範圍、每物件／Follower／Alpha／Bake 完成狀態，以及仍待 Resolve 21 實機驗收的項目。"
     ]
   },
   "releases": [
+    {
+      "version": "V.019",
+      "date": "2026-10-02",
+      "en": [
+        "Synced the FusionDynamics2D LAB record to the latest verified 0.3.5-perbody checkpoint and its test / acceptance status."
+      ],
+      "zh": [
+        "同步 FusionDynamics2D LAB 紀錄至目前可驗證的 0.3.5-perbody checkpoint，並補充測試與驗收狀態。"
+      ]
+    },
     {
       "version": "V.018",
       "date": "2026-09-30",
