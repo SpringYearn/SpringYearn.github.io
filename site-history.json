@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Updated the FusionDynamics2D LAB entry to the latest verified 0.3.5-perbody checkpoint available from the Codex handoff.",
-      "Recorded the 158 passing tests, syntax-check coverage, completed per-object / Follower / Alpha / Bake work, and the remaining Resolve 21 acceptance items."
+      "Moved all eight Resolve / Fusion development records to a dedicated LAB / EXPERIMENTS page, with a compact homepage entry.",
+      "Added an authorized-download request flow. Online password verification and encrypted builds remain pending secure service setup."
     ],
     "zh": [
-      "將 LAB 內的 FusionDynamics2D 更新至目前可驗證的 Codex 交接 checkpoint：0.3.5-perbody。",
-      "補上 158 項測試全通過、語法檢查範圍、每物件／Follower／Alpha／Bake 完成狀態，以及仍待 Resolve 21 實機驗收的項目。"
+      "將 8 筆 Resolve／Fusion 開發紀錄完整移至獨立 LAB / EXPERIMENTS 頁面，首頁保留簡潔入口。",
+      "新增授權下載申請流程；線上密碼驗證與加密版本下載待安全服務設定後開放。"
     ]
   },
   "releases": [
+    {
+      "version": "V.020",
+      "date": "2026-10-03",
+      "en": [
+        "Moved all eight Resolve / Fusion development records to a dedicated LAB / EXPERIMENTS page, with a compact homepage entry.",
+        "Added an authorized-download request flow. Online password verification and encrypted builds remain pending secure service setup."
+      ],
+      "zh": [
+        "將 8 筆 Resolve／Fusion 開發紀錄完整移至獨立 LAB / EXPERIMENTS 頁面，首頁保留簡潔入口。",
+        "新增授權下載申請流程；線上密碼驗證與加密版本下載待安全服務設定後開放。"
+      ]
+    },
     {
       "version": "V.019",
       "date": "2026-10-02",
