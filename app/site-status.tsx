@@ -3,42 +3,11 @@
 import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import history from "../site-history.json";
+import { getVisitors } from "./visitor-count";
 
 const lastUpdated = process.env.NEXT_PUBLIC_SITE_UPDATED || history.initialLastUpdated;
 const displayDate = lastUpdated.replaceAll("-", ".");
 const VISITOR_BASELINE = 3240;
-
-// One request per document, shared by both routes and React Strict Mode mounts.
-// The global total is stored by Busuanzi, never invented in localStorage.
-let visitorRequest: Promise<number> | undefined;
-function getVisitors(): Promise<number> {
-  if (visitorRequest) return visitorRequest;
-  visitorRequest = new Promise((resolve, reject) => {
-    const callback = `SpringYearnVisitors_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-    const callbacks = window as unknown as Record<string, unknown>;
-    const script = document.createElement("script");
-    const cleanup = () => {
-      window.clearTimeout(timeout);
-      delete callbacks[callback];
-      script.remove();
-    };
-    const fail = () => { cleanup(); reject(new Error("Visitor count unavailable")); };
-    const timeout = window.setTimeout(fail, 10000);
-    callbacks[callback] = (data: { site_uv?: unknown }) => {
-      const count = data?.site_uv;
-      cleanup();
-      if (typeof count === "number" && Number.isSafeInteger(count) && count >= 0) resolve(count);
-      else reject(new Error("Invalid visitor count"));
-    };
-    script.async = true;
-    // Only the origin is needed for a site total; do not send paths or queries.
-    script.referrerPolicy = "origin";
-    script.src = `https://busuanzi.ibruce.info/busuanzi?jsonpCallback=${callback}`;
-    script.onerror = fail;
-    document.head.appendChild(script);
-  });
-  return visitorRequest;
-}
 
 const copy = {
   en: {
@@ -52,7 +21,7 @@ const copy = {
     replayVisitors: "Replay visitor count animation",
     pending: "Loading visitor count",
     unavailable: "Visitor count temporarily unavailable",
-    note: "Includes a historical baseline plus the live estimated unique visitor count. Different browsers or devices may count separately. Powered by Busuanzi.",
+    note: "Includes the historical baseline and estimated unique visitors counted since the statistics service changed on 2026-10-03. Different browsers or devices may count separately. Powered by Busuanzi / 9420.",
   },
   zh: {
     updated: "最後更新日期",
@@ -65,7 +34,7 @@ const copy = {
     replayVisitors: "重播瀏覽人數動畫",
     pending: "正在讀取瀏覽人數",
     unavailable: "瀏覽人數暫時無法讀取",
-    note: "包含歷史基準值與後續即時累計的訪客估計值；不同瀏覽器或裝置可能分別計算。統計由不蒜子提供。",
+    note: "包含歷史基準值與 2026-10-03 更換統計服務後累計的訪客估計值；不同瀏覽器或裝置可能分別計算。統計由不蒜子／9420 提供。",
   },
 };
 
@@ -150,14 +119,29 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
   useEffect(() => {
     // Local QA and the private backup must not contaminate the public total.
     if (window.location.hostname !== "springyearn.github.io") {
-      setCountState("unavailable");
-      return;
+      const timer = setTimeout(() => setCountState("unavailable"), 0);
+      return () => clearTimeout(timer);
     }
     let active = true;
-    getVisitors().then((count) => {
-      if (active) { setVisitors(count); setCountState("ready"); }
-    }).catch(() => { if (active) setCountState("unavailable"); });
-    return () => { active = false; };
+    let attempts = 0;
+    let retry: ReturnType<typeof setTimeout> | undefined;
+    const load = () => {
+      if (!active) return;
+      if (retry) clearTimeout(retry);
+      attempts += 1;
+      setCountState("loading");
+      getVisitors().then((count) => {
+        if (active) { setVisitors(count); setCountState("ready"); }
+      }).catch(() => {
+        if (!active) return;
+        setCountState("unavailable");
+        if (attempts < 3) retry = setTimeout(load, attempts * 3000);
+      });
+    };
+    const online = () => { attempts = 0; load(); };
+    retry = setTimeout(load, 0);
+    window.addEventListener("online", online);
+    return () => { active = false; clearTimeout(retry); window.removeEventListener("online", online); };
   }, []);
 
   const displayedVisitors = visitors === null ? null : VISITOR_BASELINE + visitors;

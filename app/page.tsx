@@ -10,6 +10,8 @@ import Link from "next/link";
 import { ArrowUpRight, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteStatus } from "./site-status";
+import { SpringLogo } from "./spring-logo";
+import { SpringMark } from "./spring-mark";
 
 type Language = "en" | "zh";
 const copy = {
@@ -431,6 +433,7 @@ export default function Home() {
           <div className="orb orb-two" aria-hidden="true" />
           <div className="axis axis-x" aria-hidden="true" />
           <div className="axis axis-y" aria-hidden="true" />
+          <SpringMark className="hero-spring-mark" />
           <div className="hero-title-cluster">
             <p className="hero-kicker">SPRING YEARN / VISUAL PRACTICE</p>
             <h1 id="hero-title">
@@ -528,6 +531,25 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="lab" className="section-block lab-gateway" aria-labelledby="lab-title">
+        <Link href="/lab" className="lab-entry-link" data-reveal onPointerMove={setPointerPosition} onPointerLeave={resetPointerPosition}>
+          <div className="lab-entry-specimen" aria-hidden="true">
+            <span className="mono-label">SY / GROWTH STUDIES</span>
+            <SpringMark />
+            <span className="lab-entry-coordinate mono-label">08 / IN PROGRESS</span>
+          </div>
+          <div className="lab-entry-copy">
+            <p className="eyebrow">{t.labEyebrow}</p>
+            <h2 id="lab-title">{t.labTitle}</h2>
+            <p className="lab-intro">{t.labBody}</p>
+          </div>
+          <div className="lab-entry-action">
+            <span className="mono-label">{t.labCount}</span>
+            <strong>{t.labCta}<ArrowUpRight aria-hidden="true" /></strong>
+          </div>
+        </Link>
+      </section>
+
       <section id="profile" className="section-block profile-section" aria-labelledby="profile-title">
         <div className="profile-grid" data-reveal>
           <div className="section-heading profile-heading">
@@ -546,7 +568,7 @@ export default function Home() {
             <h3>{t.brandTitle}</h3>
           </div>
           <figure className="brand-logo-panel">
-            <img src="/logo.png" alt="SpringYearn logo" />
+            <SpringLogo />
             <figcaption>SY / SPRING YEARN</figcaption>
           </figure>
           <div className="brand-meanings">
@@ -638,24 +660,6 @@ export default function Home() {
             );
           })}
         </div>
-      </section>
-
-      <section id="lab" className="section-block lab-section lab-gateway" aria-labelledby="lab-title">
-        <div className="section-heading lab-heading" data-reveal>
-          <div>
-            <p className="eyebrow">{t.labEyebrow}</p>
-            <span className="lab-count mono-label">{t.labCount}</span>
-          </div>
-          <div>
-            <h2 id="lab-title">{t.labTitle}</h2>
-            <p className="lab-intro">{t.labBody}</p>
-          </div>
-        </div>
-
-        <Link href="/lab" className="text-link lab-entry-link" data-reveal>
-          {t.labCta}
-          <ArrowUpRight aria-hidden="true" />
-        </Link>
       </section>
 
       <section id="contact" className="contact-section" aria-labelledby="contact-title">

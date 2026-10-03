@@ -4,15 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Opened authorized AES-256 ZIP downloads for five supplied Resolve / Fusion builds, including FusionDynamics2D 0.3.5-perbody.",
-      "Passwords are verified against the encrypted builds before download. Projects without a supplied build retain their development records without download buttons."
+      "Moved the LAB entrance below the work archive, with a restrained interactive card and fine-line Spring motifs.",
+      "Added a subtle interactive 3D logo from the supplied FBX in satin sage tones.",
+      "Restored visible cursors in download dialogs and repaired visitor statistics with a working service, retries and the preserved historical baseline."
     ],
     "zh": [
-      "開放 5 份 Resolve／Fusion 版本的授權 AES-256 加密 ZIP 下載，包含 FusionDynamics2D 0.3.5-perbody。",
-      "下載前以加密版本驗證密碼；未提供版本的專案保留開發紀錄，不顯示下載按鈕。"
+      "將 LAB 入口移至作品區下方，加入克制的互動卡片與細線 Spring 元素。",
+      "以提供的 FBX 加入低調互動 3D logo，搭配霧面鼠尾草綠。",
+      "修復下載視窗中的游標可見性，並更換可用的訪客統計服務、加入重試與保留歷史基準值。"
     ]
   },
   "releases": [
+    {
+      "version": "V.022",
+      "date": "2026-10-03",
+      "en": [
+        "Moved the LAB entrance below the work archive, with a restrained interactive card and fine-line Spring motifs.",
+        "Added a subtle interactive 3D logo from the supplied FBX in satin sage tones.",
+        "Restored visible cursors in download dialogs and repaired visitor statistics with a working service, retries and the preserved historical baseline."
+      ],
+      "zh": [
+        "將 LAB 入口移至作品區下方，加入克制的互動卡片與細線 Spring 元素。",
+        "以提供的 FBX 加入低調互動 3D logo，搭配霧面鼠尾草綠。",
+        "修復下載視窗中的游標可見性，並更換可用的訪客統計服務、加入重試與保留歷史基準值。"
+      ]
+    },
     {
       "version": "V.021",
       "date": "2026-10-03",
