@@ -2077,6 +2077,17 @@ html.archive-is-transitioning { overflow: hidden; }
 .lab-entry-specimen .mono-label { font-size: .54rem; }
 .spring-mark { width: 100%; max-width: 160px; display: block; }
 .lab-entry-specimen .spring-mark { align-self: center; transform: translate(calc(var(--pointer-x) * 5px), calc(var(--pointer-y) * 4px)); transition: transform 500ms ease; }
+.spring-leaf-left { transform-origin: 80px 98px; }
+.spring-leaf-right { transform-origin: 80px 86px; }
+.spring-orbit { transform-origin: 80px 80px; transition: transform 700ms ease, stroke-opacity 700ms ease; }
+.spring-leaf-left, .spring-leaf-right { transition: fill 450ms ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lab-entry-link:is(:hover, :focus-visible) .spring-leaf-left { animation: spring-leaf-left-sway 2.8s ease-in-out infinite; fill: rgba(128,158,117,.16); }
+  .lab-entry-link:is(:hover, :focus-visible) .spring-leaf-right { animation: spring-leaf-right-sway 2.8s -.7s ease-in-out infinite; fill: rgba(128,158,117,.12); }
+  .lab-entry-link:is(:hover, :focus-visible) .spring-orbit { transform: rotate(12deg) scale(1.04); stroke-opacity: .32; }
+}
+@keyframes spring-leaf-left-sway { 0%, 100% { transform: rotate(0deg); } 35% { transform: rotate(-12deg); } 70% { transform: rotate(4deg); } }
+@keyframes spring-leaf-right-sway { 0%, 100% { transform: rotate(0deg); } 35% { transform: rotate(10deg); } 70% { transform: rotate(-4deg); } }
 .lab-entry-copy .eyebrow { font-size: .64rem; margin: 0 0 1.4rem; }
 .lab-entry-copy h2 { margin: 0; font-size: clamp(1.9rem, 3.1vw, 3.3rem); letter-spacing: -.055em; line-height: 1.12; white-space: pre-line; font-weight: 540; }
 .lab-entry-copy .lab-intro { max-width: 560px; margin: 1.3rem 0 0; font-size: .85rem; line-height: 1.7; }
@@ -2093,6 +2104,20 @@ html.archive-is-transitioning { overflow: hidden; }
 .brand-logo-panel:hover .spring-logo-fallback { transform: translate(-50%, -50%); }
 .spring-logo.is-rendered .spring-logo-fallback { opacity: 0; }
 .spring-logo canvas { width: 100%; height: 100%; display: block; }
+.spring-logo.is-rendered { touch-action: none; user-select: none; }
+.spring-logo:focus-visible { outline: 1px solid #55725b; outline-offset: 4px; }
+html.has-art-cursor .spring-logo.is-rendered { cursor: grab; }
+html.has-art-cursor .spring-logo.is-dragging { cursor: grabbing; }
+.spring-logo-controls { position: absolute; bottom: .65rem; right: 1.3rem; z-index: 2; display: none; align-items: center; gap: .8rem; font-size: .56rem; letter-spacing: .06em; }
+.brand-logo-panel:has(.spring-logo.is-rendered) .spring-logo-controls { display: flex; }
+.spring-logo-controls button { min-height: 44px; padding: .5rem .6rem; border: 1px solid rgba(17,17,15,.3); background: rgba(240,239,233,.75); color: inherit; font: inherit; cursor: pointer; }
+.spring-logo-controls button:focus-visible { outline: 2px solid #55725b; outline-offset: 3px; }
+@media (pointer: fine) {
+  html:has(.spring-logo.is-rendered:hover) .art-cursor,
+  html:has(.spring-logo.is-rendered:hover) .cursor-trail-mark,
+  html:has(.spring-logo.is-dragging) .art-cursor,
+  html:has(.spring-logo.is-dragging) .cursor-trail-mark { visibility: hidden; }
+}
 @media (max-width: 700px) {
   .lab-entry-link { grid-template-columns: 70px minmax(0, 1fr); gap: 1rem; min-height: 0; }
   .lab-entry-specimen { justify-content: center; }
@@ -2147,6 +2172,13 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .lab-download-dialog label { font-size: .85rem; }
 .lab-download-dialog input { width: 100%; min-height: 48px; border: 1px solid currentColor; background: transparent; padding: .8rem; color: inherit; font-size: 16px; }
 .lab-download-dialog input:focus-visible { outline: 2px solid #42645e; outline-offset: 3px; }
+.lab-password-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .65rem; align-items: stretch; }
+.lab-password-row input { min-width: 0; }
+.lab-confirm-button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-width: 110px; min-height: 48px; padding: .75rem; border: 1px solid var(--foreground); background: var(--foreground); color: var(--background); font-size: .8rem; font-weight: 500; cursor: pointer; }
+.lab-confirm-button svg { width: 17px; height: 17px; flex-shrink: 0; }
+.lab-confirm-button:hover { background: #42645e; border-color: #42645e; }
+.lab-confirm-button:focus-visible { outline: 2px solid #42645e; outline-offset: 3px; }
+.lab-confirm-button:disabled { opacity: .65; cursor: wait; }
 @media (max-width: 640px) {
   .lab-access-note { align-items: flex-start; flex-direction: column; gap: 1rem; }
   .lab-page .lab-card h2 { font-size: clamp(1.7rem, 8vw, 2.5rem); }

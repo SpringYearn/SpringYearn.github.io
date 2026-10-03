@@ -4,17 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Moved the LAB entrance below the work archive, with a restrained interactive card and fine-line Spring motifs.",
-      "Added a subtle interactive 3D logo from the supplied FBX in satin sage tones.",
-      "Restored visible cursors in download dialogs and repaired visitor statistics with a working service, retries and the preserved historical baseline."
+      "Adjusted the historical visitor baseline to 3,280 while retaining live visitor statistics.",
+      "Added mouse / touch drag rotation, keyboard controls and reset for the 3D logo, with minimal toon shading and fine outlines.",
+      "Animated the LAB entrance leaves on hover and added a prominent confirmation button beside the download password field."
     ],
     "zh": [
-      "將 LAB 入口移至作品區下方，加入克制的互動卡片與細線 Spring 元素。",
-      "以提供的 FBX 加入低調互動 3D logo，搭配霧面鼠尾草綠。",
-      "修復下載視窗中的游標可見性，並更換可用的訪客統計服務、加入重試與保留歷史基準值。"
+      "將歷史訪客基準調整為 3,280，並保留即時訪客統計。",
+      "3D logo 加入滑鼠／觸控拖曳旋轉、鍵盤操作與重設，改用極簡三渲二色階及細描邊。",
+      "LAB 入口綠葉加入懸停動畫，下載密碼輸入框旁新增清楚可見的確認按鈕。"
     ]
   },
   "releases": [
+    {
+      "version": "V.023",
+      "date": "2026-10-03",
+      "en": [
+        "Adjusted the historical visitor baseline to 3,280 while retaining live visitor statistics.",
+        "Added mouse / touch drag rotation, keyboard controls and reset for the 3D logo, with minimal toon shading and fine outlines.",
+        "Animated the LAB entrance leaves on hover and added a prominent confirmation button beside the download password field."
+      ],
+      "zh": [
+        "將歷史訪客基準調整為 3,280，並保留即時訪客統計。",
+        "3D logo 加入滑鼠／觸控拖曳旋轉、鍵盤操作與重設，改用極簡三渲二色階及細描邊。",
+        "LAB 入口綠葉加入懸停動畫，下載密碼輸入框旁新增清楚可見的確認按鈕。"
+      ]
+    },
     {
       "version": "V.022",
       "date": "2026-10-03",

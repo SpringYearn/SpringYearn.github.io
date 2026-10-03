@@ -568,7 +568,7 @@ export default function Home() {
             <h3>{t.brandTitle}</h3>
           </div>
           <figure className="brand-logo-panel">
-            <SpringLogo />
+            <SpringLogo language={language} />
             <figcaption>SY / SPRING YEARN</figcaption>
           </figure>
           <div className="brand-meanings">

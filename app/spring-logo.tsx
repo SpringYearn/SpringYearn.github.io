@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 
-export function SpringLogo() {
+export function SpringLogo({ language }: { language: "en" | "zh" }) {
   const host = useRef<HTMLDivElement>(null);
+  const hintId = useId();
   useEffect(() => {
     const element = host.current;
     if (!element) return;
@@ -24,8 +25,17 @@ export function SpringLogo() {
     return () => { disposed = true; observer.disconnect(); release?.(); };
   }, []);
   return (
-    <div ref={host} className="spring-logo" role="img" aria-label="SpringYearn 3D logo">
-      <img className="spring-logo-fallback" src="/logo.png" alt="" />
-    </div>
+    <>
+      <div ref={host} className="spring-logo" role="img" tabIndex={-1} aria-describedby={hintId}
+        aria-label={language === "zh" ? "SpringYearn 3D logo。拖曳或使用方向鍵旋轉，Home 重設角度。" : "SpringYearn 3D logo. Drag or use arrow keys to rotate. Home resets the view."}>
+        <img className="spring-logo-fallback" src="/logo.png" alt="" />
+      </div>
+      <div className="spring-logo-controls mono-label">
+        <span id={hintId}>{language === "zh" ? "拖曳旋轉" : "Drag to rotate"}</span>
+        <button type="button" onClick={() => host.current?.dispatchEvent(new Event("spring-logo-reset"))}>
+          {language === "zh" ? "重設" : "Reset"}
+        </button>
+      </div>
+    </>
   );
 }
