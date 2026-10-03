@@ -2083,6 +2083,8 @@ html.archive-is-transitioning { overflow: hidden; }
 .lab-download-dialog .mono-label { padding-right: 2rem; font-size: .65rem; }
 .lab-dialog-close { position: absolute; top: .7rem; right: .7rem; display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; color: inherit; cursor: pointer; }
 .lab-download-pending { color: #66665e; }
+.lab-build-filename { overflow-wrap: anywhere; font-family: var(--font-mono); font-size: .75rem !important; }
+.lab-build-unavailable { margin: 0; padding: .9rem 0; min-height: 48px; border-top: 1px solid rgba(17,17,15,.18); color: #66665e; font-size: .64rem; }
 .lab-download-dialog form { display: grid; gap: .8rem; margin-top: 1.5rem; }
 .lab-download-dialog label { font-size: .85rem; }
 .lab-download-dialog input { width: 100%; min-height: 48px; border: 1px solid currentColor; background: transparent; padding: .8rem; color: inherit; font-size: 16px; }

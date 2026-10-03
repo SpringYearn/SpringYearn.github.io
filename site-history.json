@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Moved all eight Resolve / Fusion development records to a dedicated LAB / EXPERIMENTS page, with a compact homepage entry.",
-      "Added an authorized-download request flow. Online password verification and encrypted builds remain pending secure service setup."
+      "Opened authorized AES-256 ZIP downloads for five supplied Resolve / Fusion builds, including FusionDynamics2D 0.3.5-perbody.",
+      "Passwords are verified against the encrypted builds before download. Projects without a supplied build retain their development records without download buttons."
     ],
     "zh": [
-      "將 8 筆 Resolve／Fusion 開發紀錄完整移至獨立 LAB / EXPERIMENTS 頁面，首頁保留簡潔入口。",
-      "新增授權下載申請流程；線上密碼驗證與加密版本下載待安全服務設定後開放。"
+      "開放 5 份 Resolve／Fusion 版本的授權 AES-256 加密 ZIP 下載，包含 FusionDynamics2D 0.3.5-perbody。",
+      "下載前以加密版本驗證密碼；未提供版本的專案保留開發紀錄，不顯示下載按鈕。"
     ]
   },
   "releases": [
+    {
+      "version": "V.021",
+      "date": "2026-10-03",
+      "en": [
+        "Opened authorized AES-256 ZIP downloads for five supplied Resolve / Fusion builds, including FusionDynamics2D 0.3.5-perbody.",
+        "Passwords are verified against the encrypted builds before download. Projects without a supplied build retain their development records without download buttons."
+      ],
+      "zh": [
+        "開放 5 份 Resolve／Fusion 版本的授權 AES-256 加密 ZIP 下載，包含 FusionDynamics2D 0.3.5-perbody。",
+        "下載前以加密版本驗證密碼；未提供版本的專案保留開發紀錄，不顯示下載按鈕。"
+      ]
+    },
     {
       "version": "V.020",
       "date": "2026-10-03",

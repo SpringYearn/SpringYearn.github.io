@@ -1,61 +1,71 @@
-# LAB downloads
+# LAB encrypted downloads
 
-The dedicated `/lab/` page retains all eight records from commit
+The dedicated `/lab/` page retains all eight bilingual records from commit
 `a52e1092993e70daf58749132c5734a54895f3fe`, including the FusionDynamics2D
-0.3.5-perbody checkpoint. Home and Work link to LAB; LAB links back to both.
+0.3.5-perbody checkpoint. V.020 adds the page; V.021 enables five supplied builds.
 
-## Current availability
+## Published builds
 
-GitHub Pages publishes the static Next export and cannot run password verification.
-This repository contains no downloadable project builds or private download service.
-Each current-build button therefore opens an authorization request with a contact
-link. It does not collect a password or expose a download link in this state.
-V.020 records this limitation; it does not claim live protected downloads.
+| Project | Supplied version |
+| --- | --- |
+| LAB-01 / FusionDynamics2D | 0.3.5-perbody / zh-TW |
+| LAB-02 / Paint Bucket | 0.1.4 / zh-TW |
+| LAB-03 / SY Lens Dirt | 0.93 / FullBlend |
+| LAB-04 / TraceGraph OFX | 0.2.7 / Win11 x64 GPU EXPERIMENTAL |
+| LAB-06 / Resolve Neural Compat | 1.0.0 / x64 |
 
-## Enable protected downloads
+LAB-05, LAB-07 and LAB-08 retain their development records but have no download
+button. No placeholder build is published for research or obsolete projects.
 
-Only set `NEXT_PUBLIC_LAB_DOWNLOAD_ENDPOINT` at build time after a private HTTPS
-service and the actual current builds are ready. This value is a public endpoint
-address, with no credentials, query string or fragment. Do not put a password,
-password hash, storage key or signed file URL in any `NEXT_PUBLIC_*` variable.
-The current Pages workflow deliberately leaves the endpoint unset.
+## Protection and verification
 
-The service contract is:
+GitHub Pages hosts static files. Every published ZIP in `public/lab-builds/`
+contains a single AES-256 encrypted entry holding the exact original supplied ZIP.
+The original program, directory layout and ZIP bytes are preserved. Users extract
+the encrypted outer ZIP with their authorized password, then open the original ZIP
+inside. Use an archiver that supports WinZip AES, such as 7-Zip.
 
-- Accept `POST` JSON with `project` (`LAB-01` through `LAB-08`) and `password`.
-  Validate project IDs against an explicit private build manifest; never resolve
-  arbitrary client file paths. Verify the password on the server before reading
-  or returning any file. Keep secrets in private service configuration only.
-- Require HTTPS, allow CORS only for the production website origin, rate-limit
-  failed attempts, and redact request bodies and secrets from all logs/analytics.
-  Passwords must not appear in URLs. The client sends no cookies, stores no
-  password, clears the form on submit/close, and rejects redirects.
-- Return `401`/`403` for invalid access, `404` for a build not yet available,
-  and `429` for throttling. The UI displays localized, generic messages.
-- On success return the **actual AES-256 password-encrypted ZIP** bytes with
-  `Content-Type: application/zip` and `Cache-Control: no-store` (also on errors).
-  Do not return a JSON/public file URL or an unencrypted ZIP. Use private storage
-  with no public bypass. Disable request-body logging and response caching at
-  every proxy/CDN layer. A UI/MIME check cannot prove ZIP encryption.
-- Before placing a build in the private manifest, verify every ZIP member is
-  AES encrypted; extraction without a password or with a wrong password must
-  fail, and correct-password extraction must reproduce the approved current files.
-  Do not invent a build for projects that only have research/design records.
+After the visitor enters a password, the page retrieves only encrypted bytes,
+checks the ciphertext SHA-256 against `app/lab/builds.json`, confirms the expected
+single AES-256 entry, and validates its complete AES authentication code with
+zip.js. Only then does the page start downloading the **encrypted outer ZIP**.
+The temporary plaintext stream is discarded, never downloaded or stored.
+Password inputs clear on submission and closing; cancellation aborts verification.
 
-Prepare encrypted ZIPs privately (for example using the 7-Zip GUI with archive
-format ZIP and encryption method AES-256). Enter the private password interactively;
-do not put it in shell arguments, scripts, commits, documentation or CI output.
-Keep both ZIPs and source builds outside the public repository and Pages assets.
-Do not encode a password hint or verifier into the frontend.
+The password is not embedded in source, configuration, tests, a frontend hash or
+hint. The visitor's input is used only in browser memory and is never sent in a
+request, URL, storage entry or analytics event. ZIP salts/authentication metadata
+are part of the archive format, not a separately published frontend verifier.
 
-## Verification before enabling
+Ciphertext file URLs are public: this is **archive encryption**, not server-side
+access control. Directly fetching a URL or disabling JavaScript can obtain only
+the encrypted archive; it cannot decrypt the protected original ZIP. There is no
+private server, account-based authorization, revocation or server rate limiting.
+The UI does not claim otherwise. A private authenticated backend would be a
+separate feature if access to even ciphertext must be restricted later.
 
-Check absent-service contact flow, keyboard focus/Escape, narrow mobile layout,
-and all eight project buttons. With the private service, test invalid access,
-throttling, unavailable projects, timeout, malformed responses and successful
-encrypted ZIP download/extraction. Inspect published HTML/JS/CSS and Git changes
-for secrets. Test direct private-storage access is denied. A mock service does
-not constitute production authorization or encrypted-build validation.
+## Updating a build
 
-References: [GitHub Pages hosting](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
-and [7-Zip](https://www.7-zip.org/).
+Prepare the encrypted envelope privately, entering the authorized password only
+through private runtime input. Never save it in scripts, shell history, CI output,
+Git commits, documentation or public environment variables.
+Publish only the encrypted outer ZIP and update its size, original ZIP filename,
+original byte length and ciphertext SHA-256 in `app/lab/builds.json`.
+
+Independently verify no-password and wrong-password extraction fails, and that
+correct-password extraction reproduces the original ZIP byte for byte. Validate
+the original ZIP's CRCs without running installers or binaries. Add the release
+to `site-history.json` without replacing earlier entries.
+
+## Checks
+
+`node --test tests/lab-*.test.mjs` covers record/history preservation, correct and
+incorrect passwords, plaintext/weak/mixed archives, ciphertext tampering, full
+AES authentication, cancellation and the five published archive headers/hashes.
+Browser QA additionally uses the real encrypted builds on desktop and mobile.
+Private-password extraction checks run locally; no real password is committed
+to tests or CI configuration.
+
+References: [zip.js AES support](https://gildas-lormeau.github.io/zip.js/),
+[AES authentication checks](https://gildas-lormeau.github.io/zip.js/api/interfaces/ZipReaderOptions.html),
+[GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).

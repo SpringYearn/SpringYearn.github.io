@@ -20,10 +20,10 @@ test("all eight bilingual records exactly match the latest checkpoint commit", (
   assert.match(records[0].body.en, /158 tests pass/);
 });
 
-test("V.020 extends every existing release and leaves date automation unchanged", () => {
-  const before = JSON.parse(gitFile("site-history.json"));
+test("V.021 extends V.020 and every existing release without changing date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "1e9b296072a57cc85c6a4e18e144c76d10120847:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.020");
+  assert.equal(after.releases[0].version, "V.021");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);

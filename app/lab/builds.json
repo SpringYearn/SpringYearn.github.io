@@ -1,0 +1,37 @@
+{
+  "LAB-01": {
+    "filename": "FusionDynamics2D_v0.3.5-perbody_zh-TW_AES256.zip",
+    "originalFilename": "FusionDynamics2D_v0.3.5-perbody_zh-TW.zip",
+    "bytes": 608964,
+    "originalBytes": 608734,
+    "sha256": "62d2bea64a8e49b932cc09a57e908d842c8bd5ebef007e4269846c3ab1a4071a"
+  },
+  "LAB-02": {
+    "filename": "PaintBucket_Fusion_v0.1.4_zh-TW_AES256.zip",
+    "originalFilename": "PaintBucket_Fusion_v0.1.4_zh-TW.zip",
+    "bytes": 5168,
+    "originalBytes": 4950,
+    "sha256": "16f42aa35042829bfd34b00960466d2a16dbf79704dcb14fefa40b70d66c5f11"
+  },
+  "LAB-03": {
+    "filename": "SY_Lens_Dirt_v0.93_FullBlend_AES256.zip",
+    "originalFilename": "SY_Lens_Dirt_v0.93_FullBlend.zip",
+    "bytes": 7382153,
+    "originalBytes": 7381941,
+    "sha256": "0c93975f05ab6aa55c83a713f4573ec16a4cd6701911934c8d99355e6eff7b08"
+  },
+  "LAB-04": {
+    "filename": "TraceGraphOFX_v0.2.7_Win11_x64_GPU_EXPERIMENTAL_AES256.zip",
+    "originalFilename": "TraceGraphOFX_v0.2.7_Win11_x64_GPU_EXPERIMENTAL.zip",
+    "bytes": 7457607,
+    "originalBytes": 7457357,
+    "sha256": "2250d1b5f63caac332c42ecfb2a9000e7125793ad0cd80cfd8f021e949a20b6b"
+  },
+  "LAB-06": {
+    "filename": "Resolve-Neural-Compat-x64-v1.0.0_AES256.zip",
+    "originalFilename": "Resolve-Neural-Compat-x64-v1.0.0.zip",
+    "bytes": 212705,
+    "originalBytes": 212485,
+    "sha256": "4dd1230419f0723ee613395659e02188e0073e45acb34df3a848ef47f2ffe76f"
+  }
+}
