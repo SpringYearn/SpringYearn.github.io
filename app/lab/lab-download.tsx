@@ -13,7 +13,7 @@ const copy = {
     notice: "These experimental builds are available for authorized testing only. To request a download, please contact SpringYearn directly for access.",
     archive: "AES-256 encrypted ZIP. Extract it with your authorized password, then open the original build ZIP inside.",
     contact: "Contact SpringYearn", close: "Close", password: "Access password",
-    verify: "Verify & download", busy: "Verifying…", denied: "Unable to authorize this download. Please check your access or contact SpringYearn.",
+    verify: "Verify & download", confirm: "Confirm", busy: "Verifying…", denied: "Unable to authorize this download. Please check your access or contact SpringYearn.",
     unavailable: "No downloadable build",
     failed: "The download could not be completed. Please try again or contact SpringYearn.",
     success: "Download started. The ZIP also requires your authorized password to extract.",
@@ -23,7 +23,7 @@ const copy = {
     notice: "此實驗版本僅提供授權測試。若需要下載，請直接聯絡 SpringYearn 取得存取權限。",
     archive: "AES-256 加密 ZIP。以授權密碼解壓縮後，再開啟其中的原始版本 ZIP。",
     contact: "聯絡 SpringYearn", close: "關閉", password: "存取密碼",
-    verify: "驗證並下載", busy: "驗證中⋯⋯", denied: "無法授權此下載，請確認存取權限或聯絡 SpringYearn。",
+    verify: "驗證並下載", confirm: "確認下載", busy: "驗證中⋯⋯", denied: "無法授權此下載，請確認存取權限或聯絡 SpringYearn。",
     unavailable: "未提供下載版本",
     failed: "下載未能完成，請重試或聯絡 SpringYearn。",
     success: "已開始下載，解壓縮 ZIP 時亦需輸入授權密碼。",
@@ -116,12 +116,16 @@ export function LabDownload({ project, language }: {
         <p id={project.id + "-download-notice"}>{t.notice}</p>
         <p className="lab-build-filename">{build.originalFilename}</p>
         <p className="lab-download-pending">{t.archive}</p>
-          <form onSubmit={submit}>
-            <label htmlFor={project.id + "-password"}>{t.password}</label>
+        <form onSubmit={submit}>
+          <label htmlFor={project.id + "-password"}>{t.password}</label>
+          <div className="lab-password-row">
             <input id={project.id + "-password"} name="password" type="password" required maxLength={256}
               autoComplete="off" autoCapitalize="none" spellCheck={false} disabled={busy} />
-            <button className="lab-download-button" type="submit" disabled={busy}>{busy ? t.busy : t.verify}</button>
-          </form>
+            <button className="lab-confirm-button" type="submit" aria-label={busy ? t.busy : t.verify} disabled={busy}>
+              {busy ? t.busy : t.confirm}<ArrowUpRight aria-hidden="true" />
+            </button>
+          </div>
+        </form>
         <p role="status" aria-live="polite">{message ? t[message] : ""}</p>
         <Link href="/#contact" className="text-link" onClick={() => dialog.current?.close()}>{t.contact}<ArrowUpRight aria-hidden="true" /></Link>
       </dialog>

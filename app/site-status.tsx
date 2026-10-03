@@ -7,7 +7,7 @@ import { getVisitors } from "./visitor-count";
 
 const lastUpdated = process.env.NEXT_PUBLIC_SITE_UPDATED || history.initialLastUpdated;
 const displayDate = lastUpdated.replaceAll("-", ".");
-const VISITOR_BASELINE = 3240;
+const VISITOR_BASELINE = 3280;
 
 const copy = {
   en: {
