@@ -20,15 +20,16 @@ test("all eight bilingual records exactly match the latest checkpoint commit", (
   assert.match(records[0].body.en, /158 tests pass/);
 });
 
-test("V.021 extends V.020 and every existing release without changing date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "1e9b296072a57cc85c6a4e18e144c76d10120847:site-history.json"], { encoding: "utf8" }));
+test("V.022 extends V.021 and every existing release without changing date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "2a4ab7ffed6d569f63d6a9e436eaa3048559a26a:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.021");
+  assert.equal(after.releases[0].version, "V.022");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);
   }
-  for (const path of ["app/site-status.tsx", "scripts/build-github.mjs", "app/portfolio-data.ts", "app/archive-transition.tsx", "app/device-tilt-control.tsx", "app/interaction-audio.tsx", "app/cursor-trail.tsx", "app/pointer-burst.tsx"]) {
+  assert.match(read("app/site-status.tsx"), /const VISITOR_BASELINE = 3240/);
+  for (const path of ["scripts/build-github.mjs", "app/portfolio-data.ts", "app/archive-transition.tsx", "app/device-tilt-control.tsx", "app/interaction-audio.tsx", "app/cursor-trail.tsx", "app/pointer-burst.tsx"]) {
     assert.equal(read(path).replaceAll("\r\n", "\n"), gitFile(path).replaceAll("\r\n", "\n"), path + " changed unexpectedly");
   }
 });
