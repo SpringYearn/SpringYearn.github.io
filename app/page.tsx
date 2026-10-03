@@ -231,6 +231,7 @@ const socialLinks = [
   { label: "Bilibili", handle: "SpringYearn", href: "https://space.bilibili.com/1302495143" },
   { label: "Douyin", handle: "SpringYearn", href: "https://v.douyin.com/qTySM3kJ0LA/" },
   { label: "Discord", handle: "Profile", href: "https://discord.com/users/696278366663213106" },
+  { label: "Discord", handle: "Server", href: "https://discord.gg/Y4MQSsEBGN" },
 ];
 
 const displayWords = ["SPRING", "YEARN"];
