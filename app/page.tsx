@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { SiteStatus } from "./site-status";
 import { SpringLogo } from "./spring-logo";
 import { SpringMark } from "./spring-mark";
+import { labExperiments } from "./lab-data";
 
 type Language = "en" | "zh";
 const copy = {
@@ -52,7 +53,7 @@ const copy = {
     labEyebrow: "LAB / Experiments",
     labTitle: "Tools, prototypes,\nand useful detours.",
     labBody: "A development log of DaVinci Resolve and Fusion tools built to test workflows, solve specific problems, or explore ideas that existing tools did not quite cover.",
-    labCount: "08 development records / 2026",
+    labCount: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`,
     labCta: "Enter LAB / Experiments",
     contactEyebrow: "03 / Contact",
     contactTitle: "Ideas, conversations,\nand shared experiments.",
@@ -106,7 +107,7 @@ const copy = {
     labEyebrow: "LAB / 實驗",
     labTitle: "把奇怪的問題，\n做成可以測試的工具。",
     labBody: "記錄我在 DaVinci Resolve 與 Fusion 裡做過的工具、插件與實驗。它們有些已經可用，有些仍是原型或研究，重點是把想法真的做出來測試。",
-    labCount: "08 筆開發紀錄 / 2026",
+    labCount: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`,
     labCta: "進入 LAB / 實驗",
     contactEyebrow: "03 / 聯絡",
     contactTitle: "讓想法相遇，\n讓靈感繼續流動。",
@@ -537,7 +538,7 @@ export default function Home() {
           <div className="lab-entry-specimen" aria-hidden="true">
             <span className="mono-label">SY / GROWTH STUDIES</span>
             <SpringMark />
-            <span className="lab-entry-coordinate mono-label">08 / IN PROGRESS</span>
+            <span className="lab-entry-coordinate mono-label">{String(labExperiments.length).padStart(2, "0")} / IN PROGRESS</span>
           </div>
           <div className="lab-entry-copy">
             <p className="eyebrow">{t.labEyebrow}</p>

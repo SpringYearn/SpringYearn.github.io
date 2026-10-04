@@ -2885,3 +2885,7 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .lab-card { min-height: 300px; padding: 1.2rem; }
   .lab-card h3 { font-size: clamp(1.7rem, 8vw, 2.5rem); }
 }
+
+.lab-checkpoint { margin-top: 1.2rem; border-top: 1px solid rgba(17,17,15,.18); }
+.lab-checkpoint summary { padding: .8rem 0; min-height: 44px; font-family: var(--font-mono); font-size: .64rem; cursor: pointer; }
+.lab-checkpoint summary:focus-visible { outline: 2px solid #55725b; outline-offset: 3px; }

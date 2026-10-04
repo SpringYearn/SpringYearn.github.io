@@ -4,17 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Adjusted the historical visitor baseline to 3,280 while retaining live visitor statistics.",
-      "Added mouse / touch drag rotation, keyboard controls and reset for the 3D logo, with minimal toon shading and fine outlines.",
-      "Animated the LAB entrance leaves on hover and added a prominent confirmation button beside the download password field."
+      "Updated FusionDynamics2D to 0.4.1-usability with its current AES-256 encrypted build, while preserving the 0.3.5 checkpoint.",
+      "Added SY_Handwriter as the ninth LAB record with an authorized AES-256 download of the 0.3.0 Test 4 font-fitting prototype and its remaining host tests."
     ],
     "zh": [
-      "將歷史訪客基準調整為 3,280，並保留即時訪客統計。",
-      "3D logo 加入滑鼠／觸控拖曳旋轉、鍵盤操作與重設，改用極簡三渲二色階及細描邊。",
-      "LAB 入口綠葉加入懸停動畫，下載密碼輸入框旁新增清楚可見的確認按鈕。"
+      "FusionDynamics2D 更新至 0.4.1-usability 與目前的 AES-256 加密版本，保留 0.3.5 checkpoint。",
+      "新增第九筆 LAB 紀錄 SY_Handwriter，提供 0.3.0 Test 4 字型貼合原型的授權 AES-256 下載，並記錄待完成的實機測試。"
     ]
   },
   "releases": [
+    {
+      "version": "V.024",
+      "date": "2026-10-05",
+      "en": [
+        "Updated FusionDynamics2D to 0.4.1-usability with its current AES-256 encrypted build, while preserving the 0.3.5 checkpoint.",
+        "Added SY_Handwriter as the ninth LAB record with an authorized AES-256 download of the 0.3.0 Test 4 font-fitting prototype and its remaining host tests."
+      ],
+      "zh": [
+        "FusionDynamics2D 更新至 0.4.1-usability 與目前的 AES-256 加密版本，保留 0.3.5 checkpoint。",
+        "新增第九筆 LAB 紀錄 SY_Handwriter，提供 0.3.0 Test 4 字型貼合原型的授權 AES-256 下載，並記錄待完成的實機測試。"
+      ]
+    },
     {
       "version": "V.023",
       "date": "2026-10-03",

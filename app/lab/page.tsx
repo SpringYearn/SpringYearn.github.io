@@ -13,14 +13,14 @@ const copy = {
     home: "Home", work: "Work archive", contact: "Contact",
     title: "Tools, prototypes,\nand useful detours.",
     intro: "A development log of DaVinci Resolve and Fusion tools built to test workflows, solve specific problems, or explore ideas that existing tools did not quite cover.",
-    count: "08 development records / 2026", back: "Return home", top: "Back to top",
+    count: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`, back: "Return home", top: "Back to top",
     access: "These experimental builds are available for authorized testing only. To request a download, please contact SpringYearn directly for access.",
   },
   zh: {
     home: "首頁", work: "作品集", contact: "聯絡",
     title: "把奇怪的問題，\n做成可以測試的工具。",
     intro: "記錄我在 DaVinci Resolve 與 Fusion 裡做過的工具、插件與實驗。它們有些已經可用，有些仍是原型或研究，重點是把想法真的做出來測試。",
-    count: "08 筆開發紀錄 / 2026", back: "返回首頁", top: "回到頂端",
+    count: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`, back: "返回首頁", top: "回到頂端",
     access: "此實驗版本僅提供授權測試。若需要下載，請直接聯絡 SpringYearn 取得存取權限。",
   },
 };
@@ -137,8 +137,10 @@ export default function LabPage() {
           {labExperiments.map((experiment, index) => (
             <article className="lab-card" key={experiment.id} id={experiment.id.toLowerCase()} data-reveal>
               <div className="lab-card-top"><span className="lab-index">{experiment.id}</span><span className="lab-date">{experiment.date}</span></div>
-              <div className="lab-card-main"><span className="lab-type mono-label">{experiment.type}</span><h2>{experiment.title}</h2><p>{experiment.body[language]}</p></div>
-              <div className="lab-card-foot"><span className="lab-status-dot" aria-hidden="true" /><span>{experiment.status[language]}</span><span aria-hidden="true">{String(index + 1).padStart(2, "0")} / 08</span></div>
+              <div className="lab-card-main"><span className="lab-type mono-label">{experiment.type}</span><h2>{experiment.title}</h2><p>{experiment.body[language]}</p>{experiment.checkpoint && (
+                <details className="lab-checkpoint"><summary>{language === "en" ? "Previous checkpoint / " : "先前 checkpoint／"}{experiment.checkpoint.status[language]}</summary><p>{experiment.checkpoint.body[language]}</p></details>
+              )}</div>
+              <div className="lab-card-foot"><span className="lab-status-dot" aria-hidden="true" /><span>{experiment.status[language]}</span><span aria-hidden="true">{String(index + 1).padStart(2, "0")} / {String(labExperiments.length).padStart(2, "0")}</span></div>
               <LabDownload project={experiment} language={language} />
             </article>
           ))}

@@ -3,27 +3,35 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { runInNewContext } from "node:vm";
+import { labExperiments } from "../app/lab-data.ts";
 
 const baseline = "a52e1092993e70daf58749132c5734a54895f3fe";
 const gitFile = path => execFileSync("git", ["show", baseline + ":" + path], { encoding: "utf8" });
 const read = path => readFileSync(new URL("../" + path, import.meta.url), "utf8");
 
-test("all eight bilingual records exactly match the latest checkpoint commit", () => {
+test("all eight original records and the full checkpoint survive the new LAB progress", () => {
   const home = gitFile("app/page.tsx");
   const original = home.slice(home.indexOf("const labExperiments = ["), home.indexOf("\nconst displayWords"));
-  const moved = read("app/lab-data.ts").replace("export const", "const");
   const evaluate = code => JSON.parse(JSON.stringify(runInNewContext(code + "\nlabExperiments;")));
-  const records = evaluate(moved);
-  assert.equal(records.length, 8);
-  assert.deepEqual(records, evaluate(original));
-  assert.match(records[0].body.en, /0\.3\.5-perbody/);
-  assert.match(records[0].body.en, /158 tests pass/);
+  const records = labExperiments;
+  const previous = evaluate(original);
+  assert.equal(records.length, 9);
+  assert.deepEqual(records.slice(1, 8), previous.slice(1));
+  const { checkpoint, ...current } = records[0];
+  assert.deepEqual({ ...current, ...checkpoint }, previous[0]);
+  assert.match(checkpoint.body.en, /0\.3\.5-perbody/);
+  assert.match(checkpoint.body.en, /158 tests pass/);
+  assert.match(current.body.en, /0\.4\.1-usability/);
+  assert.match(current.body.en, /245 passing tests/);
+  assert.match(current.body.en, /await Resolve host acceptance/);
+  assert.equal(records[8].title, "SY_Handwriter");
+  assert.match(records[8].body.en, /0\.3\.0 Test 4/);
 });
 
-test("V.023 extends V.022 and every existing release without changing date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "f9522e16f3b85b974365e8ac4320dd91e98cbb51:site-history.json"], { encoding: "utf8" }));
+test("V.024 extends V.023 and every existing release without changing date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "d30d0daa90db64529216d4ea26274c9d6dcee896:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.023");
+  assert.equal(after.releases[0].version, "V.024");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);
@@ -36,7 +44,7 @@ test("V.023 extends V.022 and every existing release without changing date autom
 
 test("homepage is an entrance and all LAB navigation resolves to existing routes", () => {
   const home = read("app/page.tsx");
-  assert.doesNotMatch(home, /labExperiments|className="lab-grid"/);
+  assert.doesNotMatch(home, /labExperiments\.map|className="lab-grid"/);
   assert.match(home, /href="\/lab"/);
   assert.match(read("app/work/page.tsx"), /href="\/lab"/);
   const lab = read("app/lab/page.tsx");
