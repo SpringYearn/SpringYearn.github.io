@@ -6,6 +6,7 @@ import { ArrowUpRight, LockKeyhole, X } from "lucide-react";
 import { labExperiments } from "../lab-data";
 import builds from "./builds.json";
 import { verifyEncryptedBuild } from "./verify-encrypted-build";
+import { LabShare } from "./lab-share";
 
 const copy = {
   en: {
@@ -42,6 +43,18 @@ export function LabDownload({ project, language }: {
   const build = Object.entries(builds).find(([id]) => id === project.id)?.[1];
   const t = copy[language];
   useEffect(() => () => controller.current?.abort(), []);
+  useEffect(() => {
+    if (!build) return;
+    const openLinkedProject = () => {
+      const requested = new URL(window.location.href).searchParams.get("project");
+      if (requested === project.id.toLowerCase()) {
+        if (!dialog.current?.open) { setMessage(null); dialog.current?.showModal(); }
+      } else if (dialog.current?.open) dialog.current.close();
+    };
+    openLinkedProject();
+    window.addEventListener("popstate", openLinkedProject);
+    return () => window.removeEventListener("popstate", openLinkedProject);
+  }, [build, project.id]);
   const cleanup = () => {
     controller.current?.abort();
     dialog.current?.querySelector("form")?.reset();
@@ -99,7 +112,7 @@ export function LabDownload({ project, language }: {
     }
   };
 
-  if (!build) return <p className="lab-build-unavailable mono-label">{t.unavailable}</p>;
+  if (!build) return <div className="lab-no-build"><p className="lab-build-unavailable mono-label">{t.unavailable}</p><LabShare id={project.id} title={project.title} language={language} /></div>;
 
   return (
     <div className="lab-download">
@@ -128,6 +141,7 @@ export function LabDownload({ project, language }: {
         </form>
         <p role="status" aria-live="polite">{message ? t[message] : ""}</p>
         <Link href="/#contact" className="text-link" onClick={() => dialog.current?.close()}>{t.contact}<ArrowUpRight aria-hidden="true" /></Link>
+        <LabShare id={project.id} title={project.title} language={language} />
       </dialog>
     </div>
   );

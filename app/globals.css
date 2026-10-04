@@ -2886,6 +2886,31 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .lab-card h3 { font-size: clamp(1.7rem, 8vw, 2.5rem); }
 }
 
-.lab-checkpoint { margin-top: 1.2rem; border-top: 1px solid rgba(17,17,15,.18); }
-.lab-checkpoint summary { padding: .8rem 0; min-height: 44px; font-family: var(--font-mono); font-size: .64rem; cursor: pointer; }
+.lab-checkpoint { margin-top: .6rem; }
+.lab-checkpoint summary { display: flex; align-items: center; justify-content: space-between; gap: .6rem; min-height: 34px; font-family: var(--font-mono); font-size: .64rem; list-style: none; cursor: pointer; transition: color 180ms ease; }
+.lab-checkpoint summary::-webkit-details-marker { display: none; }
+.lab-checkpoint summary:hover { color: #42645e; }
+.lab-checkpoint summary svg { width: 13px; height: 13px; transition: transform 180ms ease; }
+.lab-checkpoint[open] > summary svg { transform: rotate(180deg); }
+.lab-checkpoint-count { opacity: .55; }
 .lab-checkpoint summary:focus-visible { outline: 2px solid #55725b; outline-offset: 3px; }
+.lab-checkpoint-list { list-style: none; padding: 0; margin: .5rem 0 0; }
+.lab-checkpoint-list li { padding: .65rem 0; border-top: 1px solid rgba(17,17,15,.12); }
+.lab-checkpoint-heading { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-family: var(--font-mono); font-size: .64rem; }
+.lab-checkpoint-heading time { color: #62665c; }
+.lab-card-main .lab-checkpoint p { margin: .4rem 0 0; font-size: .8rem; }
+.lab-checkpoint-full { margin-top: .5rem; }
+.lab-date { text-align: right; letter-spacing: .04em; }
+.lab-card { scroll-margin-top: 100px; }
+.lab-share { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .8rem; margin-top: .8rem; }
+.lab-share-button { display: inline-flex; align-items: center; gap: .55rem; min-height: 44px; padding: .35rem 0; border: 0; background: transparent; color: inherit; font-family: var(--font-mono); font-size: .7rem; cursor: pointer; }
+.lab-share-button svg { width: 16px; height: 16px; }
+.lab-share-button:hover { color: #42645e; }
+.lab-share-button:focus-visible { outline: 2px solid #42645e; outline-offset: 3px; }
+.lab-share-button:disabled { opacity: .6; }
+.lab-share-status { font-size: .72rem; color: #42645e; }
+.lab-share-url { width: 100%; min-width: 0; padding: .6rem; border: 1px solid currentColor; background: transparent; font-size: 14px; }
+.lab-no-build { position: relative; z-index: 1; }
+@media (pointer: fine) { html.has-art-cursor .lab-checkpoint summary { cursor: none; } }
+@media (pointer: coarse) { .lab-checkpoint summary { min-height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .lab-checkpoint summary, .lab-checkpoint summary svg { transition: none; } }

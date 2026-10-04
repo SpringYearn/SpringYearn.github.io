@@ -16,8 +16,11 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   const records = labExperiments;
   const previous = evaluate(original);
   assert.equal(records.length, 9);
-  assert.deepEqual(records.slice(1, 8), previous.slice(1));
-  const { checkpoint, ...current } = records[0];
+  for (let index = 1; index < 8; index++) {
+    for (const field of ["id", "title", "type", "status", "body"]) assert.deepEqual(records[index][field], previous[index][field]);
+  }
+  const { checkpoint, history, ...current } = records[0];
+  assert.ok(history.length > 0);
   assert.deepEqual({ ...current, ...checkpoint }, previous[0]);
   assert.match(checkpoint.body.en, /0\.3\.5-perbody/);
   assert.match(checkpoint.body.en, /158 tests pass/);
@@ -28,10 +31,10 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.match(records[8].body.en, /0\.3\.0 Test 4/);
 });
 
-test("V.024 extends V.023 and every existing release without changing date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "d30d0daa90db64529216d4ea26274c9d6dcee896:site-history.json"], { encoding: "utf8" }));
+test("V.025 extends V.024 and every existing release without changing date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "4aff3b420eee517879923c6f033fdd6fcdeabd20:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.024");
+  assert.equal(after.releases[0].version, "V.025");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);

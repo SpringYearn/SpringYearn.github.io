@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Updated FusionDynamics2D to 0.4.1-usability with its current AES-256 encrypted build, while preserving the 0.3.5 checkpoint.",
-      "Added SY_Handwriter as the ninth LAB record with an authorized AES-256 download of the 0.3.0 Test 4 font-fitting prototype and its remaining host tests."
+      "Added project creation / latest-update date ranges and compact, dated checkpoints for all nine LAB projects.",
+      "Restored the custom cursor on checkpoint controls and added individual project sharing with direct links to authorized download dialogs."
     ],
     "zh": [
-      "FusionDynamics2D 更新至 0.4.1-usability 與目前的 AES-256 加密版本，保留 0.3.5 checkpoint。",
-      "新增第九筆 LAB 紀錄 SY_Handwriter，提供 0.3.0 Test 4 字型貼合原型的授權 AES-256 下載，並記錄待完成的實機測試。"
+      "九個 LAB 專案新增建立／最後更新日期區間與精簡、附日期的歷史 checkpoint。",
+      "修復 checkpoint 控制的專屬游標，並新增可直達授權下載視窗的個別專案分享。"
     ]
   },
   "releases": [
+    {
+      "version": "V.025",
+      "date": "2026-10-05",
+      "en": [
+        "Added project creation / latest-update date ranges and compact, dated checkpoints for all nine LAB projects.",
+        "Restored the custom cursor on checkpoint controls and added individual project sharing with direct links to authorized download dialogs."
+      ],
+      "zh": [
+        "九個 LAB 專案新增建立／最後更新日期區間與精簡、附日期的歷史 checkpoint。",
+        "修復 checkpoint 控制的專屬游標，並新增可直達授權下載視窗的個別專案分享。"
+      ]
+    },
     {
       "version": "V.024",
       "date": "2026-10-05",
