@@ -2,16 +2,16 @@ import type { Language } from "./portfolio-data";
 
 const verses = {
   home: {
-    en: "your edits left a light in the way I see.\nI keep a quiet corner for never—\nfor you, and the frames that stay\nlong after the screen goes dark.",
-    zh: "你的剪輯，曾照亮我看世界的方式。\n留一處微光 for never，\n留給你，也留給那些畫格——\n銀幕暗下，仍在心裡播放。",
+    en: "I loved your work.\nSome of it found its way into mine.\nIt hurts to know there won’t be another edit.\nThank you, 4NEVER.",
+    zh: "我很喜歡你的作品。\n我的一些剪輯裡，也有從你那裡得到的靈感。\n想到以後看不到你的新作品，還是很難過。\n謝謝你，4NEVER。",
   },
   work: {
-    en: "your rhythm still finds the cuts I make.\nbetween two frames, I leave a little room\nfor never, for the light you left behind—\na farewell the final fade cannot erase.",
-    zh: "如今的剪接裡，仍有你留下的節奏。\n兩幀之間，留一點空白，\nfor never，也為你留下的光——\n讓告別，不被最後一次淡出抹去。",
+    en: "Watching your edits often gave me ideas of my own.\nI wish you could know how much that meant.\nI’m leaving these words for never—\nthank you. I’ll keep editing, and I’ll remember you.",
+    zh: "看你的作品時，常常會冒出自己的想法。\n真希望你能知道，你帶給過我多少靈感。\n留幾句話 for never——\n謝謝你。我會繼續剪片，也會記得你。",
   },
   lab: {
-    en: "your edits opened doors I am still walking through.\nI leave one frame unfinished for never—\nfor the ideas you set in motion,\nand the light I will carry into what comes next.",
-    zh: "你的剪輯，曾推開我創作裡的一扇門。\n留一幀未完成 for never，\n留給被你喚醒的念頭，\n也留給往後創作裡，仍會亮起的光。",
+    en: "Some work makes you want to go make something yourself.\nYours did.\nThank you for sharing it.\nI’ll remember you, 4NEVER.",
+    zh: "有些作品，會讓人看完也想動手試試。\n你的就是。\n謝謝你做過那些剪輯。\n我會記得你，4NEVER。",
   },
 };
 

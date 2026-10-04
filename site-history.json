@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Grouped same-day site updates into one daily entry with a version range and expandable complete bilingual notes."
+      "Rewrote the bilingual 4NEVER tributes as personal words of appreciation and remembrance, with the name’s wordplay kept only in the Work verse."
     ],
     "zh": [
-      "同一天的網站更新整合為一筆日誌，顯示版本範圍並可展開完整雙語更新內容。"
+      "4NEVER 雙語紀念文字改為更直接的欣賞、感謝與追念，名字諧音只保留在作品頁的一段。"
     ]
   },
   "releases": [
+    {
+      "version": "V.032",
+      "date": "2026-10-05",
+      "en": [
+        "Rewrote the bilingual 4NEVER tributes as personal words of appreciation and remembrance, with the name’s wordplay kept only in the Work verse."
+      ],
+      "zh": [
+        "4NEVER 雙語紀念文字改為更直接的欣賞、感謝與追念，名字諧音只保留在作品頁的一段。"
+      ]
+    },
     {
       "version": "V.031",
       "date": "2026-10-05",
