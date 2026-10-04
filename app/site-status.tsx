@@ -3,20 +3,23 @@
 import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import history from "../site-history.json";
+import { groupReleasesByDate } from "./site-history";
 import { getVisitors } from "./visitor-count";
 
 const lastUpdated = process.env.NEXT_PUBLIC_SITE_UPDATED || history.initialLastUpdated;
 const displayDate = lastUpdated.replaceAll("-", ".");
 const VISITOR_BASELINE = 3280;
+const [latestDay, ...pastDays] = groupReleasesByDate(history.releases);
 
 const copy = {
   en: {
     updated: "Last updated",
     visitors: "Total visitors",
     replay: "Replay date animation",
-    updateSummary: "Latest update",
+    updateSummary: "Daily update",
     changelog: "SY / Changelog",
-    changelogHint: "Update history",
+    changelogHint: "By date",
+    allDailyUpdates: "All updates for this day",
     showUpdate: "View update summary",
     replayVisitors: "Replay visitor count animation",
     pending: "Loading visitor count",
@@ -27,9 +30,10 @@ const copy = {
     updated: "最後更新日期",
     visitors: "總瀏覽人數",
     replay: "重播日期動畫",
-    updateSummary: "本次更新",
+    updateSummary: "當日更新",
     changelog: "SY / 更新歷史",
-    changelogHint: "歷史版本",
+    changelogHint: "依日期整合",
+    allDailyUpdates: "查看當日全部更新",
     showUpdate: "查看更新內容",
     replayVisitors: "重播瀏覽人數動畫",
     pending: "正在讀取瀏覽人數",
@@ -192,31 +196,37 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
           <div className="status-update-heading">
             <h3 id={summaryTitleId}>{t.updateSummary}</h3>
             <div className="status-update-meta">
-              <span>{history.releases[0].version}</span>
-              <time dateTime={lastUpdated}>{displayDate}</time>
+              <span>{latestDay.version}</span>
+              <time dateTime={latestDay.date}>{latestDay.date.replaceAll("-", ".")}</time>
             </div>
           </div>
           <ul className="status-update-list">
-            {history.latestUpdate[language].map((item, index) => (
+            {latestDay[language].slice(0, 2).map((item, index) => (
               <li key={item}>
                 <span className="status-update-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
+          {latestDay[language].length > 2 && <details className="status-daily-more">
+            <summary>{t.allDailyUpdates} <span>({latestDay[language].length})</span></summary>
+            <ul className="status-daily-notes">{latestDay[language].slice(2).map(item => <li key={item}>{item}</li>)}</ul>
+          </details>}
           <details className="status-changelog">
             <summary className="status-changelog-heading">
               <strong>{t.changelog}</strong>
               <span>{t.changelogHint}</span>
             </summary>
             <ol className="status-changelog-list">
-              {history.releases.slice(1).map((release) => (
-                <li key={release.version}>
-                  <div className="status-changelog-meta">
-                    <strong>{release.version}</strong>
+              {pastDays.map((release) => (
+                <li key={release.date}>
+                  <details className="status-day-history">
+                  <summary className="status-changelog-meta">
                     <time dateTime={release.date}>{release.date.replaceAll("-", ".")}</time>
-                  </div>
-                  <p>{release[language][0]}</p>
+                    <strong>{release.version}</strong>
+                  </summary>
+                  <ul className="status-daily-notes">{release[language].map(item => <li key={item}>{item}</li>)}</ul>
+                  </details>
                 </li>
               ))}
             </ol>

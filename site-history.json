@@ -4,15 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Revised the tribute poems to explicitly remember 4NEVER and his influence on my editing, with the name’s wordplay woven into the verses.",
-      "Restored a quiet 4NEVER footer marker on Home, Work and LAB."
+      "Grouped same-day site updates into one daily entry with a version range and expandable complete bilingual notes."
     ],
     "zh": [
-      "紀念短詩明確保留對 4NEVER 的追念與剪輯啟發，將名字的諧音融入詩句。",
-      "首頁、作品頁與 LAB 頁尾入口改回低調的 4NEVER 標記。"
+      "同一天的網站更新整合為一筆日誌，顯示版本範圍並可展開完整雙語更新內容。"
     ]
   },
   "releases": [
+    {
+      "version": "V.031",
+      "date": "2026-10-05",
+      "en": [
+        "Grouped same-day site updates into one daily entry with a version range and expandable complete bilingual notes."
+      ],
+      "zh": [
+        "同一天的網站更新整合為一筆日誌，顯示版本範圍並可展開完整雙語更新內容。"
+      ]
+    },
     {
       "version": "V.030",
       "date": "2026-10-05",
