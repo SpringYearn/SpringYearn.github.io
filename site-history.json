@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Removed the duplicate discipline selector from ALL while keeping the main work filters.",
-      "Added a quiet, expandable tribute to 4NEVER in the work archive footer."
+      "Reimagined the 4NEVER tribute as a quiet 04 / infinity frame that reveals “for never...” and a different short verse on Home, Work and LAB.",
+      "Removed the memorial post link; the tribute now lives entirely in words and a small line gesture."
     ],
     "zh": [
-      "移除 ALL 介紹區重複的分類入口，保留作品區主要分類選單。",
-      "作品頁頁尾新增低調、可展開的 4NEVER 紀念彩蛋。"
+      "4NEVER 彩蛋改為低調的 04／∞ 畫格，展開「for never...」；首頁、作品頁與 LAB 各留一段短詩。",
+      "移除紀念貼文連結，以文字與細微線條留下餘光。"
     ]
   },
   "releases": [
+    {
+      "version": "V.029",
+      "date": "2026-10-05",
+      "en": [
+        "Reimagined the 4NEVER tribute as a quiet 04 / infinity frame that reveals “for never...” and a different short verse on Home, Work and LAB.",
+        "Removed the memorial post link; the tribute now lives entirely in words and a small line gesture."
+      ],
+      "zh": [
+        "4NEVER 彩蛋改為低調的 04／∞ 畫格，展開「for never...」；首頁、作品頁與 LAB 各留一段短詩。",
+        "移除紀念貼文連結，以文字與細微線條留下餘光。"
+      ]
+    },
     {
       "version": "V.028",
       "date": "2026-10-05",

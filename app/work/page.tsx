@@ -13,6 +13,7 @@ import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown, Globe2 } from
 import { Button } from "@/components/ui/button";
 import { projects, type Category, type Language } from "../portfolio-data";
 import { SiteStatus } from "../site-status";
+import { ForNever } from "../for-never";
 import { SpringMark } from "../spring-mark";
 import { projectDates } from "./project-dates";
 import { sortWorkProjects, type WorkSortDirection, type WorkSortKey } from "./project-sort";
@@ -44,10 +45,6 @@ const copy = {
     returnHome: "Return to profile",
     footer: "SpringYearn® — Work Archive",
     backTop: "Back to top",
-    memorialLabel: "Remembering 4NEVER",
-    memorialTitle: "For 4NEVER",
-    memorialBody: "Your edits helped me find my own rhythm. Thank you for the inspiration. A part of it will always live on in what I create.",
-    memorialLink: "A message from his brother",
   },
   zh: {
     nav: { home: "首頁", profile: "關於我", contact: "聯絡" },
@@ -73,10 +70,6 @@ const copy = {
     returnHome: "回到個人介紹",
     footer: "SpringYearn® — 作品集",
     backTop: "回到頂端",
-    memorialLabel: "紀念 4NEVER",
-    memorialTitle: "致 4NEVER",
-    memorialBody: "你的剪輯，曾讓我找到自己的節奏。謝謝你留下的靈感，那份節奏會繼續留在我的創作裡。",
-    memorialLink: "哥哥留下的文字",
   },
 };
 
@@ -421,14 +414,7 @@ export default function WorkArchive() {
       <SiteStatus language={language} />
       <footer className="site-footer">
         <span>{t.footer}</span>
-        <details className="work-memorial">
-          <summary aria-label={t.memorialLabel}><span aria-hidden="true">4NEVER</span></summary>
-          <div className="work-memorial-note">
-            <p className="mono-label">{t.memorialTitle}</p>
-            <p>{t.memorialBody}</p>
-            <a href="https://x.com/dirtcrystal/status/2105971509189652632" target="_blank" rel="noreferrer">{t.memorialLink}<ArrowUpRight aria-hidden="true" /></a>
-          </div>
-        </details>
+        <ForNever language={language} place="work" />
         <a href="#top">
           {t.backTop}
           <ArrowUpRight aria-hidden="true" />

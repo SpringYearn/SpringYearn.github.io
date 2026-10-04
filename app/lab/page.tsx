@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteStatus } from "../site-status";
+import { ForNever } from "../for-never";
 import { labExperiments } from "../lab-data";
 import { LabDownload } from "./lab-download";
 import { sortLabProjects, type LabSortDirection, type LabSortKey } from "./project-sort";
@@ -174,7 +175,7 @@ export default function LabPage() {
         </div>
       </section>
       <SiteStatus language={language} />
-      <footer className="site-footer"><span>SpringYearn® — LAB / EXPERIMENTS</span><a href="#top">{t.top}<ArrowUpRight aria-hidden="true" /></a></footer>
+      <footer className="site-footer"><span>SpringYearn® — LAB / EXPERIMENTS</span><ForNever language={language} place="lab" /><a href="#top">{t.top}<ArrowUpRight aria-hidden="true" /></a></footer>
     </main>
   );
 }
