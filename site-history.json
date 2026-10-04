@@ -4,15 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added project creation / latest-update date ranges and compact, dated checkpoints for all nine LAB projects.",
-      "Restored the custom cursor on checkpoint controls and added individual project sharing with direct links to authorized download dialogs."
+      "Added LAB sorting by last update, creation date, name, tool type or original order, with ascending and descending controls."
     ],
     "zh": [
-      "九個 LAB 專案新增建立／最後更新日期區間與精簡、附日期的歷史 checkpoint。",
-      "修復 checkpoint 控制的專屬游標，並新增可直達授權下載視窗的個別專案分享。"
+      "LAB 新增最後更新日、建立日期、名稱、工具類型與原始順序排列，以及升序／降序切換。"
     ]
   },
   "releases": [
+    {
+      "version": "V.026",
+      "date": "2026-10-05",
+      "en": [
+        "Added LAB sorting by last update, creation date, name, tool type or original order, with ascending and descending controls."
+      ],
+      "zh": [
+        "LAB 新增最後更新日、建立日期、名稱、工具類型與原始順序排列，以及升序／降序切換。"
+      ]
+    },
     {
       "version": "V.025",
       "date": "2026-10-05",

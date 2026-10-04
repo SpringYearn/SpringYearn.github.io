@@ -2141,6 +2141,20 @@ html.has-art-cursor .spring-logo.is-dragging { cursor: grabbing; }
 .lab-access-note { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.5rem 0; border-top: 1px solid var(--foreground); }
 .lab-access-note p { max-width: 740px; margin: 0; font-size: .88rem; line-height: 1.7; color: rgba(17,17,15,.68); }
 .lab-access-note a { flex-shrink: 0; }
+.lab-sort-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0 1.5rem; font-family: var(--font-mono); font-size: .7rem; }
+.lab-sort-field { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.lab-sort-field > span:first-child { color: #62665c; }
+.lab-sort-select { position: relative; display: inline-flex; }
+.lab-sort-select select { appearance: none; min-height: 44px; min-width: 170px; padding: .65rem 2rem .65rem .8rem; border: 1px solid rgba(17,17,15,.35); border-radius: 0; background: var(--background); color: var(--foreground); font: inherit; cursor: pointer; }
+.lab-sort-select > svg { position: absolute; top: 50%; right: .7rem; transform: translateY(-50%); width: 14px; height: 14px; pointer-events: none; }
+.lab-sort-direction { display: flex; margin: 0; padding: 0; border: 1px solid rgba(17,17,15,.35); }
+.lab-sort-direction button { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; min-height: 44px; padding: .65rem .85rem; background: transparent; color: var(--foreground); font: inherit; border: 0; cursor: pointer; }
+.lab-sort-direction button + button { border-left: 1px solid rgba(17,17,15,.35); }
+.lab-sort-direction button[aria-pressed="true"] { background: #d9e5e2; color: #304b45; }
+.lab-sort-direction svg { width: 14px; height: 14px; }
+.lab-sort-select select:hover, .lab-sort-direction button:hover { color: #42645e; }
+.lab-sort-select select:focus-visible, .lab-sort-direction button:focus-visible { outline: 2px solid #42645e; outline-offset: 3px; }
+@media (pointer: fine) { html.has-art-cursor .lab-sort-select select { cursor: none; } }
 .lab-page .lab-card { grid-template-rows: auto 1fr auto auto; }
 .lab-page .lab-card h2 { overflow-wrap: anywhere; }
 .lab-download { position: relative; z-index: 1; }

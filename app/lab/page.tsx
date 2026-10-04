@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, ChevronDown, Globe2 } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteStatus } from "../site-status";
 import { labExperiments } from "../lab-data";
 import { LabDownload } from "./lab-download";
+import { sortLabProjects, type LabSortDirection, type LabSortKey } from "./project-sort";
 
 const copy = {
   en: {
@@ -15,6 +16,9 @@ const copy = {
     intro: "A development log of DaVinci Resolve and Fusion tools built to test workflows, solve specific problems, or explore ideas that existing tools did not quite cover.",
     count: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`, back: "Return home", top: "Back to top",
     access: "These experimental builds are available for authorized testing only. To request a download, please contact SpringYearn directly for access.",
+    sort: "Sort by", direction: "Order", asc: "Ascending", desc: "Descending",
+    sortKeys: { original: "Original order", updated: "Last updated", created: "Created date", name: "Name", type: "Tool type" },
+    sorted: "Current order:",
   },
   zh: {
     home: "首頁", work: "作品集", contact: "聯絡",
@@ -22,6 +26,9 @@ const copy = {
     intro: "記錄我在 DaVinci Resolve 與 Fusion 裡做過的工具、插件與實驗。它們有些已經可用，有些仍是原型或研究，重點是把想法真的做出來測試。",
     count: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`, back: "返回首頁", top: "回到頂端",
     access: "此實驗版本僅提供授權測試。若需要下載，請直接聯絡 SpringYearn 取得存取權限。",
+    sort: "排列依據", direction: "排列方向", asc: "升序", desc: "降序",
+    sortKeys: { original: "原始順序", updated: "最後更新日", created: "建立日期", name: "名稱", type: "工具類型" },
+    sorted: "目前排列：",
   },
 };
 
@@ -29,6 +36,9 @@ export default function LabPage() {
   const [language, setLanguage] = useState<"en" | "zh">("en");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [sortKey, setSortKey] = useState<LabSortKey>("original");
+  const [sortDirection, setSortDirection] = useState<LabSortDirection>("asc");
+  const projects = useMemo(() => sortLabProjects(labExperiments, sortKey, sortDirection), [sortKey, sortDirection]);
   const t = copy[language];
   useEffect(() => {
     const root = document.documentElement;
@@ -47,7 +57,7 @@ export default function LabPage() {
       if (!cursor || !(event.target instanceof Element)) return;
       cursor.classList.toggle(
         "is-active",
-        Boolean(event.target.closest("a, button, summary, .project-card")),
+        Boolean(event.target.closest("a, button, select, summary, .project-card")),
       );
     };
 
@@ -133,8 +143,20 @@ export default function LabPage() {
       </section>
       <section className="section-block lab-records" aria-label={t.count}>
         <div className="lab-access-note"><p>{t.access}</p><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
+        <div className="lab-sort-controls">
+          <label className="lab-sort-field" htmlFor="lab-sort-key"><span>{t.sort}</span><span className="lab-sort-select">
+            <select id="lab-sort-key" value={sortKey} onChange={event => setSortKey(event.target.value as LabSortKey)}>
+              {(Object.keys(t.sortKeys) as LabSortKey[]).map(key => <option key={key} value={key}>{t.sortKeys[key]}</option>)}
+            </select><ChevronDown aria-hidden="true" />
+          </span></label>
+          <fieldset className="lab-sort-direction"><legend className="sr-only">{t.direction}</legend>
+            <button type="button" aria-pressed={sortDirection === "asc"} onClick={() => setSortDirection("asc")}><ArrowUp aria-hidden="true" />{t.asc}</button>
+            <button type="button" aria-pressed={sortDirection === "desc"} onClick={() => setSortDirection("desc")}><ArrowDown aria-hidden="true" />{t.desc}</button>
+          </fieldset>
+          <span className="sr-only" role="status">{t.sorted} {t.sortKeys[sortKey]} / {sortDirection === "asc" ? t.asc : t.desc}</span>
+        </div>
         <div className="lab-grid">
-          {labExperiments.map((experiment, index) => (
+          {projects.map((experiment, index) => (
             <article className="lab-card" key={experiment.id} id={experiment.id.toLowerCase()} data-reveal>
               <div className="lab-card-top"><span className="lab-index">{experiment.id}</span><span className="lab-date" aria-label={(language === "en" ? "Created: " : "建立：") + experiment.date.created + (language === "en" ? "; Last updated: " : "；最後更新：") + experiment.date.updated}>
                 <time dateTime={experiment.date.created}>{experiment.date.created.replaceAll("-", ".")}</time><span aria-hidden="true"> — </span><time dateTime={experiment.date.updated}>{experiment.date.updated.replaceAll("-", ".")}</time>
