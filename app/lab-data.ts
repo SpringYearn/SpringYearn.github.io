@@ -1,13 +1,28 @@
-export const labExperiments = [
+type LabCopy = { en: string; zh: string };
+export type LabExperiment = {
+  id: string; date: string; title: string; type: string;
+  status: LabCopy; body: LabCopy;
+  checkpoint?: { date: string; status: LabCopy; body: LabCopy };
+};
+
+export const labExperiments: LabExperiment[] = [
   {
     id: "LAB-01",
-    date: "2026.09",
+    date: "2026.10",
     title: "FusionDynamics2D",
     type: "Fusion Lua / Physics",
-    status: { en: "0.3.5 / verified checkpoint", zh: "0.3.5／已驗證 checkpoint" },
+    status: { en: "0.4.1 / host acceptance pending", zh: "0.4.1／實機驗收待確認" },
     body: {
-      en: "Latest verified checkpoint: 0.3.5-perbody. Per-object start frames, text/Follower animation handoff, Alpha handling and native keyframe Bake fixes are in place; 158 tests pass, with 46 Lua/Fuse files and 2 preview JavaScript files passing syntax checks. Resolve 21 visual acceptance, split-speed and hands-on workflow validation still remain.",
-      zh: "目前可驗證的最新 checkpoint 為 0.3.5-perbody。已完成每物件獨立起始影格、文字／Follower 動畫接手、Alpha 處理與原生關鍵幀 Bake 修正；158 項測試全數通過，46 份 Lua／Fuse 與 2 份預覽 JavaScript 亦通過語法檢查。Resolve 21 實機畫面、拆分速度與整體操作流程仍待最終驗收。",
+      en: "0.4.1-usability extends the 0.4.0 dynamics tools with one-click environment reset, batch clearing of joints / force fields / events, text-split node layout near the source, plain-language controls and tooltips, and exact constant / linear keyframe merging. The delivered release records 245 passing tests, 61 Lua / Fuse syntax checks and 2 JavaScript syntax checks. The 0.4.0 host tests 1–4 were reported as passing; the new 0.4.1 UI, layout and reduced-key Bake still await Resolve host acceptance.",
+      zh: "0.4.1-usability 延續 0.4.0 的指定運動、關節與力場／事件功能，新增環境一鍵重設、關節／力場／事件批次清除、拆字節點在來源附近排版、通俗參數名稱與懸停說明，以及固定／嚴格直線關鍵幀合併。交付紀錄為 245 項測試通過、61 份 Lua／Fuse 與 2 份 JavaScript 語法檢查通過。0.4.0 主機測試 1–4 已回報通過；0.4.1 新介面、排版與精簡 Bake 仍待 Resolve 實機驗收。",
+    },
+    checkpoint: {
+      date: "2026.09",
+      status: { en: "0.3.5 / verified checkpoint", zh: "0.3.5／已驗證 checkpoint" },
+      body: {
+        en: "Latest verified checkpoint: 0.3.5-perbody. Per-object start frames, text/Follower animation handoff, Alpha handling and native keyframe Bake fixes are in place; 158 tests pass, with 46 Lua/Fuse files and 2 preview JavaScript files passing syntax checks. Resolve 21 visual acceptance, split-speed and hands-on workflow validation still remain.",
+        zh: "目前可驗證的最新 checkpoint 為 0.3.5-perbody。已完成每物件獨立起始影格、文字／Follower 動畫接手、Alpha 處理與原生關鍵幀 Bake 修正；158 項測試全數通過，46 份 Lua／Fuse 與 2 份預覽 JavaScript 亦通過語法檢查。Resolve 21 實機畫面、拆分速度與整體操作流程仍待最終驗收。",
+      },
     },
   },
   {
@@ -85,6 +100,17 @@ export const labExperiments = [
     body: {
       en: "A minimal pass-through Fuse created while testing the Fusion loading path. Together with a Hello Fuse check, it helped verify that the local Fuse search path and registration flow were working before larger experiments.",
       zh: "為測試 Fusion 載入流程製作的最小化 pass-through Fuse，並搭配 Hello Fuse 驗證本機 Fuse 搜尋路徑與註冊流程，作為後續較大型實驗的基礎。",
+    },
+  },
+  {
+    id: "LAB-09",
+    date: "2026.10",
+    title: "SY_Handwriter",
+    type: "Fusion Lua / Handwriting",
+    status: { en: "0.3.0 Test 4 / font fitting prototype", zh: "0.3.0 Test 4／字型貼合原型" },
+    body: {
+      en: "A stroke-by-stroke handwriting tool for Text+ using ordered stroke paths, MaskPaint, independent PolylineStroke Write On animation and Text+ EffectMask. The 0.2.1 coordinate fix was reported working; 0.3.0 Test 4 fits the stroke centerlines and brush coverage to the rendered Text+ Alpha while preserving the original font and appearance. The supplied Test 4 archive is available for authorized testing. Different fonts and Resolve 21 Image / Pixel behavior still await host acceptance; extreme decorative fonts and complex text layouts remain limitations.",
+      zh: "為 Text+ 製作真正一筆一畫的手寫動畫：筆順路徑經 MaskPaint、獨立 PolylineStroke Write On，接入 Text+ EffectMask，保留原本字型與外觀。0.2.1 座標修正已回報正常；0.3.0 Test 4 新增以渲染後的 Text+ Alpha 貼合筆畫中心線與估算筆刷覆蓋，完整 Test 4 安裝包已提供授權測試。不同字型與 Resolve 21 Image／Pixel 介面仍待實機驗收，極端藝術字與複雜文字排版也仍有限制。",
     },
   },
 ];
