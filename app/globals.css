@@ -2999,12 +2999,8 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .for-never summary:focus-visible { outline: 1px solid #42645e; outline-offset: 3px; }
 .for-never summary .for-never-frame { width: 30px; height: 18px; stroke: currentColor; stroke-width: .8; }
 .for-never-continuation { stroke-dasharray: 25; stroke-dashoffset: 14; transition: stroke-dashoffset 600ms ease; }
-.for-never-mark { position: relative; width: 90px; height: 1.3em; }
-.for-never-mark > span { position: absolute; inset: 0; white-space: nowrap; transition: opacity 220ms ease, transform 350ms ease; }
-.for-never-mark > span:last-child { opacity: 0; transform: translateY(3px); letter-spacing: .03em; }
+.for-never-mark { white-space: nowrap; }
 .for-never summary:hover, .for-never summary:focus-visible, .for-never[open] summary { color: #42645e; }
-.for-never summary:hover .for-never-mark > span:first-child, .for-never summary:focus-visible .for-never-mark > span:first-child, .for-never[open] .for-never-mark > span:first-child { opacity: 0; transform: translateY(-3px); }
-.for-never summary:hover .for-never-mark > span:last-child, .for-never summary:focus-visible .for-never-mark > span:last-child, .for-never[open] .for-never-mark > span:last-child { opacity: 1; transform: none; }
 .for-never summary:hover .for-never-continuation, .for-never summary:focus-visible .for-never-continuation, .for-never[open] .for-never-continuation { stroke-dashoffset: 0; }
 .for-never-note { position: absolute; right: 0; bottom: calc(100% + .8rem); width: min(320px, calc(100vw - 48px)); padding: 1.5rem; border: 1px solid #a1aa9b; background: var(--background); z-index: 65; text-transform: none; letter-spacing: normal; }
 .for-never-title { margin: 0 0 1.25rem; color: #42645e; font-size: .75rem; letter-spacing: .08em; }
@@ -3012,4 +3008,4 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .for-never-signature { margin: 1.5rem 0 0; color: #687060; font-size: .58rem; letter-spacing: .12em; text-align: right; }
 @media (pointer: fine) { html.has-art-cursor .for-never summary { cursor: none; } }
 @media (max-width: 620px) { .for-never, .for-never + .legacy-index { margin-left: 0; } .for-never-note { right: auto; left: 0; } }
-@media (prefers-reduced-motion: reduce) { .for-never summary, .for-never-mark > span, .for-never-continuation { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .for-never summary, .for-never-continuation { transition: none; } }
