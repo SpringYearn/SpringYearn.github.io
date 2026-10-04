@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Reimagined the 4NEVER tribute as a quiet 04 / infinity frame that reveals “for never...” and a different short verse on Home, Work and LAB.",
-      "Removed the memorial post link; the tribute now lives entirely in words and a small line gesture."
+      "Revised the tribute poems to explicitly remember 4NEVER and his influence on my editing, with the name’s wordplay woven into the verses.",
+      "Restored a quiet 4NEVER footer marker on Home, Work and LAB."
     ],
     "zh": [
-      "4NEVER 彩蛋改為低調的 04／∞ 畫格，展開「for never...」；首頁、作品頁與 LAB 各留一段短詩。",
-      "移除紀念貼文連結，以文字與細微線條留下餘光。"
+      "紀念短詩明確保留對 4NEVER 的追念與剪輯啟發，將名字的諧音融入詩句。",
+      "首頁、作品頁與 LAB 頁尾入口改回低調的 4NEVER 標記。"
     ]
   },
   "releases": [
+    {
+      "version": "V.030",
+      "date": "2026-10-05",
+      "en": [
+        "Revised the tribute poems to explicitly remember 4NEVER and his influence on my editing, with the name’s wordplay woven into the verses.",
+        "Restored a quiet 4NEVER footer marker on Home, Work and LAB."
+      ],
+      "zh": [
+        "紀念短詩明確保留對 4NEVER 的追念與剪輯啟發，將名字的諧音融入詩句。",
+        "首頁、作品頁與 LAB 頁尾入口改回低調的 4NEVER 標記。"
+      ]
+    },
     {
       "version": "V.029",
       "date": "2026-10-05",
