@@ -44,6 +44,10 @@ const copy = {
     returnHome: "Return to profile",
     footer: "SpringYearn® — Work Archive",
     backTop: "Back to top",
+    memorialLabel: "Remembering 4NEVER",
+    memorialTitle: "For 4NEVER",
+    memorialBody: "Your edits helped me find my own rhythm. Thank you for the inspiration. A part of it will always live on in what I create.",
+    memorialLink: "A message from his brother",
   },
   zh: {
     nav: { home: "首頁", profile: "關於我", contact: "聯絡" },
@@ -69,6 +73,10 @@ const copy = {
     returnHome: "回到個人介紹",
     footer: "SpringYearn® — 作品集",
     backTop: "回到頂端",
+    memorialLabel: "紀念 4NEVER",
+    memorialTitle: "致 4NEVER",
+    memorialBody: "你的剪輯，曾讓我找到自己的節奏。謝謝你留下的靈感，那份節奏會繼續留在我的創作裡。",
+    memorialLink: "哥哥留下的文字",
   },
 };
 
@@ -140,7 +148,7 @@ export default function WorkArchive() {
       if (!cursor || !(event.target instanceof Element)) return;
       cursor.classList.toggle(
         "is-active",
-        Boolean(event.target.closest("a, button, select, .project-card")),
+        Boolean(event.target.closest("a, button, select, summary, .project-card")),
       );
     };
 
@@ -306,9 +314,7 @@ export default function WorkArchive() {
           <div className="archive-overview archive-atlas">
             <div className="atlas-intro">
               <div><p className="mono-label">{t.atlasLabel} / {projects.length} {t.pieces}</p><h2>{t.atlasTitle}</h2></div>
-              <div className="atlas-directory"><p>{t.overviewHint}</p><div>
-                {(["design", "editing", "3d", "drawing"] as const).map(category => <button type="button" key={category} onClick={() => setFilter(category)}><span>{t.filters[category]}</span><span className="mono-label">{String(projects.filter(project => project.category === category).length).padStart(2, "0")}<ArrowUpRight aria-hidden="true" /></span></button>)}
-              </div></div><SpringMark className="atlas-spring" />
+              <div className="atlas-directory"><p>{t.overviewHint}</p></div><SpringMark className="atlas-spring" />
             </div>
             {plates.map((plate, plateIndex) => <section className="atlas-plate" key={plateIndex} aria-labelledby={`plate-${plateIndex}`}>
               <div className="atlas-plate-heading"><h3 id={`plate-${plateIndex}`}><span>{String(plateIndex + 1).padStart(2, "0")}</span>{t.sheet}</h3><span className="mono-label">{String(plateIndex * 7 + 1).padStart(2, "0")} — {String(plateIndex * 7 + plate.length).padStart(2, "0")} / {filteredProjects.length}</span></div>
@@ -415,6 +421,14 @@ export default function WorkArchive() {
       <SiteStatus language={language} />
       <footer className="site-footer">
         <span>{t.footer}</span>
+        <details className="work-memorial">
+          <summary aria-label={t.memorialLabel}><span aria-hidden="true">4NEVER</span></summary>
+          <div className="work-memorial-note">
+            <p className="mono-label">{t.memorialTitle}</p>
+            <p>{t.memorialBody}</p>
+            <a href="https://x.com/dirtcrystal/status/2105971509189652632" target="_blank" rel="noreferrer">{t.memorialLink}<ArrowUpRight aria-hidden="true" /></a>
+          </div>
+        </details>
         <a href="#top">
           {t.backTop}
           <ArrowUpRight aria-hidden="true" />

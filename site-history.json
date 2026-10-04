@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added work archive sorting, with dated publication records and matched source-file clues; unknown dates remain unconfirmed.",
-      "Redesigned ALL as numbered editorial plates with varied image sizes, project captions and a discipline index."
+      "Removed the duplicate discipline selector from ALL while keeping the main work filters.",
+      "Added a quiet, expandable tribute to 4NEVER in the work archive footer."
     ],
     "zh": [
-      "作品區新增排序功能，比對發布紀錄與原檔日期線索；未確認日期保持待考。",
-      "ALL 改為編號圖版，加入不同尺寸的作品配置、作品標題與媒介分類索引。"
+      "移除 ALL 介紹區重複的分類入口，保留作品區主要分類選單。",
+      "作品頁頁尾新增低調、可展開的 4NEVER 紀念彩蛋。"
     ]
   },
   "releases": [
+    {
+      "version": "V.028",
+      "date": "2026-10-05",
+      "en": [
+        "Removed the duplicate discipline selector from ALL while keeping the main work filters.",
+        "Added a quiet, expandable tribute to 4NEVER in the work archive footer."
+      ],
+      "zh": [
+        "移除 ALL 介紹區重複的分類入口，保留作品區主要分類選單。",
+        "作品頁頁尾新增低調、可展開的 4NEVER 紀念彩蛋。"
+      ]
+    },
     {
       "version": "V.027",
       "date": "2026-10-05",
