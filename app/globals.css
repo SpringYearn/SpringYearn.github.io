@@ -2496,11 +2496,24 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .status-changelog[open] .status-changelog-heading span::after { content: " −"; }
 .status-changelog-heading:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
 .status-changelog-list { display: grid; list-style: none; margin: .75rem 0 0; padding: 0; }
-.status-changelog-list li { display: grid; grid-template-columns: 6.4rem 1fr; gap: 1rem; padding: .8rem 0; border-top: 1px solid rgba(17,17,15,.1); }
-.status-changelog-meta { display: flex; flex-direction: column; gap: .18rem; font-family: var(--font-mono); font-size: .66rem; line-height: 1.45; }
+.status-changelog-list > li { padding: .35rem 0; border-top: 1px solid rgba(17,17,15,.1); }
+.status-changelog-meta { display: flex; align-items: center; gap: .75rem; font-family: var(--font-mono); font-size: .66rem; line-height: 1.45; list-style: none; cursor: pointer; min-height: 44px; }
+.status-changelog-meta time { margin-right: auto; }
+.status-changelog-meta::-webkit-details-marker { display: none; }
+.status-changelog-meta::after { content: "+"; }
+.status-day-history[open] > .status-changelog-meta::after { content: "−"; }
+.status-changelog-meta:focus-visible, .status-daily-more > summary:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 .status-changelog-meta strong { font-weight: 600; letter-spacing: .08em; }
 .status-changelog-meta time { color: #77776f; font-variant-numeric: tabular-nums; }
 .status-changelog-list p { margin: 0; font-size: .78rem; line-height: 1.6; color: #4d4d48; }
+.status-daily-more { margin-top: .75rem; }
+.status-daily-more > summary { display: flex; align-items: center; gap: .4rem; min-height: 44px; font-family: var(--font-mono); font-size: .68rem; list-style: none; cursor: pointer; }
+.status-daily-more > summary::-webkit-details-marker { display: none; }
+.status-daily-more > summary::after { content: "+"; margin-left: auto; }
+.status-daily-more[open] > summary::after { content: "−"; }
+.status-daily-notes { padding: 0 0 0 1rem; margin: .5rem 0; list-style: disc; }
+.status-daily-notes li { padding: .25rem 0; color: #4d4d48; font-size: .78rem; line-height: 1.7; }
+@media (pointer: fine) { html.has-art-cursor .status-update-panel summary { cursor: none; } }
 .status-updated:focus-visible,
 .status-visitors:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
 @keyframes status-digit-roll {
@@ -2521,7 +2534,8 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .status-updated,
   .status-visitors { align-items: flex-start; flex-direction: column; gap: .35rem; }
   .status-count { text-align: left; }
-  .status-changelog-list li { grid-template-columns: 5.2rem 1fr; gap: .75rem; }
+  .status-update-heading { align-items: flex-start; }
+  .status-update-meta { flex-direction: column; align-items: flex-end; gap: .2rem; font-size: .65rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .is-decoding .status-digit-reel { animation: none; }
