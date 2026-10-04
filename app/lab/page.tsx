@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Globe2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronDown, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteStatus } from "../site-status";
 import { labExperiments } from "../lab-data";
@@ -47,7 +47,7 @@ export default function LabPage() {
       if (!cursor || !(event.target instanceof Element)) return;
       cursor.classList.toggle(
         "is-active",
-        Boolean(event.target.closest("a, button, .project-card")),
+        Boolean(event.target.closest("a, button, summary, .project-card")),
       );
     };
 
@@ -136,10 +136,15 @@ export default function LabPage() {
         <div className="lab-grid">
           {labExperiments.map((experiment, index) => (
             <article className="lab-card" key={experiment.id} id={experiment.id.toLowerCase()} data-reveal>
-              <div className="lab-card-top"><span className="lab-index">{experiment.id}</span><span className="lab-date">{experiment.date}</span></div>
-              <div className="lab-card-main"><span className="lab-type mono-label">{experiment.type}</span><h2>{experiment.title}</h2><p>{experiment.body[language]}</p>{experiment.checkpoint && (
-                <details className="lab-checkpoint"><summary>{language === "en" ? "Previous checkpoint / " : "先前 checkpoint／"}{experiment.checkpoint.status[language]}</summary><p>{experiment.checkpoint.body[language]}</p></details>
-              )}</div>
+              <div className="lab-card-top"><span className="lab-index">{experiment.id}</span><span className="lab-date" aria-label={(language === "en" ? "Created: " : "建立：") + experiment.date.created + (language === "en" ? "; Last updated: " : "；最後更新：") + experiment.date.updated}>
+                <time dateTime={experiment.date.created}>{experiment.date.created.replaceAll("-", ".")}</time><span aria-hidden="true"> — </span><time dateTime={experiment.date.updated}>{experiment.date.updated.replaceAll("-", ".")}</time>
+              </span></div>
+              <div className="lab-card-main"><span className="lab-type mono-label">{experiment.type}</span><h2>{experiment.title}</h2><p>{experiment.body[language]}</p>
+                <details className="lab-checkpoint"><summary><span>{language === "en" ? "History / checkpoints" : "歷史 checkpoint"} <span className="lab-checkpoint-count">({experiment.history.length})</span></span><ChevronDown aria-hidden="true" /></summary>
+                  <ol className="lab-checkpoint-list">{experiment.history.map((checkpoint, checkpointIndex) => <li key={checkpointIndex}><div className="lab-checkpoint-heading"><time dateTime={checkpoint.date}>{checkpoint.date.replaceAll("-", ".")}</time><span>{checkpoint.title[language]}</span></div><p>{checkpoint.body[language]}</p></li>)}</ol>
+                  {experiment.checkpoint && <details className="lab-checkpoint-full"><summary>{language === "en" ? "Full 0.3.5 validation record" : "完整 0.3.5 驗證紀錄"}</summary><p>{experiment.checkpoint.body[language]}</p></details>}
+                </details>
+              </div>
               <div className="lab-card-foot"><span className="lab-status-dot" aria-hidden="true" /><span>{experiment.status[language]}</span><span aria-hidden="true">{String(index + 1).padStart(2, "0")} / {String(labExperiments.length).padStart(2, "0")}</span></div>
               <LabDownload project={experiment} language={language} />
             </article>
