@@ -9,10 +9,14 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Globe2 } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects, type Category, type Language } from "../portfolio-data";
 import { SiteStatus } from "../site-status";
+import { SpringMark } from "../spring-mark";
+import { projectDates } from "./project-dates";
+import { sortWorkProjects, type WorkSortDirection, type WorkSortKey } from "./project-sort";
+import { WorkDate } from "./work-date";
 
 const copy = {
   en: {
@@ -28,7 +32,11 @@ const copy = {
       "3d": "3D",
       drawing: "Drawing",
     },
-    overviewHint: "Overview — choose a discipline to view each project in detail.",
+    overviewHint: "A visual index across four disciplines. Follow a thread, or choose your own order.",
+    atlasTitle: "Different media.\nA common thread.", atlasLabel: "Cross-disciplinary index", sheet: "Plate", pieces: "works",
+    sort: "Sort by", direction: "Order", asc: "Ascending", desc: "Descending", sorted: "Current order:",
+    sortKeys: { original: "Original order", date: "Artwork date clues", created: "Source file created", updated: "Source file modified", name: "Name", category: "Discipline" },
+    dateNote: "Dates follow publication records or matched source files. File timestamps are clues, not the start of a work; unknown dates stay last.",
     more: "And there is more...",
     moreBody: "Only part of the practice is online. The archive keeps growing.",
     moreTag: "Ongoing archive",
@@ -49,7 +57,11 @@ const copy = {
       "3d": "3D",
       drawing: "繪畫",
     },
-    overviewHint: "總覽模式——切換分類，逐件查看完整作品。",
+    overviewHint: "四種媒介的視覺索引。沿著創作的線索瀏覽，也可以選擇自己的排列方式。",
+    atlasTitle: "不同媒介，\n同一種節奏。", atlasLabel: "跨媒介作品索引", sheet: "圖版", pieces: "件作品",
+    sort: "排列依據", direction: "排列方向", asc: "升序", desc: "降序", sorted: "目前排列：",
+    sortKeys: { original: "原始順序", date: "作品日期線索", created: "原檔建立日", updated: "原檔修改日", name: "名稱", category: "媒介分類" },
+    dateNote: "日期取自發布紀錄或比對到的原檔。檔案時間是線索，不代表創作起點；未確認的日期排在最後。",
     more: "還有更多⋯⋯",
     moreBody: "目前只上傳了部分創作，這份檔案仍在持續累積。",
     moreTag: "持續更新",
@@ -102,11 +114,14 @@ export default function WorkArchive() {
   const [filter, setFilter] = useState<Category>("all");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [sortKey, setSortKey] = useState<WorkSortKey>("original");
+  const [sortDirection, setSortDirection] = useState<WorkSortDirection>("asc");
   const t = copy[language];
   const filteredProjects = useMemo(
-    () => projects.filter((project) => filter === "all" || project.category === filter),
-    [filter],
+    () => sortWorkProjects(projects.filter((project) => filter === "all" || project.category === filter), projectDates, sortKey, sortDirection),
+    [filter, sortKey, sortDirection],
   );
+  const plates = Array.from({ length: Math.ceil(filteredProjects.length / 7) }, (_, index) => filteredProjects.slice(index * 7, index * 7 + 7));
 
   useEffect(() => {
     const root = document.documentElement;
@@ -125,7 +140,7 @@ export default function WorkArchive() {
       if (!cursor || !(event.target instanceof Element)) return;
       cursor.classList.toggle(
         "is-active",
-        Boolean(event.target.closest("a, button, .project-card")),
+        Boolean(event.target.closest("a, button, select, .project-card")),
       );
     };
 
@@ -265,6 +280,7 @@ export default function WorkArchive() {
               variant="ghost"
               className="filter-button"
               data-active={filter === category}
+              aria-pressed={filter === category}
               onClick={() => setFilter(category)}
             >
               {t.filters[category]}
@@ -272,22 +288,45 @@ export default function WorkArchive() {
           ))}
         </div>
 
+        <div className="lab-sort-controls work-sort-controls">
+          <label className="lab-sort-field" htmlFor="work-sort-key"><span>{t.sort}</span><span className="lab-sort-select">
+            <select id="work-sort-key" value={sortKey} onChange={event => setSortKey(event.target.value as WorkSortKey)}>
+              {(Object.keys(t.sortKeys) as WorkSortKey[]).map(key => <option key={key} value={key}>{t.sortKeys[key]}</option>)}
+            </select><ChevronDown aria-hidden="true" />
+          </span></label>
+          <fieldset className="lab-sort-direction"><legend className="sr-only">{t.direction}</legend>
+            <button type="button" aria-pressed={sortDirection === "asc"} onClick={() => setSortDirection("asc")}><ArrowUp aria-hidden="true" />{t.asc}</button>
+            <button type="button" aria-pressed={sortDirection === "desc"} onClick={() => setSortDirection("desc")}><ArrowDown aria-hidden="true" />{t.desc}</button>
+          </fieldset>
+          <span className="sr-only" role="status">{t.sorted} {t.sortKeys[sortKey]} / {sortDirection === "asc" ? t.asc : t.desc}</span>
+        </div>
+        <p className="work-date-note">{t.dateNote}</p>
+
         {filter === "all" ? (
-          <div className="archive-overview" aria-live="polite">
-            <p className="overview-hint mono-label">{t.overviewHint}</p>
-            <div className="project-overview">
-              {projects.map((project, index) => (
+          <div className="archive-overview archive-atlas">
+            <div className="atlas-intro">
+              <div><p className="mono-label">{t.atlasLabel} / {projects.length} {t.pieces}</p><h2>{t.atlasTitle}</h2></div>
+              <div className="atlas-directory"><p>{t.overviewHint}</p><div>
+                {(["design", "editing", "3d", "drawing"] as const).map(category => <button type="button" key={category} onClick={() => setFilter(category)}><span>{t.filters[category]}</span><span className="mono-label">{String(projects.filter(project => project.category === category).length).padStart(2, "0")}<ArrowUpRight aria-hidden="true" /></span></button>)}
+              </div></div><SpringMark className="atlas-spring" />
+            </div>
+            {plates.map((plate, plateIndex) => <section className="atlas-plate" key={plateIndex} aria-labelledby={`plate-${plateIndex}`}>
+              <div className="atlas-plate-heading"><h3 id={`plate-${plateIndex}`}><span>{String(plateIndex + 1).padStart(2, "0")}</span>{t.sheet}</h3><span className="mono-label">{String(plateIndex * 7 + 1).padStart(2, "0")} — {String(plateIndex * 7 + plate.length).padStart(2, "0")} / {filteredProjects.length}</span></div>
+              <div className="project-overview">
+              {plate.map((project, index) => (
                 <a
                   className={`overview-item${project.frame === "portrait" ? " overview-portrait" : ""}`}
                   key={project.id}
+                  data-project-id={project.id}
                   href={project.href}
                   onClick={followOverviewLink}
                   style={{ "--overview-index": index } as CSSProperties}
                   aria-label={`${project.title} — ${t.view}`}
                 >
+                  <span className="atlas-art">
                   {project.mediaType === "video" ? (
                     <video
-                      className="overview-media"
+                      className={`overview-media${project.fit === "contain" ? " media-contain" : ""}`}
                       src={project.thumbnail}
                       muted
                       loop
@@ -298,22 +337,25 @@ export default function WorkArchive() {
                     />
                   ) : (
                     <img
-                      className="overview-media"
+                      className={`overview-media${project.fit === "contain" ? " media-contain" : ""}`}
                       src={project.thumbnail}
                       alt=""
                       draggable={false}
                     />
                   )}
                   <span className="overview-index">{project.id}</span>
-                  <span className="overview-category mono-label">{t.filters[project.category]}</span>
+                  </span>
+                  <span className="atlas-meta"><span className="overview-category mono-label">{t.filters[project.category]}</span><WorkDate id={project.id} language={language} basis={sortKey} /></span>
+                  <h4 className="atlas-title">{project.title}<ArrowUpRight aria-hidden="true" /></h4>
                 </a>
               ))}
-              <div className="overview-more">
+              </div>
+            </section>)}
+              <div className="overview-more atlas-more">
                 <span className="mono-label">{t.moreTag}</span>
                 <strong>{t.more}</strong>
                 <p>{t.moreBody}</p>
               </div>
-            </div>
           </div>
         ) : (
           <div className="project-grid" aria-live="polite">
@@ -321,6 +363,7 @@ export default function WorkArchive() {
               <a
                 className="project-card"
                 key={project.id}
+                data-project-id={project.id}
                 href={project.href}
                 target="_blank"
                 rel="noreferrer"
@@ -357,6 +400,7 @@ export default function WorkArchive() {
                   <div>
                     <p className="mono-label">{project.type[language]} / {project.detail[language]}</p>
                     <h2>{project.title}</h2>
+                    <WorkDate id={project.id} language={language} basis={sortKey} />
                   </div>
                   <span className="project-action" aria-label={t.view}>
                     <ArrowUpRight aria-hidden="true" />
