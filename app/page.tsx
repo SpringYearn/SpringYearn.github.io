@@ -10,6 +10,7 @@ import Link from "next/link";
 import { ArrowUpRight, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteStatus } from "./site-status";
+import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
 import { SpringMark } from "./spring-mark";
 import { labExperiments } from "./lab-data";
@@ -318,7 +319,7 @@ export default function Home() {
       if (!cursor || !(event.target instanceof Element)) return;
       cursor.classList.toggle(
         "is-active",
-        Boolean(event.target.closest("a, button, .project-card, .display-letter")),
+        Boolean(event.target.closest("a, button, summary, .project-card, .display-letter")),
       );
     };
 
@@ -727,6 +728,7 @@ export default function Home() {
       <SiteStatus language={language} />
       <footer className="site-footer">
         <span>{t.footer}</span>
+        <ForNever language={language} place="home" />
         <details className="legacy-index">
           <summary aria-label={language === "en" ? "Reveal legacy site" : "顯示舊網站入口"}>
             SY / V.01
