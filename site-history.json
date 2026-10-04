@@ -4,13 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added LAB sorting by last update, creation date, name, tool type or original order, with ascending and descending controls."
+      "Added work archive sorting, with dated publication records and matched source-file clues; unknown dates remain unconfirmed.",
+      "Redesigned ALL as numbered editorial plates with varied image sizes, project captions and a discipline index."
     ],
     "zh": [
-      "LAB 新增最後更新日、建立日期、名稱、工具類型與原始順序排列，以及升序／降序切換。"
+      "作品區新增排序功能，比對發布紀錄與原檔日期線索；未確認日期保持待考。",
+      "ALL 改為編號圖版，加入不同尺寸的作品配置、作品標題與媒介分類索引。"
     ]
   },
   "releases": [
+    {
+      "version": "V.027",
+      "date": "2026-10-05",
+      "en": [
+        "Added work archive sorting, with dated publication records and matched source-file clues; unknown dates remain unconfirmed.",
+        "Redesigned ALL as numbered editorial plates with varied image sizes, project captions and a discipline index."
+      ],
+      "zh": [
+        "作品區新增排序功能，比對發布紀錄與原檔日期線索；未確認日期保持待考。",
+        "ALL 改為編號圖版，加入不同尺寸的作品配置、作品標題與媒介分類索引。"
+      ]
+    },
     {
       "version": "V.026",
       "date": "2026-10-05",
