@@ -4,15 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Restored the Project Files desktop navigation link to the same styling as other links.",
-      "Replaced mobile header links and language switching with a shared collapsible side menu on Home, Work, LAB and Project Files."
+      "Added a compact press-and-release animation to the mobile menu open and close buttons, with reduced-motion support."
     ],
     "zh": [
-      "Project Files 桌面導覽連結恢復與其他連結一致的樣式。",
-      "首頁、作品、LAB 與 Project Files 的手機頂部改為共用側邊選單，收納導覽與中英文切換。"
+      "手機選單開啟與關閉按鈕加入縮放回彈、圖示輕轉的點按動畫，並支援減少動態效果。"
     ]
   },
   "releases": [
+    {
+      "version": "V.038",
+      "date": "2026-10-05",
+      "en": [
+        "Added a compact press-and-release animation to the mobile menu open and close buttons, with reduced-motion support."
+      ],
+      "zh": [
+        "手機選單開啟與關閉按鈕加入縮放回彈、圖示輕轉的點按動畫，並支援減少動態效果。"
+      ]
+    },
     {
       "version": "V.037",
       "date": "2026-10-05",
