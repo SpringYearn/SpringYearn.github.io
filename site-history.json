@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Rewrote the bilingual 4NEVER tributes as personal words of appreciation and remembrance, with the name’s wordplay kept only in the Work verse."
+      "LAB downloads now deliver the original unencrypted ZIP after one website password check, while public build files remain encrypted."
     ],
     "zh": [
-      "4NEVER 雙語紀念文字改為更直接的欣賞、感謝與追念，名字諧音只保留在作品頁的一段。"
+      "LAB 下載改為在網站輸入一次密碼後，直接取得不需密碼解壓的原始 ZIP；公開存放的版本仍保留加密保護。"
     ]
   },
   "releases": [
+    {
+      "version": "V.033",
+      "date": "2026-10-05",
+      "en": [
+        "LAB downloads now deliver the original unencrypted ZIP after one website password check, while public build files remain encrypted."
+      ],
+      "zh": [
+        "LAB 下載改為在網站輸入一次密碼後，直接取得不需密碼解壓的原始 ZIP；公開存放的版本仍保留加密保護。"
+      ]
+    },
     {
       "version": "V.032",
       "date": "2026-10-05",

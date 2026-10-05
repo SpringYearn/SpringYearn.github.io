@@ -2,11 +2,14 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { ZipWriter, Uint8ArrayReader, Uint8ArrayWriter, ZipReader } from "@zip.js/zip.js/lib/zip-core-native.js";
+import { ZipWriter, Uint8ArrayReader, Uint8ArrayWriter, ZipReader, BlobReader } from "@zip.js/zip.js/lib/zip-core-native.js";
 import { verifyEncryptedBuild } from "../app/lab/verify-encrypted-build.ts";
 
 const password = "fixture-only-access-key";
-const content = new TextEncoder().encode("Test content representing an original build ZIP.");
+const toolContent = new TextEncoder().encode("Original tool content.");
+const originalWriter = new ZipWriter(new Uint8ArrayWriter(), { useWebWorkers: false, level: 0 });
+await originalWriter.add("tool.txt", new Uint8ArrayReader(toolContent));
+const content = await originalWriter.close();
 const name = "fixture-build.zip";
 const digest = bytes => createHash("sha256").update(bytes).digest("hex");
 const manifest = bytes => ({ sha256: digest(bytes), bytes: bytes.length, originalFilename: name, originalBytes: content.length });
@@ -17,9 +20,18 @@ async function archive(options = { password, encryptionStrength: 3 }, extra = fa
   return writer.close();
 }
 
-test("full AES-256 payload verifies only with the correct password", async () => {
+test("correct password returns the exact original ZIP and its contents extract without a password", async () => {
   const bytes = await archive();
-  await verifyEncryptedBuild(new Blob([bytes]), password, manifest(bytes));
+  const original = await verifyEncryptedBuild(new Blob([bytes]), password, manifest(bytes));
+  assert.equal(original.type, "application/zip");
+  assert.deepEqual(new Uint8Array(await original.arrayBuffer()), content);
+  const reader = new ZipReader(new BlobReader(original), { useWebWorkers: false, checkSignature: true });
+  try {
+    const entries = await reader.getEntries();
+    assert.equal(entries.length, 1);
+    assert.equal(entries[0].encrypted, false);
+    assert.deepEqual(await entries[0].getData(new Uint8ArrayWriter()), toolContent);
+  } finally { await reader.close(); }
   await assert.rejects(verifyEncryptedBuild(new Blob([bytes]), "wrong-access", manifest(bytes)), /ACCESS_DENIED/);
 });
 

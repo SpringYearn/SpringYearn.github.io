@@ -32,15 +32,17 @@ Text+ Alpha and still requires Resolve host tests across fonts and text layouts.
 
 GitHub Pages hosts static files. Every published ZIP in `public/lab-builds/`
 contains a single AES-256 encrypted entry holding the exact original supplied ZIP.
-The original program, directory layout and ZIP bytes are preserved. Users extract
-the encrypted outer ZIP with their authorized password, then open the original ZIP
-inside. Use an archiver that supports WinZip AES, such as 7-Zip.
+The original program, directory layout and ZIP bytes are preserved. Since V.033,
+users enter their authorized password once on the website and receive the original
+ZIP directly. The downloaded ZIP needs no password to extract.
 
 After the visitor enters a password, the page retrieves only encrypted bytes,
 checks the ciphertext SHA-256 against `app/lab/builds.json`, confirms the expected
 single AES-256 entry, and validates its complete AES authentication code with
-zip.js. Only then does the page start downloading the **encrypted outer ZIP**.
-The temporary plaintext stream is discarded, never downloaded or stored.
+zip.js. Only after complete authentication does the page download the **original
+unencrypted ZIP**, using its original filename. Its temporary in-memory Blob URL
+is revoked after download; decrypted bytes are not published to the repository or
+stored in browser storage.
 Password inputs clear on submission and closing; cancellation aborts verification.
 
 The password is not embedded in source, configuration, tests, a frontend hash or
@@ -72,8 +74,9 @@ to `site-history.json` without replacing earlier entries.
 
 `node --test tests/lab-*.test.mjs` covers record/history preservation, correct and
 incorrect passwords, plaintext/weak/mixed archives, ciphertext tampering, full
-AES authentication, cancellation and the six current archive headers/hashes.
-Browser QA additionally uses the real encrypted builds on desktop and mobile.
+AES authentication, cancellation, byte-exact original ZIP output, and the six
+current archive headers/hashes. Browser QA additionally downloads all six real
+builds on desktop and mobile and validates every inner entry without a password.
 Private-password extraction checks run locally; no real password is committed
 to tests or CI configuration.
 
