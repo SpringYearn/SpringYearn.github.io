@@ -1,8 +1,11 @@
-import { Box3, DataTexture, DirectionalLight, Group, HemisphereLight, Mesh, MeshToonMaterial, NearestFilter, OrthographicCamera, RedFormat, Scene, Vector3, WebGLRenderer } from "three";
+import { Box3, Color, DataTexture, DirectionalLight, Group, HemisphereLight, Mesh, MeshToonMaterial, NearestFilter, OrthographicCamera, RedFormat, Scene, Vector3, WebGLRenderer } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
 
 export async function mountSpringLogo(host: HTMLElement): Promise<() => void> {
+  const theme = getComputedStyle(host);
+  const springColor = new Color(theme.getPropertyValue("--spring-leaf").trim());
+  const springInk = new Color(theme.getPropertyValue("--spring").trim());
   const renderer = new WebGLRenderer({ alpha: true, antialias: true });
   const gradient = new DataTexture(new Uint8Array([75, 155, 255]), 3, 1, RedFormat);
   gradient.minFilter = gradient.magFilter = NearestFilter;
@@ -32,17 +35,17 @@ export async function mountSpringLogo(host: HTMLElement): Promise<() => void> {
       if (object instanceof Mesh) {
         const previous = Array.isArray(object.material) ? object.material : [object.material];
         previous.forEach(material => material.dispose());
-        object.material = new MeshToonMaterial({ color: "#a7b99b", gradientMap: gradient });
+        object.material = new MeshToonMaterial({ color: springColor, gradientMap: gradient });
       }
     });
     const scene = new Scene();
     const turn = new Group();
     turn.add(model);
     turn.rotation.order = "YXZ";
-    scene.add(turn, new HemisphereLight(0xf4f3e9, 0x536358, .75));
-    const key = new DirectionalLight(0xfff5e4, 1.7);
+    scene.add(turn, new HemisphereLight(0xffffff, springInk, .75));
+    const key = new DirectionalLight(0xffffff, 1.7);
     key.position.set(-3, 5, 6);
-    const rim = new DirectionalLight(0xb7d4c6, .4);
+    const rim = new DirectionalLight(springColor, .4);
     rim.position.set(4, -1, 2);
     scene.add(key, rim);
     const camera = new OrthographicCamera(-2, 2, 2, -2, .1, 30);

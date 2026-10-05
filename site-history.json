@@ -4,13 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Set ratchet and blisters embedded previews to a quieter 25% initial volume while preserving manual volume changes during page interactions."
+      "Unified interface colors and the interactive toon logo with the supplied five-color palette: deep teal, mist blue, pale mint, cream and olive.",
+      "Redesigned the homepage Project Files entrance with an opening folder, a moving timeline and subtle Spring leaves, including mobile and reduced-motion support."
     ],
     "zh": [
-      "ratchet 與 blisters 內嵌預覽的初始音量調為 25%，頁面互動不會重設手動調整的音量。"
+      "全站介面與互動三渲二 Logo 統一使用提供的五色配色：深藍綠、霧藍、淡薄荷、米白及橄欖綠。",
+      "首頁 Project Files 入口加入展開專案匣、移動時間軸與細緻的 Spring 葉片，支援手機與減少動態效果。"
     ]
   },
   "releases": [
+    {
+      "version": "V.040",
+      "date": "2026-10-05",
+      "en": [
+        "Unified interface colors and the interactive toon logo with the supplied five-color palette: deep teal, mist blue, pale mint, cream and olive.",
+        "Redesigned the homepage Project Files entrance with an opening folder, a moving timeline and subtle Spring leaves, including mobile and reduced-motion support."
+      ],
+      "zh": [
+        "全站介面與互動三渲二 Logo 統一使用提供的五色配色：深藍綠、霧藍、淡薄荷、米白及橄欖綠。",
+        "首頁 Project Files 入口加入展開專案匣、移動時間軸與細緻的 Spring 葉片，支援手機與減少動態效果。"
+      ]
+    },
     {
       "version": "V.039",
       "date": "2026-10-05",
