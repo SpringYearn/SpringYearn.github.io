@@ -4,13 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a bilingual LAB notice that most available files are currently Traditional Chinese versions."
+      "Added a public Project Files page with separate After Effects and DaVinci Resolve sections, seven original downloads, video previews and a contact notice.",
+      "Added Project Files entrances on Home, Work and LAB."
     ],
     "zh": [
-      "LAB 新增雙語版本語言告示，說明目前大多數檔案為繁體中文版本。"
+      "新增公開 Project Files 頁面，分成 After Effects 與 DaVinci Resolve，收錄七個原始專案下載、影片預覽與聯絡告示。",
+      "首頁、作品頁與 LAB 新增 Project Files 入口。"
     ]
   },
   "releases": [
+    {
+      "version": "V.035",
+      "date": "2026-10-05",
+      "en": [
+        "Added a public Project Files page with separate After Effects and DaVinci Resolve sections, seven original downloads, video previews and a contact notice.",
+        "Added Project Files entrances on Home, Work and LAB."
+      ],
+      "zh": [
+        "新增公開 Project Files 頁面，分成 After Effects 與 DaVinci Resolve，收錄七個原始專案下載、影片預覽與聯絡告示。",
+        "首頁、作品頁與 LAB 新增 Project Files 入口。"
+      ]
+    },
     {
       "version": "V.034",
       "date": "2026-10-05",

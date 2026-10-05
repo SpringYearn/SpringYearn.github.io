@@ -551,6 +551,10 @@ export default function Home() {
             <strong>{t.labCta}<ArrowUpRight aria-hidden="true" /></strong>
           </div>
         </Link>
+        <Link href="/project-files" className="pf-gateway-link" data-reveal>
+          <span><span className="mono-label">PROJECT FILES / FREE PF</span><strong>{language === "en" ? "Open the project files" : "打開免費剪輯專案檔"}<ArrowUpRight aria-hidden="true" /></strong></span>
+          <span className="mono-label">AFTER EFFECTS<br />DAVINCI RESOLVE</span>
+        </Link>
       </section>
 
       <section id="profile" className="section-block profile-section" aria-labelledby="profile-title">
