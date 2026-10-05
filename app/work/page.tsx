@@ -9,7 +9,8 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown, Globe2 } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown } from "lucide-react";
+import { HeaderControls } from "../header-controls";
 import { Button } from "@/components/ui/button";
 import { projects, type Category, type Language } from "../portfolio-data";
 import { SiteStatus } from "../site-status";
@@ -225,16 +226,7 @@ export default function WorkArchive() {
           <Link href="/#profile">{t.nav.profile}</Link>
           <Link href="/#contact">{t.nav.contact}</Link>
         </nav>
-        <Button
-          type="button"
-          variant="outline"
-          className="language-switch"
-          onClick={() => setLanguage((current) => (current === "en" ? "zh" : "en"))}
-          aria-label={language === "en" ? "Switch to Chinese" : "切換為英文"}
-        >
-          <Globe2 aria-hidden="true" />
-          {language === "en" ? "中文" : "EN"}
-        </Button>
+        <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
       <section className="work-archive-hero" aria-labelledby="archive-title">

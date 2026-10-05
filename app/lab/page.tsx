@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown, Globe2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown } from "lucide-react";
+import { HeaderControls } from "../header-controls";
 import { SiteStatus } from "../site-status";
 import { ForNever } from "../for-never";
 import { labExperiments } from "../lab-data";
@@ -131,11 +131,7 @@ export default function LabPage() {
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/#contact">{t.contact}</Link>
         </nav>
-        <Button type="button" variant="outline" className="language-switch"
-          onClick={() => setLanguage(current => current === "en" ? "zh" : "en")}
-          aria-label={language === "en" ? "Switch to Chinese" : "切換為英文"}>
-          <Globe2 aria-hidden="true" />{language === "en" ? "中文" : "EN"}
-        </Button>
+        <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block lab-hero" aria-labelledby="lab-title">
         <div className="work-archive-top mono-label"><span>LAB / EXPERIMENTS</span><span>{t.count}</span></div>
