@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Unified interface colors and the interactive toon logo with the supplied five-color palette: deep teal, mist blue, pale mint, cream and olive.",
-      "Redesigned the homepage Project Files entrance with an opening folder, a moving timeline and subtle Spring leaves, including mobile and reduced-motion support."
+      "Brightened the shared palette with a nearly white background and softer, less saturated blue-green and leaf tones while retaining readable control text.",
+      "Concealed the memorial note behind a deliberate footer interaction on Home, Work and LAB, preserving its bilingual verses."
     ],
     "zh": [
-      "全站介面與互動三渲二 Logo 統一使用提供的五色配色：深藍綠、霧藍、淡薄荷、米白及橄欖綠。",
-      "首頁 Project Files 入口加入展開專案匣、移動時間軸與細緻的 Spring 葉片，支援手機與減少動態效果。"
+      "背景調為接近白色，藍綠與葉片色提亮並降低飽和度，控制項文字保留清楚對比。",
+      "首頁、作品與 LAB 的紀念文字改為特定頁尾互動後才出現，保留原本中英紀念詩。"
     ]
   },
   "releases": [
+    {
+      "version": "V.041",
+      "date": "2026-10-05",
+      "en": [
+        "Brightened the shared palette with a nearly white background and softer, less saturated blue-green and leaf tones while retaining readable control text.",
+        "Concealed the memorial note behind a deliberate footer interaction on Home, Work and LAB, preserving its bilingual verses."
+      ],
+      "zh": [
+        "背景調為接近白色，藍綠與葉片色提亮並降低飽和度，控制項文字保留清楚對比。",
+        "首頁、作品與 LAB 的紀念文字改為特定頁尾互動後才出現，保留原本中英紀念詩。"
+      ]
+    },
     {
       "version": "V.040",
       "date": "2026-10-05",

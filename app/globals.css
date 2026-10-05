@@ -3,25 +3,25 @@
 @import "../vendor/shadcn-tailwind-4.13.0.css";
 
 :root {
-  /* Five-color palette supplied by SpringYearn. */
-  --spring: #00738c;
-  --spring-rgb: 0,115,140;
-  --spring-ink: var(--spring);
-  --spring-ink-rgb: var(--spring-rgb);
-  --spring-mist: #81b0b2;
-  --spring-mist-rgb: 129,176,178;
-  --spring-soft: #d6ead4;
-  --spring-soft-rgb: 214,234,212;
-  --spring-leaf: #97a675;
-  --spring-leaf-rgb: 151,166,117;
-  --paper-rgb: 239,242,217;
-  --background: #eff2d9;
+  /* A lighter, quieter adaptation of SpringYearn's five-color palette. */
+  --spring: #8aa9ac;
+  --spring-rgb: 138,169,172;
+  --spring-ink: #4e6c70;
+  --spring-ink-rgb: 78,108,112;
+  --spring-mist: #bdcfce;
+  --spring-mist-rgb: 189,207,206;
+  --spring-soft: #e7eee6;
+  --spring-soft-rgb: 231,238,230;
+  --spring-leaf: #adb8a0;
+  --spring-leaf-rgb: 173,184,160;
+  --paper-rgb: 247,248,245;
+  --background: #f7f8f5;
   --foreground: #11110f;
   --card: var(--spring-soft);
   --card-foreground: var(--foreground);
   --popover: var(--background);
   --popover-foreground: var(--foreground);
-  --primary: var(--spring);
+  --primary: var(--spring-ink);
   --primary-foreground: var(--background);
   --secondary: var(--spring-mist);
   --secondary-foreground: var(--foreground);
@@ -2220,7 +2220,7 @@ html.has-art-cursor .spring-logo.is-dragging { cursor: grabbing; }
 .pf-gateway-meta span::before { content: ""; width: 5px; height: 5px; border: 1px solid currentColor; }
 .pf-gateway-action { align-self: stretch; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; gap: 2rem; padding-left: 1.5rem; border-left: 1px solid rgba(var(--spring-ink-rgb),.25); }
 .pf-gateway-action > .mono-label { font-size: .55rem; color: var(--spring-ink); }
-.pf-gateway-arrow { color: var(--spring); display: grid; place-items: center; width: 58px; height: 58px; border: 1px solid var(--spring-ink); border-radius: 50%; background: var(--spring-soft); transition: background 300ms ease,transform 300ms ease; }
+.pf-gateway-arrow { color: var(--spring-ink); display: grid; place-items: center; width: 58px; height: 58px; border: 1px solid var(--spring-ink); border-radius: 50%; background: var(--spring-soft); transition: background 300ms ease,transform 300ms ease; }
 .pf-gateway-arrow svg { width: 26px; height: 26px; transition: transform 300ms ease; }
 .pf-gateway-link:is(:hover,:focus-visible) { background: rgba(var(--spring-mist-rgb),.22); }
 .pf-gateway-link:is(:hover,:focus-visible) .pf-folder-sheet { transform: translateY(-18px) rotate(-3deg); }
@@ -3179,21 +3179,23 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 
 .for-never { position: relative; margin-left: auto; }
 .for-never + .legacy-index { margin-left: .6rem; }
-.for-never summary { display: flex; align-items: center; gap: .55rem; min-height: 44px; padding: 0 .3rem; color: var(--spring-ink); list-style: none; cursor: pointer; text-transform: none; transition: color 200ms ease; }
-.for-never summary::-webkit-details-marker { display: none; }
-.for-never summary:focus-visible { outline: 1px solid var(--spring-ink); outline-offset: 3px; }
-.for-never summary .for-never-frame { width: 30px; height: 18px; stroke: currentColor; stroke-width: .8; }
+.for-never-trigger { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--muted-foreground); opacity: .45; cursor: pointer; touch-action: manipulation; transition: opacity 200ms ease,color 200ms ease; }
+.for-never-trigger:focus-visible { outline: 1px solid var(--spring-ink); outline-offset: 3px; opacity: 1; }
+.for-never-frame { width: 24px; height: 18px; stroke: currentColor; stroke-width: .8; }
 .for-never-continuation { stroke-dasharray: 25; stroke-dashoffset: 14; transition: stroke-dashoffset 600ms ease; }
-.for-never-mark { white-space: nowrap; }
-.for-never summary:hover, .for-never summary:focus-visible, .for-never[open] summary { color: var(--spring-ink); }
-.for-never summary:hover .for-never-continuation, .for-never summary:focus-visible .for-never-continuation, .for-never[open] .for-never-continuation { stroke-dashoffset: 0; }
-.for-never-note { position: absolute; right: 0; bottom: calc(100% + .8rem); width: min(320px, calc(100vw - 48px)); padding: 1.5rem; border: 1px solid var(--spring-ink); background: var(--background); z-index: 65; text-transform: none; letter-spacing: normal; }
-.for-never-title { margin: 0 0 1.25rem; color: var(--spring-ink); font-size: .75rem; letter-spacing: .08em; }
+.for-never-trigger:is(:hover,:focus-visible) { color: var(--spring-ink); opacity: 1; }
+.for-never-trigger:is(:hover,:focus-visible) .for-never-continuation { stroke-dashoffset: 0; }
+.for-never-overlay { position: fixed; inset: 0; background: rgba(17,17,15,.16); z-index: 100; }
+.for-never-note { position: fixed; left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(430px,calc(100vw - 40px)); max-height: calc(100svh - 40px); overflow-y: auto; padding: clamp(1.5rem,4vw,2rem); border: 1px solid rgba(var(--spring-ink-rgb),.5); background: var(--background); z-index: 101; text-transform: none; letter-spacing: normal; box-shadow: 0 12px 50px rgba(17,17,15,.08); }
+.for-never-close { display: grid; place-items: center; width: 44px; height: 44px; margin: -.5rem -.5rem .75rem auto; padding: 0; color: var(--spring-ink); border: 0; background: transparent; cursor: pointer; }
+.for-never-close svg { width: 18px; height: 18px; }
+.for-never-close:focus-visible { outline: 1px solid var(--spring-ink); outline-offset: 2px; }
+.for-never-title { margin: 0 0 1.25rem; color: var(--spring-ink); font-family: var(--font-mono); font-weight: 400; font-size: .75rem; letter-spacing: .08em; }
 .for-never-verse { margin: 0; font-family: var(--font-sans); font-size: .85rem; line-height: 2; white-space: pre-line; }
 .for-never-signature { margin: 1.5rem 0 0; color: var(--spring-ink); font-size: .58rem; letter-spacing: .12em; text-align: right; }
-@media (pointer: fine) { html.has-art-cursor .for-never summary { cursor: none; } }
-@media (max-width: 620px) { .for-never, .for-never + .legacy-index { margin-left: 0; } .for-never-note { right: auto; left: 0; } }
-@media (prefers-reduced-motion: reduce) { .for-never summary, .for-never-continuation { transition: none; } }
+@media (pointer: fine) { html.has-art-cursor :is(.for-never-trigger,.for-never-close) { cursor: none; } }
+@media (max-width: 620px) { .for-never, .for-never + .legacy-index { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .for-never-trigger, .for-never-continuation { transition: none; } }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .pf-gateway-link:is(:hover,:focus-visible) .spring-leaf-left { animation: spring-leaf-left-sway 2.8s ease-in-out infinite; fill: rgba(var(--spring-leaf-rgb),.16); }

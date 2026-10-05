@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { Dialog } from "radix-ui";
+import { X } from "lucide-react";
 import type { Language } from "./portfolio-data";
 
 const verses = {
@@ -16,20 +21,42 @@ const verses = {
 };
 
 export function ForNever({ language, place }: { language: Language; place: keyof typeof verses }) {
+  const [open, setOpen] = useState(false);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const sequence = useRef({ count: 0, started: 0 });
+  const resetSequence = () => { sequence.current = { count: 0, started: 0 }; };
+  const pause = () => {
+    const now = performance.now();
+    const previous = sequence.current;
+    sequence.current = !previous.count || now - previous.started > 4000
+      ? { count: 1, started: now }
+      : { ...previous, count: previous.count + 1 };
+    if (sequence.current.count === 4) {
+      resetSequence();
+      setOpen(true);
+    }
+  };
   return (
-    <details className="for-never">
-      <summary aria-label={language === "en" ? "Remembering 4NEVER" : "紀念 4NEVER"}>
+    <div className="for-never">
+      <button ref={trigger} type="button" className="for-never-trigger" onClick={pause} onBlur={resetSequence}
+        onKeyDown={event => { if (event.repeat && (event.key === "Enter" || event.key === " ")) event.preventDefault(); }}
+        aria-label={language === "en" ? "Pause a moment" : "停留片刻"}>
         <svg className="for-never-frame" viewBox="0 0 38 18" fill="none" aria-hidden="true">
           <path d="M17 5V2H2V16H17V13" />
           <path className="for-never-continuation" d="M11 9H36" />
         </svg>
-        <span className="for-never-mark" aria-hidden="true">4NEVER</span>
-      </summary>
-      <div className="for-never-note">
-        <p className="for-never-title">{language === "en" ? "In memory of 4NEVER" : "紀念 4NEVER"}</p>
-        <p className="for-never-verse">{verses[place][language]}</p>
-        <p className="for-never-signature">— SpringYearn</p>
-      </div>
-    </details>
+      </button>
+      <Dialog.Root open={open} onOpenChange={next => { resetSequence(); setOpen(next); }}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="for-never-overlay" />
+          <Dialog.Content className="for-never-note" onCloseAutoFocus={event => { event.preventDefault(); trigger.current?.focus(); }}>
+            <Dialog.Close asChild><button type="button" className="for-never-close" aria-label={language === "en" ? "Close this note" : "關閉紀念文字"}><X aria-hidden="true" /></button></Dialog.Close>
+            <Dialog.Title className="for-never-title">{language === "en" ? "In memory of 4NEVER" : "紀念 4NEVER"}</Dialog.Title>
+            <Dialog.Description className="for-never-verse">{verses[place][language]}</Dialog.Description>
+            <p className="for-never-signature">— SpringYearn</p>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </div>
   );
 }
