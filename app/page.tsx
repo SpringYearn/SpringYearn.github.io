@@ -13,6 +13,7 @@ import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
 import { SpringMark } from "./spring-mark";
+import { ProjectFilesGateway } from "./project-files-gateway";
 import { labExperiments } from "./lab-data";
 
 type Language = "en" | "zh";
@@ -543,10 +544,7 @@ export default function Home() {
             <strong>{t.labCta}<ArrowUpRight aria-hidden="true" /></strong>
           </div>
         </Link>
-        <Link href="/project-files" className="pf-gateway-link" data-reveal>
-          <span><span className="mono-label">PROJECT FILES / FREE PF</span><strong>{language === "en" ? "Open the project files" : "打開免費剪輯專案檔"}<ArrowUpRight aria-hidden="true" /></strong></span>
-          <span className="mono-label">07 / {language === "en" ? "FREE DOWNLOADS" : "免費下載"}<br />AFTER EFFECTS<br />DAVINCI RESOLVE</span>
-        </Link>
+        <ProjectFilesGateway language={language} />
       </section>
 
       <section id="profile" className="section-block profile-section" aria-labelledby="profile-title">
