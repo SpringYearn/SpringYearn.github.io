@@ -390,7 +390,7 @@ export default function Home() {
         <span className="cursor-core" />
       </div>
 
-      <header className={`site-header${hasScrolled ? " is-scrolled" : ""}`}>
+      <header className={`site-header home-header${hasScrolled ? " is-scrolled" : ""}`}>
         <a className="wordmark" href="#top" aria-label="SpringYearn home">
           <span className="wordmark-symbol">
             <img src="/logo.png" alt="" />
@@ -401,6 +401,7 @@ export default function Home() {
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/work">{t.nav.work}</Link>
           <Link href="/lab">LAB</Link>
+          <Link href="/project-files" className="pf-nav-link">{language === "en" ? "Project files" : "專案檔"}</Link>
           <a href="#profile">{t.nav.profile}</a>
           <a href="#contact">{t.nav.contact}</a>
         </nav>
@@ -553,7 +554,7 @@ export default function Home() {
         </Link>
         <Link href="/project-files" className="pf-gateway-link" data-reveal>
           <span><span className="mono-label">PROJECT FILES / FREE PF</span><strong>{language === "en" ? "Open the project files" : "打開免費剪輯專案檔"}<ArrowUpRight aria-hidden="true" /></strong></span>
-          <span className="mono-label">AFTER EFFECTS<br />DAVINCI RESOLVE</span>
+          <span className="mono-label">07 / {language === "en" ? "FREE DOWNLOADS" : "免費下載"}<br />AFTER EFFECTS<br />DAVINCI RESOLVE</span>
         </Link>
       </section>
 

@@ -1,6 +1,6 @@
 # Public Project Files
 
-`/project-files/` groups seven free editing projects into After Effects (five) and DaVinci Resolve (two). Each entry has a video preview and a public download link. The page follows the existing language switch, cursor, reveal animation, site status and responsive layout.
+`/project-files/` groups seven free editing projects into After Effects (five) and DaVinci Resolve (two). The category buttons show one application at a time, with After Effects selected initially. Each entry has a video preview and a public download link. The page follows the existing language switch, cursor, reveal animation, site status and responsive layout. The homepage provides a highlighted entrance and a top navigation link on both desktop and mobile.
 
 The original `FREE PF.zip` was extracted once outside the repository. Individual project ZIPs were copied unchanged and were never unpacked. `desktop.ini` is excluded. `ratchet.aep` is supplied directly in its original form.
 
