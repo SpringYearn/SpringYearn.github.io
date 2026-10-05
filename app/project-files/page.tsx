@@ -39,6 +39,10 @@ function formatSize(bytes: number) {
   return bytes >= 1_000_000_000 ? (bytes / 1_000_000_000).toFixed(2) + " GB" : (bytes / 1_000_000).toFixed(1) + " MB";
 }
 
+function initializePreviewVolume(video: HTMLVideoElement | null) {
+  if (video) video.volume = 0.25;
+}
+
 export default function ProjectFilesPage() {
   const [language, setLanguage] = useState<"en" | "zh">("en");
   const [software, setSoftware] = useState<"ae" | "davinci">("ae");
@@ -161,7 +165,7 @@ export default function ProjectFilesPage() {
                 <div className="pf-card-meta mono-label"><span>{group.abbreviation} / {String(index + 1).padStart(2, "0")}</span><span>{formatSize(file.bytes)}</span></div>
                 {"youtubeId" in file.preview ? <a className="pf-preview-link" href={previewUrl} target="_blank" rel="noreferrer" aria-label={t.preview + " — " + file.title}>
                   <img loading="lazy" src={"https://i.ytimg.com/vi/" + file.preview.youtubeId + "/hqdefault.jpg"} alt={file.title + " — " + t.preview} /><span className="pf-play-mark" aria-hidden="true"><Play /></span>
-                </a> : <video className="pf-preview-video" controls playsInline preload="none" poster={file.preview.poster} aria-label={t.preview + " — " + file.title}><source src={file.preview.video} type="video/mp4" /><a href={previewUrl}>{t.preview}</a></video>}
+                </a> : <video ref={initializePreviewVolume} className="pf-preview-video" controls playsInline preload="none" poster={file.preview.poster} aria-label={t.preview + " — " + file.title}><source src={file.preview.video} type="video/mp4" /><a href={previewUrl}>{t.preview}</a></video>}
                 <div className="pf-card-copy"><h3>{file.title}</h3><p><span>{file.filename.endsWith(".aep") ? t.aepNote : t.zipNote}</span><span className="mono-label">{file.filename.endsWith(".aep") ? "AEP" : "ZIP"}</span></p></div>
                 <div className="pf-card-actions"><a className="text-link pf-preview-action" href={previewUrl} target="_blank" rel="noreferrer">{t.preview}<ArrowUpRight aria-hidden="true" /></a>
                   <a className="pf-download-link" href={file.downloadUrl} download={file.downloadUrl.startsWith("/") ? file.filename : undefined} target={file.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer" aria-label={t.download + " — " + file.title}><span>{t.download}</span><Download aria-hidden="true" /></a></div>

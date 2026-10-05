@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a compact press-and-release animation to the mobile menu open and close buttons, with reduced-motion support."
+      "Set ratchet and blisters embedded previews to a quieter 25% initial volume while preserving manual volume changes during page interactions."
     ],
     "zh": [
-      "手機選單開啟與關閉按鈕加入縮放回彈、圖示輕轉的點按動畫，並支援減少動態效果。"
+      "ratchet 與 blisters 內嵌預覽的初始音量調為 25%，頁面互動不會重設手動調整的音量。"
     ]
   },
   "releases": [
+    {
+      "version": "V.039",
+      "date": "2026-10-05",
+      "en": [
+        "Set ratchet and blisters embedded previews to a quieter 25% initial volume while preserving manual volume changes during page interactions."
+      ],
+      "zh": [
+        "ratchet 與 blisters 內嵌預覽的初始音量調為 25%，頁面互動不會重設手動調整的音量。"
+      ]
+    },
     {
       "version": "V.038",
       "date": "2026-10-05",
