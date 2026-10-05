@@ -4,15 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a public Project Files page with separate After Effects and DaVinci Resolve sections, seven original downloads, video previews and a contact notice.",
-      "Added Project Files entrances on Home, Work and LAB."
+      "Highlighted the homepage Project Files entrance and added desktop/mobile top navigation.",
+      "Aligned the Project Files category controls and made AE/DaVinci buttons filter the files, with an active selection.",
+      "Simplified the bilingual contact notice."
     ],
     "zh": [
-      "新增公開 Project Files 頁面，分成 After Effects 與 DaVinci Resolve，收錄七個原始專案下載、影片預覽與聯絡告示。",
-      "首頁、作品頁與 LAB 新增 Project Files 入口。"
+      "強化首頁 Project Files 入口，加入桌面與手機頂部導覽。",
+      "修正專案檔分類按鈕對齊，AE／DaVinci 按鈕改為實際篩選並標示選取狀態。",
+      "簡化中英聯絡告示文字。"
     ]
   },
   "releases": [
+    {
+      "version": "V.036",
+      "date": "2026-10-05",
+      "en": [
+        "Highlighted the homepage Project Files entrance and added desktop/mobile top navigation.",
+        "Aligned the Project Files category controls and made AE/DaVinci buttons filter the files, with an active selection.",
+        "Simplified the bilingual contact notice."
+      ],
+      "zh": [
+        "強化首頁 Project Files 入口，加入桌面與手機頂部導覽。",
+        "修正專案檔分類按鈕對齊，AE／DaVinci 按鈕改為實際篩選並標示選取狀態。",
+        "簡化中英聯絡告示文字。"
+      ]
+    },
     {
       "version": "V.035",
       "date": "2026-10-05",

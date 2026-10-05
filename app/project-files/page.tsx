@@ -13,7 +13,7 @@ const copy = {
     title: "The edit,\nopened up.",
     intro: "Project files from my edits, shared freely. Watch the finished piece, open the timeline, and explore how it came together.",
     count: "07 files / 02 applications", free: "Free / public downloads",
-    help: "If you have any related questions, contact me (SpringYearn). I’m happy to help.",
+    help: "If you have any related questions, contact me. I’m happy to help.",
     helpLabel: "A note from SpringYearn", preview: "Watch preview", download: "Free download",
     aeNote: "Compositions, layers and the details behind the edit.", davinciNote: "A closer look at the rhythm and structure of the timeline.",
     fileLabel: "Project file", aepNote: "Original .aep project file", zipNote: "Original ZIP package",
@@ -23,7 +23,7 @@ const copy = {
     title: "把剪輯打開，\n把想法分享出去。",
     intro: "把我免費分享的剪輯專案檔整理在這裡。先看完成的影片，再打開時間軸，看看每個畫面是如何拼起來的。",
     count: "07 個檔案 / 02 種軟體", free: "免費 / 公開下載",
-    help: "有任何相關問題可以聯絡我（SpringYearn），我很樂意解答。",
+    help: "有任何相關問題可以聯絡我，我很樂意解答。",
     helpLabel: "來自 SpringYearn 的小提醒", preview: "觀看影片預覽", download: "免費下載",
     aeNote: "從合成、圖層到細節，打開剪輯背後的安排。", davinciNote: "走進時間軸，看看節奏與畫面是如何安排的。",
     fileLabel: "專案檔", aepNote: "原始 .aep 專案檔", zipNote: "原始 ZIP 專案包",
@@ -41,9 +41,14 @@ function formatSize(bytes: number) {
 
 export default function ProjectFilesPage() {
   const [language, setLanguage] = useState<"en" | "zh">("en");
+  const [software, setSoftware] = useState<"ae" | "davinci">("ae");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const t = copy[language];
+  const selectSoftware = (next: "ae" | "davinci") => {
+    document.querySelectorAll<HTMLVideoElement>(".pf-preview-video").forEach(video => video.pause());
+    setSoftware(next);
+  };
   useEffect(() => {
     const root = document.documentElement;
     root.classList.add("motion-ready");
@@ -146,11 +151,11 @@ export default function ProjectFilesPage() {
         </nav>
       </section>
       <aside className="pf-help-note" aria-label={t.helpLabel}><div><span className="mono-label">{t.free}</span><p>{t.help}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></aside>
-      <nav className="pf-category-index" aria-label={language === "en" ? "Project file categories" : "專案檔分類"}>
-        {groups.map(group => <a key={group.id} href={"#" + group.id}><span>{group.name}</span><span className="mono-label">{String(projectFiles.filter(file => file.software === group.id).length).padStart(2, "0")}<ArrowUpRight aria-hidden="true" /></span></a>)}
-      </nav>
+      <div className="pf-category-index" role="group" aria-label={language === "en" ? "Project file categories" : "專案檔分類"}>
+        {groups.map(group => <button type="button" key={group.id} aria-pressed={software === group.id} aria-controls={group.id} onClick={() => selectSoftware(group.id)}><span>{group.name}</span><span className="mono-label">{String(projectFiles.filter(file => file.software === group.id).length).padStart(2, "0")}</span></button>)}
+      </div>
       {groups.map((group, groupIndex) => (
-        <section className="pf-group" key={group.id} id={group.id} aria-labelledby={group.id + "-title"}>
+        <section className="pf-group" key={group.id} id={group.id} aria-labelledby={group.id + "-title"} hidden={software !== group.id}>
           <div className="pf-group-heading" data-reveal><span className="pf-software-mark" aria-hidden="true">{group.abbreviation}</span><div><p className="mono-label">0{groupIndex + 1} / PROJECT FILES</p><h2 id={group.id + "-title"}>{group.name}</h2><p>{group.id === "ae" ? t.aeNote : t.davinciNote}</p></div></div>
           <div className="pf-grid">
             {projectFiles.filter(file => file.software === group.id).map((file, index) => {
