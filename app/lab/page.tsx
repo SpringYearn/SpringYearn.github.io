@@ -17,6 +17,8 @@ const copy = {
     intro: "A development log of DaVinci Resolve and Fusion tools built to test workflows, solve specific problems, or explore ideas that existing tools did not quite cover.",
     count: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`, back: "Return home", top: "Back to top",
     access: "These experimental builds are available for authorized testing only. To request a download, please contact SpringYearn directly for access.",
+    buildLanguage: "Build language",
+    languageNotice: "Most files currently available here are Traditional Chinese versions.",
     sort: "Sort by", direction: "Order", asc: "Ascending", desc: "Descending",
     sortKeys: { original: "Original order", updated: "Last updated", created: "Created date", name: "Name", type: "Tool type" },
     sorted: "Current order:",
@@ -27,6 +29,8 @@ const copy = {
     intro: "記錄我在 DaVinci Resolve 與 Fusion 裡做過的工具、插件與實驗。它們有些已經可用，有些仍是原型或研究，重點是把想法真的做出來測試。",
     count: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`, back: "返回首頁", top: "回到頂端",
     access: "此實驗版本僅提供授權測試。若需要下載，請直接聯絡 SpringYearn 取得存取權限。",
+    buildLanguage: "版本語言",
+    languageNotice: "目前大多數檔案都是繁體中文版本。",
     sort: "排列依據", direction: "排列方向", asc: "升序", desc: "降序",
     sortKeys: { original: "原始順序", updated: "最後更新日", created: "建立日期", name: "名稱", type: "工具類型" },
     sorted: "目前排列：",
@@ -143,7 +147,7 @@ export default function LabPage() {
         </nav>
       </section>
       <section className="section-block lab-records" aria-label={t.count}>
-        <div className="lab-access-note"><p>{t.access}</p><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
+        <div className="lab-access-note"><div><p>{t.access}</p><p className="lab-language-note"><span>{t.buildLanguage}</span>{t.languageNotice}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
         <div className="lab-sort-controls">
           <label className="lab-sort-field" htmlFor="lab-sort-key"><span>{t.sort}</span><span className="lab-sort-select">
             <select id="lab-sort-key" value={sortKey} onChange={event => setSortKey(event.target.value as LabSortKey)}>
