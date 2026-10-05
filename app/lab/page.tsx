@@ -12,7 +12,7 @@ import { sortLabProjects, type LabSortDirection, type LabSortKey } from "./proje
 
 const copy = {
   en: {
-    home: "Home", work: "Work archive", contact: "Contact",
+    home: "Home", work: "Work archive", contact: "Contact", files: "Project files",
     title: "Tools, prototypes,\nand useful detours.",
     intro: "A development log of DaVinci Resolve and Fusion tools built to test workflows, solve specific problems, or explore ideas that existing tools did not quite cover.",
     count: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`, back: "Return home", top: "Back to top",
@@ -24,7 +24,7 @@ const copy = {
     sorted: "Current order:",
   },
   zh: {
-    home: "首頁", work: "作品集", contact: "聯絡",
+    home: "首頁", work: "作品集", contact: "聯絡", files: "專案檔",
     title: "把奇怪的問題，\n做成可以測試的工具。",
     intro: "記錄我在 DaVinci Resolve 與 Fusion 裡做過的工具、插件與實驗。它們有些已經可用，有些仍是原型或研究，重點是把想法真的做出來測試。",
     count: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`, back: "返回首頁", top: "回到頂端",
@@ -144,6 +144,7 @@ export default function LabPage() {
         <nav className="lab-page-links" aria-label={language === "en" ? "Explore the site" : "網站導覽"}>
           <Link href="/" className="text-link archive-home-link"><ArrowLeft aria-hidden="true" />{t.back}</Link>
           <Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link>
+          <Link href="/project-files" className="text-link">{t.files}<ArrowUpRight aria-hidden="true" /></Link>
         </nav>
       </section>
       <section className="section-block lab-records" aria-label={t.count}>

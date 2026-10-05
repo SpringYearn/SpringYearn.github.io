@@ -221,6 +221,7 @@ export default function WorkArchive() {
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/">{t.nav.home}</Link>
           <Link href="/lab">LAB</Link>
+          <Link href="/project-files">{language === "en" ? "Project files" : "專案檔"}</Link>
           <Link href="/#profile">{t.nav.profile}</Link>
           <Link href="/#contact">{t.nav.contact}</Link>
         </nav>
