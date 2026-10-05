@@ -12,22 +12,22 @@ const copy = {
   en: {
     download: "DOWNLOAD CURRENT BUILD", title: "Authorized testing",
     notice: "These experimental builds are available for authorized testing only. To request a download, please contact SpringYearn directly for access.",
-    archive: "AES-256 encrypted ZIP. Extract it with your authorized password, then open the original build ZIP inside.",
+    archive: "Enter your access password once to download the original ZIP. No password is needed to extract the downloaded file.",
     contact: "Contact SpringYearn", close: "Close", password: "Access password",
     verify: "Verify & download", confirm: "Confirm", busy: "Verifying…", denied: "Unable to authorize this download. Please check your access or contact SpringYearn.",
     unavailable: "No downloadable build",
     failed: "The download could not be completed. Please try again or contact SpringYearn.",
-    success: "Download started. The ZIP also requires your authorized password to extract.",
+    success: "Download started. You can extract the ZIP without entering a password.",
   },
   zh: {
     download: "下載目前版本 / DOWNLOAD CURRENT BUILD", title: "授權測試",
     notice: "此實驗版本僅提供授權測試。若需要下載，請直接聯絡 SpringYearn 取得存取權限。",
-    archive: "AES-256 加密 ZIP。以授權密碼解壓縮後，再開啟其中的原始版本 ZIP。",
+    archive: "輸入一次存取密碼即可下載原始 ZIP，下載後解壓縮不需再輸入密碼。",
     contact: "聯絡 SpringYearn", close: "關閉", password: "存取密碼",
     verify: "驗證並下載", confirm: "確認下載", busy: "驗證中⋯⋯", denied: "無法授權此下載，請確認存取權限或聯絡 SpringYearn。",
     unavailable: "未提供下載版本",
     failed: "下載未能完成，請重試或聯絡 SpringYearn。",
-    success: "已開始下載，解壓縮 ZIP 時亦需輸入授權密碼。",
+    success: "已開始下載，ZIP 可直接解壓縮，不需再輸入密碼。",
   },
 };
 
@@ -88,12 +88,12 @@ export function LabDownload({ project, language }: {
       }
       const file = await response.blob();
       if (request.signal.aborted) return;
-      await verifyEncryptedBuild(file, password, build, request.signal);
+      const original = await verifyEncryptedBuild(file, password, build, request.signal);
       if (request.signal.aborted) return;
-      const url = URL.createObjectURL(file);
+      const url = URL.createObjectURL(original);
       const link = document.createElement("a");
       link.href = url;
-      link.download = build.filename;
+      link.download = build.originalFilename;
       document.body.appendChild(link);
       link.click();
       link.remove();

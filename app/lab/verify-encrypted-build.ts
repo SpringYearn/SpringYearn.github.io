@@ -1,4 +1,4 @@
-/** Verify the actual encrypted payload; no frontend password or verifier is stored. */
+/** Authenticate the encrypted envelope and return its original build ZIP. */
 export async function verifyEncryptedBuild(
   file: Blob,
   password: string,
@@ -11,7 +11,7 @@ export async function verifyEncryptedBuild(
   const hash = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
   if (hash !== build.sha256) throw new Error("Invalid build checksum");
 
-  const { ZipReader, BlobReader, ERR_INVALID_PASSWORD } = await import("@zip.js/zip.js/lib/zip-core-native.js");
+  const { ZipReader, BlobReader, BlobWriter, ERR_INVALID_PASSWORD } = await import("@zip.js/zip.js/lib/zip-core-native.js");
   const reader = new ZipReader(new BlobReader(file), {
     useWebWorkers: false, checkSignature: true, checkAuthenticationCode: true,
   });
@@ -23,12 +23,14 @@ export async function verifyEncryptedBuild(
       || entry.uncompressedSize !== build.originalBytes) {
       throw new Error("Invalid encrypted build");
     }
-    // Consume the complete entry to verify the AES authentication code, rather
-    // than accepting only the ZIP's short password-check bytes. Discard plaintext.
-    await entry.getData(new WritableStream({ write() {} }), {
+    // Return plaintext only after the entire entry passes AES authentication.
+    const original = await entry.getData(new BlobWriter("application/zip"), {
       password, signal, useWebWorkers: false,
       checkSignature: true, checkAuthenticationCode: true,
     });
+    if (signal?.aborted) throw new DOMException("Cancelled", "AbortError");
+    if (original.size !== build.originalBytes) throw new Error("Invalid original build size");
+    return original;
   } catch (error) {
     if (error instanceof Error && error.message === ERR_INVALID_PASSWORD) throw new Error("ACCESS_DENIED");
     throw error;
