@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "LAB downloads now deliver the original unencrypted ZIP after one website password check, while public build files remain encrypted."
+      "Added a bilingual LAB notice that most available files are currently Traditional Chinese versions."
     ],
     "zh": [
-      "LAB 下載改為在網站輸入一次密碼後，直接取得不需密碼解壓的原始 ZIP；公開存放的版本仍保留加密保護。"
+      "LAB 新增雙語版本語言告示，說明目前大多數檔案為繁體中文版本。"
     ]
   },
   "releases": [
+    {
+      "version": "V.034",
+      "date": "2026-10-05",
+      "en": [
+        "Added a bilingual LAB notice that most available files are currently Traditional Chinese versions."
+      ],
+      "zh": [
+        "LAB 新增雙語版本語言告示，說明目前大多數檔案為繁體中文版本。"
+      ]
+    },
     {
       "version": "V.033",
       "date": "2026-10-05",

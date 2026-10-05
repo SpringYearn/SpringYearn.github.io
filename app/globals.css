@@ -2141,6 +2141,8 @@ html.has-art-cursor .spring-logo.is-dragging { cursor: grabbing; }
 .lab-access-note { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.5rem 0; border-top: 1px solid var(--foreground); }
 .lab-access-note p { max-width: 740px; margin: 0; font-size: .88rem; line-height: 1.7; color: rgba(17,17,15,.68); }
 .lab-access-note a { flex-shrink: 0; }
+.lab-access-note .lab-language-note { margin-top: .65rem; }
+.lab-language-note > span { margin-right: .75rem; color: #42645e; font-weight: 500; }
 .lab-sort-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0 1.5rem; font-family: var(--font-mono); font-size: .7rem; }
 .lab-sort-field { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
 .lab-sort-field > span:first-child { color: #62665c; }
