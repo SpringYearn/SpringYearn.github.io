@@ -7,8 +7,8 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Globe2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import { HeaderControls } from "./header-controls";
 import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
@@ -390,7 +390,7 @@ export default function Home() {
         <span className="cursor-core" />
       </div>
 
-      <header className={`site-header home-header${hasScrolled ? " is-scrolled" : ""}`}>
+      <header className={`site-header${hasScrolled ? " is-scrolled" : ""}`}>
         <a className="wordmark" href="#top" aria-label="SpringYearn home">
           <span className="wordmark-symbol">
             <img src="/logo.png" alt="" />
@@ -401,20 +401,11 @@ export default function Home() {
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/work">{t.nav.work}</Link>
           <Link href="/lab">LAB</Link>
-          <Link href="/project-files" className="pf-nav-link">{language === "en" ? "Project files" : "專案檔"}</Link>
+          <Link href="/project-files">{language === "en" ? "Project files" : "專案檔"}</Link>
           <a href="#profile">{t.nav.profile}</a>
           <a href="#contact">{t.nav.contact}</a>
         </nav>
-        <Button
-          type="button"
-          variant="outline"
-          className="language-switch"
-          onClick={() => setLanguage((current) => (current === "en" ? "zh" : "en"))}
-          aria-label={language === "en" ? "Switch to Chinese" : "切換為英文"}
-        >
-          <Globe2 aria-hidden="true" />
-          {language === "en" ? "中文" : "EN"}
-        </Button>
+        <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
       <section className="hero" aria-labelledby="hero-title">
