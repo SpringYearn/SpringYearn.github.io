@@ -1,6 +1,6 @@
 # Toolkit logos
 
-These assets identify software used by SpringYearn. Official symbol geometry is retained; CSS applies the portfolio’s muted ink and paper treatment. Raster product icons are embedded in SVG containers. No endorsement is implied.
+These assets identify software used by SpringYearn. Official symbol geometry is retained, except the owner-supplied MediBang droplet replacement; CSS applies the portfolio’s muted ink and paper treatment. Raster product icons are embedded in SVG containers. No endorsement is implied.
 
 | Software | Official asset source |
 | --- | --- |
@@ -14,5 +14,5 @@ These assets identify software used by SpringYearn. Official symbol geometry is 
 | Fusion | [Official source](https://images.blackmagicdesign.com/images/media/press-images/fusion-logo-square/fusion-logo-square-thumb@2x.jpg) |
 | DaVinci Resolve | [Official source](https://images.blackmagicdesign.com/images/media/press-images/davinci-resolve-logo-square/davinci-resolve-logo-square@2x.jpg) |
 | PowerDirector | [Official source](https://www.cyberlink.com/stat/edms/affiliate/affiliate-program/enu/resource/powerdirector-365/powerdirector-365-icon.png) |
-| MediBang Paint Pro | [Official source](https://medibangpaint.com/wp-content/uploads/2024/04/MediBang-Pro-Icon-202404.png) |
+| MediBang Paint Pro | Owner-supplied PNG droplet, extracted with ImageGen for V.048; tile and background removed. |
 | CapCut | [Official source](https://www.capcut.com/) |

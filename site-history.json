@@ -4,17 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added Maya and official software symbols to the homepage toolkit, with a muted ink treatment.",
-      "Adjusted the individual-page play triangle for visual centering.",
-      "Opened a shared doodle whiteboard with drawing, colors, thin strokes, an own-stroke eraser and touch-friendly zoom/pan; saved new-board requests are checked hourly in Codex."
+      "Restored the site cursor on the whiteboard and added working mouse/touch canvas dragging.",
+      "Added persisted, gesture-based Undo and an area eraser that preserves the un-erased portions of strokes, plus faint notebook ruling.",
+      "Enlarged Resolve and Fusion toolkit icons to match the application frames, and replaced MediBang with the supplied droplet cutout."
     ],
     "zh": [
-      "首頁軟體工具列加入 Maya 與各軟體官方圖示，統一為低飽和墨色風格。",
-      "單件頁播放三角形向左微調，改善視覺居中。",
-      "新增共用塗鴉白板，支援畫筆、顏色、細筆寬、自己的筆跡橡皮擦及觸控放大／移動；新增白板申請由 Codex 每小時檢查通知。"
+      "白板恢復網站專屬游標，補上滑鼠與觸控拖曳移動畫布。",
+      "新增可保存、以完整手勢為單位的復原；橡皮擦只擦實際經過的區域，並加入極淡筆記本橫線。",
+      "Resolve 與 Fusion 圖示放大至一致應用程式框線，MediBang 改用提供圖檔的水滴去背。"
     ]
   },
   "releases": [
+    {
+      "version": "V.048",
+      "date": "2026-10-07",
+      "en": [
+        "Restored the site cursor on the whiteboard and added working mouse/touch canvas dragging.",
+        "Added persisted, gesture-based Undo and an area eraser that preserves the un-erased portions of strokes, plus faint notebook ruling.",
+        "Enlarged Resolve and Fusion toolkit icons to match the application frames, and replaced MediBang with the supplied droplet cutout."
+      ],
+      "zh": [
+        "白板恢復網站專屬游標，補上滑鼠與觸控拖曳移動畫布。",
+        "新增可保存、以完整手勢為單位的復原；橡皮擦只擦實際經過的區域，並加入極淡筆記本橫線。",
+        "Resolve 與 Fusion 圖示放大至一致應用程式框線，MediBang 改用提供圖檔的水滴去背。"
+      ]
+    },
     {
       "version": "V.047",
       "date": "2026-10-07",
