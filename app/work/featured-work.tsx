@@ -9,7 +9,7 @@ import { useSiteLanguage } from "../site-language";
 import { featuredWorkIds, featuredSummaries } from "./featured-data";
 
 export function FeaturedWork() {
-  const { language } = useSiteLanguage();
+  const { language, locale } = useSiteLanguage();
   const section = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
@@ -32,7 +32,7 @@ export function FeaturedWork() {
           <div className="featured-work-art"><img src={project.thumbnail} alt="" loading="lazy" style={{ objectFit: project.fit ?? "cover" }} /><span className="featured-work-seal mono-label"><Sparkle aria-hidden="true" />{language === "en" ? "SELECTED" : "精選"} / {String(index + 1).padStart(2, "0")}</span><svg className="featured-frame-trace" viewBox="0 0 100 100" fill="none" preserveAspectRatio="none" aria-hidden="true"><rect x="2" y="2" width="96" height="96" pathLength="100" vectorEffect="non-scaling-stroke" /></svg></div>
           <span className="mono-label">{language === "en" ? "Focus" : "創作方向"} / {project.type[language]}</span>
           <h3>{project.title}</h3>
-          <p>{featuredSummaries[id]?.[language] ?? project.detail[language]}</p>
+          <p>{featuredSummaries[id]?.[locale] ?? featuredSummaries[id]?.[language] ?? project.detail[language]}</p>
           <span className="item-details-cta">{language === "en" ? "View details" : "查看詳情"}<ArrowRight aria-hidden="true" /></span>
           </div>
         </Link>;

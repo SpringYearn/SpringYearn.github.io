@@ -12,12 +12,13 @@ import { itemPath, materialLabel } from "./share-data";
 import type { Project } from "./portfolio-data";
 import type { ProjectFile } from "./project-files/files";
 import { featuredSummaries } from "./work/featured-data";
+import { WorkStory } from "./work/work-story";
 
 type Props = { kind: "work"; project: Project } | { kind: "project-files"; project: ProjectFile };
 function quietPreview(video: HTMLVideoElement | null) { if (video) video.volume = .25; }
 
 export function ItemPage(props: Props) {
-  const { language, setLanguage } = useSiteLanguage();
+  const { language, locale, setLanguage } = useSiteLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const chinese = language === "zh";
@@ -53,7 +54,7 @@ export function ItemPage(props: Props) {
     : instagram ? (sourceVideo ? (chinese ? "在 Instagram 播放" : "Watch on Instagram") : (chinese ? "在 Instagram 開啟" : "Open on Instagram"))
     : (chinese ? "開啟原圖" : "Open full image");
   const label = props.kind === "work" ? props.project.type[language] : `${props.project.software === "ae" ? "After Effects" : "DaVinci Resolve"} / ${chinese ? "免費專案檔" : "FREE PROJECT FILE"}`;
-  const intro = props.kind === "work" ? featuredSummaries[props.project.id]?.[language] ?? props.project.detail[language] : materialLabel(props.project, language);
+  const intro = props.kind === "work" ? featuredSummaries[props.project.id]?.[locale] ?? featuredSummaries[props.project.id]?.[language] ?? props.project.detail[language] : materialLabel(props.project, language);
   return <Localized>{<main id="top" className="site-shell item-page">
     <div className="scroll-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" /><div className="grain" aria-hidden="true" /><div className="art-cursor" aria-hidden="true"><span className="cursor-ring" /><span className="cursor-core" /></div>
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}><Link className="wordmark" href="/" aria-label="SpringYearn home"><span className="wordmark-symbol"><img src="/logo.png" alt="" /></span><span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span></Link>
@@ -71,6 +72,7 @@ export function ItemPage(props: Props) {
         <a className="text-link" href={source} target="_blank" rel="noreferrer">{chinese ? "觀看原始作品／預覽" : "View original work / preview"}<ArrowUpRight aria-hidden="true" /></a><Link className="text-link" href="/#contact">{chinese ? "聯絡" : "Contact"}<ArrowUpRight aria-hidden="true" /></Link>
       </div>
     </section>
+    {props.kind === "work" && <WorkStory id={props.project.id} />}
     <SiteStatus language={language} /><footer className="site-footer"><span>SpringYearn® — {kind === "work" ? "WORK" : "PROJECT FILES"}</span><Link href={kind === "work" ? "/work/" : "/project-files/"}>{chinese ? "返回索引" : "Back to index"}<ArrowUpRight aria-hidden="true" /></Link><a href="#top">{chinese ? "回到頂端" : "Back to top"}<ArrowUpRight aria-hidden="true" /></a></footer>
   </main>}</Localized>;
 }

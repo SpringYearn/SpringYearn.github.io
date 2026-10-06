@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Changed the shared canvas to 1920 × 1080, with top-right zoom buttons, a slider and a drag toggle replacing touch gestures and middle-button controls.",
-      "Matched the language dropdown and cursor to the site style. Contact now places copy on the left and links on the right, with a shorter heading and the same body text."
+      "Changed selected works to In my room, Blight and 14.3 Billion Years, keeping the existing card layout and animation.",
+      "Added personal work introductions in six languages, software versions, competition results and a linked credit to Drgz’s Flourish on the three detail pages."
     ],
     "zh": [
-      "共用畫布改為 1920 × 1080，右上角新增縮放滑桿、按鈕與拖曳模式，取代雙指手勢及滑鼠中鍵操作。",
-      "語言選單及游標統一為網站風格；Contact 改為左側文案、右側連結，標題簡化為「聯繫我」，內文保留。"
+      "精選作品改為 In my room、Blight 與 14.3 Billion Years，延續既有卡片編排與動畫。",
+      "三件作品的詳情頁加入六種語言的創作簡介、軟體版本與比賽成績，並附上 Drgz 的 Flourish 致謝連結。"
     ]
   },
   "releases": [
+    {
+      "version": "V.051",
+      "date": "2026-10-07",
+      "en": [
+        "Changed selected works to In my room, Blight and 14.3 Billion Years, keeping the existing card layout and animation.",
+        "Added personal work introductions in six languages, software versions, competition results and a linked credit to Drgz’s Flourish on the three detail pages."
+      ],
+      "zh": [
+        "精選作品改為 In my room、Blight 與 14.3 Billion Years，延續既有卡片編排與動畫。",
+        "三件作品的詳情頁加入六種語言的創作簡介、軟體版本與比賽成績，並附上 Drgz 的 Flourish 致謝連結。"
+      ]
+    },
     {
       "version": "V.050",
       "date": "2026-10-07",
