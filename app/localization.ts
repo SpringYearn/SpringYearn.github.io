@@ -6,10 +6,15 @@ import ja from './locales/ja.json';
 import ko from './locales/ko.json';
 import ru from './locales/ru.json';
 import vi from './locales/vi.json';
+import additional from './locales/v051.json';
 
 const dictionaries:Record<Locale,Record<string,string>>={en,zh,ja,ko,ru,vi};
 const index:Record<string,string>=aliases;
 const normalize=(value:string)=>value.replace(/\s+/g,' ').trim().toLowerCase();
+for(const row of additional){
+  for(const locale of ['en','zh','ja','ko','ru','vi'] as const)dictionaries[locale][row.id]=row[locale];
+  index[normalize(row.en)]=row.id;index[normalize(row.zh)]=row.id;
+}
 const patterns=Object.entries(index).filter(([text])=>/\{\d+\}/.test(text)).map(([text,id])=>({id,regex:new RegExp('^'+text.split(/(\{\d+\})/).map(part=>/^\{\d+\}$/.test(part)?'(.+?)':part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('')+'$','i')}));
 
 export function localizeText(value:string,locale:Locale):string {

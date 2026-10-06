@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { projects } from "../app/portfolio-data.ts";
 import { projectFiles } from "../app/project-files/files.ts";
 import { featuredWorkIds } from "../app/work/featured-data.ts";
+import { workStories } from "../app/work/work-stories.ts";
 
 const read = path => readFileSync(new URL("../out/" + path, import.meta.url), "utf8");
 const decode = value => value.replaceAll("&amp;", "&").replaceAll("&quot;", '"').replaceAll("&#x27;", "'").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
@@ -45,7 +46,7 @@ test("every preview cover is a distinct, valid 1200 by 630 PNG", () => {
 });
 
 test("the three chosen works are featured without removing any of the 28 archive records", () => {
-  assert.deepEqual(featuredWorkIds, ["02", "14", "27"]);
+  assert.deepEqual(featuredWorkIds, ["02", "01", "03"]);
   assert.equal(projects.length, 28);
   const archive = read("work/index.html");
   for (const id of featuredWorkIds) assert.ok(archive.includes(`href="/work/${id}/"`));
@@ -59,6 +60,22 @@ test("project-file pages preserve original downloads and distinguish supplied ZI
     assert.ok(html.includes(file.filename.replaceAll("'", "&#x27;")), file.id);
     assert.ok(html.includes(file.filename.endsWith(".zip") ? "ZIP includes media." : "AEP does not include media."));
   }
+});
+test("the three work stories retain supplied results, software versions and linked credit",()=>{
+  assert.deepEqual(Object.keys(workStories).sort(),["01","02","03"]);
+  assert.deepEqual(workStories["02"].software,["DaVinci Resolve 19","Blender 4.5"]);
+  assert.deepEqual(workStories["01"].software,["DaVinci Resolve 20","Blender 4.5"]);
+  assert.deepEqual(workStories["03"].software,["DaVinci Resolve 19","Blender 4.4"]);
+  for(const id of featuredWorkIds){
+    assert.deepEqual(Object.keys(workStories[id].text).sort(),["en","ja","ko","ru","vi","zh"]);
+    for(const story of Object.values(workStories[id].text))assert.ok(story.paragraphs.length>=2&&story.paragraphs.every(p=>p.trim().length>10));
+    const html=read(`work/${id}/index.html`);assert.ok(html.includes('class="section-block item-story"'));for(const software of workStories[id].software)assert.ok(html.includes(software));
+  }
+  assert.match(workStories["02"].text.zh.paragraphs.join(' '),/ACEEC 25.*第 7 名.*ATLAS T2/);
+  assert.match(workStories["01"].text.zh.paragraphs.join(' '),/2026.*Zeruel.*Avalon/);
+  assert.match(workStories["03"].text.zh.paragraphs.join(' '),/EPHEC.*第三名.*2025.*Blender.*Sage/);
+  assert.ok(read('work/03/index.html').includes('href="https://www.youtube.com/@drgz3D"'));
+  assert.ok(!read('work/14/index.html').includes('class="section-block item-story"'));
 });
 
 test("archive covers and titles lead to details while sharing stays in individual pages", () => {
