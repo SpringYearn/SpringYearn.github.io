@@ -31,16 +31,20 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.match(records[8].body.en, /0\.3\.0 Test 4/);
 });
 
-test("V.048 extends V.047 and every existing release without changing date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "01f3e49cbe09fcf1afbc854f23ae4cc020c019f8:site-history.json"], { encoding: "utf8" }));
+test("V.049 extends V.048 and every existing release without changing date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "593654c6d3c3b427f4b70e861bd3f832daf63835:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.048");
+  assert.equal(after.releases[0].version, "V.049");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);
   }
+  for(const path of ["app/archive-transition.tsx","app/device-tilt-control.tsx"]){
+    const unwrapped=read(path).replace(/^import \{ Localized \} from .*;\r?\n/m,"").replaceAll("<Localized>{","").replaceAll("}</Localized>","");
+    assert.equal(unwrapped.replaceAll("\r\n","\n"),gitFile(path).replaceAll("\r\n","\n"),path+" logic changed unexpectedly");
+  }
   assert.match(read("app/site-status.tsx"), /const VISITOR_BASELINE = 3280/);
-  for (const path of ["scripts/build-github.mjs", "app/portfolio-data.ts", "app/archive-transition.tsx", "app/device-tilt-control.tsx", "app/interaction-audio.tsx", "app/cursor-trail.tsx", "app/pointer-burst.tsx"]) {
+  for (const path of ["scripts/build-github.mjs", "app/portfolio-data.ts", "app/interaction-audio.tsx", "app/cursor-trail.tsx", "app/pointer-burst.tsx"]) {
     assert.equal(read(path).replaceAll("\r\n", "\n"), gitFile(path).replaceAll("\r\n", "\n"), path + " changed unexpectedly");
   }
 });

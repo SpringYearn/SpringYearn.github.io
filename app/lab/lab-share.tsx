@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "../localized";
 
 import { useState } from "react";
 import { Share2 } from "lucide-react";
@@ -33,7 +34,7 @@ export function LabShare({ id, title, language }: { id: string; title: string; l
       } catch { setManualUrl(url); }
     } finally { setBusy(false); }
   };
-  return (
+  return <Localized>{(
     <div className="lab-share">
       <button type="button" className="lab-share-button" onClick={share} disabled={busy} aria-label={title + " — " + t.share}>
         <Share2 aria-hidden="true" /><span>{t.share}</span>
@@ -41,5 +42,5 @@ export function LabShare({ id, title, language }: { id: string; title: string; l
       <span className="lab-share-status" role="status" aria-live="polite">{message ? t[message] : ""}</span>
       {manualUrl && <input className="lab-share-url" aria-label={t.manual} value={manualUrl} readOnly onFocus={event => event.currentTarget.select()} />}
     </div>
-  );
+  )}</Localized>;
 }

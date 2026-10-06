@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import {
   useEffect,
@@ -21,47 +22,47 @@ import { labExperiments } from "./lab-data";
 const copy = {
   en: {
     nav: { work: "Work archive", profile: "Profile", contact: "Contact" },
-    available: "Independent visual practice",
+    available: "Independent visual creator",
     heroTop: "Visual Artist / Editor",
-    heroBottom: "Images, rhythm and form — as a way of thinking.",
+    heroBottom: "I make images move, and sometimes stay still.",
     intro:
-      "Moving image, drawing, graphic design and 3D meet here as one evolving visual language — guided by curiosity rather than a fixed medium.",
-    explore: "Enter work archive",
+      "I work across editing, motion, drawing, graphic design and 3D. If an idea calls for a different medium, I’m happy to try it.",
+    explore: "Take a look at my work",
     index: "Independent creative / Taiwan",
     gatewayEyebrow: "01 / Work archive",
-    gatewayTitle: "A separate space\nfor the work.",
+    gatewayTitle: "A little bit\nof everything.",
     gatewayBody:
-      "APP / UI, editing, motion, 3D, drawing and graphic image — collected as an evolving archive beyond the profile.",
-    gatewayMeta: "Selected work / expanding archive",
+      "Editing, motion, APP / UI, 3D, drawing and graphic design. Browse by category, or see what catches your eye.",
+    gatewayMeta: "Selected work / more on the way",
     gatewayIndex: "Archive index",
-    gatewayCta: "Enter the archive",
-    showreelEyebrow: "Annual notes",
-    showreelTitle: "Year in motion",
+    gatewayCta: "Browse the work",
+    showreelEyebrow: "Yearly highlights",
+    showreelTitle: "A year of edits",
     showreelView: "Watch showreel",
     profileEyebrow: "02 / Profile",
-    profileTitle: "Making is how I\nthink in images.",
+    profileTitle: "Hi, I’m\nSpringYearn.",
     profileBody:
-      "I am a Taiwan-based visual artist, designer and editor currently studying Visual Communication & Animation Design. My practice moves between moving image, drawing, graphic design, compositing and 3D.",
+      "I’m a visual artist, designer and editor based in Taiwan, currently studying Visual Communication & Animation Design. I work with video, drawing, graphic design, compositing and 3D.",
     profileBody2:
-      "Editing remains the core rhythm of my practice, while every medium becomes another way for me to observe, experiment and give a feeling its own form.",
+      "Editing is at the center of what I do. Trying other media gives me more ways to test an idea and see what works.",
     brandEyebrow: "Name / Philosophy",
-    brandTitle: "A name built around renewal and desire.",
+    brandTitle: "Why SpringYearn?",
     springMeaning:
-      "Renewal, hope and the energy of beginning again — the season when everything returns to motion.",
+      "Spring is about fresh starts, hope, and the energy to try again.",
     yearnMeaning:
-      "A deep pull toward ideas not yet learned, forms not yet made and the next version of the craft.",
-    brandClosing: "SpringYearn is a promise to keep learning — and keep moving forward.",
-    services: "Capabilities",
-    experience: "Practice",
+      "Yearn is the urge to learn something new and make the next thing a little better.",
+    brandClosing: "Put them together: stay curious, keep learning, keep making.",
+    services: "What I do",
+    experience: "Along the way",
     labEyebrow: "LAB / Experiments",
-    labTitle: "Tools, prototypes,\nand useful detours.",
-    labBody: "A development log of DaVinci Resolve and Fusion tools built to test workflows, solve specific problems, or explore ideas that existing tools did not quite cover.",
+    labTitle: "Small tools,\nideas to test.",
+    labBody: "Tools and experiments I’ve built in DaVinci Resolve and Fusion. Some are usable builds; others are prototypes or research. Each starts with an idea worth trying.",
     labCount: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`,
-    labCta: "Enter LAB / Experiments",
+    labCta: "Take a look in LAB",
     contactEyebrow: "03 / Contact",
-    contactTitle: "Ideas, conversations,\nand shared experiments.",
+    contactTitle: "Your next project,\nor a good food debate.",
     contactBody:
-      "For creative exchange, collaboration, or simply to share something interesting, the door is open.",
+      "Tell me about your project, share an idea, or debate whether a hotdog is a sandwich. I’m happy to chat.",
     email: "bbal96421@gmail.com",
     emailOptions: "Choose how to write",
     emailGmail: "Gmail compose",
@@ -70,7 +71,7 @@ const copy = {
     emailAppMeta: "Use device default",
     emailCopy: "Copy address",
     emailCopied: "Address copied",
-    socials: "Elsewhere / Creative traces",
+    socials: "Find me elsewhere",
     footer: "SpringYearn® — Visual Artist / Designer / Editor",
     legacyNote: "Legacy site / no longer updated",
     legacyEnter: "Open previous website",
@@ -78,43 +79,43 @@ const copy = {
   },
   zh: {
     nav: { work: "作品集", profile: "關於我", contact: "聯絡" },
-    available: "獨立視覺創作實踐",
+    available: "獨立視覺創作者",
     heroTop: "視覺藝術家 / 剪輯師",
-    heroBottom: "以影像、節奏與形式，留下思考的痕跡。",
+    heroBottom: "讓影像動起來，也做點靜態創作。",
     intro:
-      "讓動態影像、繪畫、平面設計與 3D 在同一套視覺語言中相遇——由好奇心出發，不被單一媒介定義。",
-    explore: "進入作品集",
+      "我做剪輯、動態圖形、繪畫、平面設計和 3D。有些點子適合用不同的方式呈現，那就試試看。",
+    explore: "看看作品集",
     index: "獨立創作者 / 台灣",
     gatewayEyebrow: "01 / 作品集",
-    gatewayTitle: "讓作品擁有一個，\n獨立的空間。",
-    gatewayBody: "APP／UI、剪輯、動態圖形、3D、繪畫與平面影像，被整理成主頁之外持續生長的創作檔案。",
-    gatewayMeta: "精選作品／持續擴充",
+    gatewayTitle: "各種作品，\n放在這裡。",
+    gatewayBody: "剪輯、動態圖形、APP／UI、3D、繪畫和平面設計。可以按分類逛，也可以直接點開感興趣的作品。",
+    gatewayMeta: "精選作品／陸續更新",
     gatewayIndex: "作品索引",
-    gatewayCta: "進入作品集",
-    showreelEyebrow: "年度小結",
-    showreelTitle: "流動的一年",
+    gatewayCta: "看看作品集",
+    showreelEyebrow: "年度精華",
+    showreelTitle: "這一年剪了什麼",
     showreelView: "觀看 Showreel",
     profileEyebrow: "02 / 關於我",
-    profileTitle: "創作，是我用影像\n思考的方式。",
+    profileTitle: "嗨，我是\nSpringYearn。",
     profileBody:
-      "我是一名來自台灣的視覺藝術家、設計師與剪輯師，目前就讀視覺傳達動畫設計系。我的創作游移於動態影像、繪畫、平面設計、合成與 3D 之間。",
+      "我是來自台灣的視覺藝術家、設計師與剪輯師，目前就讀視覺傳達動畫設計系。平常做動態影像、繪畫、平面設計、合成和 3D。",
     profileBody2:
-      "剪輯仍是我創作的核心節奏，而每一種媒介，都是我觀察、實驗，以及替感受找到形狀的方法。",
+      "剪輯是我的創作重心。試試其他媒介，也讓我能用不同的方法測試點子，看看什麼最適合。",
     brandEyebrow: "名稱 / 創作理念",
-    brandTitle: "一個關於新生與嚮往的名字。",
-    springMeaning: "象徵新生、希望與重新出發的能量，如同萬物回到流動狀態的季節。",
-    yearnMeaning: "代表對未知知識、尚未完成的作品，以及下一個創作階段的深切嚮往。",
-    brandClosing: "SpringYearn 是持續學習、持續向前的承諾。",
-    services: "能力領域",
-    experience: "創作經歷",
+    brandTitle: "SpringYearn 是什麼意思？",
+    springMeaning: "Spring 是春天，也代表新的開始、希望，以及再試一次的動力。",
+    yearnMeaning: "Yearn 是對新知識和新作品的期待，也希望每次都能再進步一點。",
+    brandClosing: "合在一起，就是保持好奇、繼續學、繼續做。",
+    services: "我會做的事",
+    experience: "一路以來",
     labEyebrow: "LAB / 實驗",
-    labTitle: "把奇怪的問題，\n做成可以測試的工具。",
-    labBody: "記錄我在 DaVinci Resolve 與 Fusion 裡做過的工具、插件與實驗。它們有些已經可用，有些仍是原型或研究，重點是把想法真的做出來測試。",
+    labTitle: "工具、原型，\n還有一些實驗。",
+    labBody: "這裡記錄我在 DaVinci Resolve 和 Fusion 裡做的工具、插件與實驗。有些已經能用，有些還是原型或研究；有個想試的點子，就動手做做看。",
     labCount: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`,
-    labCta: "進入 LAB / 實驗",
+    labCta: "看看 LAB",
     contactEyebrow: "03 / 聯絡",
-    contactTitle: "讓想法相遇，\n讓靈感繼續流動。",
-    contactBody: "無論是創作交流、合作，或只是想分享有趣的事物，這裡都留著一扇開放的門。",
+    contactTitle: "聊聊你的專案，\n或披薩上的鳳梨。",
+    contactBody: "有專案想聊、點子想分享，或想討論鳳梨到底該不該放在披薩上，都歡迎寫信給我。",
     email: "bbal96421@gmail.com",
     emailOptions: "選擇寄信方式",
     emailGmail: "使用 Gmail 寄信",
@@ -123,7 +124,7 @@ const copy = {
     emailAppMeta: "使用系統預設設定",
     emailCopy: "複製信箱地址",
     emailCopied: "已複製信箱地址",
-    socials: "其他地方 / 創作足跡",
+    socials: "其他地方也找得到我",
     footer: "SpringYearn® — 視覺藝術家 / 設計師 / 剪輯師",
     legacyNote: "舊網站／已停止更新",
     legacyEnter: "進入舊版本網站",
@@ -416,7 +417,7 @@ export default function Home() {
     };
   }, []);
 
-  return (
+  return <Localized>{(
     <main id="top" className="site-shell">
       <div
         className="scroll-progress"
@@ -443,7 +444,7 @@ export default function Home() {
           <Link href="/project-files">{language === "en" ? "Project files" : "專案檔"}</Link>
           <a href="#profile">{t.nav.profile}</a>
           <a href="#contact">{t.nav.contact}</a>
-        <Link className="whiteboard-nav-link" href="/whiteboard">{language === "zh" ? "塗鴉板" : "Whiteboard"}</Link></nav>
+        </nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
@@ -779,5 +780,5 @@ export default function Home() {
         </a>
       </footer>
     </main>
-  );
+  )}</Localized>;
 }

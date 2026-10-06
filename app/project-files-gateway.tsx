@@ -1,10 +1,11 @@
+import { Localized } from "./localized";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SpringMark } from "./spring-mark";
 
 export function ProjectFilesGateway({ language }: { language: "en" | "zh" }) {
-  const title = language === "en" ? "Open the project files" : "打開免費剪輯專案檔";
-  return (
+  const title = language === "en" ? "Free project files" : "免費剪輯專案檔";
+  return <Localized>{(
     <Link href="/project-files" className="pf-gateway-link" aria-label={title} data-reveal>
       <div className="pf-gateway-art" aria-hidden="true">
         <svg className="pf-folder" viewBox="0 0 240 180" fill="none">
@@ -27,7 +28,7 @@ export function ProjectFilesGateway({ language }: { language: "en" | "zh" }) {
       <div className="pf-gateway-copy">
         <span className="mono-label pf-gateway-eyebrow">PROJECT FILES / FREE PF</span>
         <strong>{title}</strong>
-        <p>{language === "en" ? "A little of the process, ready for your next idea." : "分享一點創作過程，留給你的下一個靈感。"}</p>
+        <p>{language === "en" ? "Open a timeline and see how an edit was made." : "打開時間軸，看看一支影片是怎麼剪的。"}</p>
         <div className="pf-gateway-meta mono-label"><span>AFTER EFFECTS</span><span>DAVINCI RESOLVE</span></div>
       </div>
       <div className="pf-gateway-action">
@@ -35,5 +36,5 @@ export function ProjectFilesGateway({ language }: { language: "en" | "zh" }) {
         <span className="pf-gateway-arrow"><ArrowUpRight aria-hidden="true" /></span>
       </div>
     </Link>
-  );
+  )}</Localized>;
 }

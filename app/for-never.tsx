@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import { useRef, useState } from "react";
 import { Dialog } from "radix-ui";
@@ -36,7 +37,7 @@ export function ForNever({ language, place }: { language: Language; place: keyof
       setOpen(true);
     }
   };
-  return (
+  return <Localized>{(
     <div className="for-never">
       <button ref={trigger} type="button" className="for-never-trigger" onClick={pause} onBlur={resetSequence}
         onKeyDown={event => { if (event.repeat && (event.key === "Enter" || event.key === " ")) event.preventDefault(); }}
@@ -58,5 +59,5 @@ export function ForNever({ language, place }: { language: Language; place: keyof
         </Dialog.Portal>
       </Dialog.Root>
     </div>
-  );
+  )}</Localized>;
 }

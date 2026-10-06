@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -55,7 +56,7 @@ function ArchiveTransitionListener({ currentPath }: { currentPath: string }) {
 
   if (!active) return null;
 
-  return (
+  return <Localized>{(
     <div
       className="archive-transition"
       role="status"
@@ -90,12 +91,12 @@ function ArchiveTransitionListener({ currentPath }: { currentPath: string }) {
         </div>
       </div>
     </div>
-  );
+  )}</Localized>;
 }
 
 export function ArchiveTransition() {
   const pathname = usePathname();
   const currentPath = pathname ?? "/";
 
-  return <ArchiveTransitionListener key={currentPath} currentPath={currentPath} />;
+  return <Localized>{<ArchiveTransitionListener key={currentPath} currentPath={currentPath} />}</Localized>;
 }

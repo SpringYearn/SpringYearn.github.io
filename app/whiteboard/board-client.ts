@@ -2,13 +2,13 @@ export const BOARD_API = "https://springyearn-whiteboard.springyearn.chatgpt.sit
 export type Point = [number, number];
 export type Stroke = { id: string; owner: string; color: string; width: number; points: Point[]; created?: number; group?:string };
 export type Session = { token: string; owner: string };
-export type BoardData = { board: {id:number;revision:number}; boards: {id:number;revision:number}[]; requested: boolean; strokes: Stroke[]; undoId?:string|null };
+export type BoardData = { board: {id:number;revision:number;epoch:number}; boards: {id:number;revision:number;epoch:number}[]; requested: boolean; emailReady:boolean; strokes: Stroke[]; undoId?:string|null };
 let sessionPromise: Promise<Session> | undefined;
 export function readStored(key: string) { try { return localStorage.getItem(key); } catch { return null; } }
 export function writeStored(key: string, value: string) { try { localStorage.setItem(key,value); } catch { /* In-memory drawing still works. */ } }
 export async function boardFetch(path: string, init: RequestInit = {}) {
   const response = await fetch(BOARD_API + path, {...init, signal: AbortSignal.timeout(12000), mode:"cors", credentials:"omit"});
-  if (!response.ok && response.status !== 304) { if(response.status===401){sessionPromise=undefined;writeStored("springyearn:board-session","null");} const detail = await response.json().catch(() => null); throw Object.assign(new Error(detail?.error ?? "Connection unavailable"),{status:response.status}); }
+  if (!response.ok && response.status !== 304) { if(response.status===401){sessionPromise=undefined;writeStored("springyearn:board-session","null");} const detail = await response.json().catch(() => null); throw Object.assign(new Error(detail?.error ?? "Connection unavailable"),{status:response.status,code:detail?.code}); }
   return response;
 }
 export function getSession() {
