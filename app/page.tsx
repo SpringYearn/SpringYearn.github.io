@@ -274,6 +274,13 @@ function resetPointerPosition(event: ReactPointerEvent<HTMLElement>) {
   element.style.setProperty("--spot-y", "50%");
 }
 
+function BrandWord({ word }: { word: "SPRING" | "YEARN" }) {
+  return <strong className="brand-word" data-brand-word={word}>
+    <span className="sr-only">{word}</span>
+    {Array.from(word).map((letter, index) => <span className="brand-letter" aria-hidden="true" key={index} style={{ "--brand-letter-index": index } as CSSProperties}>{letter}</span>)}
+  </strong>;
+}
+
 export default function Home() {
   const [language, setLanguage] = useState<Language>("en");
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -571,12 +578,12 @@ export default function Home() {
           <div className="brand-meanings">
             <article>
               <span className="brand-index">01</span>
-              <strong>SPRING</strong>
+              <BrandWord word="SPRING" />
               <p>{t.springMeaning}</p>
             </article>
             <article>
               <span className="brand-index">02</span>
-              <strong>YEARN</strong>
+              <BrandWord word="YEARN" />
               <p>{t.yearnMeaning}</p>
             </article>
           </div>

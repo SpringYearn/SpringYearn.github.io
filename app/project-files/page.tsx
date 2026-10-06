@@ -137,7 +137,7 @@ export default function ProjectFilesPage() {
           <span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/lab">LAB</Link><Link href="/#contact">{t.contact}</Link>
+          <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/lab">LAB</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
         </nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>

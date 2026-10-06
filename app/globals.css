@@ -1740,13 +1740,8 @@ html.archive-is-transitioning { overflow: hidden; }
   padding-left: 2rem;
 }
 .brand-meanings article:hover {
-  background: rgba(var(--spring-rgb),.52);
+  background: rgba(var(--spring-rgb),.14);
 }
-.brand-meanings article > * {
-  transition: translate 420ms cubic-bezier(.22,1,.36,1);
-}
-.brand-meanings article:first-child:hover > * { translate: .85rem 0; }
-.brand-meanings article:last-child:hover > * { translate: -.85rem 0; }
 .brand-index {
   font-family: var(--font-mono);
   font-size: .62rem;
@@ -1761,6 +1756,16 @@ html.archive-is-transitioning { overflow: hidden; }
   transform: scaleX(.92);
   transform-origin: left center;
 }
+.brand-word { display: inline-flex; align-items: baseline; position: relative; justify-self: start; width: max-content; max-width: 100%; padding: .16em .24em .16em .12em; line-height: 1.15; overflow: clip; }
+.brand-letter { display: inline-block; transform-origin: 50% 80%; transition: color 250ms ease,text-shadow 250ms ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .brand-meanings article:hover .brand-letter { color: var(--spring-ink); text-shadow: .025em .035em rgba(var(--spring-rgb),.28); animation-duration: 720ms; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-delay: calc(var(--brand-letter-index) * 38ms); animation-fill-mode: both; }
+  .brand-meanings article:hover [data-brand-word="SPRING"] .brand-letter { animation-name: brand-spring-bloom; }
+  .brand-meanings article:hover [data-brand-word="YEARN"] .brand-letter { animation-name: brand-yearn-reach; }
+}
+@keyframes brand-spring-bloom { 0%,100% { transform: none; } 42% { transform: translateY(-.1em) rotate(-2deg) scaleY(1.04); } 72% { transform: translateY(.025em); } }
+@keyframes brand-yearn-reach { 0%,100% { transform: none; } 45% { transform: translateX(.07em) skewX(-5deg) scaleX(1.025); } 75% { transform: translateX(-.015em); } }
+@media (prefers-reduced-motion: reduce) { .brand-letter { animation: none !important; transition: none; } }
 .brand-meanings p {
   max-width: 500px;
   margin: 0;
@@ -2984,7 +2989,6 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .brand-meanings { grid-template-columns: 1fr; }
   .brand-meanings article { min-height: 290px; padding-right: 0; }
   .brand-meanings article + article { border-left: 0; border-top: 1px solid rgba(17,17,15,.55); padding-left: 0; }
-  .brand-meanings article:hover > * { translate: .65rem 0; }
   .brand-closing { width: 100%; }
   .brand-logo-panel { min-height: 320px; padding: 2rem; }
   .brand-logo-panel img { width: 72%; }
@@ -3179,9 +3183,9 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 
 .for-never { position: relative; margin-left: auto; }
 .for-never + .legacy-index { margin-left: .6rem; }
-.for-never-trigger { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--muted-foreground); opacity: .45; cursor: pointer; touch-action: manipulation; transition: opacity 200ms ease,color 200ms ease; }
+.for-never-trigger { display: grid; place-items: center; width: 56px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--foreground); opacity: .8; cursor: pointer; touch-action: manipulation; transition: opacity 200ms ease,color 200ms ease; }
 .for-never-trigger:focus-visible { outline: 1px solid var(--spring-ink); outline-offset: 3px; opacity: 1; }
-.for-never-frame { width: 24px; height: 18px; stroke: currentColor; stroke-width: .8; }
+.for-never-trigger .for-never-frame { width: 38px; height: 22px; stroke: currentColor; stroke-width: 1.1; }
 .for-never-continuation { stroke-dasharray: 25; stroke-dashoffset: 14; transition: stroke-dashoffset 600ms ease; }
 .for-never-trigger:is(:hover,:focus-visible) { color: var(--spring-ink); opacity: 1; }
 .for-never-trigger:is(:hover,:focus-visible) .for-never-continuation { stroke-dashoffset: 0; }
