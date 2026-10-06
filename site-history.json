@@ -4,13 +4,35 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Fixed italic letter clipping during the YEARN stretch animation by allowing glyph overhang inside the word and reserving extra trailing space, while retaining the article boundary."
+      "Mobile SPRING / YEARN words now play once when visible and replay on tap, with reduced-motion support.",
+      "Added three selected works using the existing project descriptions, and retained the language preference across navigation and reloads.",
+      "Added individual Work and Project Files pages with share buttons, unique URLs, preview covers and summaries.",
+      "Clarified that Project Files ZIP packages include media and standalone AEP files do not."
     ],
     "zh": [
-      "修正 YEARN 伸展動畫的斜體筆畫裁切：移除文字框內層裁切、增加末字預留空間，並保留介紹區塊的邊界。"
+      "手機 SPRING／YEARN 文字捲入畫面時播放一次，點按可重播，並支援減少動態效果。",
+      "作品集加入三件精選作品，沿用已知介紹；中英文偏好在跨頁與重新載入後保留。",
+      "作品與 Project Files 加入單件頁面、分享按鈕、獨立網址、預覽封面及簡介。",
+      "標示 Project Files 的 ZIP 包含素材、獨立 AEP 不含素材。"
     ]
   },
   "releases": [
+    {
+      "version": "V.044",
+      "date": "2026-10-06",
+      "en": [
+        "Mobile SPRING / YEARN words now play once when visible and replay on tap, with reduced-motion support.",
+        "Added three selected works using the existing project descriptions, and retained the language preference across navigation and reloads.",
+        "Added individual Work and Project Files pages with share buttons, unique URLs, preview covers and summaries.",
+        "Clarified that Project Files ZIP packages include media and standalone AEP files do not."
+      ],
+      "zh": [
+        "手機 SPRING／YEARN 文字捲入畫面時播放一次，點按可重播，並支援減少動態效果。",
+        "作品集加入三件精選作品，沿用已知介紹；中英文偏好在跨頁與重新載入後保留。",
+        "作品與 Project Files 加入單件頁面、分享按鈕、獨立網址、預覽封面及簡介。",
+        "標示 Project Files 的 ZIP 包含素材、獨立 AEP 不含素材。"
+      ]
+    },
     {
       "version": "V.043",
       "date": "2026-10-06",

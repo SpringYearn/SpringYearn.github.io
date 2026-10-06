@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown } from "lucide-react";
 import { HeaderControls } from "../header-controls";
+import { useSiteLanguage } from "../site-language";
 import { SiteStatus } from "../site-status";
 import { ForNever } from "../for-never";
 import { labExperiments } from "../lab-data";
@@ -38,7 +39,7 @@ const copy = {
 };
 
 export default function LabPage() {
-  const [language, setLanguage] = useState<"en" | "zh">("en");
+  const { language, setLanguage } = useSiteLanguage();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [sortKey, setSortKey] = useState<LabSortKey>("original");
