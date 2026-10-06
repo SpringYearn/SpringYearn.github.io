@@ -2,9 +2,15 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { clipInk, eraseInk } from "../app/whiteboard/erase-geometry.ts";
 test("a point eraser cuts the middle of a sparse segment and preserves both ends", () => {
-  const runs = clipInk([[.1,.5],[.9,.5]],[[.5,.5]],16);
+  const runs = clipInk([[.1,.5],[.9,.5]],[[.5,.5]],19.2);
   assert.equal(runs.length,2);assert.deepEqual(runs[0][0],[.1,.5]);assert.deepEqual(runs[1].at(-1),[.9,.5]);
   assert.ok(Math.abs(runs[0].at(-1)[0]-.49)<1e-9);assert.ok(Math.abs(runs[1][0][0]-.51)<1e-9);
+});
+test("1920 by 1080 canvas uses the same physical eraser radius on both axes",()=>{
+  const runs=clipInk([[.5,.1],[.5,.9]],[[.5,.5]],10.8);
+  assert.equal(runs.length,2);
+  assert.ok(Math.abs(runs[0].at(-1)[1]-.49)<1e-9);
+  assert.ok(Math.abs(runs[1][0][1]-.51)<1e-9);
 });
 test("a fast eraser sweep removes the corridor between samples without gaps", () => {
   const runs=clipInk([[.1,.5],[.9,.5]],[[.3,.5],[.7,.5]],16);

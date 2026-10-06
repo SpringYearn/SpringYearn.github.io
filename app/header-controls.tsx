@@ -3,8 +3,8 @@ import { Localized } from "./localized";
 
 import { useEffect, useState, type KeyboardEvent as ReactKeyboardEvent, type PointerEvent as ReactPointerEvent } from "react";
 import Link from "next/link";
-import { Dialog } from "radix-ui";
-import { ArrowUpRight, Globe2, Menu, X } from "lucide-react";
+import { Dialog, Select } from "radix-ui";
+import { ArrowUpRight, Check, ChevronDown, Globe2, Menu, X } from "lucide-react";
 import { localeNames, locales, useSiteLanguage, type Locale } from "./site-language";
 
 type HeaderControlsProps = {
@@ -33,7 +33,10 @@ export function HeaderControls({ language }: HeaderControlsProps) {
   });
   const chinese = language === "zh";
   const languageLabel = chinese ? "選擇顯示語言" : "Choose display language";
-  const picker=(mobile=false)=><label className={mobile?"mobile-language-switch":"language-switch header-language-switch"}><Globe2 aria-hidden="true"/><select aria-label={languageLabel} value={locale} onChange={event=>setLanguage(event.target.value as Locale)}>{locales.map(code=><option data-localize="off" key={code} value={code} lang={code==="zh"?"zh-Hant":code}>{localeNames[code]}</option>)}</select></label>;
+  const picker=(mobile=false)=><Select.Root value={locale} onValueChange={code=>setLanguage(code as Locale)}>
+    <Select.Trigger className={mobile?"mobile-language-switch":"language-switch header-language-switch"} aria-label={languageLabel}><Globe2 aria-hidden="true"/><span data-localize="off">{localeNames[locale]}</span><Select.Icon><ChevronDown aria-hidden="true"/></Select.Icon></Select.Trigger>
+    <Select.Portal><Select.Content className="language-menu" position="popper" sideOffset={8} align="end"><Select.Viewport>{locales.map(code=><Select.Item className="language-menu-option" key={code} value={code}><Select.ItemText><span data-localize="off" lang={code==="zh"?"zh-Hant":code}>{localeNames[code]}</span></Select.ItemText><Select.ItemIndicator><Check aria-hidden="true"/></Select.ItemIndicator></Select.Item>)}</Select.Viewport></Select.Content></Select.Portal>
+  </Select.Root>;
   const links = [
     { href: "/", label: chinese ? "首頁" : "Home" },
     { href: "/work", label: chinese ? "作品集" : "Work archive" },

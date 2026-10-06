@@ -1,7 +1,8 @@
 export type XY = [number, number];
 export type Ink = { id: string; owner: string; color: string; width: number; points: XY[]; created?: number };
 type Interval = [number, number];
-const size = (p: XY): XY => [p[0] * 1600, p[1] * 1000];
+export const BOARD_WIDTH = 1920, BOARD_HEIGHT = 1080;
+const size = (p: XY): XY => [p[0] * BOARD_WIDTH, p[1] * BOARD_HEIGHT];
 const same = (a: XY, b: XY) => Math.hypot(a[0] - b[0], a[1] - b[1]) < 1e-9;
 function linear(base: number, delta: number, lo: number, hi: number): Interval | null {
   if (Math.abs(delta) < 1e-12) return base >= lo && base <= hi ? [0, 1] : null;

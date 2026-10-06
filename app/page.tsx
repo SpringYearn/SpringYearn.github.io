@@ -60,7 +60,7 @@ const copy = {
     labCount: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`,
     labCta: "Take a look in LAB",
     contactEyebrow: "03 / Contact",
-    contactTitle: "Your next project,\nor a good food debate.",
+    contactTitle: "Contact me",
     contactBody:
       "Tell me about your project, share an idea, or debate whether a hotdog is a sandwich. I’m happy to chat.",
     email: "bbal96421@gmail.com",
@@ -114,7 +114,7 @@ const copy = {
     labCount: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`,
     labCta: "看看 LAB",
     contactEyebrow: "03 / 聯絡",
-    contactTitle: "聊聊你的專案，\n或披薩上的鳳梨。",
+    contactTitle: "聯繫我",
     contactBody: "有專案想聊、點子想分享，或想討論鳳梨到底該不該放在披薩上，都歡迎寫信給我。",
     email: "bbal96421@gmail.com",
     emailOptions: "選擇寄信方式",
@@ -359,7 +359,7 @@ export default function Home() {
       if (!cursor || !(event.target instanceof Element)) return;
       cursor.classList.toggle(
         "is-active",
-        Boolean(event.target.closest("a, button, summary, .project-card, .display-letter")),
+        Boolean(event.target.closest("[role=option], [role=combobox], a, button, summary, .project-card, .display-letter")),
       );
     };
 
@@ -700,10 +700,8 @@ export default function Home() {
 
       <section id="contact" className="contact-section" aria-labelledby="contact-title">
         <div className="contact-glow" aria-hidden="true" />
-        <p className="eyebrow" data-reveal>{t.contactEyebrow}</p>
-        <h2 id="contact-title" data-reveal>{t.contactTitle}</h2>
         <div className="contact-lower" data-reveal>
-          <p>{t.contactBody}</p>
+          <div className="contact-copy"><p className="eyebrow">{t.contactEyebrow}</p><h2 id="contact-title">{t.contactTitle}</h2><p>{t.contactBody}</p></div>
           <div className="contact-actions">
             <button
               className="primary-contact"
