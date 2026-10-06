@@ -1756,7 +1756,8 @@ html.archive-is-transitioning { overflow: hidden; }
   transform: scaleX(.92);
   transform-origin: left center;
 }
-.brand-word { display: inline-flex; align-items: baseline; position: relative; justify-self: start; width: max-content; max-width: 100%; padding: .16em .24em .16em .12em; line-height: 1.15; overflow: clip; }
+/* Italic glyph ink extends beyond its advance box; contain it at the article edge. */
+.brand-word { display: inline-flex; align-items: baseline; position: relative; justify-self: start; width: max-content; max-width: 100%; padding: .16em .55em .16em .12em; line-height: 1.15; overflow: visible; }
 .brand-letter { display: inline-block; transform-origin: 50% 80%; transition: color 250ms ease,text-shadow 250ms ease; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .brand-meanings article:hover .brand-letter { color: var(--spring-ink); text-shadow: .025em .035em rgba(var(--spring-rgb),.28); animation-duration: 720ms; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-delay: calc(var(--brand-letter-index) * 38ms); animation-fill-mode: both; }
