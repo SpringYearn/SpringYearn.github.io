@@ -4,17 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Removed the duplicate View details overlay from Project Files preview images.",
-      "Added play/open and new-tab cues to linked images in individual pages, matching YouTube, Instagram and full-image destinations.",
-      "Rearranged selected works as tilted, staggered paper cards with gentle floating, moving orbit lines and tracing frames; motion pauses offscreen and supports reduced motion."
+      "Added Maya and official software symbols to the homepage toolkit, with a muted ink treatment.",
+      "Adjusted the individual-page play triangle for visual centering.",
+      "Opened a shared doodle whiteboard with drawing, colors, thin strokes, an own-stroke eraser and touch-friendly zoom/pan; saved new-board requests are checked hourly in Codex."
     ],
     "zh": [
-      "移除 Project Files 預覽圖上重複的「查看詳情」提示。",
-      "單件頁可點擊圖片加入播放／開啟及新分頁提示，依 YouTube、Instagram 或原圖連結顯示。",
-      "精選作品改為傾斜錯落的紙卡，加入輕微漂浮、軌道線與流動外框；畫面外暫停並支援減少動態。"
+      "首頁軟體工具列加入 Maya 與各軟體官方圖示，統一為低飽和墨色風格。",
+      "單件頁播放三角形向左微調，改善視覺居中。",
+      "新增共用塗鴉白板，支援畫筆、顏色、細筆寬、自己的筆跡橡皮擦及觸控放大／移動；新增白板申請由 Codex 每小時檢查通知。"
     ]
   },
   "releases": [
+    {
+      "version": "V.047",
+      "date": "2026-10-07",
+      "en": [
+        "Added Maya and official software symbols to the homepage toolkit, with a muted ink treatment.",
+        "Adjusted the individual-page play triangle for visual centering.",
+        "Opened a shared doodle whiteboard with drawing, colors, thin strokes, an own-stroke eraser and touch-friendly zoom/pan; saved new-board requests are checked hourly in Codex."
+      ],
+      "zh": [
+        "首頁軟體工具列加入 Maya 與各軟體官方圖示，統一為低飽和墨色風格。",
+        "單件頁播放三角形向左微調，改善視覺居中。",
+        "新增共用塗鴉白板，支援畫筆、顏色、細筆寬、自己的筆跡橡皮擦及觸控放大／移動；新增白板申請由 Codex 每小時檢查通知。"
+      ]
+    },
     {
       "version": "V.046",
       "date": "2026-10-06",
