@@ -4,15 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Brightened the shared palette with a nearly white background and softer, less saturated blue-green and leaf tones while retaining readable control text.",
-      "Concealed the memorial note behind a deliberate footer interaction on Home, Work and LAB, preserving its bilingual verses."
+      "Enlarged and darkened the memorial frame while retaining its intentional reveal condition.",
+      "Restored Project Files and Profile in the LAB desktop navigation, and Profile in Project Files.",
+      "Added contained, staggered SPRING / YEARN letter animations with reduced-motion support."
     ],
     "zh": [
-      "背景調為接近白色，藍綠與葉片色提亮並降低飽和度，控制項文字保留清楚對比。",
-      "首頁、作品與 LAB 的紀念文字改為特定頁尾互動後才出現，保留原本中英紀念詩。"
+      "放大並加深紀念彩蛋的小線框，保留原本的特定觸發條件。",
+      "補齊 LAB 桌面導覽的 Project Files、Profile，以及 Project Files 頁的 Profile。",
+      "SPRING／YEARN 涵意區加入逐字懸停動畫，預留邊界並支援減少動態效果。"
     ]
   },
   "releases": [
+    {
+      "version": "V.042",
+      "date": "2026-10-06",
+      "en": [
+        "Enlarged and darkened the memorial frame while retaining its intentional reveal condition.",
+        "Restored Project Files and Profile in the LAB desktop navigation, and Profile in Project Files.",
+        "Added contained, staggered SPRING / YEARN letter animations with reduced-motion support."
+      ],
+      "zh": [
+        "放大並加深紀念彩蛋的小線框，保留原本的特定觸發條件。",
+        "補齊 LAB 桌面導覽的 Project Files、Profile，以及 Project Files 頁的 Profile。",
+        "SPRING／YEARN 涵意區加入逐字懸停動畫，預留邊界並支援減少動態效果。"
+      ]
+    },
     {
       "version": "V.041",
       "date": "2026-10-05",
