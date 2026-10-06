@@ -74,3 +74,19 @@ test("archive covers and titles lead to details while sharing stays in individua
     assert.ok(read(`project-files/${file.id}/index.html`).includes('class="item-share-button"'));
   }
 });
+
+test("preview links explain their destination and Project Files retains one detail CTA per item", () => {
+  const files = read("project-files/index.html");
+  assert.ok(!files.includes('class="pf-detail-badge"'));
+  assert.equal([...files.matchAll(/class="item-details-cta"/g)].length, projectFiles.length);
+  assert.ok(read("work/01/index.html").includes("Watch on YouTube"));
+  assert.ok(read("work/05/index.html").includes("Open on Instagram"));
+  assert.ok(read("work/14/index.html").includes("Open full image"));
+  assert.ok(read("project-files/500lbs/index.html").includes("Watch on YouTube"));
+  for (const path of ["work/01", "work/05", "work/14", "project-files/500lbs"]) {
+    const html = read(path + "/index.html");
+    assert.ok(html.includes("item-preview-caption"));
+    assert.ok(html.includes("New tab"));
+  }
+  assert.ok(!read("project-files/ratchet/index.html").includes('class="item-preview-play"'));
+});

@@ -4,17 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made artwork covers and titles open their individual detail pages, with clear View details actions across the archives.",
-      "Kept sharing in individual pages or project download dialogs and removed index sharing controls.",
-      "Highlighted the three selected works with a framed selection area, numbered seals and subtle decoration."
+      "Removed the duplicate View details overlay from Project Files preview images.",
+      "Added play/open and new-tab cues to linked images in individual pages, matching YouTube, Instagram and full-image destinations.",
+      "Rearranged selected works as tilted, staggered paper cards with gentle floating, moving orbit lines and tracing frames; motion pauses offscreen and supports reduced motion."
     ],
     "zh": [
-      "作品封面與標題改為進入單件詳情頁，列表加入明確的「查看詳情」入口。",
-      "分享功能集中在單件頁或單一專案下載窗口，移除列表分享按鈕。",
-      "三件精選作品加入選集外框、編號標記與細緻裝飾。"
+      "移除 Project Files 預覽圖上重複的「查看詳情」提示。",
+      "單件頁可點擊圖片加入播放／開啟及新分頁提示，依 YouTube、Instagram 或原圖連結顯示。",
+      "精選作品改為傾斜錯落的紙卡，加入輕微漂浮、軌道線與流動外框；畫面外暫停並支援減少動態。"
     ]
   },
   "releases": [
+    {
+      "version": "V.046",
+      "date": "2026-10-06",
+      "en": [
+        "Removed the duplicate View details overlay from Project Files preview images.",
+        "Added play/open and new-tab cues to linked images in individual pages, matching YouTube, Instagram and full-image destinations.",
+        "Rearranged selected works as tilted, staggered paper cards with gentle floating, moving orbit lines and tracing frames; motion pauses offscreen and supports reduced motion."
+      ],
+      "zh": [
+        "移除 Project Files 預覽圖上重複的「查看詳情」提示。",
+        "單件頁可點擊圖片加入播放／開啟及新分頁提示，依 YouTube、Instagram 或原圖連結顯示。",
+        "精選作品改為傾斜錯落的紙卡，加入輕微漂浮、軌道線與流動外框；畫面外暫停並支援減少動態。"
+      ]
+    },
     {
       "version": "V.045",
       "date": "2026-10-06",

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Download } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Download, Play, Expand } from "lucide-react";
 import { HeaderControls } from "./header-controls";
 import { SiteStatus } from "./site-status";
 import { ItemShare } from "./item-share";
@@ -45,6 +45,12 @@ export function ItemPage(props: Props) {
   const preview = props.kind === "work" ? props.project.thumbnail : "youtubeId" in props.project.preview ? `https://i.ytimg.com/vi/${props.project.preview.youtubeId}/hqdefault.jpg` : props.project.preview.poster;
   const video = props.kind === "work" ? props.project.mediaType === "video" ? props.project.thumbnail : null : "video" in props.project.preview ? props.project.preview.video : null;
   const source = props.kind === "work" ? props.project.href : "youtubeId" in props.project.preview ? `https://youtu.be/${props.project.preview.youtubeId}` : props.project.preview.video;
+  const youtube = /^https:\/\/(?:www\.)?(?:youtu\.be|youtube\.com)\//i.test(source);
+  const instagram = /^https:\/\/(?:www\.)?instagram\.com\//i.test(source);
+  const sourceVideo = youtube || (instagram && props.kind === "work" && props.project.art === "video");
+  const sourceLabel = youtube ? (chinese ? "在 YouTube 播放" : "Watch on YouTube")
+    : instagram ? (sourceVideo ? (chinese ? "在 Instagram 播放" : "Watch on Instagram") : (chinese ? "在 Instagram 開啟" : "Open on Instagram"))
+    : (chinese ? "開啟原圖" : "Open full image");
   const label = props.kind === "work" ? props.project.type[language] : `${props.project.software === "ae" ? "After Effects" : "DaVinci Resolve"} / ${chinese ? "免費專案檔" : "FREE PROJECT FILE"}`;
   const intro = props.kind === "work" ? featuredSummaries[props.project.id]?.[language] ?? props.project.detail[language] : materialLabel(props.project, language);
   return <main id="top" className="site-shell item-page">
@@ -54,7 +60,11 @@ export function ItemPage(props: Props) {
     </header>
     <section className="section-block item-hero"><Link className="text-link" href={indexPath}><ArrowLeft aria-hidden="true" />{kind === "work" ? (chinese ? "返回作品集" : "Back to work archive") : (chinese ? "返回專案檔" : "Back to project files")}</Link><p className="mono-label">{label}</p><h1>{project.title}</h1><p className="item-intro">{intro}</p><ItemShare path={itemPath(kind, project.id)} title={project.title} /></section>
     <section className="section-block item-content" aria-label={chinese ? "項目預覽與資訊" : "Item preview and information"}>
-      <div className="item-preview">{video ? <video ref={quietPreview} controls playsInline preload="none" poster={props.kind === "project-files" ? preview : undefined} src={video} /> : <a href={source} target="_blank" rel="noreferrer" aria-label={`${project.title} — ${chinese ? "開啟作品" : "Open work"}`}><img src={preview} alt={project.title} style={{ objectFit: props.kind === "work" ? props.project.fit ?? "cover" : "cover" }} /></a>}</div>
+      <div className="item-preview">{video ? <video ref={quietPreview} controls playsInline preload="none" poster={props.kind === "project-files" ? preview : undefined} src={video} /> : <a className={`item-preview-link${sourceVideo ? " is-video-destination" : ""}`} href={source} target="_blank" rel="noreferrer" aria-label={`${project.title} — ${sourceLabel}, ${chinese ? "在新分頁開啟" : "opens in a new tab"}`}>
+        <span className="item-preview-visual"><img src={preview} alt={project.title} style={{ objectFit: props.kind === "work" ? props.project.fit ?? "cover" : "cover" }} />
+        {sourceVideo && <span className="item-preview-play" aria-hidden="true"><Play /></span>}</span>
+        <span className="item-preview-caption"><span>{!sourceVideo && <Expand aria-hidden="true" />}{sourceLabel}</span><span className="item-preview-newtab">{chinese ? "在新分頁開啟" : "New tab"}<ArrowUpRight aria-hidden="true" /></span></span>
+      </a>}</div>
       <div className="item-information"><p className="mono-label">{kind === "work" ? (chinese ? "作品" : "WORK") : (chinese ? "免費公開專案檔" : "FREE / PUBLIC DOWNLOAD")}</p><h2>{label}</h2><p>{intro}</p>
         {props.kind === "project-files" && <><p className="item-file-meta">{props.project.filename} / {props.project.bytes >= 1_000_000_000 ? `${(props.project.bytes / 1_000_000_000).toFixed(2)} GB` : `${(props.project.bytes / 1_000_000).toFixed(1)} MB`}</p><a className="pf-download-link" href={props.project.downloadUrl} download={props.project.downloadUrl.startsWith("/") ? props.project.filename : undefined} target={props.project.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer"><span>{chinese ? "免費下載" : "Free download"}</span><Download aria-hidden="true" /></a><p>{chinese ? "有相關問題，歡迎聯絡我，我很樂意解答。" : "If you have any related questions, contact me. I’m happy to help."}</p></>}
         <a className="text-link" href={source} target="_blank" rel="noreferrer">{chinese ? "觀看原始作品／預覽" : "View original work / preview"}<ArrowUpRight aria-hidden="true" /></a><Link className="text-link" href="/#contact">{chinese ? "聯絡" : "Contact"}<ArrowUpRight aria-hidden="true" /></Link>
