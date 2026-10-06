@@ -9,14 +9,15 @@ import {
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { HeaderControls } from "./header-controls";
+import { useSiteLanguage } from "./site-language";
 import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
 import { SpringMark } from "./spring-mark";
+import { BrandWord } from "./brand-word";
 import { ProjectFilesGateway } from "./project-files-gateway";
 import { labExperiments } from "./lab-data";
 
-type Language = "en" | "zh";
 const copy = {
   en: {
     nav: { work: "Work archive", profile: "Profile", contact: "Contact" },
@@ -274,15 +275,8 @@ function resetPointerPosition(event: ReactPointerEvent<HTMLElement>) {
   element.style.setProperty("--spot-y", "50%");
 }
 
-function BrandWord({ word }: { word: "SPRING" | "YEARN" }) {
-  return <strong className="brand-word" data-brand-word={word}>
-    <span className="sr-only">{word}</span>
-    {Array.from(word).map((letter, index) => <span className="brand-letter" aria-hidden="true" key={index} style={{ "--brand-letter-index": index } as CSSProperties}>{letter}</span>)}
-  </strong>;
-}
-
 export default function Home() {
-  const [language, setLanguage] = useState<Language>("en");
+  const { language, setLanguage } = useSiteLanguage();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isMailMenuOpen, setIsMailMenuOpen] = useState(false);

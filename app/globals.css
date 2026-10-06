@@ -1747,7 +1747,7 @@ html.archive-is-transitioning { overflow: hidden; }
   font-size: .62rem;
   letter-spacing: .12em;
 }
-.brand-meanings strong {
+.brand-meanings .brand-word {
   align-self: center;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: clamp(3.6rem, 8vw, 8rem);
@@ -1757,13 +1757,20 @@ html.archive-is-transitioning { overflow: hidden; }
   transform-origin: left center;
 }
 /* Italic glyph ink extends beyond its advance box; contain it at the article edge. */
-.brand-word { display: inline-flex; align-items: baseline; position: relative; justify-self: start; width: max-content; max-width: 100%; padding: .16em .55em .16em .12em; line-height: 1.15; overflow: visible; }
+.brand-word { touch-action: manipulation; border: 0; background: transparent; color: var(--foreground); font-weight: 700; text-align: left; cursor: pointer; display: inline-flex; align-items: baseline; position: relative; justify-self: start; width: max-content; max-width: 100%; padding: .16em .55em .16em .12em; line-height: 1.15; overflow: visible; }
 .brand-letter { display: inline-block; transform-origin: 50% 80%; transition: color 250ms ease,text-shadow 250ms ease; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .brand-meanings article:hover .brand-letter { color: var(--spring-ink); text-shadow: .025em .035em rgba(var(--spring-rgb),.28); animation-duration: 720ms; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-delay: calc(var(--brand-letter-index) * 38ms); animation-fill-mode: both; }
   .brand-meanings article:hover [data-brand-word="SPRING"] .brand-letter { animation-name: brand-spring-bloom; }
   .brand-meanings article:hover [data-brand-word="YEARN"] .brand-letter { animation-name: brand-yearn-reach; }
 }
+.brand-word:focus-visible { outline: 2px solid var(--spring-ink); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .brand-word[data-replay] .brand-letter { color: var(--spring-ink); text-shadow: .025em .035em rgba(var(--spring-rgb),.28); animation-duration: 720ms; animation-timing-function: cubic-bezier(.22,1,.36,1); animation-delay: calc(var(--brand-letter-index) * 38ms); animation-fill-mode: both; }
+  .brand-word[data-replay][data-brand-word="SPRING"] .brand-letter { animation-name: brand-spring-bloom; }
+  .brand-word[data-replay][data-brand-word="YEARN"] .brand-letter { animation-name: brand-yearn-reach; }
+}
+@media (pointer: fine) { html.has-art-cursor .brand-word { cursor: none; } }
 @keyframes brand-spring-bloom { 0%,100% { transform: none; } 42% { transform: translateY(-.1em) rotate(-2deg) scaleY(1.04); } 72% { transform: translateY(.025em); } }
 @keyframes brand-yearn-reach { 0%,100% { transform: none; } 45% { transform: translateX(.07em) skewX(-5deg) scaleX(1.025); } 75% { transform: translateX(-.015em); } }
 @media (prefers-reduced-motion: reduce) { .brand-letter { animation: none !important; transition: none; } }
@@ -3206,3 +3213,45 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .pf-gateway-link:is(:hover,:focus-visible) .spring-leaf-left { animation: spring-leaf-left-sway 2.8s ease-in-out infinite; fill: rgba(var(--spring-leaf-rgb),.16); }
   .pf-gateway-link:is(:hover,:focus-visible) .spring-leaf-right { animation: spring-leaf-right-sway 2.8s -.7s ease-in-out infinite; fill: rgba(var(--spring-leaf-rgb),.12); }
 }
+
+/* Individual sharing and selected works follow the existing paper-and-line palette. */
+.work-source-link { display: block; color: inherit; }
+.work-source-link:focus-visible { outline: 2px solid var(--spring-ink); outline-offset: 3px; }
+.item-share { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-top: .75rem; position: relative; z-index: 2; }
+.item-share-button { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 44px; padding: .45rem .7rem; border: 1px solid rgba(var(--spring-ink-rgb),.25); background: transparent; color: var(--spring-ink); font-family: var(--font-mono); font-size: .66rem; cursor: pointer; }
+.item-share-button svg { width: 14px; height: 14px; }
+.item-share-button:hover { background: rgba(var(--spring-rgb),.12); }
+.item-share-button:focus-visible { outline: 2px solid var(--spring-ink); outline-offset: 3px; }
+.item-share-status { color: var(--spring-ink); font-size: .72rem; }
+.item-share-url { min-width: 0; width: 100%; padding: .6rem; background: transparent; border: 1px solid var(--spring-ink); font-size: 14px; }
+.featured-work { padding: 1rem 0 clamp(3rem,6vw,6rem); }
+.featured-work-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--foreground); }
+.featured-work-heading h2 { margin: 0; font-size: clamp(1.5rem,2.6vw,2.6rem); font-weight: 500; letter-spacing: -.035em; }
+.featured-work-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.5rem; }
+.featured-work-card { min-width: 0; }
+.featured-work-art { aspect-ratio: 16/10; overflow: hidden; background: var(--spring-soft); border: 1px solid rgba(17,17,15,.2); }
+.featured-work-art img { width: 100%; height: 100%; display: block; transition: transform 300ms ease; }
+.featured-work-card:hover img { transform: scale(1.025); }
+.featured-work-card > .mono-label { display: block; margin: 1.2rem 0 .65rem; color: var(--spring-ink); font-size: .6rem; }
+.featured-work-card h3 { display: flex; justify-content: space-between; gap: .75rem; margin: 0; font-size: clamp(1.2rem,1.9vw,1.8rem); font-weight: 550; letter-spacing: -.035em; overflow-wrap: anywhere; }
+.featured-work-card h3 svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: .25rem; }
+.featured-work-card p { margin: .65rem 0 0; color: var(--muted-foreground); font-size: .85rem; line-height: 1.6; }
+.featured-work-card:focus-visible { outline: 2px solid var(--spring-ink); outline-offset: 5px; }
+.item-hero { padding-top: clamp(3rem,6vw,6rem); padding-bottom: 3rem; }
+.item-hero > .mono-label { margin: 2rem 0 1rem; color: var(--spring-ink); }
+.item-hero h1 { max-width: 1200px; margin: 0; font-size: clamp(2.6rem,6vw,6.8rem); line-height: 1.06; font-weight: 550; letter-spacing: -.05em; overflow-wrap: anywhere; }
+.item-intro { margin: 1.5rem 0; color: var(--muted-foreground); line-height: 1.7; }
+.item-content { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); gap: clamp(2rem,4vw,4rem); padding-top: 0; padding-bottom: 5rem; }
+.item-preview { min-width: 0; align-self: start; border: 1px solid rgba(17,17,15,.25); background: var(--spring-soft); }
+.item-preview img,.item-preview video { display: block; width: 100%; max-height: 70vh; aspect-ratio: 16/10; object-fit: contain; }
+.item-information { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; border-top: 1px solid var(--foreground); padding-top: 1.2rem; min-width: 0; }
+.item-information h2 { margin: 0; font-size: 1.6rem; font-weight: 500; letter-spacing: -.025em; }
+.item-information p { margin: 0; line-height: 1.7; overflow-wrap: anywhere; }
+.item-information .pf-download-link { width: 100%; }
+.item-file-meta { font-family: var(--font-mono); font-size: .72rem; }
+@media (pointer: fine) { html.has-art-cursor .item-share-button { cursor: none; } }
+@media (max-width: 900px) { .item-content { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .featured-work-grid { grid-template-columns: 1fr; gap: 2rem; } .item-preview img,.item-preview video { max-height: none; } }
+@media (prefers-reduced-motion: reduce) { .featured-work-art img { transition: none; } }
+
+.overview-item,.project-card { scroll-margin-top: 110px; }

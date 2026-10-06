@@ -4,6 +4,7 @@ import { CursorTrail } from "./cursor-trail";
 import { DeviceTiltControl } from "./device-tilt-control";
 import { InteractionAudio } from "./interaction-audio";
 import { PointerBurst } from "./pointer-burst";
+import { SiteLanguageProvider } from "./site-language";
 import "./globals.css";
 
 const siteOrigin =
@@ -52,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <SiteLanguageProvider>{children}</SiteLanguageProvider>
         <ArchiveTransition />
         <DeviceTiltControl />
         <CursorTrail />

@@ -11,14 +11,17 @@ import {
 import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown } from "lucide-react";
 import { HeaderControls } from "../header-controls";
+import { useSiteLanguage } from "../site-language";
 import { Button } from "@/components/ui/button";
-import { projects, type Category, type Language } from "../portfolio-data";
+import { projects, type Category } from "../portfolio-data";
 import { SiteStatus } from "../site-status";
 import { ForNever } from "../for-never";
 import { SpringMark } from "../spring-mark";
 import { projectDates } from "./project-dates";
 import { sortWorkProjects, type WorkSortDirection, type WorkSortKey } from "./project-sort";
 import { WorkDate } from "./work-date";
+import { FeaturedWork } from "./featured-work";
+import { ItemShare } from "../item-share";
 
 const copy = {
   en: {
@@ -112,7 +115,7 @@ function followOverviewLink(event: ReactMouseEvent<HTMLAnchorElement>) {
 }
 
 export default function WorkArchive() {
-  const [language, setLanguage] = useState<Language>("en");
+  const { language, setLanguage } = useSiteLanguage();
   const [filter, setFilter] = useState<Category>("all");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -295,6 +298,7 @@ export default function WorkArchive() {
           <span className="sr-only" role="status">{t.sorted} {t.sortKeys[sortKey]} / {sortDirection === "asc" ? t.asc : t.desc}</span>
         </div>
         <p className="work-date-note">{t.dateNote}</p>
+        {filter === "all" && <FeaturedWork />}
 
         {filter === "all" ? (
           <div className="archive-overview archive-atlas">
@@ -306,16 +310,14 @@ export default function WorkArchive() {
               <div className="atlas-plate-heading"><h3 id={`plate-${plateIndex}`}><span>{String(plateIndex + 1).padStart(2, "0")}</span>{t.sheet}</h3><span className="mono-label">{String(plateIndex * 7 + 1).padStart(2, "0")} — {String(plateIndex * 7 + plate.length).padStart(2, "0")} / {filteredProjects.length}</span></div>
               <div className="project-overview">
               {plate.map((project, index) => (
-                <a
+                <article
                   className={`overview-item${project.frame === "portrait" ? " overview-portrait" : ""}`}
                   key={project.id}
                   data-project-id={project.id}
-                  href={project.href}
-                  onClick={followOverviewLink}
+                  id={`work-${project.id}`}
                   style={{ "--overview-index": index } as CSSProperties}
-                  aria-label={`${project.title} — ${t.view}`}
                 >
-                  <span className="atlas-art">
+                  <a className="work-source-link" href={project.href} onClick={followOverviewLink} aria-label={`${project.title} — ${t.view}`}><span className="atlas-art">
                   {project.mediaType === "video" ? (
                     <video
                       className={`overview-media${project.fit === "contain" ? " media-contain" : ""}`}
@@ -339,7 +341,8 @@ export default function WorkArchive() {
                   </span>
                   <span className="atlas-meta"><span className="overview-category mono-label">{t.filters[project.category]}</span><WorkDate id={project.id} language={language} basis={sortKey} /></span>
                   <h4 className="atlas-title">{project.title}<ArrowUpRight aria-hidden="true" /></h4>
-                </a>
+                  </a><ItemShare path={`/work/${project.id}/`} title={project.title} />
+                </article>
               ))}
               </div>
             </section>)}
@@ -352,19 +355,16 @@ export default function WorkArchive() {
         ) : (
           <div className="project-grid" aria-live="polite">
             {filteredProjects.map((project) => (
-              <a
+              <article
                 className="project-card"
                 key={project.id}
                 data-project-id={project.id}
-                href={project.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${project.title} — ${t.view}`}
+                  id={`work-${project.id}`}
                 onPointerMove={setPointerPosition}
                 onPointerLeave={resetPointerPosition}
                 style={{ animationDelay: `${Number(project.id) * 55}ms` }}
               >
-                <div
+                <a className="work-source-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.title} — ${t.view}`}><div
                   className={`project-art art-${project.art}${project.frame === "portrait" ? " frame-portrait" : ""}`}
                   aria-hidden="true"
                 >
@@ -398,7 +398,8 @@ export default function WorkArchive() {
                     <ArrowUpRight aria-hidden="true" />
                   </span>
                 </div>
-              </a>
+                </a><ItemShare path={`/work/${project.id}/`} title={project.title} />
+              </article>
             ))}
           </div>
         )}

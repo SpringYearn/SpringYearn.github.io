@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Download, Play } from "lucide-react";
 import { HeaderControls } from "../header-controls";
+import { useSiteLanguage } from "../site-language";
 import { SiteStatus } from "../site-status";
 import { projectFiles } from "./files";
+import { ItemShare } from "../item-share";
+import { materialLabel } from "../share-data";
 
 const copy = {
   en: {
@@ -44,7 +47,7 @@ function initializePreviewVolume(video: HTMLVideoElement | null) {
 }
 
 export default function ProjectFilesPage() {
-  const [language, setLanguage] = useState<"en" | "zh">("en");
+  const { language, setLanguage } = useSiteLanguage();
   const [software, setSoftware] = useState<"ae" | "davinci">("ae");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -52,7 +55,25 @@ export default function ProjectFilesPage() {
   const selectSoftware = (next: "ae" | "davinci") => {
     document.querySelectorAll<HTMLVideoElement>(".pf-preview-video").forEach(video => video.pause());
     setSoftware(next);
+    window.history.replaceState(window.history.state, "", `#${next}`);
   };
+  useEffect(() => {
+    let scrollFrame = 0;
+    const followHash = () => {
+      let id: string;
+      try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
+      const file = projectFiles.find(item => item.id === id);
+      const next = file?.software ?? (id === "ae" || id === "davinci" ? id : null);
+      if (!next) return;
+      setSoftware(next);
+      document.querySelectorAll<HTMLVideoElement>(".pf-preview-video").forEach(video => video.pause());
+      cancelAnimationFrame(scrollFrame);
+      scrollFrame = requestAnimationFrame(() => document.getElementById(file?.id ?? next)?.scrollIntoView({ block: "start" }));
+    };
+    const initial = requestAnimationFrame(followHash);
+    window.addEventListener("hashchange", followHash);
+    return () => { cancelAnimationFrame(initial); cancelAnimationFrame(scrollFrame); window.removeEventListener("hashchange", followHash); };
+  }, []);
   useEffect(() => {
     const root = document.documentElement;
     root.classList.add("motion-ready");
@@ -151,7 +172,7 @@ export default function ProjectFilesPage() {
           <Link href="/" className="text-link"><ArrowLeft aria-hidden="true" />{t.back}</Link><Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link><Link href="/lab" className="text-link">LAB<ArrowUpRight aria-hidden="true" /></Link>
         </nav>
       </section>
-      <aside className="pf-help-note" aria-label={t.helpLabel}><div><span className="mono-label">{t.free}</span><p>{t.help}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></aside>
+      <aside className="pf-help-note" aria-label={t.helpLabel}><div><span className="mono-label">{t.free}</span><p>{t.help}</p><p>{language === "en" ? "ZIP packages include media; standalone AEP files do not." : "ZIP 檔已包含素材；獨立 AEP 檔未包含素材。"}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></aside>
       <div className="pf-category-index" role="group" aria-label={language === "en" ? "Project file categories" : "專案檔分類"}>
         {groups.map(group => <button type="button" key={group.id} aria-pressed={software === group.id} aria-controls={group.id} onClick={() => selectSoftware(group.id)}><span>{group.name}</span><span className="mono-label">{String(projectFiles.filter(file => file.software === group.id).length).padStart(2, "0")}</span></button>)}
       </div>
@@ -166,9 +187,10 @@ export default function ProjectFilesPage() {
                 {"youtubeId" in file.preview ? <a className="pf-preview-link" href={previewUrl} target="_blank" rel="noreferrer" aria-label={t.preview + " — " + file.title}>
                   <img loading="lazy" src={"https://i.ytimg.com/vi/" + file.preview.youtubeId + "/hqdefault.jpg"} alt={file.title + " — " + t.preview} /><span className="pf-play-mark" aria-hidden="true"><Play /></span>
                 </a> : <video ref={initializePreviewVolume} className="pf-preview-video" controls playsInline preload="none" poster={file.preview.poster} aria-label={t.preview + " — " + file.title}><source src={file.preview.video} type="video/mp4" /><a href={previewUrl}>{t.preview}</a></video>}
-                <div className="pf-card-copy"><h3>{file.title}</h3><p><span>{file.filename.endsWith(".aep") ? t.aepNote : t.zipNote}</span><span className="mono-label">{file.filename.endsWith(".aep") ? "AEP" : "ZIP"}</span></p></div>
+                <div className="pf-card-copy"><h3><Link href={`/project-files/${file.id}/`}>{file.title}</Link></h3><p><span>{materialLabel(file, language)}</span><span className="mono-label">{file.filename.endsWith(".aep") ? "AEP" : "ZIP"}</span></p></div>
                 <div className="pf-card-actions"><a className="text-link pf-preview-action" href={previewUrl} target="_blank" rel="noreferrer">{t.preview}<ArrowUpRight aria-hidden="true" /></a>
                   <a className="pf-download-link" href={file.downloadUrl} download={file.downloadUrl.startsWith("/") ? file.filename : undefined} target={file.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer" aria-label={t.download + " — " + file.title}><span>{t.download}</span><Download aria-hidden="true" /></a></div>
+                <ItemShare path={`/project-files/${file.id}/`} title={file.title} />
               </article>;
             })}
           </div>
