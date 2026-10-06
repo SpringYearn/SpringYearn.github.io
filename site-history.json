@@ -4,19 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Mobile SPRING / YEARN words now play once when visible and replay on tap, with reduced-motion support.",
-      "Added three selected works using the existing project descriptions, and retained the language preference across navigation and reloads.",
-      "Added individual Work and Project Files pages with share buttons, unique URLs, preview covers and summaries.",
-      "Clarified that Project Files ZIP packages include media and standalone AEP files do not."
+      "Made artwork covers and titles open their individual detail pages, with clear View details actions across the archives.",
+      "Kept sharing in individual pages or project download dialogs and removed index sharing controls.",
+      "Highlighted the three selected works with a framed selection area, numbered seals and subtle decoration."
     ],
     "zh": [
-      "手機 SPRING／YEARN 文字捲入畫面時播放一次，點按可重播，並支援減少動態效果。",
-      "作品集加入三件精選作品，沿用已知介紹；中英文偏好在跨頁與重新載入後保留。",
-      "作品與 Project Files 加入單件頁面、分享按鈕、獨立網址、預覽封面及簡介。",
-      "標示 Project Files 的 ZIP 包含素材、獨立 AEP 不含素材。"
+      "作品封面與標題改為進入單件詳情頁，列表加入明確的「查看詳情」入口。",
+      "分享功能集中在單件頁或單一專案下載窗口，移除列表分享按鈕。",
+      "三件精選作品加入選集外框、編號標記與細緻裝飾。"
     ]
   },
   "releases": [
+    {
+      "version": "V.045",
+      "date": "2026-10-06",
+      "en": [
+        "Made artwork covers and titles open their individual detail pages, with clear View details actions across the archives.",
+        "Kept sharing in individual pages or project download dialogs and removed index sharing controls.",
+        "Highlighted the three selected works with a framed selection area, numbered seals and subtle decoration."
+      ],
+      "zh": [
+        "作品封面與標題改為進入單件詳情頁，列表加入明確的「查看詳情」入口。",
+        "分享功能集中在單件頁或單一專案下載窗口，移除列表分享按鈕。",
+        "三件精選作品加入選集外框、編號標記與細緻裝飾。"
+      ]
+    },
     {
       "version": "V.044",
       "date": "2026-10-06",

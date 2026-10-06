@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Download, Play } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Download, ArrowRight } from "lucide-react";
 import { HeaderControls } from "../header-controls";
 import { useSiteLanguage } from "../site-language";
 import { SiteStatus } from "../site-status";
 import { projectFiles } from "./files";
-import { ItemShare } from "../item-share";
 import { materialLabel } from "../share-data";
 
 const copy = {
@@ -17,7 +16,7 @@ const copy = {
     intro: "Project files from my edits, shared freely. Watch the finished piece, open the timeline, and explore how it came together.",
     count: "07 files / 02 applications", free: "Free / public downloads",
     help: "If you have any related questions, contact me. I’m happy to help.",
-    helpLabel: "A note from SpringYearn", preview: "Watch preview", download: "Free download",
+    helpLabel: "A note from SpringYearn", preview: "Watch preview", download: "Free download", details: "View details",
     aeNote: "Compositions, layers and the details behind the edit.", davinciNote: "A closer look at the rhythm and structure of the timeline.",
     fileLabel: "Project file", aepNote: "Original .aep project file", zipNote: "Original ZIP package",
   },
@@ -27,7 +26,7 @@ const copy = {
     intro: "把我免費分享的剪輯專案檔整理在這裡。先看完成的影片，再打開時間軸，看看每個畫面是如何拼起來的。",
     count: "07 個檔案 / 02 種軟體", free: "免費 / 公開下載",
     help: "有任何相關問題可以聯絡我，我很樂意解答。",
-    helpLabel: "來自 SpringYearn 的小提醒", preview: "觀看影片預覽", download: "免費下載",
+    helpLabel: "來自 SpringYearn 的小提醒", preview: "觀看影片預覽", download: "免費下載", details: "查看詳情",
     aeNote: "從合成、圖層到細節，打開剪輯背後的安排。", davinciNote: "走進時間軸，看看節奏與畫面是如何安排的。",
     fileLabel: "專案檔", aepNote: "原始 .aep 專案檔", zipNote: "原始 ZIP 專案包",
   },
@@ -184,13 +183,12 @@ export default function ProjectFilesPage() {
               const previewUrl = "youtubeId" in file.preview ? "https://youtu.be/" + file.preview.youtubeId : file.preview.video;
               return <article className="pf-card" key={file.id} id={file.id} data-reveal>
                 <div className="pf-card-meta mono-label"><span>{group.abbreviation} / {String(index + 1).padStart(2, "0")}</span><span>{formatSize(file.bytes)}</span></div>
-                {"youtubeId" in file.preview ? <a className="pf-preview-link" href={previewUrl} target="_blank" rel="noreferrer" aria-label={t.preview + " — " + file.title}>
-                  <img loading="lazy" src={"https://i.ytimg.com/vi/" + file.preview.youtubeId + "/hqdefault.jpg"} alt={file.title + " — " + t.preview} /><span className="pf-play-mark" aria-hidden="true"><Play /></span>
-                </a> : <video ref={initializePreviewVolume} className="pf-preview-video" controls playsInline preload="none" poster={file.preview.poster} aria-label={t.preview + " — " + file.title}><source src={file.preview.video} type="video/mp4" /><a href={previewUrl}>{t.preview}</a></video>}
+                {"youtubeId" in file.preview ? <Link className="pf-preview-link pf-detail-preview" href={`/project-files/${file.id}/`} aria-label={file.title + " — " + t.details}>
+                  <img loading="lazy" src={"https://i.ytimg.com/vi/" + file.preview.youtubeId + "/hqdefault.jpg"} alt={file.title + " — " + t.preview} /><span className="pf-detail-badge">{t.details}<ArrowRight aria-hidden="true" /></span>
+                </Link> : <video ref={initializePreviewVolume} className="pf-preview-video" controls playsInline preload="none" poster={file.preview.poster} aria-label={t.preview + " — " + file.title}><source src={file.preview.video} type="video/mp4" /><a href={previewUrl}>{t.preview}</a></video>}
                 <div className="pf-card-copy"><h3><Link href={`/project-files/${file.id}/`}>{file.title}</Link></h3><p><span>{materialLabel(file, language)}</span><span className="mono-label">{file.filename.endsWith(".aep") ? "AEP" : "ZIP"}</span></p></div>
-                <div className="pf-card-actions"><a className="text-link pf-preview-action" href={previewUrl} target="_blank" rel="noreferrer">{t.preview}<ArrowUpRight aria-hidden="true" /></a>
-                  <a className="pf-download-link" href={file.downloadUrl} download={file.downloadUrl.startsWith("/") ? file.filename : undefined} target={file.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer" aria-label={t.download + " — " + file.title}><span>{t.download}</span><Download aria-hidden="true" /></a></div>
-                <ItemShare path={`/project-files/${file.id}/`} title={file.title} />
+                <div className="pf-card-actions"><Link className="item-details-cta" href={`/project-files/${file.id}/`}>{t.details}<ArrowRight aria-hidden="true" /></Link><div className="pf-secondary-actions"><a className="text-link pf-preview-action" href={previewUrl} target="_blank" rel="noreferrer">{t.preview}<ArrowUpRight aria-hidden="true" /></a>
+                  <a className="pf-download-link" href={file.downloadUrl} download={file.downloadUrl.startsWith("/") ? file.filename : undefined} target={file.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer" aria-label={t.download + " — " + file.title}><span>{t.download}</span><Download aria-hidden="true" /></a></div></div>
               </article>;
             })}
           </div>

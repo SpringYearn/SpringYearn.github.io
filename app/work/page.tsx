@@ -5,11 +5,10 @@ import {
   useMemo,
   useState,
   type CSSProperties,
-  type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
 import { HeaderControls } from "../header-controls";
 import { useSiteLanguage } from "../site-language";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,6 @@ import { projectDates } from "./project-dates";
 import { sortWorkProjects, type WorkSortDirection, type WorkSortKey } from "./project-sort";
 import { WorkDate } from "./work-date";
 import { FeaturedWork } from "./featured-work";
-import { ItemShare } from "../item-share";
 
 const copy = {
   en: {
@@ -45,7 +43,7 @@ const copy = {
     more: "And there is more...",
     moreBody: "Only part of the practice is online. The archive keeps growing.",
     moreTag: "Ongoing archive",
-    view: "View project",
+    view: "View details",
     returnHome: "Return to profile",
     footer: "SpringYearn® — Work Archive",
     backTop: "Back to top",
@@ -70,7 +68,7 @@ const copy = {
     more: "還有更多⋯⋯",
     moreBody: "目前只上傳了部分創作，這份檔案仍在持續累積。",
     moreTag: "持續更新",
-    view: "查看作品",
+    view: "查看詳情",
     returnHome: "回到個人介紹",
     footer: "SpringYearn® — 作品集",
     backTop: "回到頂端",
@@ -97,21 +95,6 @@ function resetPointerPosition(event: ReactPointerEvent<HTMLElement>) {
   element.style.setProperty("--pointer-y", "0");
   element.style.setProperty("--spot-x", "50%");
   element.style.setProperty("--spot-y", "50%");
-}
-
-function followOverviewLink(event: ReactMouseEvent<HTMLAnchorElement>) {
-  if (
-    event.button !== 0 ||
-    event.metaKey ||
-    event.ctrlKey ||
-    event.shiftKey ||
-    event.altKey
-  ) {
-    return;
-  }
-
-  event.preventDefault();
-  window.location.assign(event.currentTarget.href);
 }
 
 export default function WorkArchive() {
@@ -298,6 +281,7 @@ export default function WorkArchive() {
           <span className="sr-only" role="status">{t.sorted} {t.sortKeys[sortKey]} / {sortDirection === "asc" ? t.asc : t.desc}</span>
         </div>
         <p className="work-date-note">{t.dateNote}</p>
+        <p className="work-entry-hint">{language === "en" ? "Open a cover or title to explore the project details." : "點擊封面或標題，進入這件作品的詳細頁。"}</p>
         {filter === "all" && <FeaturedWork />}
 
         {filter === "all" ? (
@@ -317,7 +301,7 @@ export default function WorkArchive() {
                   id={`work-${project.id}`}
                   style={{ "--overview-index": index } as CSSProperties}
                 >
-                  <a className="work-source-link" href={project.href} onClick={followOverviewLink} aria-label={`${project.title} — ${t.view}`}><span className="atlas-art">
+                  <Link className="work-detail-link" href={`/work/${project.id}/`} aria-label={`${project.title} — ${t.view}`}><span className="atlas-art">
                   {project.mediaType === "video" ? (
                     <video
                       className={`overview-media${project.fit === "contain" ? " media-contain" : ""}`}
@@ -340,8 +324,9 @@ export default function WorkArchive() {
                   <span className="overview-index">{project.id}</span>
                   </span>
                   <span className="atlas-meta"><span className="overview-category mono-label">{t.filters[project.category]}</span><WorkDate id={project.id} language={language} basis={sortKey} /></span>
-                  <h4 className="atlas-title">{project.title}<ArrowUpRight aria-hidden="true" /></h4>
-                  </a><ItemShare path={`/work/${project.id}/`} title={project.title} />
+                  <h4 className="atlas-title">{project.title}</h4>
+                  <span className="item-details-cta">{t.view}<ArrowRight aria-hidden="true" /></span>
+                  </Link>
                 </article>
               ))}
               </div>
@@ -364,7 +349,7 @@ export default function WorkArchive() {
                 onPointerLeave={resetPointerPosition}
                 style={{ animationDelay: `${Number(project.id) * 55}ms` }}
               >
-                <a className="work-source-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`${project.title} — ${t.view}`}><div
+                <Link className="work-detail-link" href={`/work/${project.id}/`} aria-label={`${project.title} — ${t.view}`}><div
                   className={`project-art art-${project.art}${project.frame === "portrait" ? " frame-portrait" : ""}`}
                   aria-hidden="true"
                 >
@@ -394,11 +379,9 @@ export default function WorkArchive() {
                     <h2>{project.title}</h2>
                     <WorkDate id={project.id} language={language} basis={sortKey} />
                   </div>
-                  <span className="project-action" aria-label={t.view}>
-                    <ArrowUpRight aria-hidden="true" />
-                  </span>
+                  <span className="project-detail-action"><span className="project-action" aria-hidden="true"><ArrowRight /></span><span className="project-detail-label">{t.view}</span></span>
                 </div>
-                </a><ItemShare path={`/work/${project.id}/`} title={project.title} />
+                </Link>
               </article>
             ))}
           </div>

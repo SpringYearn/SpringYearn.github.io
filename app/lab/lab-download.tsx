@@ -112,7 +112,7 @@ export function LabDownload({ project, language }: {
     }
   };
 
-  if (!build) return <div className="lab-no-build"><p className="lab-build-unavailable mono-label">{t.unavailable}</p><LabShare id={project.id} title={project.title} language={language} /></div>;
+  if (!build) return <div className="lab-no-build"><p className="lab-build-unavailable mono-label">{t.unavailable}</p></div>;
 
   return (
     <div className="lab-download">
