@@ -60,3 +60,17 @@ test("project-file pages preserve original downloads and distinguish supplied ZI
     assert.ok(html.includes(file.filename.endsWith(".zip") ? "ZIP includes media." : "AEP does not include media."));
   }
 });
+
+test("archive covers and titles lead to details while sharing stays in individual pages", () => {
+  const work = read("work/index.html"), files = read("project-files/index.html");
+  assert.ok(!work.includes('class="item-share-button"'));
+  assert.ok(!files.includes('class="item-share-button"'));
+  for (const project of projects) {
+    assert.ok([...work.matchAll(/<a\b[^>]*>/g)].some(([tag]) => tag.includes('class="work-detail-link"') && tag.includes(`href="/work/${project.id}/"`)), project.id);
+    assert.ok(read(`work/${project.id}/index.html`).includes('class="item-share-button"'));
+  }
+  for (const file of projectFiles) {
+    assert.ok(files.includes(`href="/project-files/${file.id}/"`), file.id);
+    assert.ok(read(`project-files/${file.id}/index.html`).includes('class="item-share-button"'));
+  }
+});
