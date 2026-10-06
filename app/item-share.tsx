@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import { useState } from "react";
 import { Share2 } from "lucide-react";
@@ -24,9 +25,9 @@ export function ItemShare({ path, title, description }: { path: string; title: s
       catch { setManualUrl(url); }
     } finally { setBusy(false); }
   };
-  return <div className="item-share">
+  return <Localized>{<div className="item-share">
     <button type="button" className="item-share-button" disabled={busy} onClick={share} aria-label={`${title} — ${label}`}><Share2 aria-hidden="true" /><span>{label}</span></button>
     <span role="status" aria-live="polite" className="item-share-status">{message === "copied" ? (chinese ? "已複製項目連結。" : "Item link copied.") : message === "opened" ? (chinese ? "已開啟分享選項。" : "Share options opened.") : ""}</span>
     {manualUrl && <input className="item-share-url" readOnly value={manualUrl} aria-label={chinese ? "複製項目連結" : "Copy this item link"} onFocus={event => event.currentTarget.select()} />}
-  </div>;
+  </div>}</Localized>;
 }

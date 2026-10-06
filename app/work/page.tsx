@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "../localized";
 
 import {
   useEffect,
@@ -24,10 +25,10 @@ import { FeaturedWork } from "./featured-work";
 const copy = {
   en: {
     nav: { home: "Home", profile: "Profile", contact: "Contact" },
-    eyebrow: "Selected practice / 2020—Now",
+    eyebrow: "Work / 2020—Now",
     intro:
-      "A growing archive across APP / UI, editing, motion, 3D, drawing and graphic image — arranged by medium, connected by rhythm.",
-    count: "Open archive / Taiwan",
+      "A collection of my APP / UI, editing, motion, 3D, drawing and graphic design work. Pick a category, or browse the whole mix.",
+    count: "Work archive / Taiwan",
     filters: {
       all: "All",
       design: "APP / UI",
@@ -35,13 +36,13 @@ const copy = {
       "3d": "3D",
       drawing: "Drawing",
     },
-    overviewHint: "A visual index across four disciplines. Follow a thread, or choose your own order.",
-    atlasTitle: "Different media.\nA common thread.", atlasLabel: "Cross-disciplinary index", sheet: "Plate", pieces: "works",
+    overviewHint: "Start with a category, change the order, or pick a cover that looks interesting.",
+    atlasTitle: "Different formats.\nPlenty to explore.", atlasLabel: "Browse the collection", sheet: "Plate", pieces: "works",
     sort: "Sort by", direction: "Order", asc: "Ascending", desc: "Descending", sorted: "Current order:",
     sortKeys: { original: "Original order", date: "Artwork date clues", created: "Source file created", updated: "Source file modified", name: "Name", category: "Discipline" },
     dateNote: "Dates follow publication records or matched source files. File timestamps are clues, not the start of a work; unknown dates stay last.",
-    more: "And there is more...",
-    moreBody: "Only part of the practice is online. The archive keeps growing.",
+    more: "More to come.",
+    moreBody: "I’m still adding work here. Check back for more edits, designs and experiments.",
     moreTag: "Ongoing archive",
     view: "View details",
     returnHome: "Return to profile",
@@ -50,9 +51,9 @@ const copy = {
   },
   zh: {
     nav: { home: "首頁", profile: "關於我", contact: "聯絡" },
-    eyebrow: "精選創作／2020—現在",
-    intro: "持續整理 APP／UI、剪輯、動態圖形、3D、繪畫與平面影像，媒介彼此不同，卻共享同一種節奏。",
-    count: "開放式創作檔案／台灣",
+    eyebrow: "作品／2020—現在",
+    intro: "這裡整理了我的 APP／UI、剪輯、動態圖形、3D、繪畫和平面設計作品。挑一個分類看，或全部逛一遍。",
+    count: "作品集／台灣",
     filters: {
       all: "全部",
       design: "APP／UI",
@@ -60,13 +61,13 @@ const copy = {
       "3d": "3D",
       drawing: "繪畫",
     },
-    overviewHint: "四種媒介的視覺索引。沿著創作的線索瀏覽，也可以選擇自己的排列方式。",
-    atlasTitle: "不同媒介，\n同一種節奏。", atlasLabel: "跨媒介作品索引", sheet: "圖版", pieces: "件作品",
+    overviewHint: "可以從分類開始、換個排序，或直接點開一張喜歡的封面。",
+    atlasTitle: "各種形式，\n慢慢看。", atlasLabel: "逛逛作品集", sheet: "圖版", pieces: "件作品",
     sort: "排列依據", direction: "排列方向", asc: "升序", desc: "降序", sorted: "目前排列：",
     sortKeys: { original: "原始順序", date: "作品日期線索", created: "原檔建立日", updated: "原檔修改日", name: "名稱", category: "媒介分類" },
     dateNote: "日期取自發布紀錄或比對到的原檔。檔案時間是線索，不代表創作起點；未確認的日期排在最後。",
-    more: "還有更多⋯⋯",
-    moreBody: "目前只上傳了部分創作，這份檔案仍在持續累積。",
+    more: "還有作品慢慢補上。",
+    moreBody: "作品還在陸續整理上架，之後會再放更多剪輯、設計與實驗。",
     moreTag: "持續更新",
     view: "查看詳情",
     returnHome: "回到個人介紹",
@@ -184,7 +185,7 @@ export default function WorkArchive() {
     };
   }, []);
 
-  return (
+  return <Localized>{(
     <main id="top" className="site-shell work-page">
       <div
         className="scroll-progress"
@@ -211,7 +212,7 @@ export default function WorkArchive() {
           <Link href="/project-files">{language === "en" ? "Project files" : "專案檔"}</Link>
           <Link href="/#profile">{t.nav.profile}</Link>
           <Link href="/#contact">{t.nav.contact}</Link>
-        <Link className="whiteboard-nav-link" href="/whiteboard">{language === "zh" ? "塗鴉板" : "Whiteboard"}</Link></nav>
+        </nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
@@ -398,5 +399,5 @@ export default function WorkArchive() {
         </a>
       </footer>
     </main>
-  );
+  )}</Localized>;
 }

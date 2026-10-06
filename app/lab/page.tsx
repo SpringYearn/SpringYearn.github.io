@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "../localized";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
@@ -14,8 +15,8 @@ import { sortLabProjects, type LabSortDirection, type LabSortKey } from "./proje
 const copy = {
   en: {
     home: "Home", work: "Work archive", contact: "Contact", files: "Project files",
-    title: "Tools, prototypes,\nand useful detours.",
-    intro: "A development log of DaVinci Resolve and Fusion tools built to test workflows, solve specific problems, or explore ideas that existing tools did not quite cover.",
+    title: "Small tools,\nideas to test.",
+    intro: "Tools and experiments I’ve built in DaVinci Resolve and Fusion. Some are usable builds; others are prototypes or research. Each starts with an idea worth trying.",
     count: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`, back: "Return home", top: "Back to top",
     access: "These experimental builds are available for authorized testing only. To request a download, please contact SpringYearn directly for access.",
     buildLanguage: "Build language",
@@ -26,8 +27,8 @@ const copy = {
   },
   zh: {
     home: "首頁", work: "作品集", contact: "聯絡", files: "專案檔",
-    title: "把奇怪的問題，\n做成可以測試的工具。",
-    intro: "記錄我在 DaVinci Resolve 與 Fusion 裡做過的工具、插件與實驗。它們有些已經可用，有些仍是原型或研究，重點是把想法真的做出來測試。",
+    title: "工具、原型，\n還有一些實驗。",
+    intro: "這裡記錄我在 DaVinci Resolve 和 Fusion 裡做的工具、插件與實驗。有些已經能用，有些還是原型或研究；有個想試的點子，就動手做做看。",
     count: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`, back: "返回首頁", top: "回到頂端",
     access: "此實驗版本僅提供授權測試。若需要下載，請直接聯絡 SpringYearn 取得存取權限。",
     buildLanguage: "版本語言",
@@ -119,7 +120,7 @@ export default function LabPage() {
     };
   }, []);
 
-  return (
+  return <Localized>{(
     <main id="top" className="site-shell lab-page">
       <div className="scroll-progress" style={{ transform: "scaleX(" + scrollProgress + ")" }} aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
@@ -131,7 +132,7 @@ export default function LabPage() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/project-files">{t.files}</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
-        <Link className="whiteboard-nav-link" href="/whiteboard">{language === "zh" ? "塗鴉板" : "Whiteboard"}</Link></nav>
+        </nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block lab-hero" aria-labelledby="lab-title">
@@ -179,5 +180,5 @@ export default function LabPage() {
       <SiteStatus language={language} />
       <footer className="site-footer"><span>SpringYearn® — LAB / EXPERIMENTS</span><ForNever language={language} place="lab" /><a href="#top">{t.top}<ArrowUpRight aria-hidden="true" /></a></footer>
     </main>
-  );
+  )}</Localized>;
 }

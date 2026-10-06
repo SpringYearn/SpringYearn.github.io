@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "../localized";
 
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
@@ -16,8 +17,8 @@ export function FeaturedWork() {
     if (section.current) observer.observe(section.current);
     return () => observer.disconnect();
   }, []);
-  return <section ref={section} className="featured-work" data-in-view={inView} aria-labelledby="featured-work-title">
-    <div className="featured-work-heading"><p className="featured-selection-label mono-label"><Sparkle aria-hidden="true" />{language === "en" ? "SELECTED WORKS" : "精選作品"}<span>03 / SY</span></p><h2 id="featured-work-title">{language === "en" ? "A few places to start." : "從這幾件作品開始。"}</h2></div>
+  return <Localized>{<section ref={section} className="featured-work" data-in-view={inView} aria-labelledby="featured-work-title">
+    <div className="featured-work-heading"><p className="featured-selection-label mono-label"><Sparkle aria-hidden="true" />{language === "en" ? "SELECTED WORKS" : "精選作品"}<span>03 / SY</span></p><h2 id="featured-work-title">{language === "en" ? "Not sure where to start?" : "不知道先看哪件？"}</h2></div>
     <div className="featured-work-grid">
       <svg className="featured-orbits" viewBox="0 0 1200 500" fill="none" preserveAspectRatio="none" aria-hidden="true">
         <ellipse cx="600" cy="240" rx="555" ry="192" className="featured-orbit-line" />
@@ -37,5 +38,5 @@ export function FeaturedWork() {
         </Link>;
       })}
     </div>
-  </section>;
+  </section>}</Localized>;
 }

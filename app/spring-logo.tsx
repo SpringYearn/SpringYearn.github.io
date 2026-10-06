@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import { useEffect, useId, useRef } from "react";
 
@@ -24,7 +25,7 @@ export function SpringLogo({ language }: { language: "en" | "zh" }) {
     observer.observe(element);
     return () => { disposed = true; observer.disconnect(); release?.(); };
   }, []);
-  return (
+  return <Localized>{(
     <>
       <div ref={host} className="spring-logo" role="img" tabIndex={-1} aria-describedby={hintId}
         aria-label={language === "zh" ? "SpringYearn 3D logo。拖曳或使用方向鍵旋轉，Home 重設角度。" : "SpringYearn 3D logo. Drag or use arrow keys to rotate. Home resets the view."}>
@@ -37,5 +38,5 @@ export function SpringLogo({ language }: { language: "en" | "zh" }) {
         </button>
       </div>
     </>
-  );
+  )}</Localized>;
 }

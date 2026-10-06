@@ -1,3 +1,4 @@
+import { Localized } from "../localized";
 import type { Language } from "../portfolio-data";
 import { projectDates } from "./project-dates";
 import type { WorkSortKey } from "./project-sort";
@@ -12,5 +13,5 @@ export function WorkDate({ id, language, basis = "date" }: { id: string; languag
     dates?.created && `${language === "en" ? "Source file created" : "原檔建立"}: ${dates.created}`,
     dates?.updated && `${language === "en" ? "Source file modified" : "原檔修改"}: ${dates.updated}`,
   ].filter(Boolean).join(" / ");
-  return <span className="work-date mono-label" title={details || undefined}>{date ? <>{label} / <time dateTime={date}>{date.replaceAll("-", ".")}</time></> : (language === "en" ? "Date unconfirmed" : "日期待考")}</span>;
+  return <Localized>{<span className="work-date mono-label" title={details || undefined}>{date ? <>{label} / <time dateTime={date}>{date.replaceAll("-", ".")}</time></> : (language === "en" ? "Date unconfirmed" : "日期待考")}</span>}</Localized>;
 }

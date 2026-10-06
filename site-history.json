@@ -4,17 +4,31 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Restored the site cursor on the whiteboard and added working mouse/touch canvas dragging.",
-      "Added persisted, gesture-based Undo and an area eraser that preserves the un-erased portions of strokes, plus faint notebook ruling.",
-      "Enlarged Resolve and Fusion toolkit icons to match the application frames, and replaced MediBang with the supplied droplet cutout."
+      "Cleared the shared whiteboard and added two-finger zoom/pan, middle-button controls, adjustable eraser size and simple operation instructions.",
+      "New-board requests now email SpringYearn through the server, with private credentials and duplicate protection; hourly Codex checks are paused.",
+      "Rewrote site copy in a friendlier voice and added Japanese, Korean, Russian and Vietnamese. Language choices stay saved across pages; the desktop whiteboard shortcut now sits beside them."
     ],
     "zh": [
-      "白板恢復網站專屬游標，補上滑鼠與觸控拖曳移動畫布。",
-      "新增可保存、以完整手勢為單位的復原；橡皮擦只擦實際經過的區域，並加入極淡筆記本橫線。",
-      "Resolve 與 Fusion 圖示放大至一致應用程式框線，MediBang 改用提供圖檔的水滴去背。"
+      "清空共用白板，新增雙指縮放與移動、滑鼠中鍵操作、可調大小的橡皮擦及簡單操作說明。",
+      "新增白板申請改由伺服器直接寄信給 SpringYearn，憑證私密保存並避免重複通知；每小時的 Codex 檢查已暫停。",
+      "全站文案改得更親切，新增日語、韓語、俄語及越南語。語言選擇可跨頁保存，電腦版塗鴉板入口移至語言選單旁。"
     ]
   },
   "releases": [
+    {
+      "version": "V.049",
+      "date": "2026-10-07",
+      "en": [
+        "Cleared the shared whiteboard and added two-finger zoom/pan, middle-button controls, adjustable eraser size and simple operation instructions.",
+        "New-board requests now email SpringYearn through the server, with private credentials and duplicate protection; hourly Codex checks are paused.",
+        "Rewrote site copy in a friendlier voice and added Japanese, Korean, Russian and Vietnamese. Language choices stay saved across pages; the desktop whiteboard shortcut now sits beside them."
+      ],
+      "zh": [
+        "清空共用白板，新增雙指縮放與移動、滑鼠中鍵操作、可調大小的橡皮擦及簡單操作說明。",
+        "新增白板申請改由伺服器直接寄信給 SpringYearn，憑證私密保存並避免重複通知；每小時的 Codex 檢查已暫停。",
+        "全站文案改得更親切，新增日語、韓語、俄語及越南語。語言選擇可跨頁保存，電腦版塗鴉板入口移至語言選單旁。"
+      ]
+    },
     {
       "version": "V.048",
       "date": "2026-10-07",

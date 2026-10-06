@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -43,7 +44,7 @@ const copy = {
 };
 
 function RollingDigits({ value, replay, className }: { value: string; replay: number; className: string }) {
-  return (
+  return <Localized>{(
     <span className={`${className}${replay ? " is-decoding" : ""}`} key={replay} aria-hidden="true">
       {Array.from(value, (digit, index) => /\d/.test(digit) ? (
         <span className="status-digit" key={index} style={{ "--digit-delay": `${index * 32}ms` } as CSSProperties}>
@@ -53,7 +54,7 @@ function RollingDigits({ value, replay, className }: { value: string; replay: nu
         </span>
       ) : <span className="status-date-separator" key={index}>{digit}</span>)}
     </span>
-  );
+  )}</Localized>;
 }
 
 export function SiteStatus({ language }: { language: "en" | "zh" }) {
@@ -153,7 +154,7 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
   const countLabel = countState === "ready" ? `${t.visitors}: ${countText}`
     : countState === "loading" ? t.pending : t.unavailable;
 
-  return (
+  return <Localized>{(
     <div className="site-status" ref={root}>
       <span className="status-register" aria-hidden="true">SY / LOG</span>
       <Popover open={summaryOpen} onOpenChange={setSummaryOpen}>
@@ -248,5 +249,5 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
         <span className="status-note" role="tooltip">{countState === "unavailable" ? `${t.unavailable}。` : ""}{t.note}</span>
       </button>
     </div>
-  );
+  )}</Localized>;
 }

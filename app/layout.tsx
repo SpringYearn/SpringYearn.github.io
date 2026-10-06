@@ -16,13 +16,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
   title: "SpringYearn",
   description:
-    "The bilingual creative portfolio of SpringYearn, a Taiwan-based visual artist, designer and editor working across moving image, drawing, graphic design and 3D.",
+    "SpringYearn’s portfolio: editing, motion, drawing, graphic design and 3D, made in Taiwan.",
   openGraph: {
     title: "SpringYearn — Editor / Motion Designer",
-    description: "Visual rhythm, made tangible.",
+    description: "Editing, motion, design and a few experiments along the way.",
     type: "website",
     locale: "en_US",
-    alternateLocale: "zh_TW",
+    alternateLocale: ["zh_TW","ja_JP","ko_KR","ru_RU","vi_VN"],
     images: [
       {
         url: `${siteOrigin}/og.png`,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SpringYearn — Editor / Motion Designer",
-    description: "Visual rhythm, made tangible.",
+    description: "Editing, motion, design and a few experiments along the way.",
     images: [`${siteOrigin}/og.png`],
   },
   icons: {
@@ -53,12 +53,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SiteLanguageProvider>{children}</SiteLanguageProvider>
+        <SiteLanguageProvider>{children}
         <ArchiveTransition />
         <DeviceTiltControl />
         <CursorTrail />
         <PointerBurst />
         <InteractionAudio />
+        </SiteLanguageProvider>
       </body>
     </html>
   );

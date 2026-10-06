@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "../localized";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -12,22 +13,22 @@ import { materialLabel } from "../share-data";
 const copy = {
   en: {
     home: "Home", work: "Work archive", contact: "Contact", back: "Return home", top: "Back to top",
-    title: "The edit,\nopened up.",
-    intro: "Project files from my edits, shared freely. Watch the finished piece, open the timeline, and explore how it came together.",
+    title: "Go ahead,\nopen the timeline.",
+    intro: "These are project files from my edits, free to download. Watch the video first, then open the project and take a look around.",
     count: "07 files / 02 applications", free: "Free / public downloads",
-    help: "If you have any related questions, contact me. I’m happy to help.",
-    helpLabel: "A note from SpringYearn", preview: "Watch preview", download: "Free download", details: "View details",
-    aeNote: "Compositions, layers and the details behind the edit.", davinciNote: "A closer look at the rhythm and structure of the timeline.",
+    help: "If you get stuck with a file, send me a message. I’m happy to help.",
+    helpLabel: "Before you start", preview: "Watch preview", download: "Free download", details: "View details",
+    aeNote: "Explore the compositions, layers and effects that make up each edit.", davinciNote: "Check out the cuts, timing and structure of each timeline.",
     fileLabel: "Project file", aepNote: "Original .aep project file", zipNote: "Original ZIP package",
   },
   zh: {
     home: "首頁", work: "作品集", contact: "聯絡", back: "返回首頁", top: "回到頂端",
-    title: "把剪輯打開，\n把想法分享出去。",
-    intro: "把我免費分享的剪輯專案檔整理在這裡。先看完成的影片，再打開時間軸，看看每個畫面是如何拼起來的。",
+    title: "時間軸在這，\n打開看看。",
+    intro: "這裡放的是我免費分享的剪輯專案檔。先看影片，再打開專案，看看裡面的剪法和設定。",
     count: "07 個檔案 / 02 種軟體", free: "免費 / 公開下載",
-    help: "有任何相關問題可以聯絡我，我很樂意解答。",
-    helpLabel: "來自 SpringYearn 的小提醒", preview: "觀看影片預覽", download: "免費下載", details: "查看詳情",
-    aeNote: "從合成、圖層到細節，打開剪輯背後的安排。", davinciNote: "走進時間軸，看看節奏與畫面是如何安排的。",
+    help: "檔案有哪裡看不懂，歡迎問我，我很樂意幫忙。",
+    helpLabel: "打開之前", preview: "觀看影片預覽", download: "免費下載", details: "查看詳情",
+    aeNote: "看看每支影片的合成、圖層與效果設定。", davinciNote: "看看每條時間軸的剪法、節奏與安排。",
     fileLabel: "專案檔", aepNote: "原始 .aep 專案檔", zipNote: "原始 ZIP 專案包",
   },
 };
@@ -146,7 +147,7 @@ export default function ProjectFilesPage() {
     };
   }, []);
 
-  return (
+  return <Localized>{(
     <main id="top" className="site-shell pf-page">
       <div className="scroll-progress" style={{ transform: "scaleX(" + scrollProgress + ")" }} aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
@@ -158,7 +159,7 @@ export default function ProjectFilesPage() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/lab">LAB</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
-        <Link className="whiteboard-nav-link" href="/whiteboard">{language === "zh" ? "塗鴉板" : "Whiteboard"}</Link></nav>
+        </nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block pf-hero" aria-labelledby="pf-title">
@@ -197,5 +198,5 @@ export default function ProjectFilesPage() {
       <SiteStatus language={language} />
       <footer className="site-footer"><span>SpringYearn® — PROJECT FILES</span><Link href="/#contact">{t.contact}<ArrowUpRight aria-hidden="true" /></Link><a href="#top">{t.top}<ArrowUpRight aria-hidden="true" /></a></footer>
     </main>
-  );
+  )}</Localized>;
 }

@@ -4,10 +4,13 @@ import { createContext, useContext, useEffect, useSyncExternalStore, type ReactN
 import type { Language } from "./portfolio-data";
 
 const storageKey = "springyearn:language";
-let current: Language = "en";
+export const locales = ["en", "zh", "ja", "ko", "ru", "vi"] as const;
+export type Locale = (typeof locales)[number];
+export const localeNames: Record<Locale,string> = {en:"English",zh:"繁體中文",ja:"日本語",ko:"한국어",ru:"Русский",vi:"Tiếng Việt"};
+let current: Locale = "en";
 let initialized = false;
 const listeners = new Set<() => void>();
-const parse = (value: string | null): Language => value === "zh" ? "zh" : "en";
+const parse = (value: string | null): Locale => locales.includes(value as Locale) ? value as Locale : "en";
 const publish = () => listeners.forEach(listener => listener());
 const snapshot = () => {
   if (!initialized && typeof window !== "undefined") {
@@ -24,18 +27,19 @@ const subscribe = (listener: () => void) => {
   listeners.add(listener);
   return () => { listeners.delete(listener); if (!listeners.size) window.removeEventListener("storage", storageChanged); };
 };
-const setLanguage = (next: Language | ((previous: Language) => Language)) => {
-  current = typeof next === "function" ? next(snapshot()) : next;
+const setLanguage = (next: Locale | ((previous: Language) => Locale)) => {
+  current = typeof next === "function" ? next(snapshot()==="zh"?"zh":"en") : next;
   initialized = true;
   try { window.localStorage.setItem(storageKey, current); } catch { /* Navigation still retains the current preference. */ }
   publish();
 };
-const LanguageContext = createContext<{ language: Language; setLanguage: typeof setLanguage } | null>(null);
+const LanguageContext = createContext<{ language: Language; locale:Locale; setLanguage: typeof setLanguage } | null>(null);
 
 export function SiteLanguageProvider({ children }: { children: ReactNode }) {
-  const language = useSyncExternalStore(subscribe, snapshot, () => "en" as const);
-  useEffect(() => { document.documentElement.lang = language === "zh" ? "zh-Hant" : "en"; }, [language]);
-  return <LanguageContext.Provider value={{ language, setLanguage }}>{children}</LanguageContext.Provider>;
+  const locale = useSyncExternalStore(subscribe, snapshot, () => "en" as const);
+  const language:Language=locale==="zh"?"zh":"en";
+  useEffect(() => { document.documentElement.lang = locale === "zh" ? "zh-Hant" : locale; }, [locale]);
+  return <LanguageContext.Provider value={{ language, locale, setLanguage }}>{children}</LanguageContext.Provider>;
 }
 
 export function useSiteLanguage() {

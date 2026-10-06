@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "../localized";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
@@ -112,9 +113,9 @@ export function LabDownload({ project, language }: {
     }
   };
 
-  if (!build) return <div className="lab-no-build"><p className="lab-build-unavailable mono-label">{t.unavailable}</p></div>;
+  if (!build) return <Localized>{<div className="lab-no-build"><p className="lab-build-unavailable mono-label">{t.unavailable}</p></div>}</Localized>;
 
-  return (
+  return <Localized>{(
     <div className="lab-download">
       <button ref={trigger} className="lab-download-button" type="button"
         aria-haspopup="dialog" aria-label={project.title + " — " + t.download}
@@ -144,5 +145,5 @@ export function LabDownload({ project, language }: {
         <LabShare id={project.id} title={project.title} language={language} />
       </dialog>
     </div>
-  );
+  )}</Localized>;
 }

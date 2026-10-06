@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useSiteLanguage } from "./site-language";
@@ -37,12 +38,12 @@ export function BrandWord({ word }: { word: "SPRING" | "YEARN" }) {
     reduced.addEventListener("change", changed);
     return () => { observer?.disconnect(); touch.removeEventListener("change", changed); reduced.removeEventListener("change", changed); };
   }, []);
-  return <button ref={button} type="button" className="brand-word" data-brand-word={word} data-replay={playing || undefined} onClick={play}
+  return <Localized>{<button ref={button} type="button" className="brand-word" data-brand-word={word} data-replay={playing || undefined} onClick={play}
     onKeyDown={event => { if (event.repeat && (event.key === "Enter" || event.key === " ")) event.preventDefault(); }}
     aria-label={language === "en" ? `Replay the ${word} animation` : `重播 ${word} 動畫`}>
     <span className="sr-only">{word}</span>
     {Array.from(word).map((letter, index) => <span className="brand-letter" aria-hidden="true" key={`${replay}-${index}`}
       style={{ "--brand-letter-index": index } as CSSProperties}
       onAnimationEnd={index === word.length - 1 ? () => setPlaying(false) : undefined}>{letter}</span>)}
-  </button>;
+  </button>}</Localized>;
 }

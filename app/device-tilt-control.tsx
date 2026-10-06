@@ -1,4 +1,5 @@
 "use client";
+import { Localized } from "./localized";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Compass } from "lucide-react";
@@ -187,7 +188,7 @@ export function DeviceTiltControl() {
   const primaryLabel = isActive ? "TILT ON" : status === "denied" ? "TILT OFF" : "TILT";
   const secondaryLabel = isActive ? "ACTIVE" : status === "denied" ? "RETRY" : "DEVICE MOTION";
 
-  return (
+  return <Localized>{(
     <Button
       type="button"
       variant="outline"
@@ -204,5 +205,5 @@ export function DeviceTiltControl() {
         <span>{isRequesting ? "PERMISSION" : secondaryLabel}</span>
       </span>
     </Button>
-  );
+  )}</Localized>;
 }
