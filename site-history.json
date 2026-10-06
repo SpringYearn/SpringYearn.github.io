@@ -4,17 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Enlarged and darkened the memorial frame while retaining its intentional reveal condition.",
-      "Restored Project Files and Profile in the LAB desktop navigation, and Profile in Project Files.",
-      "Added contained, staggered SPRING / YEARN letter animations with reduced-motion support."
+      "Fixed italic letter clipping during the YEARN stretch animation by allowing glyph overhang inside the word and reserving extra trailing space, while retaining the article boundary."
     ],
     "zh": [
-      "放大並加深紀念彩蛋的小線框，保留原本的特定觸發條件。",
-      "補齊 LAB 桌面導覽的 Project Files、Profile，以及 Project Files 頁的 Profile。",
-      "SPRING／YEARN 涵意區加入逐字懸停動畫，預留邊界並支援減少動態效果。"
+      "修正 YEARN 伸展動畫的斜體筆畫裁切：移除文字框內層裁切、增加末字預留空間，並保留介紹區塊的邊界。"
     ]
   },
   "releases": [
+    {
+      "version": "V.043",
+      "date": "2026-10-06",
+      "en": [
+        "Fixed italic letter clipping during the YEARN stretch animation by allowing glyph overhang inside the word and reserving extra trailing space, while retaining the article boundary."
+      ],
+      "zh": [
+        "修正 YEARN 伸展動畫的斜體筆畫裁切：移除文字框內層裁切、增加末字預留空間，並保留介紹區塊的邊界。"
+      ]
+    },
     {
       "version": "V.042",
       "date": "2026-10-06",
