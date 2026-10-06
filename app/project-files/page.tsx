@@ -91,7 +91,7 @@ export default function ProjectFilesPage() {
       if (!cursor || !(event.target instanceof Element)) return;
       cursor.classList.toggle(
         "is-active",
-        Boolean(event.target.closest("a, button, select, summary, .project-card")),
+        Boolean(event.target.closest("[role=option], [role=combobox], a, button, select, summary, .project-card")),
       );
     };
 

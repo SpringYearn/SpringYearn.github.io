@@ -33,7 +33,7 @@ export function ItemPage(props: Props) {
       if (!fine || !cursor) return;
       cursor.style.setProperty("--cursor-x", `${event.clientX}px`); cursor.style.setProperty("--cursor-y", `${event.clientY}px`); cursor.classList.add("is-visible");
     };
-    const over = (event: PointerEvent) => { cursor?.classList.toggle("is-active", !!(event.target as Element)?.closest("a,button,input,summary")); };
+    const over = (event: PointerEvent) => { cursor?.classList.toggle("is-active", !!(event.target as Element)?.closest("[role=option],[role=combobox],a,button,input,summary")); };
     const down = () => cursor?.classList.add("is-pressed");
     const up = () => cursor?.classList.remove("is-pressed");
     const out = (event: PointerEvent) => { if (!event.relatedTarget) cursor?.classList.remove("is-visible"); };

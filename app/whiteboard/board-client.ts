@@ -1,3 +1,4 @@
+import { BOARD_WIDTH, BOARD_HEIGHT } from "./erase-geometry";
 export const BOARD_API = "https://springyearn-whiteboard.springyearn.chatgpt.site/api";
 export type Point = [number, number];
 export type Stroke = { id: string; owner: string; color: string; width: number; points: Point[]; created?: number; group?:string };
@@ -23,9 +24,9 @@ export function getSession() {
   return sessionPromise;
 }
 export function nearStroke(stroke: Stroke, point: Point, radius = 12) {
-  const [x,y] = [point[0]*1600,point[1]*1000];
+  const [x,y] = [point[0]*BOARD_WIDTH,point[1]*BOARD_HEIGHT];
   return stroke.points.some((p,i) => {
-    const prev = stroke.points[Math.max(0,i-1)], ax=prev[0]*1600, ay=prev[1]*1000, dx=p[0]*1600-ax, dy=p[1]*1000-ay;
+    const prev = stroke.points[Math.max(0,i-1)], ax=prev[0]*BOARD_WIDTH, ay=prev[1]*BOARD_HEIGHT, dx=p[0]*BOARD_WIDTH-ax, dy=p[1]*BOARD_HEIGHT-ay;
     const t=Math.max(0,Math.min(1,((x-ax)*dx+(y-ay)*dy)/(dx*dx+dy*dy||1)));
     return Math.hypot(x-ax-t*dx,y-ay-t*dy) <= radius+stroke.width/2;
   });

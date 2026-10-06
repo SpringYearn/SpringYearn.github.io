@@ -4,17 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Cleared the shared whiteboard and added two-finger zoom/pan, middle-button controls, adjustable eraser size and simple operation instructions.",
-      "New-board requests now email SpringYearn through the server, with private credentials and duplicate protection; hourly Codex checks are paused.",
-      "Rewrote site copy in a friendlier voice and added Japanese, Korean, Russian and Vietnamese. Language choices stay saved across pages; the desktop whiteboard shortcut now sits beside them."
+      "Changed the shared canvas to 1920 × 1080, with top-right zoom buttons, a slider and a drag toggle replacing touch gestures and middle-button controls.",
+      "Matched the language dropdown and cursor to the site style. Contact now places copy on the left and links on the right, with a shorter heading and the same body text."
     ],
     "zh": [
-      "清空共用白板，新增雙指縮放與移動、滑鼠中鍵操作、可調大小的橡皮擦及簡單操作說明。",
-      "新增白板申請改由伺服器直接寄信給 SpringYearn，憑證私密保存並避免重複通知；每小時的 Codex 檢查已暫停。",
-      "全站文案改得更親切，新增日語、韓語、俄語及越南語。語言選擇可跨頁保存，電腦版塗鴉板入口移至語言選單旁。"
+      "共用畫布改為 1920 × 1080，右上角新增縮放滑桿、按鈕與拖曳模式，取代雙指手勢及滑鼠中鍵操作。",
+      "語言選單及游標統一為網站風格；Contact 改為左側文案、右側連結，標題簡化為「聯繫我」，內文保留。"
     ]
   },
   "releases": [
+    {
+      "version": "V.050",
+      "date": "2026-10-07",
+      "en": [
+        "Changed the shared canvas to 1920 × 1080, with top-right zoom buttons, a slider and a drag toggle replacing touch gestures and middle-button controls.",
+        "Matched the language dropdown and cursor to the site style. Contact now places copy on the left and links on the right, with a shorter heading and the same body text."
+      ],
+      "zh": [
+        "共用畫布改為 1920 × 1080，右上角新增縮放滑桿、按鈕與拖曳模式，取代雙指手勢及滑鼠中鍵操作。",
+        "語言選單及游標統一為網站風格；Contact 改為左側文案、右側連結，標題簡化為「聯繫我」，內文保留。"
+      ]
+    },
     {
       "version": "V.049",
       "date": "2026-10-07",
