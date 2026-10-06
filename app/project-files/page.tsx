@@ -158,7 +158,7 @@ export default function ProjectFilesPage() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/lab">LAB</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
-        </nav>
+        <Link className="whiteboard-nav-link" href="/whiteboard">{language === "zh" ? "塗鴉板" : "Whiteboard"}</Link></nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block pf-hero" aria-labelledby="pf-title">

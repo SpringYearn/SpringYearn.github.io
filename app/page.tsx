@@ -144,17 +144,54 @@ const capabilities = [
 ];
 
 const softwareStack = [
-  "DaVinci Resolve",
-  "Blender",
-  "After Effects",
-  "Photoshop",
-  "Illustrator",
-  "MediBang Paint Pro",
-  "CapCut",
-  "PowerDirector",
-  "Fusion",
-  "Figma",
-  "Procreate",
+  {
+    "id": "resolve",
+    "name": "DaVinci Resolve"
+  },
+  {
+    "id": "blender",
+    "name": "Blender"
+  },
+  {
+    "id": "maya",
+    "name": "Maya"
+  },
+  {
+    "id": "aftereffects",
+    "name": "After Effects"
+  },
+  {
+    "id": "photoshop",
+    "name": "Photoshop"
+  },
+  {
+    "id": "illustrator",
+    "name": "Illustrator"
+  },
+  {
+    "id": "medibang",
+    "name": "MediBang Paint Pro"
+  },
+  {
+    "id": "capcut",
+    "name": "CapCut"
+  },
+  {
+    "id": "powerdirector",
+    "name": "PowerDirector"
+  },
+  {
+    "id": "fusion",
+    "name": "Fusion"
+  },
+  {
+    "id": "figma",
+    "name": "Figma"
+  },
+  {
+    "id": "procreate",
+    "name": "Procreate"
+  }
 ];
 
 const practiceHistory = [
@@ -406,7 +443,7 @@ export default function Home() {
           <Link href="/project-files">{language === "en" ? "Project files" : "專案檔"}</Link>
           <a href="#profile">{t.nav.profile}</a>
           <a href="#contact">{t.nav.contact}</a>
-        </nav>
+        <Link className="whiteboard-nav-link" href="/whiteboard">{language === "zh" ? "塗鴉板" : "Whiteboard"}</Link></nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
@@ -599,7 +636,7 @@ export default function Home() {
               <p className="mono-label">{language === "en" ? "Software / Toolkit" : "使用軟體／工具"}</p>
               <ul>
                 {softwareStack.map((software) => (
-                  <li key={software}>{software}</li>
+                  <li key={software.id}><span className="software-logo"><img src={`/toolkit/${software.id}.svg`} alt="" loading="lazy" width="32" height="32" /></span><span>{software.name}</span></li>
                 ))}
                 <li className="software-more">{language === "en" ? "And more…" : "以及更多⋯⋯"}</li>
               </ul>

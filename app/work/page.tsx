@@ -211,7 +211,7 @@ export default function WorkArchive() {
           <Link href="/project-files">{language === "en" ? "Project files" : "專案檔"}</Link>
           <Link href="/#profile">{t.nav.profile}</Link>
           <Link href="/#contact">{t.nav.contact}</Link>
-        </nav>
+        <Link className="whiteboard-nav-link" href="/whiteboard">{language === "zh" ? "塗鴉板" : "Whiteboard"}</Link></nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
