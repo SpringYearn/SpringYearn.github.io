@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Changed selected works to In my room, Blight and 14.3 Billion Years, keeping the existing card layout and animation.",
-      "Added personal work introductions in six languages, software versions, competition results and a linked credit to Drgz’s Flourish on the three detail pages."
+      "Combined the two PAIKE entries into one project, using the mobile interface as the cover and showing the design-system image in its details. Previous detail links still open the merged project.",
+      "Moved APP / UI to the final category position. Work and LAB now default to Last updated in descending order, with newer dated entries first."
     ],
     "zh": [
-      "精選作品改為 In my room、Blight 與 14.3 Billion Years，延續既有卡片編排與動畫。",
-      "三件作品的詳情頁加入六種語言的創作簡介、軟體版本與比賽成績，並附上 Drgz 的 Flourish 致謝連結。"
+      "兩件 PAIKE 合併為一個專案，以手機介面作為主圖，設計系統圖放在詳情；舊詳情連結仍可開啟合併後的專案。",
+      "APP／UI 分類移到最後；作品集與 LAB 預設以「最後更新日、降序」排列，日期較新的項目優先顯示。"
     ]
   },
   "releases": [
+    {
+      "version": "V.052",
+      "date": "2026-10-08",
+      "en": [
+        "Combined the two PAIKE entries into one project, using the mobile interface as the cover and showing the design-system image in its details. Previous detail links still open the merged project.",
+        "Moved APP / UI to the final category position. Work and LAB now default to Last updated in descending order, with newer dated entries first."
+      ],
+      "zh": [
+        "兩件 PAIKE 合併為一個專案，以手機介面作為主圖，設計系統圖放在詳情；舊詳情連結仍可開啟合併後的專案。",
+        "APP／UI 分類移到最後；作品集與 LAB 預設以「最後更新日、降序」排列，日期較新的項目優先顯示。"
+      ]
+    },
     {
       "version": "V.051",
       "date": "2026-10-07",

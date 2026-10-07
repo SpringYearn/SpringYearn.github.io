@@ -3283,6 +3283,11 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .item-story-credit a { display: inline-flex; align-items: center; gap: .2rem; border-bottom: 1px solid var(--spring-ink); color: var(--spring-ink); }
 .item-story-credit a:hover { background: rgba(var(--spring-soft-rgb),.6); }
 .item-story-credit svg { width: 14px; height: 14px; }
+.item-gallery { border-top: 1px solid rgba(var(--spring-ink-rgb),.4); }
+.item-gallery-heading h2 { margin: 1rem 0 2rem; font-size: clamp(1.75rem,3vw,3rem); }
+.item-gallery figure { margin: 0; }
+.item-gallery-link { display: block; border: 1px solid rgba(var(--spring-ink-rgb),.35); }
+.item-gallery-link img { display: block; width: 100%; height: auto; }
 @media (max-width: 900px) { .item-story { grid-template-columns: 1fr; gap: 2rem; } .item-story-software { margin-top: 1.3rem; } }
 .item-file-meta { font-family: var(--font-mono); font-size: .72rem; }
 @media (pointer: fine) { html.has-art-cursor .item-share-button { cursor: none; } }

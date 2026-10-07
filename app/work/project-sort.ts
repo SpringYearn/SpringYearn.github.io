@@ -4,6 +4,13 @@ import type { ProjectDates } from "./project-dates";
 export type WorkSortKey = "original" | "date" | "created" | "updated" | "name" | "category";
 export type WorkSortDirection = "asc" | "desc";
 
+export function workDateFor(dates: ProjectDates | undefined, key: WorkSortKey) {
+  const source: keyof ProjectDates = key === "created" ? "created"
+    : key === "updated" ? (dates?.updated ? "updated" : dates?.published ? "published" : "recorded")
+    : dates?.published ? "published" : dates?.updated ? "updated" : "recorded";
+  return { source, date: dates?.[source] };
+}
+
 export function sortWorkProjects(
   projects: readonly Project[],
   dates: Readonly<Record<string, ProjectDates>>,
@@ -14,7 +21,7 @@ export function sortWorkProjects(
   const factor = direction === "asc" ? 1 : -1;
   const dateFor = (project: Project) => {
     const date = dates[project.id];
-    return key === "date" ? date?.published ?? date?.updated ?? date?.recorded : date?.[key as "created" | "updated"];
+    return workDateFor(date, key).date;
   };
   return projects.map((project, index) => ({ project, index }))
     .sort((a, b) => {

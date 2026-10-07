@@ -13,6 +13,7 @@ export type Project = {
   mediaType?: "image" | "video";
   fit?: "cover" | "contain";
   frame?: "landscape" | "portrait";
+  gallery?: { src: string; title: Record<Language, string> }[];
 };
 
 export const projects: Project[] = [
@@ -161,24 +162,16 @@ export const projects: Project[] = [
   },
   {
     id: "14",
-    title: "PAIKE / APP DESIGN SYSTEM",
+    title: "PAIKE / APP DESIGN",
     type: { en: "APP / UI design", zh: "APP／UI 設計" },
-    detail: { en: "Figma process", zh: "Figma 設計流程" },
-    category: "design",
-    art: "image",
-    href: "/works/paike-app-system.webp",
-    thumbnail: "/works/paike-app-system.webp",
-  },
-  {
-    id: "15",
-    title: "PAIKE / MOBILE INTERFACE",
-    type: { en: "APP / UI design", zh: "APP／UI 設計" },
-    detail: { en: "Interface mockup", zh: "介面情境模擬" },
+    detail: { en: "App design system and mobile interface.", zh: "APP 設計系統與手機介面。" },
     category: "design",
     art: "image",
     href: "/works/paike-mobile-interface.webp",
     thumbnail: "/works/paike-mobile-interface.webp",
+    fit: "contain",
     frame: "portrait",
+    gallery: [{ src: "/works/paike-app-system.webp", title: { en: "App design system / Figma process", zh: "APP 設計系統／Figma 設計流程" } }],
   },
   {
     id: "16",
@@ -321,3 +314,8 @@ export const projects: Project[] = [
     thumbnail: "https://i.ytimg.com/vi/Gg55gN6nvU0/maxresdefault.jpg",
   },
 ];
+
+// Keep shared URLs from before the two PAIKE entries were combined.
+export const workAliases: Record<string, string> = { "15": "14" };
+export const resolveWorkId = (id: string) => workAliases[id] ?? id;
+export const workPageIds = [...projects.map(project => project.id), ...Object.keys(workAliases)];

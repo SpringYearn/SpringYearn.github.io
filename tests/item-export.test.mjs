@@ -14,7 +14,7 @@ const meta = (html, key) => {
   return tag ? decode(tag.match(/content="([^"]*)"/)[1]) : null;
 };
 
-test("all 35 individual pages export with their own canonical URL, title, description and cover", () => {
+test("all 34 current individual pages export with their own canonical URL, title, description and cover", () => {
   for (const [kind, items] of [["work", projects], ["project-files", projectFiles]]) {
     for (const item of items) {
       const html = read(`${kind}/${item.id}/index.html`);
@@ -45,9 +45,9 @@ test("every preview cover is a distinct, valid 1200 by 630 PNG", () => {
   assert.equal(hashes.size, projects.length + projectFiles.length);
 });
 
-test("the three chosen works are featured without removing any of the 28 archive records", () => {
+test("the three chosen works are featured remain selected after combining PAIKE into 27 archive projects", () => {
   assert.deepEqual(featuredWorkIds, ["02", "01", "03"]);
-  assert.equal(projects.length, 28);
+  assert.equal(projects.length, 27);
   const archive = read("work/index.html");
   for (const id of featuredWorkIds) assert.ok(archive.includes(`href="/work/${id}/"`));
   for (const project of projects) assert.ok(archive.includes(`data-project-id="${project.id}"`));

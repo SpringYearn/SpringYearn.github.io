@@ -1,12 +1,11 @@
 import { Localized } from "../localized";
 import type { Language } from "../portfolio-data";
 import { projectDates } from "./project-dates";
-import type { WorkSortKey } from "./project-sort";
+import { workDateFor, type WorkSortKey } from "./project-sort";
 
 export function WorkDate({ id, language, basis = "date" }: { id: string; language: Language; basis?: WorkSortKey }) {
   const dates = projectDates[id];
-  const source = basis === "created" || basis === "updated" ? basis : dates?.published ? "published" : dates?.updated ? "updated" : "recorded";
-  const date = dates?.[source];
+  const { source, date } = workDateFor(dates, basis);
   const label = source === "published" ? (language === "en" ? "Published" : "發布") : source === "created" ? (language === "en" ? "File created" : "原檔建立") : source === "updated" ? (basis === "updated" ? (language === "en" ? "File modified" : "原檔修改") : (language === "en" ? "File clue" : "檔案線索")) : (language === "en" ? "Recorded" : "年份紀錄");
   const details = [
     dates?.published && `${language === "en" ? "Published" : "發布"}: ${dates.published}`,

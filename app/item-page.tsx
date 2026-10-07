@@ -13,6 +13,7 @@ import type { Project } from "./portfolio-data";
 import type { ProjectFile } from "./project-files/files";
 import { featuredSummaries } from "./work/featured-data";
 import { WorkStory } from "./work/work-story";
+import { ProjectGallery } from "./work/project-gallery";
 
 type Props = { kind: "work"; project: Project } | { kind: "project-files"; project: ProjectFile };
 function quietPreview(video: HTMLVideoElement | null) { if (video) video.volume = .25; }
@@ -73,6 +74,7 @@ export function ItemPage(props: Props) {
       </div>
     </section>
     {props.kind === "work" && <WorkStory id={props.project.id} />}
+    {props.kind === "work" && <ProjectGallery project={props.project} />}
     <SiteStatus language={language} /><footer className="site-footer"><span>SpringYearn® — {kind === "work" ? "WORK" : "PROJECT FILES"}</span><Link href={kind === "work" ? "/work/" : "/project-files/"}>{chinese ? "返回索引" : "Back to index"}<ArrowUpRight aria-hidden="true" /></Link><a href="#top">{chinese ? "回到頂端" : "Back to top"}<ArrowUpRight aria-hidden="true" /></a></footer>
   </main>}</Localized>;
 }
