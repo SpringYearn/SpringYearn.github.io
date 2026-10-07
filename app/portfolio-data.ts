@@ -305,7 +305,7 @@ export const projects: Project[] = [
   },
   {
     id: "28",
-    title: "RECENT EDITING WORK",
+    title: "NEED 2",
     type: { en: "Editing / Moving image", zh: "剪輯／動態影像" },
     detail: { en: "YouTube", zh: "YouTube" },
     category: "editing",

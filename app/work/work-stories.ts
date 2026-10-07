@@ -1,7 +1,47 @@
 import type { Locale } from "../site-language";
 type Story = { paragraphs: string[]; credit?: { before: string; after: string } };
-export type WorkStoryData = { software: string[]; text: Record<Locale, Story> };
+export type WorkStoryData = { software: string[]; text: Record<Locale, Story>; summary?: Record<Locale, string>; externalLink?: { href: string; label: Record<Locale, string> } };
 export const workStories: Record<string, WorkStoryData> = {
+  "04": {
+    summary: { en: "A school assignment and my first complete typography piece.", zh: "學校作業，也是我第一次完成一整部 Typography 作品。", ja: "学校の課題で、初めて最後まで作ったタイポグラフィ作品。", ko: "학교 과제로 처음부터 끝까지 완성한 첫 타이포그래피 작품이에요.", ru: "Школьное задание и моя первая полноценная типографическая работа.", vi: "Bài tập ở trường và tác phẩm typography hoàn chỉnh đầu tiên của mình." },
+    software: ["DaVinci Resolve 18", "Blender 3.6"],
+    text: {
+      zh: { paragraphs: ["這是學校的作業，算是第一次做一整個完整的 Typography，所以有很多地方有不足之處。", "也有許多渲染問題，不過這對我來說已經盡力了。"] },
+      en: { paragraphs: ["This was a school assignment, and my first complete typography piece, so there are quite a few rough spots.", "I ran into plenty of rendering issues too, but this was the best I could do."] },
+      ja: { paragraphs: ["学校の課題で、ひとつのタイポグラフィ作品を最初から最後まで作ったのはこれが初めてでした。なので、足りないところもかなりあります。", "レンダリングの問題もいろいろありましたが、自分なりに精いっぱいやった作品です。"] },
+      ko: { paragraphs: ["학교 과제로, 처음부터 끝까지 완성한 첫 타이포그래피 작품이라 부족한 부분이 많아요.", "렌더링 문제도 여러 가지 있었지만, 제 나름대로는 최선을 다했어요."] },
+      ru: { paragraphs: ["Это школьное задание и моя первая полноценная типографическая работа, поэтому недочётов в ней немало.", "Проблем с рендерингом тоже было много, но я сделал всё, что мог."] },
+      vi: { paragraphs: ["Đây là bài tập ở trường và cũng là lần đầu mình làm một tác phẩm typography hoàn chỉnh từ đầu đến cuối, nên còn nhiều điểm chưa tốt.", "Mình cũng gặp khá nhiều vấn đề khi render, nhưng với mình thì đã cố gắng hết sức rồi."] },
+    },
+  },
+  "28": {
+    summary: { en: "A stylized CS edit to Pinegrove - Need 2, with a relaxed, old-newspaper mood.", zh: "以 Pinegrove - Need 2 剪出的風格化 CS 作品，帶著愜意與舊報紙的氣息。", ja: "Pinegrove - Need 2 で作った、穏やかで古い新聞のような雰囲気の CS 編集。", ko: "Pinegrove - Need 2로 만든, 여유롭고 오래된 신문 같은 분위기의 CS 편집이에요.", ru: "Стилизованный монтаж по CS под Pinegrove - Need 2: спокойствие и настроение старой газеты.", vi: "Bản dựng CS được cách điệu với Pinegrove - Need 2, mang cảm giác thư thả như một tờ báo cũ." },
+    software: ["DaVinci Resolve 19"],
+    text: {
+      zh: { paragraphs: ["這是我少數的 CS 剪輯，歌曲是 Pinegrove - Need 2，我很喜歡這首歌的情緒，有種鄉村、愜意、舊報紙的感覺。", "所以我做了一次極度風格化的嘗試，沒想到評價還不錯，甚至有人花錢找我做同款的剪輯。我幫他剪輯的那部觀看數剛發布沒多久就破了兩萬（我自己的頻道都沒那麼高的流量嗚嗚嗚嗚）。"] },
+      en: { paragraphs: ["This is one of my few CS edits, set to Pinegrove - Need 2. I really like the mood of this song: rural, relaxed, with the feel of an old newspaper.", "So I tried a really stylized approach. The response was better than I expected—someone even commissioned me to make an edit in the same style. The one I made for them passed 20,000 views not long after release. My own channel doesn't even get that kind of traffic, sob sob."] },
+      ja: { paragraphs: ["数少ない CS の編集作品のひとつで、曲は Pinegrove - Need 2 です。この曲の雰囲気がとても好きで、田舎の穏やかさや古い新聞のような感じがあります。", "そこで、かなりスタイルを強く出した編集を試してみました。思ったより評判がよく、同じスタイルの編集を有料で頼んでくれた人までいました。その人のために作った動画は公開から間もなく2万再生を超えました。自分のチャンネルはそんなに再生されないのに、ううう。"] },
+      ko: { paragraphs: ["제가 만든 몇 안 되는 CS 편집 중 하나이고, 곡은 Pinegrove - Need 2예요. 시골의 여유와 오래된 신문 같은 느낌이 있어서 이 곡의 분위기를 정말 좋아해요.", "그래서 스타일을 아주 강하게 밀어붙여 봤어요. 생각보다 반응이 좋았고, 같은 스타일의 편집을 돈을 내고 의뢰한 사람도 있었어요. 그분을 위해 만든 영상은 공개한 지 얼마 되지 않아 2만 조회 수를 넘었죠. 제 채널은 그런 조회 수도 안 나오는데, 흑흑."] },
+      ru: { paragraphs: ["Это одна из немногих моих работ по CS. Музыка — Pinegrove - Need 2. Мне очень нравится настроение этой песни: деревенское, спокойное, с ощущением старой газеты.", "Поэтому я попробовал сделать очень стилизованный монтаж. Отзывы оказались лучше, чем я ожидал: мне даже заказали платную работу в том же стиле. Видео, которое я сделал для заказчика, вскоре после публикации набрало больше 20 000 просмотров. У моего канала даже такого трафика нет, эх."] },
+      vi: { paragraphs: ["Đây là một trong số ít bản dựng CS của mình, dùng bài Pinegrove - Need 2. Mình rất thích cảm xúc của bài này: có chút đồng quê, thư thả và cảm giác như một tờ báo cũ.", "Vì vậy mình thử một cách dựng được cách điệu rất mạnh. Không ngờ phản hồi khá tốt, thậm chí có người trả tiền để mình dựng một video cùng phong cách. Video mình làm cho họ vượt 20.000 lượt xem không lâu sau khi đăng. Kênh của mình còn chẳng có lượng xem như vậy, huhu."] },
+    },
+  },
+  "14": {
+    summary: { en: "An unfinished school project exploring a UI and UX redesign of E排客.", zh: "以 E排客 網站 UI、UX 重新設計為題的學校作業，目前是未完成品。", ja: "E排客 のウェブサイトの UI・UX を再設計する学校の課題。未完成の作品です。", ko: "E排客 웹사이트의 UI와 UX를 다시 디자인한 학교 과제로, 아직 미완성이에요.", ru: "Незавершённое школьное задание по переработке UI и UX сайта E排客.", vi: "Bài tập ở trường về thiết kế lại UI, UX của E排客, hiện vẫn chưa hoàn thành." },
+    software: ["Figma"],
+    externalLink: {
+      href: "https://www.figma.com/proto/2iVV0bFJQ3BMauuAYiHVdQ/%E5%A4%9A%E4%BA%8C%E7%94%B211%E6%9E%97%E4%BD%91_APP%E8%A8%AD%E8%A8%88%E6%88%90%E5%93%81?node-id=8401-2&starting-point-node-id=8401%3A2&t=gXOEUtIq526gKwzl-1",
+      label: { en: "Open Figma prototype", zh: "開啟 Figma 原型", ja: "Figma のプロトタイプを開く", ko: "Figma 프로토타입 열기", ru: "Открыть прототип в Figma", vi: "Mở nguyên mẫu Figma" },
+    },
+    text: {
+      zh: { paragraphs: ["這是學校的作業，負責重新設計並改善 E排客 網站的 UI 和 UX。", "這是一個未完成品，老實說我覺得我重新設計的也沒有多好看哈哈哈，不過也算是一種嘗試了，當時的審美水平和技術都不夠。"] },
+      en: { paragraphs: ["This was a school assignment to redesign and improve the UI and UX of the E排客 website.", "It's unfinished. Honestly, I don't think my redesign looked all that great either, hahaha. Still, it was a chance to try—my sense of design and skills weren't quite there yet."] },
+      ja: { paragraphs: ["学校の課題で、E排客 のウェブサイトの UI と UX を再設計し、改善する担当でした。", "未完成の作品です。正直、自分の再設計もそこまでよく見えるとは思っていません、ははは。でも、ひとつの挑戦にはなりました。当時は見る目も技術もまだ足りなかったんです。"] },
+      ko: { paragraphs: ["학교 과제로 E排客 웹사이트의 UI와 UX를 다시 디자인하고 개선하는 일을 맡았어요.", "미완성 작품이에요. 솔직히 다시 디자인한 것도 그렇게 예쁘지는 않은 것 같아요, 하하하. 그래도 하나의 시도였고, 당시에는 디자인을 보는 눈과 기술이 아직 부족했어요."] },
+      ru: { paragraphs: ["Это школьное задание: я отвечал за переработку и улучшение UI и UX сайта E排客.", "Проект не закончен. Честно говоря, мой вариант тоже не кажется мне таким уж красивым, хахаха. Но попробовать всё равно было полезно: тогда мне ещё не хватало насмотренности и навыков."] },
+      vi: { paragraphs: ["Đây là bài tập ở trường, mình phụ trách thiết kế lại và cải thiện UI, UX của website E排客.", "Đây là tác phẩm chưa hoàn thành. Thật lòng mình cũng không thấy bản thiết kế lại đẹp đến mức nào, hahaha. Nhưng đó vẫn là một lần thử, vì khi ấy gu thẩm mỹ và kỹ năng của mình còn chưa đủ."] },
+    },
+  },
   "02": {
     software: ["DaVinci Resolve 19", "Blender 4.5"],
     text: {
