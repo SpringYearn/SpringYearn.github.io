@@ -39,8 +39,8 @@ const copy = {
     overviewHint: "Start with a category, change the order, or pick a cover that looks interesting.",
     atlasTitle: "Different formats.\nPlenty to explore.", atlasLabel: "Browse the collection", sheet: "Plate", pieces: "works",
     sort: "Sort by", direction: "Order", asc: "Ascending", desc: "Descending", sorted: "Current order:",
-    sortKeys: { original: "Original order", date: "Artwork date clues", created: "Source file created", updated: "Source file modified", name: "Name", category: "Discipline" },
-    dateNote: "Dates follow publication records or matched source files. File timestamps are clues, not the start of a work; unknown dates stay last.",
+    sortKeys: { original: "Original order", date: "Artwork date clues", created: "Source file created", updated: "Last updated", name: "Name", category: "Discipline" },
+    dateNote: "Last updated uses file modification dates when known, then publication dates or existing year clues. Unconfirmed dates stay last.",
     more: "More to come.",
     moreBody: "I’m still adding work here. Check back for more edits, designs and experiments.",
     moreTag: "Ongoing archive",
@@ -64,8 +64,8 @@ const copy = {
     overviewHint: "可以從分類開始、換個排序，或直接點開一張喜歡的封面。",
     atlasTitle: "各種形式，\n慢慢看。", atlasLabel: "逛逛作品集", sheet: "圖版", pieces: "件作品",
     sort: "排列依據", direction: "排列方向", asc: "升序", desc: "降序", sorted: "目前排列：",
-    sortKeys: { original: "原始順序", date: "作品日期線索", created: "原檔建立日", updated: "原檔修改日", name: "名稱", category: "媒介分類" },
-    dateNote: "日期取自發布紀錄或比對到的原檔。檔案時間是線索，不代表創作起點；未確認的日期排在最後。",
+    sortKeys: { original: "原始順序", date: "作品日期線索", created: "原檔建立日", updated: "最後更新日", name: "名稱", category: "媒介分類" },
+    dateNote: "最後更新日優先採用已知的原檔修改日期，再使用發布日期或既有年份線索；未確認的日期排在最後。",
     more: "還有作品慢慢補上。",
     moreBody: "作品還在陸續整理上架，之後會再放更多剪輯、設計與實驗。",
     moreTag: "持續更新",
@@ -103,8 +103,8 @@ export default function WorkArchive() {
   const [filter, setFilter] = useState<Category>("all");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [sortKey, setSortKey] = useState<WorkSortKey>("original");
-  const [sortDirection, setSortDirection] = useState<WorkSortDirection>("asc");
+  const [sortKey, setSortKey] = useState<WorkSortKey>("updated");
+  const [sortDirection, setSortDirection] = useState<WorkSortDirection>("desc");
   const t = copy[language];
   const filteredProjects = useMemo(
     () => sortWorkProjects(projects.filter((project) => filter === "all" || project.category === filter), projectDates, sortKey, sortDirection),
@@ -254,7 +254,7 @@ export default function WorkArchive() {
 
       <section className="section-block work-archive-gallery" aria-label={t.count}>
         <div className="filter-row archive-filter-row" role="group" aria-label="Project filters" data-reveal>
-          {(Object.keys(t.filters) as Category[]).map((category) => (
+          {(["all", "editing", "3d", "drawing", "design"] as Category[]).map((category) => (
             <Button
               key={category}
               type="button"

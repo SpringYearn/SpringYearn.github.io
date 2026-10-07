@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { projects } from "../app/portfolio-data.ts";
 import { projectDates } from "../app/work/project-dates.ts";
-import { sortWorkProjects } from "../app/work/project-sort.ts";
+import { sortWorkProjects, workDateFor } from "../app/work/project-sort.ts";
 
 test("work sorting preserves every item and its source for both directions and each discipline", () => {
   const original = structuredClone(projects);
@@ -26,9 +26,15 @@ test("unknown dates stay last in either direction and equal dates retain input o
   const dates = { "01": { published: "2024" }, "02": { published: "2024-01-01" }, "04": { published: "2025-02" } };
   assert.deepEqual(sortWorkProjects(input, dates, "date", "asc").map(project => project.id), ["01", "02", "04", "03", "05"]);
   assert.deepEqual(sortWorkProjects(input, dates, "date", "desc").map(project => project.id), ["04", "01", "02", "03", "05"]);
-  for (const key of ["created", "updated"]) assert.deepEqual(sortWorkProjects(input, dates, key, "desc"), input);
+  assert.deepEqual(sortWorkProjects(input, dates, "created", "desc"), input);
+  assert.deepEqual(sortWorkProjects(input, dates, "updated", "desc").map(p=>p.id),["04","01","02","03","05"]);
   assert.deepEqual(sortWorkProjects([], dates, "date", "asc"), []);
   assert.equal(dates["01"].published, "2024");
+});
+test("last update ordering uses genuine date clues and labels their source",()=>{
+ const input=projects.slice(0,4),dates={"01":{updated:"2025-01-01",published:"2026-01-01"},"02":{published:"2025-06-01"},"03":{recorded:"2024"}};
+ assert.deepEqual(sortWorkProjects(input,dates,"updated","desc").map(p=>p.id),["02","01","03","04"]);
+ assert.deepEqual(workDateFor(dates["01"],"updated"),{source:"updated",date:"2025-01-01"});assert.deepEqual(workDateFor(dates["02"],"updated"),{source:"published",date:"2025-06-01"});assert.deepEqual(workDateFor(dates["03"],"updated"),{source:"recorded",date:"2024"});
 });
 
 test("publication dates use the site's Taipei timezone, independently of file creation", () => {

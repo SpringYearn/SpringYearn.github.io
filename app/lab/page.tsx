@@ -43,8 +43,8 @@ export default function LabPage() {
   const { language, setLanguage } = useSiteLanguage();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [sortKey, setSortKey] = useState<LabSortKey>("original");
-  const [sortDirection, setSortDirection] = useState<LabSortDirection>("asc");
+  const [sortKey, setSortKey] = useState<LabSortKey>("updated");
+  const [sortDirection, setSortDirection] = useState<LabSortDirection>("desc");
   const projects = useMemo(() => sortLabProjects(labExperiments, sortKey, sortDirection), [sortKey, sortDirection]);
   const t = copy[language];
   useEffect(() => {

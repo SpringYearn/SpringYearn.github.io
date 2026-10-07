@@ -2,14 +2,14 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
-import { projects } from "../../../../portfolio-data";
+import { workPageIds } from "../../../../portfolio-data";
 import { projectFiles } from "../../../../project-files/files";
 import { getShareItem, type ItemKind } from "../../../../share-data";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return [...projects.map(item => ({ kind: "work", id: item.id })), ...projectFiles.map(item => ({ kind: "project-files", id: item.id }))];
+  return [...workPageIds.map(id => ({ kind: "work", id })), ...projectFiles.map(item => ({ kind: "project-files", id: item.id }))];
 }
 
 async function thumbnail(src: string | null) {
