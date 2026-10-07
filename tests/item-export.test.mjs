@@ -62,7 +62,7 @@ test("project-file pages preserve original downloads and distinguish supplied ZI
   }
 });
 test("the three work stories retain supplied results, software versions and linked credit",()=>{
-  assert.deepEqual(Object.keys(workStories).sort(),["01","02","03"]);
+  assert.deepEqual(Object.keys(workStories).sort(),["01","02","03","04","14","28"]);
   assert.deepEqual(workStories["02"].software,["DaVinci Resolve 19","Blender 4.5"]);
   assert.deepEqual(workStories["01"].software,["DaVinci Resolve 20","Blender 4.5"]);
   assert.deepEqual(workStories["03"].software,["DaVinci Resolve 19","Blender 4.4"]);
@@ -75,7 +75,7 @@ test("the three work stories retain supplied results, software versions and link
   assert.match(workStories["01"].text.zh.paragraphs.join(' '),/2026.*Zeruel.*Avalon/);
   assert.match(workStories["03"].text.zh.paragraphs.join(' '),/EPHEC.*第三名.*2025.*Blender.*Sage/);
   assert.ok(read('work/03/index.html').includes('href="https://www.youtube.com/@drgz3D"'));
-  assert.ok(!read('work/14/index.html').includes('class="section-block item-story"'));
+  assert.ok(read('work/14/index.html').includes('class="section-block item-story"'));
 });
 
 test("archive covers and titles lead to details while sharing stays in individual pages", () => {

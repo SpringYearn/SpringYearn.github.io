@@ -4,15 +4,27 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Combined the two PAIKE entries into one project, using the mobile interface as the cover and showing the design-system image in its details. Previous detail links still open the merged project.",
-      "Moved APP / UI to the final category position. Work and LAB now default to Last updated in descending order, with newer dated entries first."
+      "Added six-language introductions and software versions to Look at the sky text pv, NEED 2 and PAIKE, including PAIKE’s unfinished-project context and Figma prototype link.",
+      "Renamed RECENT EDITING WORK to NEED 2 across the archive, detail page and sharing metadata while keeping its existing URL and video."
     ],
     "zh": [
-      "兩件 PAIKE 合併為一個專案，以手機介面作為主圖，設計系統圖放在詳情；舊詳情連結仍可開啟合併後的專案。",
-      "APP／UI 分類移到最後；作品集與 LAB 預設以「最後更新日、降序」排列，日期較新的項目優先顯示。"
+      "Look at the sky text pv、NEED 2 與 PAIKE 加入六種語言的作品簡介及軟體版本，並附上 PAIKE 未完成品說明與 Figma 原型連結。",
+      "RECENT EDITING WORK 更名為 NEED 2，作品集、詳情頁與分享資訊同步更新，既有網址與影片保留。"
     ]
   },
   "releases": [
+    {
+      "version": "V.053",
+      "date": "2026-10-08",
+      "en": [
+        "Added six-language introductions and software versions to Look at the sky text pv, NEED 2 and PAIKE, including PAIKE’s unfinished-project context and Figma prototype link.",
+        "Renamed RECENT EDITING WORK to NEED 2 across the archive, detail page and sharing metadata while keeping its existing URL and video."
+      ],
+      "zh": [
+        "Look at the sky text pv、NEED 2 與 PAIKE 加入六種語言的作品簡介及軟體版本，並附上 PAIKE 未完成品說明與 Figma 原型連結。",
+        "RECENT EDITING WORK 更名為 NEED 2，作品集、詳情頁與分享資訊同步更新，既有網址與影片保留。"
+      ]
+    },
     {
       "version": "V.052",
       "date": "2026-10-08",

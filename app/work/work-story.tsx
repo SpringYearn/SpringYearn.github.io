@@ -7,6 +7,11 @@ const copy = {
   ja: { title: "この作品について", software: "使用ソフト" }, ko: { title: "작품 소개", software: "사용 소프트웨어" },
   ru: { title: "Об этой работе", software: "Использованные программы" }, vi: { title: "Về tác phẩm", software: "Phần mềm sử dụng" },
 };
+export function WorkProjectLink({ id }: { id: string }) {
+  const { locale } = useSiteLanguage(), link = workStories[id]?.externalLink;
+  if (!link) return null;
+  return <a className="text-link work-project-link" href={link.href} target="_blank" rel="noreferrer">{link.label[locale]}<ArrowUpRight aria-hidden="true"/></a>;
+}
 export function WorkStory({ id }: { id: string }) {
   const { locale } = useSiteLanguage(), story = workStories[id];
   if (!story) return null;
