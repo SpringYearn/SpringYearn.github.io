@@ -18,6 +18,7 @@ import { SpringMark } from "./spring-mark";
 import { BrandWord } from "./brand-word";
 import { ProjectFilesGateway } from "./project-files-gateway";
 import { labExperiments } from "./lab-data";
+import { useWorkGatewayMotion, workGatewayLabels } from "./work-gateway-motion";
 
 const copy = {
   en: {
@@ -336,7 +337,8 @@ function resetPointerPosition(event: ReactPointerEvent<HTMLElement>) {
 }
 
 export default function Home() {
-  const { language, setLanguage } = useSiteLanguage();
+  const { language, locale, setLanguage } = useSiteLanguage();
+  const workGatewayRef = useWorkGatewayMotion();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isMailMenuOpen, setIsMailMenuOpen] = useState(false);
@@ -533,6 +535,7 @@ export default function Home() {
         <div className="work-portal-layout">
           <Link
             className="work-gateway-link"
+            ref={workGatewayRef}
             href="/work"
             data-audio="work-gateway"
             data-reveal
@@ -545,14 +548,14 @@ export default function Home() {
             </div>
             <div className="gateway-panel gateway-index-panel">
               <span className="mono-label">{t.gatewayIndex}</span>
-              <strong>WORKS</strong>
+              <strong data-localize="off">{workGatewayLabels[locale]}</strong>
             </div>
             <div className="gateway-panel gateway-copy-panel">
               <p>{t.gatewayBody}</p>
               <span className="mono-label">{t.gatewayMeta}</span>
             </div>
             <div className="gateway-panel gateway-action-panel">
-              <span className="mono-label">SY / WORKS</span>
+              <span className="mono-label" data-localize="off">SY / {workGatewayLabels[locale]}</span>
               <strong>
                 {t.gatewayCta}
                 <ArrowUpRight aria-hidden="true" />

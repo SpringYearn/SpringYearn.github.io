@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Combined the follower milestones."
+      "Fixed the Work entrance label and added subtle looping animation."
     ],
     "zh": [
-      "整合粉絲里程碑。"
+      "修正作品入口文字，加入持續動畫。"
     ]
   },
   "releases": [
+    {
+      "version": "V.060",
+      "date": "2026-10-09",
+      "en": [
+        "Fixed the Work entrance label and added subtle looping animation."
+      ],
+      "zh": [
+        "修正作品入口文字，加入持續動畫。"
+      ]
+    },
     {
       "version": "V.059",
       "date": "2026-10-09",
