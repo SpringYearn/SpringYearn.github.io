@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a gentle breathing effect and animated dots to the whiteboard loading text in all six languages, with a static reduced-motion option and clear offline status."
+      "Updated FusionDynamics2D to 0.5.0-authoring with its latest features, 338-test local validation, dated checkpoint and current protected download. Previous checkpoints are preserved; unfinished Mask/Viewer work and pending Resolve validation are stated explicitly."
     ],
     "zh": [
-      "白板載入文字加入輕微呼吸與省略號動畫，六種語言皆適用；減少動態設定與離線狀態維持靜態提示。"
+      "FusionDynamics2D 更新至 0.5.0-authoring，同步新增功能、338 項本地驗證、日期 checkpoint 與目前版本授權下載；保留舊紀錄，明確標示 Mask／Viewer 未完成項目與 Resolve 實機驗收界線。"
     ]
   },
   "releases": [
+    {
+      "version": "V.055",
+      "date": "2026-10-08",
+      "en": [
+        "Updated FusionDynamics2D to 0.5.0-authoring with its latest features, 338-test local validation, dated checkpoint and current protected download. Previous checkpoints are preserved; unfinished Mask/Viewer work and pending Resolve validation are stated explicitly."
+      ],
+      "zh": [
+        "FusionDynamics2D 更新至 0.5.0-authoring，同步新增功能、338 項本地驗證、日期 checkpoint 與目前版本授權下載；保留舊紀錄，明確標示 Mask／Viewer 未完成項目與 Resolve 實機驗收界線。"
+      ]
+    },
     {
       "version": "V.054",
       "date": "2026-10-08",

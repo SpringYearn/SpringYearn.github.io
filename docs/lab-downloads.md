@@ -5,12 +5,14 @@ The dedicated `/lab/` page retains all eight bilingual records from commit
 0.3.5-perbody checkpoint, now accessible under the previous-checkpoint disclosure.
 V.020 adds the page; V.021 enables five supplied builds. V.024 updates FusionDynamics2D
 to 0.4.1-usability and adds SY_Handwriter 0.3.0 Test 4 as the ninth record and sixth build.
+V.055 updates FusionDynamics2D to the delivered 0.5.0-authoring package and records
+its new local-validation checkpoint without claiming Resolve host acceptance.
 
 ## Published builds
 
 | Project | Supplied version |
 | --- | --- |
-| LAB-01 / FusionDynamics2D | 0.4.1-usability / zh-TW |
+| LAB-01 / FusionDynamics2D | 0.5.0-authoring / zh-TW |
 | LAB-02 / Paint Bucket | 0.1.4 / zh-TW |
 | LAB-03 / SY Lens Dirt | 0.93 / FullBlend |
 | LAB-04 / TraceGraph OFX | 0.2.7 / Win11 x64 GPU EXPERIMENTAL |
@@ -19,12 +21,16 @@ to 0.4.1-usability and adds SY_Handwriter 0.3.0 Test 4 as the ninth record and s
 
 LAB-05, LAB-07 and LAB-08 retain their development records but have no download
 button. No placeholder build is published for research or obsolete projects.
-The original encrypted FusionDynamics2D 0.3.5 archive is retained; the current-build
-button points to 0.4.1. Other published archives are unchanged.
+The previous encrypted FusionDynamics2D 0.3.5 and 0.4.1 archives are retained;
+the current-build button points to 0.5.0. Other published archives are unchanged.
 
-The 0.4.1 description follows its supplied usability guide and recorded test report:
-245 passing tests, 61 Lua / Fuse syntax checks and two JavaScript syntax checks.
-The reported 0.4.0 host tests 1–4 do not constitute acceptance of the 0.4.1 changes.
+The 0.5.0 description follows its authoring guide and recorded validation:
+338 passing local tests, 80 Lua / Fuse syntax checks and two JavaScript syntax checks.
+The original ZIP has 151 files and SHA-256
+`d2943fea7a97703b173ec67b842fc6e64a62e16b07ef5391ad2541ad3d36e210`.
+Native Mask auto-adaptation and Viewer Overlay / Dock remain incomplete.
+Windows installation and Resolve acceptance remain pending; the reported 0.4.0
+host tests 1–4 are not acceptance of the 0.4.1 or 0.5.0 changes.
 SY_Handwriter follows its Test 4 README and changelog; font fitting uses rendered
 Text+ Alpha and still requires Resolve host tests across fonts and text layouts.
 

@@ -65,7 +65,7 @@ test("closing/cancelling verification cannot approve a download", async () => {
 test("six current supplied builds each contain one AES-256 payload", async () => {
   const builds = JSON.parse(readFileSync(new URL("../app/lab/builds.json", import.meta.url), "utf8"));
   assert.deepEqual(Object.keys(builds).sort(), ["LAB-01", "LAB-02", "LAB-03", "LAB-04", "LAB-06", "LAB-09"]);
-  assert.equal(builds['LAB-01'].originalFilename, 'FusionDynamics2D_v0.4.1-usability_zh-TW.zip');
+  assert.equal(builds['LAB-01'].originalFilename, 'FusionDynamics2D_v0.5.0-authoring_zh-TW.zip');
   assert.equal(builds['LAB-09'].originalFilename, 'SY_Handwriter_0.3.0_Test4.zip');
   for (const build of Object.values(builds)) {
     const bytes = readFileSync(new URL("../public/lab-builds/" + build.filename, import.meta.url));

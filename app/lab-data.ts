@@ -10,13 +10,13 @@ export type LabExperiment = {
 export const labExperiments: LabExperiment[] = [
   {
     id: "LAB-01",
-    date: {"created":"2026-09-06","updated":"2026-10-03"},
+    date: {"created":"2026-09-06","updated":"2026-10-08"},
     title: "FusionDynamics2D",
     type: "Fusion Lua / Physics",
-    status: { en: "0.4.1 / host acceptance pending", zh: "0.4.1／實機驗收待確認" },
+    status: { en: "0.5.0 / local checks complete; host pending", zh: "0.5.0／本地驗證完成，實機待確認" },
     body: {
-      en: "0.4.1-usability extends the 0.4.0 dynamics tools with one-click environment reset, batch clearing of joints / force fields / events, text-split node layout near the source, plain-language controls and tooltips, and exact constant / linear keyframe merging. The delivered release records 245 passing tests, 61 Lua / Fuse syntax checks and 2 JavaScript syntax checks. The 0.4.0 host tests 1–4 were reported as passing; the new 0.4.1 UI, layout and reduced-key Bake still await Resolve host acceptance.",
-      zh: "0.4.1-usability 延續 0.4.0 的指定運動、關節與力場／事件功能，新增環境一鍵重設、關節／力場／事件批次清除、拆字節點在來源附近排版、通俗參數名稱與懸停說明，以及固定／嚴格直線關鍵幀合併。交付紀錄為 245 項測試通過、61 份 Lua／Fuse 與 2 份 JavaScript 語法檢查通過。0.4.0 主機測試 1–4 已回報通過；0.4.1 新介面、排版與精簡 Bake 仍待 Resolve 實機驗收。",
+      en: "0.5.0-authoring extends 0.4.1 with analytic capsule collisions, collision categories / masks / groups, density-based mass, built-in / custom material presets, scene-settings JSON import / export, Bezier and concave closed-contour import, and read-only native Mask diagnostics. The delivered package records 338 passing local tests, 80 Lua / Fuse syntax checks and 2 JavaScript syntax checks. Native Mask auto-adaptation and Viewer Overlay / Dock remain unfinished; Windows installation and Resolve host validation remain pending.",
+      zh: "0.5.0-authoring 延續 0.4.1，新增解析膠囊碰撞、碰撞分類／遮罩／群組、密度自動質量、內建／自訂材質預設、物理場景設定 JSON 匯出／匯入、Bezier 與凹形閉合輪廓匯入，以及原生 Mask 只讀診斷。完整包紀錄為 338 項本地測試、80 份 Lua／Fuse 與 2 份 JavaScript 語法檢查通過。原生 Mask 自動適配與真正的 Viewer Overlay／Dock 尚未完成；Windows 安裝與 Resolve 新功能實機驗收仍待確認。",
     },
     checkpoint: {
       date: "2026.09",
@@ -69,6 +69,14 @@ export const labExperiments: LabExperiment[] = [
         "body": {
           "en": "Reset / clear controls, source-adjacent layout and exact linear-key merging; new host checks pending.",
           "zh": "新增重設／清除、來源附近排版與精確直線鍵合併；新版實機確認待完成。"
+        }
+      },
+      {
+        "date": "2026-10-08",
+        "title": { "en": "0.5.0-authoring", "zh": "0.5.0-authoring" },
+        "body": {
+          "en": "Capsules, collision filters, density mass, presets and scene / contour import; 338 local tests passed, native Mask adapter and host checks pending.",
+          "zh": "加入膠囊、碰撞篩選、密度質量、預設與場景／輪廓匯入；338 項本地測試通過，原生 Mask 適配與實機仍待確認。"
         }
       }
     ],
