@@ -3411,6 +3411,14 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .board-sheet { position: relative; width: 100%; aspect-ratio: 16 / 9; background-color: #fdfefb; background-image: linear-gradient(to bottom,transparent calc(100% - 1px),rgba(var(--spring-ink-rgb),.04) 0); background-size: 100% 4%; }
 .board-sheet canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .board-loading { position: absolute; inset: 0; display: grid; place-items: center; padding: 2rem; text-align: center; background: rgba(253,254,251,.85); color: var(--spring-ink); font-size: .9rem; }
+.board-loading-message { animation: board-loading-breathe 1.8s ease-in-out infinite; }
+.board-loading-dots { display: inline-flex; width: 1.1em; margin-left: .12em; }
+.board-loading-dots > span { animation: board-loading-dot 1.2s ease-in-out infinite; }
+.board-loading-dots > span:nth-child(2) { animation-delay: .15s; }
+.board-loading-dots > span:nth-child(3) { animation-delay: .3s; }
+@keyframes board-loading-breathe { 0%,100% { opacity: .68; } 50% { opacity: 1; } }
+@keyframes board-loading-dot { 0%,70%,100% { opacity: .3; transform: translateY(0); } 35% { opacity: 1; transform: translateY(-.22em); } }
+@media (prefers-reduced-motion: reduce) { .board-loading-message,.board-loading-dots > span { animation: none; } }
 .board-sync { display: inline-flex; align-items: center; gap: .6rem; }
 .board-sync i { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--spring-ink); }
 .board-sync[data-status="offline"] i { background: #ad856e; }
