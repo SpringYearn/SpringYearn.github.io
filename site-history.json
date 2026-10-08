@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added three follower milestones."
+      "Combined the follower milestones."
     ],
     "zh": [
-      "新增三項粉絲里程碑。"
+      "整合粉絲里程碑。"
     ]
   },
   "releases": [
+    {
+      "version": "V.059",
+      "date": "2026-10-09",
+      "en": [
+        "Combined the follower milestones."
+      ],
+      "zh": [
+        "整合粉絲里程碑。"
+      ]
+    },
     {
       "version": "V.058",
       "date": "2026-10-09",
