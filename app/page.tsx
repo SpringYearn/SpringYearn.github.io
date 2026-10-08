@@ -230,6 +230,17 @@ const practiceHistory = [
     },
   },
   {
+    year: { en: "2025", zh: "2025" },
+    href: null,
+    phase: { en: "Milestone", zh: "里程碑" },
+    partner: { en: "FlowinColor / ATLAS", zh: "FlowinColor / ATLAS" },
+    title: { en: "Community memberships", zh: "成為社群成員" },
+    body: {
+      en: "Joined FlowinColor and became an ATLAS T2 member.",
+      zh: "成為 FlowinColor 成員和 ATLAS T2 成員。",
+    },
+  },
+  {
     year: { en: "2026", zh: "2026" },
     href: "https://x.com/ValorantEsports/status/2102684410382287046?s=20",
     phase: { en: "Official project", zh: "官方專案" },

@@ -31,12 +31,11 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.match(records[8].body.en, /0\.3\.0 Test 4/);
 });
 
-test("V.056 preserves every release and date while simplifying notes without changing date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "bdd5ec9279d9ebcccc48ec8889aace55230a2c55:site-history.json"], { encoding: "utf8" }));
+test("V.057 extends V.056 without changing existing releases or date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "7fb339f2952bc570918a336dad069a5023034f71:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.056");
-  const metadata = ({ en, zh, ...release }) => release;
-  assert.deepEqual(after.releases.slice(1).map(metadata), before.releases.map(metadata));
+  assert.equal(after.releases[0].version, "V.057");
+  assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);
   }

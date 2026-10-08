@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Simplified the changelog descriptions."
+      "Added a 2025 milestone."
     ],
     "zh": [
-      "簡化更新日誌敘述。"
+      "新增一項 2025 年成就。"
     ]
   },
   "releases": [
+    {
+      "version": "V.057",
+      "date": "2026-10-09",
+      "en": [
+        "Added a 2025 milestone."
+      ],
+      "zh": [
+        "新增一項 2025 年成就。"
+      ]
+    },
     {
       "version": "V.056",
       "date": "2026-10-09",

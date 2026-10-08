@@ -1,0 +1,38 @@
+[
+  {
+    "id": "v057-phase",
+    "en": "Milestone",
+    "zh": "里程碑",
+    "ja": "節目",
+    "ko": "이정표",
+    "ru": "Достижение",
+    "vi": "Cột mốc"
+  },
+  {
+    "id": "v057-title",
+    "en": "Community memberships",
+    "zh": "成為社群成員",
+    "ja": "コミュニティへの加入",
+    "ko": "커뮤니티 가입",
+    "ru": "Участие в сообществах",
+    "vi": "Tham gia cộng đồng"
+  },
+  {
+    "id": "v057-body",
+    "en": "Joined FlowinColor and became an ATLAS T2 member.",
+    "zh": "成為 FlowinColor 成員和 ATLAS T2 成員。",
+    "ja": "FlowinColor に加入し、ATLAS の T2 メンバーになりました。",
+    "ko": "FlowinColor에 가입하고 ATLAS T2 멤버가 되었어요.",
+    "ru": "Стал участником FlowinColor и ATLAS уровня T2.",
+    "vi": "Gia nhập FlowinColor và trở thành thành viên T2 của ATLAS."
+  },
+  {
+    "id": "v057-note",
+    "en": "Added a 2025 milestone.",
+    "zh": "新增一項 2025 年成就。",
+    "ja": "2025年の実績を追加しました。",
+    "ko": "2025년 성과 하나를 추가했어요.",
+    "ru": "Добавлено достижение за 2025 год.",
+    "vi": "Thêm một thành tựu năm 2025."
+  }
+]
