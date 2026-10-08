@@ -1,10 +1,10 @@
 {
   "LAB-01": {
-    "filename": "FusionDynamics2D_v0.4.1-usability_zh-TW_AES256.zip",
-    "originalFilename": "FusionDynamics2D_v0.4.1-usability_zh-TW.zip",
-    "bytes": 736132,
-    "originalBytes": 735864,
-    "sha256": "6bf03c15b4eb4ee5b3a78456f7e83a6fd1b6f3e0525b8cf1703ed680f17831b2"
+    "filename": "FusionDynamics2D_v0.5.0-authoring_zh-TW_AES256.zip",
+    "originalFilename": "FusionDynamics2D_v0.5.0-authoring_zh-TW.zip",
+    "bytes": 846002,
+    "originalBytes": 845734,
+    "sha256": "798247d4f9dc3af0b31c76d26d054a326330f41ec49bc1811e3f0d815a896ae9"
   },
   "LAB-02": {
     "filename": "PaintBucket_Fusion_v0.1.4_zh-TW_AES256.zip",

@@ -24,17 +24,17 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.deepEqual({ ...current, ...checkpoint }, previous[0]);
   assert.match(checkpoint.body.en, /0\.3\.5-perbody/);
   assert.match(checkpoint.body.en, /158 tests pass/);
-  assert.match(current.body.en, /0\.4\.1-usability/);
-  assert.match(current.body.en, /245 passing tests/);
-  assert.match(current.body.en, /await Resolve host acceptance/);
+  assert.match(current.body.en, /0\.5\.0-authoring/);
+  assert.match(current.body.en, /338 passing local tests/);
+  assert.match(current.body.en, /Resolve host validation remain pending/);
   assert.equal(records[8].title, "SY_Handwriter");
   assert.match(records[8].body.en, /0\.3\.0 Test 4/);
 });
 
-test("V.054 extends V.053 and every existing release without changing date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "240ea8095be4785914884a16dbce0dcfb6d697df:site-history.json"], { encoding: "utf8" }));
+test("V.055 extends V.054 and every existing release without changing date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "96a5d0a693a790807c5c245048dac9b7d5d97fa3:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.054");
+  assert.equal(after.releases[0].version, "V.055");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "v055-status",
+    "en": "0.5.0 / local checks complete; host pending",
+    "zh": "0.5.0／本地驗證完成，實機待確認",
+    "ja": "0.5.0／ローカル検証完了・実機確認待ち",
+    "ko": "0.5.0 / 로컬 검증 완료, 실기 확인 대기",
+    "ru": "0.5.0 / локальные проверки завершены; проверка в Resolve ожидается",
+    "vi": "0.5.0 / kiểm tra cục bộ hoàn tất, chờ xác nhận trên Resolve"
+  },
+  {
+    "id": "v055-body",
+    "en": "0.5.0-authoring extends 0.4.1 with analytic capsule collisions, collision categories / masks / groups, density-based mass, built-in / custom material presets, scene-settings JSON import / export, Bezier and concave closed-contour import, and read-only native Mask diagnostics. The delivered package records 338 passing local tests, 80 Lua / Fuse syntax checks and 2 JavaScript syntax checks. Native Mask auto-adaptation and Viewer Overlay / Dock remain unfinished; Windows installation and Resolve host validation remain pending.",
+    "zh": "0.5.0-authoring 延續 0.4.1，新增解析膠囊碰撞、碰撞分類／遮罩／群組、密度自動質量、內建／自訂材質預設、物理場景設定 JSON 匯出／匯入、Bezier 與凹形閉合輪廓匯入，以及原生 Mask 只讀診斷。完整包紀錄為 338 項本地測試、80 份 Lua／Fuse 與 2 份 JavaScript 語法檢查通過。原生 Mask 自動適配與真正的 Viewer Overlay／Dock 尚未完成；Windows 安裝與 Resolve 新功能實機驗收仍待確認。",
+    "ja": "0.5.0-authoring は 0.4.1 を引き継ぎ、解析的なカプセル衝突、衝突カテゴリ／マスク／グループ、密度による質量、内蔵／カスタム材質プリセット、物理シーン設定 JSON の入出力、Bezier と凹形の閉じた輪郭の取り込み、ネイティブ Mask の読み取り専用診断を追加しました。配布パッケージでは338件のローカルテスト、80件の Lua／Fuse 構文チェック、2件の JavaScript 構文チェックが通過しています。ネイティブ Mask の自動適応と Viewer Overlay／Dock は未完成で、Windows でのインストールと Resolve 実機検証も未確認です。",
+    "ko": "0.5.0-authoring은 0.4.1을 이어 분석적 캡슐 충돌, 충돌 분류·마스크·그룹, 밀도 기반 질량, 기본·사용자 재질 프리셋, 물리 장면 설정 JSON 입출력, Bezier 및 오목한 폐곡선 가져오기, 기본 Mask 읽기 전용 진단을 추가했어요. 배포 패키지는 로컬 테스트 338개, Lua·Fuse 구문 검사 80개, JavaScript 구문 검사 2개를 통과했어요. 기본 Mask 자동 적용과 Viewer Overlay·Dock은 미완성이며 Windows 설치 및 Resolve 실기 검증도 아직 확인되지 않았어요.",
+    "ru": "0.5.0-authoring продолжает 0.4.1: добавлены аналитические столкновения капсул, категории, маски и группы столкновений, масса по плотности, встроенные и пользовательские пресеты материалов, импорт и экспорт настроек физической сцены в JSON, импорт Bezier и вогнутых замкнутых контуров, а также диагностика нативных Mask только для чтения. Для пакета записаны 338 успешных локальных тестов, 80 проверок синтаксиса Lua/Fuse и 2 проверки JavaScript. Автоматическая адаптация нативных Mask и Viewer Overlay/Dock не закончены; установка Windows и проверка в Resolve пока не подтверждены.",
+    "vi": "0.5.0-authoring tiếp nối 0.4.1, thêm va chạm capsule theo giải tích, phân loại/mask/nhóm va chạm, khối lượng theo mật độ, preset vật liệu có sẵn/tùy chỉnh, nhập/xuất thiết lập cảnh vật lý JSON, nhập Bezier và đường bao kín lõm, cùng chẩn đoán Mask gốc chỉ đọc. Gói bàn giao ghi nhận 338 bài kiểm tra cục bộ, 80 kiểm tra cú pháp Lua/Fuse và 2 kiểm tra JavaScript đều đạt. Tự thích ứng Mask gốc và Viewer Overlay/Dock chưa hoàn thành; cài đặt Windows và kiểm chứng trong Resolve vẫn chưa được xác nhận."
+  },
+  {
+    "id": "v055-history",
+    "en": "Capsules, collision filters, density mass, presets and scene / contour import; 338 local tests passed, native Mask adapter and host checks pending.",
+    "zh": "加入膠囊、碰撞篩選、密度質量、預設與場景／輪廓匯入；338 項本地測試通過，原生 Mask 適配與實機仍待確認。",
+    "ja": "カプセル、衝突フィルター、密度質量、プリセット、シーン／輪郭取り込みを追加。338件のローカルテスト通過。ネイティブ Mask 適応と実機確認は未完了。",
+    "ko": "캡슐, 충돌 필터, 밀도 질량, 프리셋, 장면·윤곽 가져오기 추가. 로컬 테스트 338개 통과, 기본 Mask 적용과 실기 검증은 대기 중이에요.",
+    "ru": "Капсулы, фильтры столкновений, масса по плотности, пресеты и импорт сцены/контуров; 338 локальных тестов пройдены, адаптер Mask и проверка в Resolve ожидаются.",
+    "vi": "Thêm capsule, lọc va chạm, khối lượng theo mật độ, preset và nhập cảnh/đường bao; đạt 338 kiểm tra cục bộ, chờ thích ứng Mask gốc và xác nhận trong Resolve."
+  },
+  {
+    "id": "v055-note",
+    "en": "Updated FusionDynamics2D to 0.5.0-authoring with its latest features, 338-test local validation, dated checkpoint and current protected download. Previous checkpoints are preserved; unfinished Mask/Viewer work and pending Resolve validation are stated explicitly.",
+    "zh": "FusionDynamics2D 更新至 0.5.0-authoring，同步新增功能、338 項本地驗證、日期 checkpoint 與目前版本授權下載；保留舊紀錄，明確標示 Mask／Viewer 未完成項目與 Resolve 實機驗收界線。",
+    "ja": "FusionDynamics2D を 0.5.0-authoring に更新。新機能、338件のローカル検証、日付付きチェックポイント、保護された現行版ダウンロードを反映しました。旧記録を保持し、Mask／Viewer の未完成部分と Resolve 実機検証待ちを明記しています。",
+    "ko": "FusionDynamics2D를 0.5.0-authoring으로 업데이트하고 새 기능, 로컬 검증 338개, 날짜가 있는 체크포인트와 보호된 최신 다운로드를 반영했어요. 이전 기록을 유지하고 Mask·Viewer 미완성 항목과 Resolve 실기 검증 대기를 명확히 표시했어요.",
+    "ru": "FusionDynamics2D обновлён до 0.5.0-authoring: новые функции, 338 локальных тестов, датированный checkpoint и защищённая загрузка текущей версии. Старые записи сохранены; незавершённые Mask/Viewer и ожидаемая проверка в Resolve отмечены явно.",
+    "vi": "Cập nhật FusionDynamics2D lên 0.5.0-authoring với tính năng mới, 338 kiểm tra cục bộ, checkpoint có ngày và bản tải hiện tại được bảo vệ. Giữ các mốc cũ và nêu rõ phần Mask/Viewer chưa hoàn thành cùng giới hạn kiểm chứng trong Resolve."
+  }
+]
