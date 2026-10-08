@@ -1,0 +1,443 @@
+[
+  {
+    "id": "v056-changelog-56",
+    "en": "Simplified the changelog descriptions.",
+    "zh": "簡化更新日誌敘述。",
+    "ja": "更新履歴の説明を短くしました。",
+    "ko": "업데이트 기록을 간결하게 정리했어요.",
+    "ru": "Описания обновлений стали короче.",
+    "vi": "Rút gọn mô tả lịch sử cập nhật."
+  },
+  {
+    "id": "v056-changelog-55",
+    "en": "Updated FusionDynamics2D.",
+    "zh": "更新 FusionDynamics2D。",
+    "ja": "FusionDynamics2D を更新しました。",
+    "ko": "FusionDynamics2D를 업데이트했어요.",
+    "ru": "Обновлён FusionDynamics2D.",
+    "vi": "Cập nhật FusionDynamics2D."
+  },
+  {
+    "id": "v056-changelog-54",
+    "en": "Animated the whiteboard loading message.",
+    "zh": "新增白板載入動畫。",
+    "ja": "ホワイトボードの読み込み表示にアニメーションを追加しました。",
+    "ko": "화이트보드 로딩 표시에 애니메이션을 추가했어요.",
+    "ru": "Добавлена анимация загрузки доски.",
+    "vi": "Thêm hiệu ứng cho thông báo tải bảng vẽ."
+  },
+  {
+    "id": "v056-changelog-53",
+    "en": "Added a few works.",
+    "zh": "新增了幾項作品。",
+    "ja": "作品をいくつか追加しました。",
+    "ko": "작품 몇 개를 추가했어요.",
+    "ru": "Добавлено несколько работ.",
+    "vi": "Thêm một vài tác phẩm."
+  },
+  {
+    "id": "v056-changelog-52",
+    "en": "Merged the PAIKE projects and adjusted sorting.",
+    "zh": "合併 PAIKE 專案，調整預設排序。",
+    "ja": "PAIKE の作品を統合し、並び順を調整しました。",
+    "ko": "PAIKE 프로젝트를 합치고 기본 정렬을 조정했어요.",
+    "ru": "Объединены проекты PAIKE, изменена сортировка.",
+    "vi": "Gộp các dự án PAIKE và điều chỉnh sắp xếp."
+  },
+  {
+    "id": "v056-changelog-51",
+    "en": "Updated selected works and their introductions.",
+    "zh": "更新精選作品與簡介。",
+    "ja": "おすすめ作品と紹介文を更新しました。",
+    "ko": "대표 작품과 소개를 업데이트했어요.",
+    "ru": "Обновлены избранные работы и их описания.",
+    "vi": "Cập nhật tác phẩm nổi bật và phần giới thiệu."
+  },
+  {
+    "id": "v056-changelog-50",
+    "en": "Adjusted whiteboard controls, the language menu and Contact layout.",
+    "zh": "調整白板操作、語言選單與聯繫區排版。",
+    "ja": "ホワイトボードの操作、言語メニュー、連絡先の配置を調整しました。",
+    "ko": "화이트보드 조작, 언어 메뉴와 연락처 배치를 조정했어요.",
+    "ru": "Изменены управление доской, меню языков и блок контактов.",
+    "vi": "Điều chỉnh thao tác bảng vẽ, menu ngôn ngữ và bố cục liên hệ."
+  },
+  {
+    "id": "v056-changelog-49",
+    "en": "Improved the whiteboard, added email requests and four languages.",
+    "zh": "改善白板，新增寄信申請與四種語言。",
+    "ja": "ホワイトボードを改善し、メール申請と4言語を追加しました。",
+    "ko": "화이트보드를 개선하고 이메일 신청과 4개 언어를 추가했어요.",
+    "ru": "Улучшена доска, добавлены заявки по почте и четыре языка.",
+    "vi": "Cải thiện bảng vẽ, thêm yêu cầu qua email và bốn ngôn ngữ."
+  },
+  {
+    "id": "v056-changelog-48",
+    "en": "Improved whiteboard tools and software icons.",
+    "zh": "改善白板工具與軟體圖示。",
+    "ja": "ホワイトボードのツールとソフトのアイコンを改善しました。",
+    "ko": "화이트보드 도구와 소프트웨어 아이콘을 개선했어요.",
+    "ru": "Улучшены инструменты доски и значки программ.",
+    "vi": "Cải thiện công cụ bảng vẽ và biểu tượng phần mềm."
+  },
+  {
+    "id": "v056-changelog-47",
+    "en": "Added the shared whiteboard and updated software icons.",
+    "zh": "新增共用白板，更新軟體圖示。",
+    "ja": "共有ホワイトボードを追加し、ソフトのアイコンを更新しました。",
+    "ko": "공유 화이트보드를 추가하고 소프트웨어 아이콘을 업데이트했어요.",
+    "ru": "Добавлена общая доска, обновлены значки программ.",
+    "vi": "Thêm bảng vẽ chung và cập nhật biểu tượng phần mềm."
+  },
+  {
+    "id": "v056-changelog-46",
+    "en": "Improved preview links and selected-work styling.",
+    "zh": "改善預覽提示與精選作品編排。",
+    "ja": "プレビューの案内とおすすめ作品の配置を改善しました。",
+    "ko": "미리보기 안내와 대표 작품 배치를 개선했어요.",
+    "ru": "Улучшены подсказки превью и оформление избранных работ.",
+    "vi": "Cải thiện chỉ dẫn xem trước và bố cục tác phẩm nổi bật."
+  },
+  {
+    "id": "v056-changelog-45",
+    "en": "Made work details easier to find and updated sharing.",
+    "zh": "改善作品詳情入口與分享功能。",
+    "ja": "作品詳細への案内と共有機能を改善しました。",
+    "ko": "작품 상세 페이지 안내와 공유 기능을 개선했어요.",
+    "ru": "Улучшены переходы к работам и функция обмена ссылками.",
+    "vi": "Cải thiện lối vào trang chi tiết và tính năng chia sẻ."
+  },
+  {
+    "id": "v056-changelog-44",
+    "en": "Added individual project pages and selected works.",
+    "zh": "新增單件詳情頁與精選作品。",
+    "ja": "作品ごとの詳細ページとおすすめ作品を追加しました。",
+    "ko": "개별 상세 페이지와 대표 작품을 추가했어요.",
+    "ru": "Добавлены отдельные страницы проектов и избранные работы.",
+    "vi": "Thêm trang chi tiết riêng và tác phẩm nổi bật."
+  },
+  {
+    "id": "v056-changelog-43",
+    "en": "Fixed clipping in the YEARN animation.",
+    "zh": "修正 YEARN 動畫的文字裁切。",
+    "ja": "YEARN のアニメーションで文字が欠ける問題を修正しました。",
+    "ko": "YEARN 애니메이션에서 글자가 잘리는 문제를 수정했어요.",
+    "ru": "Исправлено обрезание букв в анимации YEARN.",
+    "vi": "Sửa lỗi chữ bị cắt trong hiệu ứng YEARN."
+  },
+  {
+    "id": "v056-changelog-42",
+    "en": "Updated navigation and SPRING / YEARN animations.",
+    "zh": "調整導覽與 SPRING／YEARN 動畫。",
+    "ja": "ナビゲーションと SPRING／YEARN のアニメーションを調整しました。",
+    "ko": "내비게이션과 SPRING / YEARN 애니메이션을 조정했어요.",
+    "ru": "Обновлены навигация и анимации SPRING / YEARN.",
+    "vi": "Điều chỉnh điều hướng và hiệu ứng SPRING / YEARN."
+  },
+  {
+    "id": "v056-changelog-41",
+    "en": "Brightened the palette and hid the memorial Easter egg.",
+    "zh": "提亮配色，讓紀念彩蛋更隱密。",
+    "ja": "配色を明るくし、追悼の隠し要素を目立たなくしました。",
+    "ko": "색상을 밝게 하고 추모 이스터 에그를 더 숨겼어요.",
+    "ru": "Осветлена палитра, памятная пасхалка стала незаметнее.",
+    "vi": "Làm sáng bảng màu và ẩn kỹ hơn chi tiết tưởng niệm."
+  },
+  {
+    "id": "v056-changelog-40",
+    "en": "Updated site colors and the Project Files entrance.",
+    "zh": "更新配色與 Project Files 入口。",
+    "ja": "配色と Project Files の入口を更新しました。",
+    "ko": "색상과 Project Files 진입 버튼을 업데이트했어요.",
+    "ru": "Обновлены цвета сайта и вход в Project Files.",
+    "vi": "Cập nhật màu sắc và lối vào Project Files."
+  },
+  {
+    "id": "v056-changelog-39",
+    "en": "Lowered video preview volume.",
+    "zh": "調低影片預覽的初始音量。",
+    "ja": "動画プレビューの初期音量を下げました。",
+    "ko": "영상 미리보기의 초기 음량을 낮췄어요.",
+    "ru": "Снижена начальная громкость видеопревью.",
+    "vi": "Giảm âm lượng ban đầu của video xem trước."
+  },
+  {
+    "id": "v056-changelog-38",
+    "en": "Animated the mobile menu buttons.",
+    "zh": "新增手機選單按鈕動畫。",
+    "ja": "モバイルメニューのボタンにアニメーションを追加しました。",
+    "ko": "모바일 메뉴 버튼에 애니메이션을 추가했어요.",
+    "ru": "Добавлены анимации кнопок мобильного меню.",
+    "vi": "Thêm hiệu ứng cho nút menu trên điện thoại."
+  },
+  {
+    "id": "v056-changelog-37",
+    "en": "Added a mobile side menu.",
+    "zh": "新增手機側邊選單。",
+    "ja": "モバイル用サイドメニューを追加しました。",
+    "ko": "모바일 사이드 메뉴를 추가했어요.",
+    "ru": "Добавлено боковое меню для мобильных устройств.",
+    "vi": "Thêm menu bên trên điện thoại."
+  },
+  {
+    "id": "v056-changelog-36",
+    "en": "Improved Project Files navigation and filtering.",
+    "zh": "改善 Project Files 導覽與分類。",
+    "ja": "Project Files の案内と分類を改善しました。",
+    "ko": "Project Files 내비게이션과 분류를 개선했어요.",
+    "ru": "Улучшены навигация и фильтры Project Files.",
+    "vi": "Cải thiện điều hướng và bộ lọc Project Files."
+  },
+  {
+    "id": "v056-changelog-35",
+    "en": "Added the public Project Files page.",
+    "zh": "新增公開下載的 Project Files 頁面。",
+    "ja": "公開ダウンロード用の Project Files ページを追加しました。",
+    "ko": "공개 다운로드용 Project Files 페이지를 추가했어요.",
+    "ru": "Добавлена страница Project Files с открытыми загрузками.",
+    "vi": "Thêm trang Project Files để tải công khai."
+  },
+  {
+    "id": "v056-changelog-34",
+    "en": "Added a LAB file-language notice.",
+    "zh": "新增 LAB 檔案語言告示。",
+    "ja": "LAB にファイルの言語案内を追加しました。",
+    "ko": "LAB에 파일 언어 안내를 추가했어요.",
+    "ru": "В LAB добавлено уведомление о языке файлов.",
+    "vi": "Thêm thông báo ngôn ngữ của tệp trong LAB."
+  },
+  {
+    "id": "v056-changelog-33",
+    "en": "Simplified LAB downloads to one password check.",
+    "zh": "LAB 下載改為只需輸入一次密碼。",
+    "ja": "LAB のダウンロードでパスワード入力を1回にしました。",
+    "ko": "LAB 다운로드 비밀번호 입력을 한 번으로 줄였어요.",
+    "ru": "Для загрузки из LAB достаточно одного ввода пароля.",
+    "vi": "Tải từ LAB chỉ cần nhập mật khẩu một lần."
+  },
+  {
+    "id": "v056-changelog-32",
+    "en": "Revised the memorial text.",
+    "zh": "修改紀念文字。",
+    "ja": "追悼の文章を見直しました。",
+    "ko": "추모 문구를 수정했어요.",
+    "ru": "Переработан памятный текст.",
+    "vi": "Chỉnh sửa lời tưởng niệm."
+  },
+  {
+    "id": "v056-changelog-31",
+    "en": "Grouped updates by date.",
+    "zh": "將同一天的更新日誌整合。",
+    "ja": "同じ日の更新履歴をまとめました。",
+    "ko": "같은 날의 업데이트 기록을 합쳤어요.",
+    "ru": "Обновления сгруппированы по датам.",
+    "vi": "Gộp các cập nhật cùng ngày."
+  },
+  {
+    "id": "v056-changelog-30",
+    "en": "Adjusted the memorial text and entrance.",
+    "zh": "調整紀念文字與入口。",
+    "ja": "追悼の文章と入口を調整しました。",
+    "ko": "추모 문구와 진입 버튼을 조정했어요.",
+    "ru": "Изменены памятный текст и вход к нему.",
+    "vi": "Điều chỉnh lời tưởng niệm và lối vào."
+  },
+  {
+    "id": "v056-changelog-29",
+    "en": "Refined the memorial Easter egg.",
+    "zh": "調整紀念彩蛋。",
+    "ja": "追悼の隠し要素を調整しました。",
+    "ko": "추모 이스터 에그를 다듬었어요.",
+    "ru": "Доработана памятная пасхалка.",
+    "vi": "Điều chỉnh chi tiết tưởng niệm ẩn."
+  },
+  {
+    "id": "v056-changelog-28",
+    "en": "Removed duplicate filters and added a memorial Easter egg.",
+    "zh": "移除重複分類，新增紀念彩蛋。",
+    "ja": "重複した分類を削除し、追悼の隠し要素を追加しました。",
+    "ko": "중복 분류를 제거하고 추모 이스터 에그를 추가했어요.",
+    "ru": "Убраны повторные фильтры, добавлена памятная пасхалка.",
+    "vi": "Bỏ bộ lọc trùng và thêm chi tiết tưởng niệm ẩn."
+  },
+  {
+    "id": "v056-changelog-27",
+    "en": "Added work sorting and redesigned ALL.",
+    "zh": "新增作品排序，調整 ALL 編排。",
+    "ja": "作品の並べ替えを追加し、ALL の配置を調整しました。",
+    "ko": "작품 정렬을 추가하고 ALL 배치를 조정했어요.",
+    "ru": "Добавлена сортировка работ, изменён раздел ALL.",
+    "vi": "Thêm sắp xếp tác phẩm và điều chỉnh bố cục ALL."
+  },
+  {
+    "id": "v056-changelog-26",
+    "en": "Added LAB sorting.",
+    "zh": "新增 LAB 排序功能。",
+    "ja": "LAB に並べ替えを追加しました。",
+    "ko": "LAB 정렬 기능을 추가했어요.",
+    "ru": "В LAB добавлена сортировка.",
+    "vi": "Thêm sắp xếp trong LAB."
+  },
+  {
+    "id": "v056-changelog-25",
+    "en": "Added LAB dates, checkpoints and sharing.",
+    "zh": "新增 LAB 日期、checkpoint 與分享。",
+    "ja": "LAB に日付、チェックポイント、共有機能を追加しました。",
+    "ko": "LAB에 날짜, 체크포인트와 공유 기능을 추가했어요.",
+    "ru": "В LAB добавлены даты, checkpoint и обмен ссылками.",
+    "vi": "Thêm ngày, checkpoint và chia sẻ trong LAB."
+  },
+  {
+    "id": "v056-changelog-24",
+    "en": "Updated LAB projects and downloads.",
+    "zh": "更新 LAB 專案與下載版本。",
+    "ja": "LAB のプロジェクトとダウンロードを更新しました。",
+    "ko": "LAB 프로젝트와 다운로드 버전을 업데이트했어요.",
+    "ru": "Обновлены проекты LAB и доступные версии.",
+    "vi": "Cập nhật dự án LAB và các bản tải."
+  },
+  {
+    "id": "v056-changelog-23",
+    "en": "Adjusted visitor count and 3D logo interactions.",
+    "zh": "調整瀏覽人數與 3D logo 互動。",
+    "ja": "訪問者数と 3D ロゴの操作を調整しました。",
+    "ko": "방문자 수와 3D 로고 조작을 조정했어요.",
+    "ru": "Изменены счётчик посетителей и управление 3D-логотипом.",
+    "vi": "Điều chỉnh lượt truy cập và tương tác logo 3D."
+  },
+  {
+    "id": "v056-changelog-22",
+    "en": "Updated the LAB entrance and 3D logo; fixed visitor statistics.",
+    "zh": "更新 LAB 入口與 3D logo，修復瀏覽統計。",
+    "ja": "LAB の入口と 3D ロゴを更新し、訪問者数の表示を修正しました。",
+    "ko": "LAB 진입 버튼과 3D 로고를 업데이트하고 방문자 통계를 수정했어요.",
+    "ru": "Обновлены вход в LAB и 3D-логотип, исправлена статистика.",
+    "vi": "Cập nhật lối vào LAB và logo 3D, sửa thống kê truy cập."
+  },
+  {
+    "id": "v056-changelog-21",
+    "en": "Enabled authorized LAB downloads.",
+    "zh": "開放 LAB 授權下載。",
+    "ja": "LAB の認証付きダウンロードを公開しました。",
+    "ko": "LAB 승인 다운로드를 열었어요.",
+    "ru": "Открыты загрузки LAB с проверкой доступа.",
+    "vi": "Mở tải LAB có xác thực quyền truy cập."
+  },
+  {
+    "id": "v056-changelog-20",
+    "en": "Moved LAB to its own page.",
+    "zh": "將 LAB 移至獨立頁面。",
+    "ja": "LAB を独立したページに移しました。",
+    "ko": "LAB을 별도 페이지로 옮겼어요.",
+    "ru": "LAB перенесён на отдельную страницу.",
+    "vi": "Chuyển LAB sang trang riêng."
+  },
+  {
+    "id": "v056-changelog-19",
+    "en": "Updated FusionDynamics2D progress.",
+    "zh": "更新 FusionDynamics2D 進度。",
+    "ja": "FusionDynamics2D の進捗を更新しました。",
+    "ko": "FusionDynamics2D 진행 상황을 업데이트했어요.",
+    "ru": "Обновлён прогресс FusionDynamics2D.",
+    "vi": "Cập nhật tiến độ FusionDynamics2D."
+  },
+  {
+    "id": "v056-changelog-18",
+    "en": "Added LAB.",
+    "zh": "新增 LAB 實驗區。",
+    "ja": "LAB を追加しました。",
+    "ko": "LAB 실험 공간을 추가했어요.",
+    "ru": "Добавлен раздел LAB.",
+    "vi": "Thêm khu thử nghiệm LAB."
+  },
+  {
+    "id": "v056-changelog-17",
+    "en": "Collapsed older updates by default.",
+    "zh": "歷史更新日誌改為預設收合。",
+    "ja": "過去の更新履歴を初期状態で折りたたみました。",
+    "ko": "지난 업데이트 기록을 기본으로 접었어요.",
+    "ru": "Старые обновления свёрнуты по умолчанию.",
+    "vi": "Mặc định thu gọn lịch sử cập nhật cũ."
+  },
+  {
+    "id": "v056-changelog-16",
+    "en": "Added the changelog.",
+    "zh": "新增更新日誌。",
+    "ja": "更新履歴を追加しました。",
+    "ko": "업데이트 기록을 추가했어요.",
+    "ru": "Добавлен журнал обновлений.",
+    "vi": "Thêm lịch sử cập nhật."
+  },
+  {
+    "id": "v056-changelog-15",
+    "en": "Improved mobile work thumbnails.",
+    "zh": "改善手機版作品縮圖。",
+    "ja": "モバイル版の作品サムネイルを改善しました。",
+    "ko": "모바일 작품 썸네일을 개선했어요.",
+    "ru": "Улучшены миниатюры работ на мобильных устройствах.",
+    "vi": "Cải thiện ảnh thu nhỏ tác phẩm trên điện thoại."
+  },
+  {
+    "id": "v056-changelog-14",
+    "en": "Added the Discord contact link.",
+    "zh": "新增 Discord 聯絡連結。",
+    "ja": "Discord の連絡先を追加しました。",
+    "ko": "Discord 연락처 링크를 추가했어요.",
+    "ru": "Добавлена ссылка на Discord.",
+    "vi": "Thêm liên kết liên hệ Discord."
+  },
+  {
+    "id": "v056-changelog-13",
+    "en": "Adjusted the visitor count baseline.",
+    "zh": "調整瀏覽人數的歷史基準。",
+    "ja": "訪問者数の過去分の基準値を調整しました。",
+    "ko": "방문자 수의 과거 기준값을 조정했어요.",
+    "ru": "Изменено исходное значение счётчика посетителей.",
+    "vi": "Điều chỉnh mốc lịch sử của lượt truy cập."
+  },
+  {
+    "id": "v056-changelog-12",
+    "en": "Added a project to the creative timeline.",
+    "zh": "創作時間線新增一項作品。",
+    "ja": "制作のタイムラインに作品を追加しました。",
+    "ko": "작업 타임라인에 작품 하나를 추가했어요.",
+    "ru": "В творческую хронологию добавлена работа.",
+    "vi": "Thêm một tác phẩm vào dòng thời gian sáng tạo."
+  },
+  {
+    "id": "v056-changelog-11",
+    "en": "Added the latest-update summary.",
+    "zh": "新增本次更新摘要。",
+    "ja": "最新の更新概要を追加しました。",
+    "ko": "최신 업데이트 요약을 추가했어요.",
+    "ru": "Добавлено краткое описание последнего обновления.",
+    "vi": "Thêm tóm tắt cập nhật mới nhất."
+  },
+  {
+    "id": "v056-changelog-10",
+    "en": "Animated the visitor count.",
+    "zh": "新增瀏覽人數動畫。",
+    "ja": "訪問者数にアニメーションを追加しました。",
+    "ko": "방문자 수에 애니메이션을 추가했어요.",
+    "ru": "Добавлена анимация счётчика посетителей.",
+    "vi": "Thêm hiệu ứng cho lượt truy cập."
+  },
+  {
+    "id": "v056-changelog-9",
+    "en": "Added the update date and visitor count.",
+    "zh": "新增更新日期與瀏覽人數。",
+    "ja": "更新日と訪問者数を追加しました。",
+    "ko": "업데이트 날짜와 방문자 수를 추가했어요.",
+    "ru": "Добавлены дата обновления и счётчик посетителей.",
+    "vi": "Thêm ngày cập nhật và lượt truy cập."
+  },
+  {
+    "id": "v056-changelog-8",
+    "en": "Added more works.",
+    "zh": "新增了更多作品。",
+    "ja": "作品を追加しました。",
+    "ko": "작품을 더 추가했어요.",
+    "ru": "Добавлены новые работы.",
+    "vi": "Thêm tác phẩm mới."
+  }
+]

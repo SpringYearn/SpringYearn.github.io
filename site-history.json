@@ -4,565 +4,501 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Updated FusionDynamics2D to 0.5.0-authoring with its latest features, 338-test local validation, dated checkpoint and current protected download. Previous checkpoints are preserved; unfinished Mask/Viewer work and pending Resolve validation are stated explicitly."
+      "Simplified the changelog descriptions."
     ],
     "zh": [
-      "FusionDynamics2D 更新至 0.5.0-authoring，同步新增功能、338 項本地驗證、日期 checkpoint 與目前版本授權下載；保留舊紀錄，明確標示 Mask／Viewer 未完成項目與 Resolve 實機驗收界線。"
+      "簡化更新日誌敘述。"
     ]
   },
   "releases": [
     {
+      "version": "V.056",
+      "date": "2026-10-09",
+      "en": [
+        "Simplified the changelog descriptions."
+      ],
+      "zh": [
+        "簡化更新日誌敘述。"
+      ]
+    },
+    {
       "version": "V.055",
       "date": "2026-10-08",
       "en": [
-        "Updated FusionDynamics2D to 0.5.0-authoring with its latest features, 338-test local validation, dated checkpoint and current protected download. Previous checkpoints are preserved; unfinished Mask/Viewer work and pending Resolve validation are stated explicitly."
+        "Updated FusionDynamics2D."
       ],
       "zh": [
-        "FusionDynamics2D 更新至 0.5.0-authoring，同步新增功能、338 項本地驗證、日期 checkpoint 與目前版本授權下載；保留舊紀錄，明確標示 Mask／Viewer 未完成項目與 Resolve 實機驗收界線。"
+        "更新 FusionDynamics2D。"
       ]
     },
     {
       "version": "V.054",
       "date": "2026-10-08",
       "en": [
-        "Added a gentle breathing effect and animated dots to the whiteboard loading text in all six languages, with a static reduced-motion option and clear offline status."
+        "Animated the whiteboard loading message."
       ],
       "zh": [
-        "白板載入文字加入輕微呼吸與省略號動畫，六種語言皆適用；減少動態設定與離線狀態維持靜態提示。"
+        "新增白板載入動畫。"
       ]
     },
     {
       "version": "V.053",
       "date": "2026-10-08",
       "en": [
-        "Added six-language introductions and software versions to Look at the sky text pv, NEED 2 and PAIKE, including PAIKE’s unfinished-project context and Figma prototype link.",
-        "Renamed RECENT EDITING WORK to NEED 2 across the archive, detail page and sharing metadata while keeping its existing URL and video."
+        "Added a few works."
       ],
       "zh": [
-        "Look at the sky text pv、NEED 2 與 PAIKE 加入六種語言的作品簡介及軟體版本，並附上 PAIKE 未完成品說明與 Figma 原型連結。",
-        "RECENT EDITING WORK 更名為 NEED 2，作品集、詳情頁與分享資訊同步更新，既有網址與影片保留。"
+        "新增了幾項作品。"
       ]
     },
     {
       "version": "V.052",
       "date": "2026-10-08",
       "en": [
-        "Combined the two PAIKE entries into one project, using the mobile interface as the cover and showing the design-system image in its details. Previous detail links still open the merged project.",
-        "Moved APP / UI to the final category position. Work and LAB now default to Last updated in descending order, with newer dated entries first."
+        "Merged the PAIKE projects and adjusted sorting."
       ],
       "zh": [
-        "兩件 PAIKE 合併為一個專案，以手機介面作為主圖，設計系統圖放在詳情；舊詳情連結仍可開啟合併後的專案。",
-        "APP／UI 分類移到最後；作品集與 LAB 預設以「最後更新日、降序」排列，日期較新的項目優先顯示。"
+        "合併 PAIKE 專案，調整預設排序。"
       ]
     },
     {
       "version": "V.051",
       "date": "2026-10-07",
       "en": [
-        "Changed selected works to In my room, Blight and 14.3 Billion Years, keeping the existing card layout and animation.",
-        "Added personal work introductions in six languages, software versions, competition results and a linked credit to Drgz’s Flourish on the three detail pages."
+        "Updated selected works and their introductions."
       ],
       "zh": [
-        "精選作品改為 In my room、Blight 與 14.3 Billion Years，延續既有卡片編排與動畫。",
-        "三件作品的詳情頁加入六種語言的創作簡介、軟體版本與比賽成績，並附上 Drgz 的 Flourish 致謝連結。"
+        "更新精選作品與簡介。"
       ]
     },
     {
       "version": "V.050",
       "date": "2026-10-07",
       "en": [
-        "Changed the shared canvas to 1920 × 1080, with top-right zoom buttons, a slider and a drag toggle replacing touch gestures and middle-button controls.",
-        "Matched the language dropdown and cursor to the site style. Contact now places copy on the left and links on the right, with a shorter heading and the same body text."
+        "Adjusted whiteboard controls, the language menu and Contact layout."
       ],
       "zh": [
-        "共用畫布改為 1920 × 1080，右上角新增縮放滑桿、按鈕與拖曳模式，取代雙指手勢及滑鼠中鍵操作。",
-        "語言選單及游標統一為網站風格；Contact 改為左側文案、右側連結，標題簡化為「聯繫我」，內文保留。"
+        "調整白板操作、語言選單與聯繫區排版。"
       ]
     },
     {
       "version": "V.049",
       "date": "2026-10-07",
       "en": [
-        "Cleared the shared whiteboard and added two-finger zoom/pan, middle-button controls, adjustable eraser size and simple operation instructions.",
-        "New-board requests now email SpringYearn through the server, with private credentials and duplicate protection; hourly Codex checks are paused.",
-        "Rewrote site copy in a friendlier voice and added Japanese, Korean, Russian and Vietnamese. Language choices stay saved across pages; the desktop whiteboard shortcut now sits beside them."
+        "Improved the whiteboard, added email requests and four languages."
       ],
       "zh": [
-        "清空共用白板，新增雙指縮放與移動、滑鼠中鍵操作、可調大小的橡皮擦及簡單操作說明。",
-        "新增白板申請改由伺服器直接寄信給 SpringYearn，憑證私密保存並避免重複通知；每小時的 Codex 檢查已暫停。",
-        "全站文案改得更親切，新增日語、韓語、俄語及越南語。語言選擇可跨頁保存，電腦版塗鴉板入口移至語言選單旁。"
+        "改善白板，新增寄信申請與四種語言。"
       ]
     },
     {
       "version": "V.048",
       "date": "2026-10-07",
       "en": [
-        "Restored the site cursor on the whiteboard and added working mouse/touch canvas dragging.",
-        "Added persisted, gesture-based Undo and an area eraser that preserves the un-erased portions of strokes, plus faint notebook ruling.",
-        "Enlarged Resolve and Fusion toolkit icons to match the application frames, and replaced MediBang with the supplied droplet cutout."
+        "Improved whiteboard tools and software icons."
       ],
       "zh": [
-        "白板恢復網站專屬游標，補上滑鼠與觸控拖曳移動畫布。",
-        "新增可保存、以完整手勢為單位的復原；橡皮擦只擦實際經過的區域，並加入極淡筆記本橫線。",
-        "Resolve 與 Fusion 圖示放大至一致應用程式框線，MediBang 改用提供圖檔的水滴去背。"
+        "改善白板工具與軟體圖示。"
       ]
     },
     {
       "version": "V.047",
       "date": "2026-10-07",
       "en": [
-        "Added Maya and official software symbols to the homepage toolkit, with a muted ink treatment.",
-        "Adjusted the individual-page play triangle for visual centering.",
-        "Opened a shared doodle whiteboard with drawing, colors, thin strokes, an own-stroke eraser and touch-friendly zoom/pan; saved new-board requests are checked hourly in Codex."
+        "Added the shared whiteboard and updated software icons."
       ],
       "zh": [
-        "首頁軟體工具列加入 Maya 與各軟體官方圖示，統一為低飽和墨色風格。",
-        "單件頁播放三角形向左微調，改善視覺居中。",
-        "新增共用塗鴉白板，支援畫筆、顏色、細筆寬、自己的筆跡橡皮擦及觸控放大／移動；新增白板申請由 Codex 每小時檢查通知。"
+        "新增共用白板，更新軟體圖示。"
       ]
     },
     {
       "version": "V.046",
       "date": "2026-10-06",
       "en": [
-        "Removed the duplicate View details overlay from Project Files preview images.",
-        "Added play/open and new-tab cues to linked images in individual pages, matching YouTube, Instagram and full-image destinations.",
-        "Rearranged selected works as tilted, staggered paper cards with gentle floating, moving orbit lines and tracing frames; motion pauses offscreen and supports reduced motion."
+        "Improved preview links and selected-work styling."
       ],
       "zh": [
-        "移除 Project Files 預覽圖上重複的「查看詳情」提示。",
-        "單件頁可點擊圖片加入播放／開啟及新分頁提示，依 YouTube、Instagram 或原圖連結顯示。",
-        "精選作品改為傾斜錯落的紙卡，加入輕微漂浮、軌道線與流動外框；畫面外暫停並支援減少動態。"
+        "改善預覽提示與精選作品編排。"
       ]
     },
     {
       "version": "V.045",
       "date": "2026-10-06",
       "en": [
-        "Made artwork covers and titles open their individual detail pages, with clear View details actions across the archives.",
-        "Kept sharing in individual pages or project download dialogs and removed index sharing controls.",
-        "Highlighted the three selected works with a framed selection area, numbered seals and subtle decoration."
+        "Made work details easier to find and updated sharing."
       ],
       "zh": [
-        "作品封面與標題改為進入單件詳情頁，列表加入明確的「查看詳情」入口。",
-        "分享功能集中在單件頁或單一專案下載窗口，移除列表分享按鈕。",
-        "三件精選作品加入選集外框、編號標記與細緻裝飾。"
+        "改善作品詳情入口與分享功能。"
       ]
     },
     {
       "version": "V.044",
       "date": "2026-10-06",
       "en": [
-        "Mobile SPRING / YEARN words now play once when visible and replay on tap, with reduced-motion support.",
-        "Added three selected works using the existing project descriptions, and retained the language preference across navigation and reloads.",
-        "Added individual Work and Project Files pages with share buttons, unique URLs, preview covers and summaries.",
-        "Clarified that Project Files ZIP packages include media and standalone AEP files do not."
+        "Added individual project pages and selected works."
       ],
       "zh": [
-        "手機 SPRING／YEARN 文字捲入畫面時播放一次，點按可重播，並支援減少動態效果。",
-        "作品集加入三件精選作品，沿用已知介紹；中英文偏好在跨頁與重新載入後保留。",
-        "作品與 Project Files 加入單件頁面、分享按鈕、獨立網址、預覽封面及簡介。",
-        "標示 Project Files 的 ZIP 包含素材、獨立 AEP 不含素材。"
+        "新增單件詳情頁與精選作品。"
       ]
     },
     {
       "version": "V.043",
       "date": "2026-10-06",
       "en": [
-        "Fixed italic letter clipping during the YEARN stretch animation by allowing glyph overhang inside the word and reserving extra trailing space, while retaining the article boundary."
+        "Fixed clipping in the YEARN animation."
       ],
       "zh": [
-        "修正 YEARN 伸展動畫的斜體筆畫裁切：移除文字框內層裁切、增加末字預留空間，並保留介紹區塊的邊界。"
+        "修正 YEARN 動畫的文字裁切。"
       ]
     },
     {
       "version": "V.042",
       "date": "2026-10-06",
       "en": [
-        "Enlarged and darkened the memorial frame while retaining its intentional reveal condition.",
-        "Restored Project Files and Profile in the LAB desktop navigation, and Profile in Project Files.",
-        "Added contained, staggered SPRING / YEARN letter animations with reduced-motion support."
+        "Updated navigation and SPRING / YEARN animations."
       ],
       "zh": [
-        "放大並加深紀念彩蛋的小線框，保留原本的特定觸發條件。",
-        "補齊 LAB 桌面導覽的 Project Files、Profile，以及 Project Files 頁的 Profile。",
-        "SPRING／YEARN 涵意區加入逐字懸停動畫，預留邊界並支援減少動態效果。"
+        "調整導覽與 SPRING／YEARN 動畫。"
       ]
     },
     {
       "version": "V.041",
       "date": "2026-10-05",
       "en": [
-        "Brightened the shared palette with a nearly white background and softer, less saturated blue-green and leaf tones while retaining readable control text.",
-        "Concealed the memorial note behind a deliberate footer interaction on Home, Work and LAB, preserving its bilingual verses."
+        "Brightened the palette and hid the memorial Easter egg."
       ],
       "zh": [
-        "背景調為接近白色，藍綠與葉片色提亮並降低飽和度，控制項文字保留清楚對比。",
-        "首頁、作品與 LAB 的紀念文字改為特定頁尾互動後才出現，保留原本中英紀念詩。"
+        "提亮配色，讓紀念彩蛋更隱密。"
       ]
     },
     {
       "version": "V.040",
       "date": "2026-10-05",
       "en": [
-        "Unified interface colors and the interactive toon logo with the supplied five-color palette: deep teal, mist blue, pale mint, cream and olive.",
-        "Redesigned the homepage Project Files entrance with an opening folder, a moving timeline and subtle Spring leaves, including mobile and reduced-motion support."
+        "Updated site colors and the Project Files entrance."
       ],
       "zh": [
-        "全站介面與互動三渲二 Logo 統一使用提供的五色配色：深藍綠、霧藍、淡薄荷、米白及橄欖綠。",
-        "首頁 Project Files 入口加入展開專案匣、移動時間軸與細緻的 Spring 葉片，支援手機與減少動態效果。"
+        "更新配色與 Project Files 入口。"
       ]
     },
     {
       "version": "V.039",
       "date": "2026-10-05",
       "en": [
-        "Set ratchet and blisters embedded previews to a quieter 25% initial volume while preserving manual volume changes during page interactions."
+        "Lowered video preview volume."
       ],
       "zh": [
-        "ratchet 與 blisters 內嵌預覽的初始音量調為 25%，頁面互動不會重設手動調整的音量。"
+        "調低影片預覽的初始音量。"
       ]
     },
     {
       "version": "V.038",
       "date": "2026-10-05",
       "en": [
-        "Added a compact press-and-release animation to the mobile menu open and close buttons, with reduced-motion support."
+        "Animated the mobile menu buttons."
       ],
       "zh": [
-        "手機選單開啟與關閉按鈕加入縮放回彈、圖示輕轉的點按動畫，並支援減少動態效果。"
+        "新增手機選單按鈕動畫。"
       ]
     },
     {
       "version": "V.037",
       "date": "2026-10-05",
       "en": [
-        "Restored the Project Files desktop navigation link to the same styling as other links.",
-        "Replaced mobile header links and language switching with a shared collapsible side menu on Home, Work, LAB and Project Files."
+        "Added a mobile side menu."
       ],
       "zh": [
-        "Project Files 桌面導覽連結恢復與其他連結一致的樣式。",
-        "首頁、作品、LAB 與 Project Files 的手機頂部改為共用側邊選單，收納導覽與中英文切換。"
+        "新增手機側邊選單。"
       ]
     },
     {
       "version": "V.036",
       "date": "2026-10-05",
       "en": [
-        "Highlighted the homepage Project Files entrance and added desktop/mobile top navigation.",
-        "Aligned the Project Files category controls and made AE/DaVinci buttons filter the files, with an active selection.",
-        "Simplified the bilingual contact notice."
+        "Improved Project Files navigation and filtering."
       ],
       "zh": [
-        "強化首頁 Project Files 入口，加入桌面與手機頂部導覽。",
-        "修正專案檔分類按鈕對齊，AE／DaVinci 按鈕改為實際篩選並標示選取狀態。",
-        "簡化中英聯絡告示文字。"
+        "改善 Project Files 導覽與分類。"
       ]
     },
     {
       "version": "V.035",
       "date": "2026-10-05",
       "en": [
-        "Added a public Project Files page with separate After Effects and DaVinci Resolve sections, seven original downloads, video previews and a contact notice.",
-        "Added Project Files entrances on Home, Work and LAB."
+        "Added the public Project Files page."
       ],
       "zh": [
-        "新增公開 Project Files 頁面，分成 After Effects 與 DaVinci Resolve，收錄七個原始專案下載、影片預覽與聯絡告示。",
-        "首頁、作品頁與 LAB 新增 Project Files 入口。"
+        "新增公開下載的 Project Files 頁面。"
       ]
     },
     {
       "version": "V.034",
       "date": "2026-10-05",
       "en": [
-        "Added a bilingual LAB notice that most available files are currently Traditional Chinese versions."
+        "Added a LAB file-language notice."
       ],
       "zh": [
-        "LAB 新增雙語版本語言告示，說明目前大多數檔案為繁體中文版本。"
+        "新增 LAB 檔案語言告示。"
       ]
     },
     {
       "version": "V.033",
       "date": "2026-10-05",
       "en": [
-        "LAB downloads now deliver the original unencrypted ZIP after one website password check, while public build files remain encrypted."
+        "Simplified LAB downloads to one password check."
       ],
       "zh": [
-        "LAB 下載改為在網站輸入一次密碼後，直接取得不需密碼解壓的原始 ZIP；公開存放的版本仍保留加密保護。"
+        "LAB 下載改為只需輸入一次密碼。"
       ]
     },
     {
       "version": "V.032",
       "date": "2026-10-05",
       "en": [
-        "Rewrote the bilingual 4NEVER tributes as personal words of appreciation and remembrance, with the name’s wordplay kept only in the Work verse."
+        "Revised the memorial text."
       ],
       "zh": [
-        "4NEVER 雙語紀念文字改為更直接的欣賞、感謝與追念，名字諧音只保留在作品頁的一段。"
+        "修改紀念文字。"
       ]
     },
     {
       "version": "V.031",
       "date": "2026-10-05",
       "en": [
-        "Grouped same-day site updates into one daily entry with a version range and expandable complete bilingual notes."
+        "Grouped updates by date."
       ],
       "zh": [
-        "同一天的網站更新整合為一筆日誌，顯示版本範圍並可展開完整雙語更新內容。"
+        "將同一天的更新日誌整合。"
       ]
     },
     {
       "version": "V.030",
       "date": "2026-10-05",
       "en": [
-        "Revised the tribute poems to explicitly remember 4NEVER and his influence on my editing, with the name’s wordplay woven into the verses.",
-        "Restored a quiet 4NEVER footer marker on Home, Work and LAB."
+        "Adjusted the memorial text and entrance."
       ],
       "zh": [
-        "紀念短詩明確保留對 4NEVER 的追念與剪輯啟發，將名字的諧音融入詩句。",
-        "首頁、作品頁與 LAB 頁尾入口改回低調的 4NEVER 標記。"
+        "調整紀念文字與入口。"
       ]
     },
     {
       "version": "V.029",
       "date": "2026-10-05",
       "en": [
-        "Reimagined the 4NEVER tribute as a quiet 04 / infinity frame that reveals “for never...” and a different short verse on Home, Work and LAB.",
-        "Removed the memorial post link; the tribute now lives entirely in words and a small line gesture."
+        "Refined the memorial Easter egg."
       ],
       "zh": [
-        "4NEVER 彩蛋改為低調的 04／∞ 畫格，展開「for never...」；首頁、作品頁與 LAB 各留一段短詩。",
-        "移除紀念貼文連結，以文字與細微線條留下餘光。"
+        "調整紀念彩蛋。"
       ]
     },
     {
       "version": "V.028",
       "date": "2026-10-05",
       "en": [
-        "Removed the duplicate discipline selector from ALL while keeping the main work filters.",
-        "Added a quiet, expandable tribute to 4NEVER in the work archive footer."
+        "Removed duplicate filters and added a memorial Easter egg."
       ],
       "zh": [
-        "移除 ALL 介紹區重複的分類入口，保留作品區主要分類選單。",
-        "作品頁頁尾新增低調、可展開的 4NEVER 紀念彩蛋。"
+        "移除重複分類，新增紀念彩蛋。"
       ]
     },
     {
       "version": "V.027",
       "date": "2026-10-05",
       "en": [
-        "Added work archive sorting, with dated publication records and matched source-file clues; unknown dates remain unconfirmed.",
-        "Redesigned ALL as numbered editorial plates with varied image sizes, project captions and a discipline index."
+        "Added work sorting and redesigned ALL."
       ],
       "zh": [
-        "作品區新增排序功能，比對發布紀錄與原檔日期線索；未確認日期保持待考。",
-        "ALL 改為編號圖版，加入不同尺寸的作品配置、作品標題與媒介分類索引。"
+        "新增作品排序，調整 ALL 編排。"
       ]
     },
     {
       "version": "V.026",
       "date": "2026-10-05",
       "en": [
-        "Added LAB sorting by last update, creation date, name, tool type or original order, with ascending and descending controls."
+        "Added LAB sorting."
       ],
       "zh": [
-        "LAB 新增最後更新日、建立日期、名稱、工具類型與原始順序排列，以及升序／降序切換。"
+        "新增 LAB 排序功能。"
       ]
     },
     {
       "version": "V.025",
       "date": "2026-10-05",
       "en": [
-        "Added project creation / latest-update date ranges and compact, dated checkpoints for all nine LAB projects.",
-        "Restored the custom cursor on checkpoint controls and added individual project sharing with direct links to authorized download dialogs."
+        "Added LAB dates, checkpoints and sharing."
       ],
       "zh": [
-        "九個 LAB 專案新增建立／最後更新日期區間與精簡、附日期的歷史 checkpoint。",
-        "修復 checkpoint 控制的專屬游標，並新增可直達授權下載視窗的個別專案分享。"
+        "新增 LAB 日期、checkpoint 與分享。"
       ]
     },
     {
       "version": "V.024",
       "date": "2026-10-05",
       "en": [
-        "Updated FusionDynamics2D to 0.4.1-usability with its current AES-256 encrypted build, while preserving the 0.3.5 checkpoint.",
-        "Added SY_Handwriter as the ninth LAB record with an authorized AES-256 download of the 0.3.0 Test 4 font-fitting prototype and its remaining host tests."
+        "Updated LAB projects and downloads."
       ],
       "zh": [
-        "FusionDynamics2D 更新至 0.4.1-usability 與目前的 AES-256 加密版本，保留 0.3.5 checkpoint。",
-        "新增第九筆 LAB 紀錄 SY_Handwriter，提供 0.3.0 Test 4 字型貼合原型的授權 AES-256 下載，並記錄待完成的實機測試。"
+        "更新 LAB 專案與下載版本。"
       ]
     },
     {
       "version": "V.023",
       "date": "2026-10-03",
       "en": [
-        "Adjusted the historical visitor baseline to 3,280 while retaining live visitor statistics.",
-        "Added mouse / touch drag rotation, keyboard controls and reset for the 3D logo, with minimal toon shading and fine outlines.",
-        "Animated the LAB entrance leaves on hover and added a prominent confirmation button beside the download password field."
+        "Adjusted visitor count and 3D logo interactions."
       ],
       "zh": [
-        "將歷史訪客基準調整為 3,280，並保留即時訪客統計。",
-        "3D logo 加入滑鼠／觸控拖曳旋轉、鍵盤操作與重設，改用極簡三渲二色階及細描邊。",
-        "LAB 入口綠葉加入懸停動畫，下載密碼輸入框旁新增清楚可見的確認按鈕。"
+        "調整瀏覽人數與 3D logo 互動。"
       ]
     },
     {
       "version": "V.022",
       "date": "2026-10-03",
       "en": [
-        "Moved the LAB entrance below the work archive, with a restrained interactive card and fine-line Spring motifs.",
-        "Added a subtle interactive 3D logo from the supplied FBX in satin sage tones.",
-        "Restored visible cursors in download dialogs and repaired visitor statistics with a working service, retries and the preserved historical baseline."
+        "Updated the LAB entrance and 3D logo; fixed visitor statistics."
       ],
       "zh": [
-        "將 LAB 入口移至作品區下方，加入克制的互動卡片與細線 Spring 元素。",
-        "以提供的 FBX 加入低調互動 3D logo，搭配霧面鼠尾草綠。",
-        "修復下載視窗中的游標可見性，並更換可用的訪客統計服務、加入重試與保留歷史基準值。"
+        "更新 LAB 入口與 3D logo，修復瀏覽統計。"
       ]
     },
     {
       "version": "V.021",
       "date": "2026-10-03",
       "en": [
-        "Opened authorized AES-256 ZIP downloads for five supplied Resolve / Fusion builds, including FusionDynamics2D 0.3.5-perbody.",
-        "Passwords are verified against the encrypted builds before download. Projects without a supplied build retain their development records without download buttons."
+        "Enabled authorized LAB downloads."
       ],
       "zh": [
-        "開放 5 份 Resolve／Fusion 版本的授權 AES-256 加密 ZIP 下載，包含 FusionDynamics2D 0.3.5-perbody。",
-        "下載前以加密版本驗證密碼；未提供版本的專案保留開發紀錄，不顯示下載按鈕。"
+        "開放 LAB 授權下載。"
       ]
     },
     {
       "version": "V.020",
       "date": "2026-10-03",
       "en": [
-        "Moved all eight Resolve / Fusion development records to a dedicated LAB / EXPERIMENTS page, with a compact homepage entry.",
-        "Added an authorized-download request flow. Online password verification and encrypted builds remain pending secure service setup."
+        "Moved LAB to its own page."
       ],
       "zh": [
-        "將 8 筆 Resolve／Fusion 開發紀錄完整移至獨立 LAB / EXPERIMENTS 頁面，首頁保留簡潔入口。",
-        "新增授權下載申請流程；線上密碼驗證與加密版本下載待安全服務設定後開放。"
+        "將 LAB 移至獨立頁面。"
       ]
     },
     {
       "version": "V.019",
       "date": "2026-10-02",
       "en": [
-        "Synced the FusionDynamics2D LAB record to the latest verified 0.3.5-perbody checkpoint and its test / acceptance status."
+        "Updated FusionDynamics2D progress."
       ],
       "zh": [
-        "同步 FusionDynamics2D LAB 紀錄至目前可驗證的 0.3.5-perbody checkpoint，並補充測試與驗收狀態。"
+        "更新 FusionDynamics2D 進度。"
       ]
     },
     {
       "version": "V.018",
       "date": "2026-09-30",
       "en": [
-        "Added LAB / EXPERIMENTS with eight Resolve and Fusion development records while preserving existing site sections."
+        "Added LAB."
       ],
       "zh": [
-        "新增 LAB / EXPERIMENTS，收錄 8 筆 Resolve／Fusion 開發紀錄，並保留既有網站區塊與功能。"
+        "新增 LAB 實驗區。"
       ]
     },
     {
       "version": "V.017",
       "date": "2026-09-30",
       "en": [
-        "Changed past SY / CHANGELOG entries to stay collapsed by default and expand only when requested."
+        "Collapsed older updates by default."
       ],
       "zh": [
-        "將過往 SY / CHANGELOG 更新日誌改為預設隱藏，需手動展開才顯示歷史版本。"
+        "歷史更新日誌改為預設收合。"
       ]
     },
     {
       "version": "V.016",
       "date": "2026-09-30",
       "en": [
-        "Added a browsable SY / CHANGELOG to preserve and review site update history."
+        "Added the changelog."
       ],
       "zh": [
-        "新增可瀏覽的 SY / CHANGELOG，用來保存並回顧網站更新歷史。"
+        "新增更新日誌。"
       ]
     },
     {
       "version": "V.015",
       "date": "2026-09-30",
       "en": [
-        "Adjusted overview media on devices without hover support so project thumbnails display in full color by default."
+        "Improved mobile work thumbnails."
       ],
       "zh": [
-        "調整不支援 Hover 的裝置顯示邏輯，讓作品總覽縮圖在手機等觸控裝置上預設直接顯示彩色。"
+        "改善手機版作品縮圖。"
       ]
     },
     {
       "version": "V.014",
       "date": "2026-09-30",
       "en": [
-        "Added Discord to the contact links at the bottom of the homepage."
+        "Added the Discord contact link."
       ],
       "zh": [
-        "在首頁底部聯繫方式新增 Discord 連結。"
+        "新增 Discord 聯絡連結。"
       ]
     },
     {
       "version": "V.013",
       "date": "2026-09-23",
       "en": [
-        "Added a historical baseline to the total visitor display while preserving live visitor growth."
+        "Adjusted the visitor count baseline."
       ],
       "zh": [
-        "為總瀏覽人數加入歷史基準值，同時保留後續真實訪客數持續累加。"
+        "調整瀏覽人數的歷史基準。"
       ]
     },
     {
       "version": "V.012",
       "date": "2026-09-23",
       "en": [
-        "Added the Riot Games × Rosewood Creative VALORANT Esports project to the homepage practice timeline."
+        "Added a project to the creative timeline."
       ],
       "zh": [
-        "在首頁創作時間線新增 Riot Games × Rosewood Creative 的 VALORANT Esports 官方專案。"
+        "創作時間線新增一項作品。"
       ]
     },
     {
       "version": "V.011",
       "date": "2026-09-22",
       "en": [
-        "Added a bilingual latest-update summary to the footer date interaction."
+        "Added the latest-update summary."
       ],
       "zh": [
-        "在頁尾最後更新日期加入雙語的本次更新摘要。"
+        "新增本次更新摘要。"
       ]
     },
     {
       "version": "V.010",
       "date": "2026-09-22",
       "en": [
-        "Added rolling-digit animation to the total visitor count."
+        "Animated the visitor count."
       ],
       "zh": [
-        "讓總瀏覽人數套用與更新日期一致的數字翻動效果。"
+        "新增瀏覽人數動畫。"
       ]
     },
     {
       "version": "V.009",
       "date": "2026-09-22",
       "en": [
-        "Added the footer last-updated date and shared visitor counter."
+        "Added the update date and visitor count."
       ],
       "zh": [
-        "在頁尾新增最後更新日期與總瀏覽人數統計。"
+        "新增更新日期與瀏覽人數。"
       ]
     },
     {
       "version": "V.008",
       "date": "2026-09-02",
       "en": [
-        "Expanded the Work Archive with APP / UI, 3D, drawing and editing projects."
+        "Added more works."
       ],
       "zh": [
-        "擴充 WORK ARCHIVE，新增 APP／UI、3D、繪畫與剪輯作品。"
+        "新增了更多作品。"
       ]
     }
   ]
