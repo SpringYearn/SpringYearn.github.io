@@ -4,15 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added six-language introductions and software versions to Look at the sky text pv, NEED 2 and PAIKE, including PAIKE’s unfinished-project context and Figma prototype link.",
-      "Renamed RECENT EDITING WORK to NEED 2 across the archive, detail page and sharing metadata while keeping its existing URL and video."
+      "Added a gentle breathing effect and animated dots to the whiteboard loading text in all six languages, with a static reduced-motion option and clear offline status."
     ],
     "zh": [
-      "Look at the sky text pv、NEED 2 與 PAIKE 加入六種語言的作品簡介及軟體版本，並附上 PAIKE 未完成品說明與 Figma 原型連結。",
-      "RECENT EDITING WORK 更名為 NEED 2，作品集、詳情頁與分享資訊同步更新，既有網址與影片保留。"
+      "白板載入文字加入輕微呼吸與省略號動畫，六種語言皆適用；減少動態設定與離線狀態維持靜態提示。"
     ]
   },
   "releases": [
+    {
+      "version": "V.054",
+      "date": "2026-10-08",
+      "en": [
+        "Added a gentle breathing effect and animated dots to the whiteboard loading text in all six languages, with a static reduced-motion option and clear offline status."
+      ],
+      "zh": [
+        "白板載入文字加入輕微呼吸與省略號動畫，六種語言皆適用；減少動態設定與離線狀態維持靜態提示。"
+      ]
+    },
     {
       "version": "V.053",
       "date": "2026-10-08",

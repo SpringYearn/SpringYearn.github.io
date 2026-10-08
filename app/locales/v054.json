@@ -1,0 +1,3 @@
+[
+  {"id":"v054-note-0","en":"Added a gentle breathing effect and animated dots to the whiteboard loading text in all six languages, with a static reduced-motion option and clear offline status.","zh":"白板載入文字加入輕微呼吸與省略號動畫，六種語言皆適用；減少動態設定與離線狀態維持靜態提示。","ja":"白板の読み込み文に、ゆっくりした明滅とドットのアニメーションを6言語で追加。動きを減らす設定とオフライン表示は静止したままです。","ko":"화이트보드 로딩 문구에 은은한 밝기 변화와 점 애니메이션을 여섯 언어로 추가했어요. 모션 감소 설정과 오프라인 상태는 정적인 안내를 유지해요.","ru":"Для текста загрузки доски на шести языках добавлены мягкое изменение прозрачности и анимированные точки. При сокращённой анимации и офлайн-статусе подсказка остаётся статичной.","vi":"Thêm hiệu ứng sáng nhẹ và dấu chấm động cho thông báo tải bảng vẽ ở cả sáu ngôn ngữ. Chế độ giảm chuyển động và trạng thái ngoại tuyến dùng thông báo tĩnh."}
+]
