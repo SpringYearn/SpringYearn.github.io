@@ -1,0 +1,65 @@
+[
+  {
+    "id": "v058-youtube-title",
+    "en": "1,000+ YouTube subscribers",
+    "zh": "YouTube 粉絲突破 1,000",
+    "ja": "YouTube 登録者1,000人突破",
+    "ko": "YouTube 구독자 1,000명 돌파",
+    "ru": "Более 1 000 подписчиков на YouTube",
+    "vi": "Hơn 1.000 người đăng ký YouTube"
+  },
+  {
+    "id": "v058-youtube-body",
+    "en": "Surpassed 1,000 subscribers on YouTube.",
+    "zh": "YouTube 粉絲突破 1,000。",
+    "ja": "YouTube の登録者が1,000人を超えました。",
+    "ko": "YouTube 구독자가 1,000명을 넘었어요.",
+    "ru": "Число подписчиков на YouTube превысило 1 000.",
+    "vi": "Số người đăng ký YouTube vượt mốc 1.000."
+  },
+  {
+    "id": "v058-tiktok-title",
+    "en": "1,000+ TikTok followers",
+    "zh": "TikTok 粉絲突破 1,000",
+    "ja": "TikTok フォロワー1,000人突破",
+    "ko": "TikTok 팔로워 1,000명 돌파",
+    "ru": "Более 1 000 подписчиков в TikTok",
+    "vi": "Hơn 1.000 người theo dõi TikTok"
+  },
+  {
+    "id": "v058-tiktok-body",
+    "en": "Surpassed 1,000 followers on TikTok.",
+    "zh": "TikTok 粉絲突破 1,000。",
+    "ja": "TikTok のフォロワーが1,000人を超えました。",
+    "ko": "TikTok 팔로워가 1,000명을 넘었어요.",
+    "ru": "Число подписчиков в TikTok превысило 1 000.",
+    "vi": "Số người theo dõi TikTok vượt mốc 1.000."
+  },
+  {
+    "id": "v058-bilibili-title",
+    "en": "1,000+ Bilibili followers",
+    "zh": "Bilibili 粉絲突破 1,000",
+    "ja": "Bilibili フォロワー1,000人突破",
+    "ko": "Bilibili 팔로워 1,000명 돌파",
+    "ru": "Более 1 000 подписчиков на Bilibili",
+    "vi": "Hơn 1.000 người theo dõi Bilibili"
+  },
+  {
+    "id": "v058-bilibili-body",
+    "en": "Surpassed 1,000 followers on Bilibili.",
+    "zh": "Bilibili 粉絲突破 1,000。",
+    "ja": "Bilibili のフォロワーが1,000人を超えました。",
+    "ko": "Bilibili 팔로워가 1,000명을 넘었어요.",
+    "ru": "Число подписчиков на Bilibili превысило 1 000.",
+    "vi": "Số người theo dõi Bilibili vượt mốc 1.000."
+  },
+  {
+    "id": "v058-note",
+    "en": "Added three follower milestones.",
+    "zh": "新增三項粉絲里程碑。",
+    "ja": "フォロワー数の実績を3件追加しました。",
+    "ko": "팔로워 수 성과 세 개를 추가했어요.",
+    "ru": "Добавлены три достижения по числу подписчиков.",
+    "vi": "Thêm ba cột mốc người theo dõi."
+  }
+]

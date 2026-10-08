@@ -241,6 +241,39 @@ const practiceHistory = [
     },
   },
   {
+    year: { en: "2025.08.10", zh: "2025.08.10" },
+    href: null,
+    phase: { en: "Milestone", zh: "里程碑" },
+    partner: { en: "YouTube", zh: "YouTube" },
+    title: { en: "1,000+ YouTube subscribers", zh: "YouTube 粉絲突破 1,000" },
+    body: {
+      en: "Surpassed 1,000 subscribers on YouTube.",
+      zh: "YouTube 粉絲突破 1,000。",
+    },
+  },
+  {
+    year: { en: "2026.02.11", zh: "2026.02.11" },
+    href: null,
+    phase: { en: "Milestone", zh: "里程碑" },
+    partner: { en: "TikTok", zh: "TikTok" },
+    title: { en: "1,000+ TikTok followers", zh: "TikTok 粉絲突破 1,000" },
+    body: {
+      en: "Surpassed 1,000 followers on TikTok.",
+      zh: "TikTok 粉絲突破 1,000。",
+    },
+  },
+  {
+    year: { en: "2026.04.17", zh: "2026.04.17" },
+    href: null,
+    phase: { en: "Milestone", zh: "里程碑" },
+    partner: { en: "Bilibili", zh: "Bilibili" },
+    title: { en: "1,000+ Bilibili followers", zh: "Bilibili 粉絲突破 1,000" },
+    body: {
+      en: "Surpassed 1,000 followers on Bilibili.",
+      zh: "Bilibili 粉絲突破 1,000。",
+    },
+  },
+  {
     year: { en: "2026", zh: "2026" },
     href: "https://x.com/ValorantEsports/status/2102684410382287046?s=20",
     phase: { en: "Official project", zh: "官方專案" },
