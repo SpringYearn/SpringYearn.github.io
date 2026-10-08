@@ -2007,6 +2007,7 @@ html.archive-is-transitioning { overflow: hidden; }
 }
 .history-list p {
   max-width: 660px;
+  white-space: pre-line;
   margin-top: .7rem;
   font-size: .88rem;
   line-height: 1.55;
