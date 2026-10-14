@@ -2096,6 +2096,39 @@ html.archive-is-transitioning { overflow: hidden; }
   line-height: 1.65;
   color: rgba(17,17,15,.68);
 }
+.lab-author-edit {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .3em;
+  padding-inline: .1em;
+  white-space: nowrap;
+}
+.lab-author-original {
+  display: inline-block;
+  min-width: .55em;
+  position: relative;
+  text-align: center;
+  font-weight: 600;
+}
+.lab-author-cross {
+  position: absolute;
+  top: -.12em;
+  left: -.12em;
+  width: calc(100% + .24em);
+  height: 1.35em;
+  color: #b3443d;
+  pointer-events: none;
+}
+.lab-author-note {
+  display: inline-block;
+  width: 6.2em;
+  height: 1.85em;
+  margin-block: -.18em;
+  color: #b3443d;
+  transform: translateY(.28em) rotate(-6deg);
+  pointer-events: none;
+}
+.lab-author-note > svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .lab-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

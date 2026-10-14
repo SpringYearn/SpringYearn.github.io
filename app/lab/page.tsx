@@ -10,6 +10,7 @@ import { SiteStatus } from "../site-status";
 import { ForNever } from "../for-never";
 import { labExperiments } from "../lab-data";
 import { LabDownload } from "./lab-download";
+import { LabAuthorIntro } from "./lab-author-intro";
 import { sortLabProjects, type LabSortDirection, type LabSortKey } from "./project-sort";
 
 const copy = {
@@ -138,7 +139,7 @@ export default function LabPage() {
       <section className="section-block lab-hero" aria-labelledby="lab-title">
         <div className="work-archive-top mono-label"><span>LAB / EXPERIMENTS</span><span>{t.count}</span></div>
         <h1 id="lab-title">{t.title}</h1>
-        <p className="lab-intro">{t.intro}</p>
+        <LabAuthorIntro text={t.intro} />
         <nav className="lab-page-links" aria-label={language === "en" ? "Explore the site" : "網站導覽"}>
           <Link href="/" className="text-link archive-home-link"><ArrowLeft aria-hidden="true" />{t.back}</Link>
           <Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link>
