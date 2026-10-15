@@ -21,7 +21,7 @@ test("each criterion supports both directions without changing the projects", ()
     }
   }
   assert.deepEqual(labExperiments, before);
-  assert.equal(sortLabProjects(labExperiments, "updated", "desc")[0].id, "LAB-01");
+  assert.deepEqual(sortLabProjects(labExperiments, "updated", "desc").slice(0, 3).map(project => project.id), ["LAB-10", "LAB-09", "LAB-01"]);
   assert.equal(sortLabProjects(labExperiments, "name", "asc")[0].id, "LAB-07");
 });
 

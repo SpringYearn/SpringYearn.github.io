@@ -7,6 +7,8 @@ V.020 adds the page; V.021 enables five supplied builds. V.024 updates FusionDyn
 to 0.4.1-usability and adds SY_Handwriter 0.3.0 Test 4 as the ninth record and sixth build.
 V.055 updates FusionDynamics2D to the delivered 0.5.0-authoring package and records
 its new local-validation checkpoint without claiming Resolve host acceptance.
+V.062 updates SY_Handwriter to 0.5.0 and adds Nebulosity Resolve 0.5.0 as the
+tenth record and seventh build. Existing checkpoints and archives are retained.
 
 ## Published builds
 
@@ -17,12 +19,14 @@ its new local-validation checkpoint without claiming Resolve host acceptance.
 | LAB-03 / SY Lens Dirt | 0.93 / FullBlend |
 | LAB-04 / TraceGraph OFX | 0.2.7 / Win11 x64 GPU EXPERIMENTAL |
 | LAB-06 / Resolve Neural Compat | 1.0.0 / x64 |
-| LAB-09 / SY_Handwriter | 0.3.0 / Test 4 |
+| LAB-09 / SY_Handwriter | 0.5.0 |
+| LAB-10 / Nebulosity Resolve | 0.5.0 / zh-TW / Win64 |
 
 LAB-05, LAB-07 and LAB-08 retain their development records but have no download
 button. No placeholder build is published for research or obsolete projects.
 The previous encrypted FusionDynamics2D 0.3.5 and 0.4.1 archives are retained;
-the current-build button points to 0.5.0. Other published archives are unchanged.
+the current-build button points to 0.5.0. The previous Handwriter Test 4 archive
+is also retained; its current-build button now points to 0.5.0.
 
 The 0.5.0 description follows its authoring guide and recorded validation:
 338 passing local tests, 80 Lua / Fuse syntax checks and two JavaScript syntax checks.
@@ -31,8 +35,17 @@ The original ZIP has 151 files and SHA-256
 Native Mask auto-adaptation and Viewer Overlay / Dock remain incomplete.
 Windows installation and Resolve acceptance remain pending; the reported 0.4.0
 host tests 1–4 are not acceptance of the 0.4.1 or 0.5.0 changes.
-SY_Handwriter follows its Test 4 README and changelog; font fitting uses rendered
-Text+ Alpha and still requires Resolve host tests across fonts and text layouts.
+SY_Handwriter follows its 0.5.0 changelog and handoff, dated 2026-10-11.
+The package records 62 local checks, per-stroke regions, glyph skeleton fitting
+and frame-by-frame Follower baking. Windows / Resolve 21 host acceptance,
+including 細明體_HKSCS, remains pending. Overlapping strokes can need manual
+correction; source animation changes require regeneration.
+
+Nebulosity follows its 0.5.0 checkpoint and validation report, dated 2026-10-13.
+It is an independent implementation. Five test groups, 52 native 1080p frames,
+save / reload and actual Viewer-axis dragging were recorded as passing on
+synthetic scenes. This does not establish tracking accuracy on real footage or
+installation into the user's system plugin directory.
 
 ## Protection and verification
 
@@ -80,9 +93,9 @@ to `site-history.json` without replacing earlier entries.
 
 `node --test tests/lab-*.test.mjs` covers record/history preservation, correct and
 incorrect passwords, plaintext/weak/mixed archives, ciphertext tampering, full
-AES authentication, cancellation, byte-exact original ZIP output, and the six
-current archive headers/hashes. Browser QA additionally downloads all six real
-builds on desktop and mobile and validates every inner entry without a password.
+AES authentication, cancellation, byte-exact original ZIP output, and the seven
+current archive headers/hashes. Prior six-build browser checks remain historical;
+the V.062 checks cover the two newly published packages on desktop and mobile.
 Private-password extraction checks run locally; no real password is committed
 to tests or CI configuration.
 

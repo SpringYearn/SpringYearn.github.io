@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a handwritten correction to the LAB introduction."
+      "Updated LAB progress and builds; added a DaVinci watermark."
     ],
     "zh": [
-      "LAB 介紹加入幽默手寫註記。"
+      "更新 LAB 進度與下載，加入 DaVinci 背景標誌。"
     ]
   },
   "releases": [
+    {
+      "version": "V.062",
+      "date": "2026-10-15",
+      "en": [
+        "Updated LAB progress and builds; added a DaVinci watermark."
+      ],
+      "zh": [
+        "更新 LAB 進度與下載，加入 DaVinci 背景標誌。"
+      ]
+    },
     {
       "version": "V.061",
       "date": "2026-10-14",
