@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v063.note",
+    "en": "Moved LAB watermarks to the corner with a hover zoom.",
+    "zh": "調整 LAB 浮水印位置與懸停動畫。",
+    "ja": "LAB の透かしを隅に移し、ホバーで拡大するようにしました。",
+    "ko": "LAB 워터마크를 모서리로 옮기고 마우스를 올리면 확대되도록 했어요.",
+    "ru": "Водяные знаки LAB перенесены в угол и увеличиваются при наведении.",
+    "vi": "Chuyển logo nền LAB về góc và thêm hiệu ứng phóng to khi rê chuột."
+  }
+]
