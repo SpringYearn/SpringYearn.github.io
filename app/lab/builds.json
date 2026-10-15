@@ -35,10 +35,17 @@
     "sha256": "4dd1230419f0723ee613395659e02188e0073e45acb34df3a848ef47f2ffe76f"
   },
   "LAB-09": {
-    "filename": "SY_Handwriter_0.3.0_Test4_AES256.zip",
-    "originalFilename": "SY_Handwriter_0.3.0_Test4.zip",
-    "bytes": 36611,
-    "originalBytes": 36371,
-    "sha256": "23304ffba273775be221ad1c8338bfcac06704cf805f634a41883b583c16ff2f"
+    "filename": "SY_Handwriter_0.5.0_AES256.zip",
+    "originalFilename": "SY_Handwriter_0.5.0.zip",
+    "bytes": 6033237,
+    "originalBytes": 6033009,
+    "sha256": "281346e85997ead08a7059b72f1c74f4af8ad49b8daafe9b6b5d23b868987581"
+  },
+  "LAB-10": {
+    "filename": "NebulosityResolve-0.5.0-zh-TW-Win64_AES256.zip",
+    "originalFilename": "NebulosityResolve-0.5.0-zh-TW-Win64.zip",
+    "bytes": 6845852,
+    "originalBytes": 6845592,
+    "sha256": "cda43dc2fff98c4a7f5dc5bc2baa68dc0f427e1833d445ae813ae4a93f18560c"
   }
 }

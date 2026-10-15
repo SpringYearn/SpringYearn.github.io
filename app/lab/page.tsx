@@ -146,7 +146,8 @@ export default function LabPage() {
           <Link href="/project-files" className="text-link">{t.files}<ArrowUpRight aria-hidden="true" /></Link>
         </nav>
       </section>
-      <section className="section-block lab-records" aria-label={t.count}>
+      <section className="section-block lab-records" data-lab-platform="resolve" aria-labelledby="lab-platform-title">
+        <div className="lab-platform-heading"><h2 id="lab-platform-title">DaVinci Resolve / Fusion</h2><span className="mono-label">{t.count}</span></div>
         <div className="lab-access-note"><div><p>{t.access}</p><p className="lab-language-note"><span>{t.buildLanguage}</span>{t.languageNotice}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
         <div className="lab-sort-controls">
           <label className="lab-sort-field" htmlFor="lab-sort-key"><span>{t.sort}</span><span className="lab-sort-select">

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "v062.note",
+    "en": "Updated LAB progress and builds; added a DaVinci watermark.",
+    "zh": "更新 LAB 進度與下載，加入 DaVinci 背景標誌。",
+    "ja": "LAB の進捗と配布版を更新し、DaVinci の透かしを追加しました。",
+    "ko": "LAB 진행 상황과 배포 버전을 업데이트하고 DaVinci 워터마크를 추가했어요.",
+    "ru": "Обновлены прогресс LAB и сборки; добавлен водяной знак DaVinci.",
+    "vi": "Cập nhật tiến độ và bản tải LAB; thêm logo DaVinci mờ ở nền."
+  },
+  {
+    "id": "v062.handwriter.body",
+    "en": "A stroke-by-stroke handwriting tool that keeps the original Text+ font. Version 0.5.0 adds glyph skeleton fitting, per-stroke reveal regions, frame-by-frame Follower baking and custom Unicode stroke data, with 9,574 Chinese characters included. The package records 62 passing local checks. Resolve 21, Windows installation and 細明體_HKSCS still need host validation; overlapping strokes can need manual correction, and changed source animation needs rebaking.",
+    "zh": "保留 Text+ 原字型的逐筆手寫動畫工具。0.5.0 加入字形骨架貼合、逐筆顯示區域、Follower 逐幀烘焙與 Unicode 自訂筆順，內附 9,574 個中文字資料。套件紀錄為 62 項本地檢查通過；Resolve 21、Windows 安裝與細明體_HKSCS 仍待實機確認。相黏或交叉筆畫可能需要手動修正，來源動畫改動後也需要重新生成。",
+    "ja": "Text+ の元のフォントを保つ、一画ずつの手書きアニメーションツール。0.5.0 では字形の骨格フィッティング、画ごとの表示領域、Follower のフレーム単位ベイク、Unicode のカスタム筆順を追加し、中国語文字9,574字のデータを同梱しました。ローカル検査62件が通過。Resolve 21、Windows インストール、細明體_HKSCS は実機確認待ちです。重なる画は手直しが必要な場合があり、元のアニメーションを変えたら再生成が必要です。",
+    "ko": "Text+의 원래 글꼴을 유지하는 한 획씩의 손글씨 애니메이션 도구예요. 0.5.0은 글리프 골격 맞춤, 획별 표시 영역, Follower 프레임별 베이크와 Unicode 사용자 획순을 추가했으며 한자 9,574자의 데이터를 포함해요. 패키지의 로컬 검사 62개가 통과했어요. Resolve 21, Windows 설치와 細明體_HKSCS는 실기 확인이 필요해요. 겹치는 획은 수동 수정이 필요할 수 있고 원본 애니메이션을 바꾸면 다시 생성해야 해요.",
+    "ru": "Инструмент анимации письма по штрихам с сохранением шрифта Text+. В 0.5.0 добавлены подгонка скелета глифов, области показа отдельных штрихов, покадровое запекание Follower и свои данные Unicode; включены 9 574 китайских иероглифа. В пакете зафиксированы 62 успешные локальные проверки. Resolve 21, установка Windows и 細明體_HKSCS ещё требуют проверки в программе. Пересечения штрихов могут требовать ручной правки; после изменения исходной анимации нужно повторное запекание.",
+    "vi": "Công cụ viết từng nét, giữ nguyên phông Text+. Bản 0.5.0 thêm khớp khung xương chữ, vùng hiện riêng từng nét, bake Follower theo từng khung hình và dữ liệu nét Unicode tùy chỉnh; kèm 9.574 chữ Hán. Gói ghi nhận 62 kiểm tra cục bộ đạt. Resolve 21, cài đặt Windows và 細明體_HKSCS vẫn chờ kiểm chứng thực tế. Nét giao nhau có thể cần sửa tay; đổi hoạt ảnh nguồn phải tạo lại."
+  },
+  {
+    "id": "v062.hw04.title",
+    "en": "0.4.0 / glyph fitting",
+    "zh": "0.4.0／字形貼合",
+    "ja": "0.4.0／字形フィッティング",
+    "ko": "0.4.0 / 글리프 맞춤",
+    "ru": "0.4.0 / подгонка глифов",
+    "vi": "0.4.0 / khớp hình chữ"
+  },
+  {
+    "id": "v062.hw04.body",
+    "en": "Added glyph segmentation and skeleton fitting, plus 9,574 Chinese stroke records; host checks pending.",
+    "zh": "加入字形分割、骨架貼合與 9,574 個中文字筆順資料；實機確認待完成。",
+    "ja": "字形の分割・骨格フィッティングと中国語文字9,574字の筆順を追加。実機確認待ちです。",
+    "ko": "글리프 분할·골격 맞춤과 한자 9,574자의 획순을 추가했어요. 실기 확인은 아직이에요.",
+    "ru": "Добавлены сегментация и подгонка скелета глифов, данные штрихов 9 574 иероглифов; проверка в программе ожидается.",
+    "vi": "Thêm tách chữ, khớp khung xương và dữ liệu nét cho 9.574 chữ Hán; chờ kiểm chứng thực tế."
+  },
+  {
+    "id": "v062.hw05.title",
+    "en": "0.5.0 / stroke regions & tracking",
+    "zh": "0.5.0／逐筆區域與追蹤",
+    "ja": "0.5.0／画の領域と追跡",
+    "ko": "0.5.0 / 획별 영역과 추적",
+    "ru": "0.5.0 / области штрихов и трекинг",
+    "vi": "0.5.0 / vùng nét và theo dõi"
+  },
+  {
+    "id": "v062.hw05.body",
+    "en": "Per-stroke regions, frame-by-frame Follower baking and custom Unicode data; 62 local checks passed, host validation pending.",
+    "zh": "加入逐筆區域、Follower 逐幀烘焙與 Unicode 自訂筆順；62 項本地檢查通過，實機仍待確認。",
+    "ja": "画ごとの領域、Follower のフレーム単位ベイク、Unicode カスタムデータを追加。ローカル62件通過、実機確認待ちです。",
+    "ko": "획별 영역, Follower 프레임별 베이크와 Unicode 사용자 데이터를 추가했어요. 로컬 검사 62개 통과, 실기 확인은 아직이에요.",
+    "ru": "Области отдельных штрихов, покадровое запекание Follower и свои данные Unicode; 62 локальные проверки пройдены, проверка в программе ожидается.",
+    "vi": "Vùng riêng từng nét, bake Follower theo khung hình và dữ liệu Unicode tùy chỉnh; 62 kiểm tra cục bộ đạt, chờ kiểm chứng thực tế."
+  },
+  {
+    "id": "v062.neb.status",
+    "en": "0.5.0 / native scene checks passed",
+    "zh": "0.5.0／原生場景驗證通過",
+    "ja": "0.5.0／ネイティブシーン検証通過",
+    "ko": "0.5.0 / 네이티브 장면 검증 통과",
+    "ru": "0.5.0 / проверки нативных сцен пройдены",
+    "vi": "0.5.0 / kiểm tra cảnh gốc đạt"
+  },
+  {
+    "id": "v062.neb.body",
+    "en": "An independently built 3D cloud and fog tool for Resolve / Fusion. Version 0.5.0 follows CameraTracker-exported Camera3D data, with a draggable 3D placement control and live or baked camera, light and volume transforms. Five test groups and 52 native 1080p frames passed, including save / reload and Viewer dragging. Tests used synthetic scenes; tracking match with real footage remains unverified.",
+    "zh": "為 Resolve／Fusion 獨立製作的 3D 雲霧工具。0.5.0 可接入 CameraTracker 匯出的 Camera3D，透過 3D 操控軸調整雲霧位置，並支援攝影機、燈光與定位的即時連結或烘焙。五組測試與 52 幀原生 1080p 輸出通過，也確認了保存重開與 Viewer 拖動。測試使用合成場景，實拍素材的追蹤融合仍待確認。",
+    "ja": "Resolve／Fusion 向けに独自実装した3D雲・霧ツール。0.5.0 は CameraTracker から出力した Camera3D を読み込み、3Dハンドルで雲霧を配置できます。カメラ・ライト・配置のライブ連結とベイクに対応。5組のテストと52枚のネイティブ1080p出力、保存・再読込、Viewer でのドラッグを確認しました。検証は合成シーンで行い、実写素材との追跡の一致は未確認です。",
+    "ko": "Resolve/Fusion용으로 독립 구현한 3D 구름·안개 도구예요. 0.5.0은 CameraTracker가 내보낸 Camera3D를 읽고 3D 핸들로 구름 위치를 조절해요. 카메라·조명·배치의 실시간 연결과 베이크를 지원해요. 테스트 5그룹과 네이티브 1080p 52프레임, 저장·다시 열기와 Viewer 드래그를 확인했어요. 합성 장면으로 검증했으며 실사 영상의 추적 일치는 아직 확인하지 않았어요.",
+    "ru": "Независимо разработанный инструмент 3D-облаков и тумана для Resolve/Fusion. Версия 0.5.0 использует Camera3D из CameraTracker, позволяет двигать объём 3D-манипулятором и связывать либо запекать преобразования камеры, света и объёма. Пройдены пять групп тестов и 52 нативных кадра 1080p, включая сохранение, загрузку и перетаскивание в Viewer. Проверки проведены на синтетических сценах; совпадение трекинга с реальным видео ещё не проверено.",
+    "vi": "Công cụ mây và sương 3D được phát triển độc lập cho Resolve/Fusion. Bản 0.5.0 nhận Camera3D xuất từ CameraTracker, cho kéo tay nắm 3D để đặt mây và liên kết trực tiếp hoặc bake biến đổi của camera, đèn và khối mây. Đã đạt 5 nhóm kiểm tra và 52 khung hình 1080p gốc, gồm lưu/mở lại và kéo trong Viewer. Thử nghiệm dùng cảnh tổng hợp; độ khớp theo dõi với video thực vẫn chưa được xác nhận."
+  },
+  {
+    "id": "v062.neb03.title",
+    "en": "0.1–0.3 / volume prototype",
+    "zh": "0.1–0.3／體積原型",
+    "ja": "0.1–0.3／ボリューム試作",
+    "ko": "0.1–0.3 / 볼륨 프로토타입",
+    "ru": "0.1–0.3 / прототип объёма",
+    "vi": "0.1–0.3 / nguyên mẫu thể tích"
+  },
+  {
+    "id": "v062.neb03.body",
+    "en": "Built the initial Fusion / OpenFX volume tool, Chinese presets and 3D camera workflow.",
+    "zh": "建立 Fusion／OpenFX 體積工具、中文預設與 3D 攝影機流程。",
+    "ja": "Fusion／OpenFX のボリュームツール、中国語プリセット、3Dカメラのワークフローを構築。",
+    "ko": "Fusion/OpenFX 볼륨 도구, 중국어 프리셋과 3D 카메라 작업 흐름을 만들었어요.",
+    "ru": "Созданы Fusion/OpenFX-инструмент объёма, китайские пресеты и рабочий процесс 3D-камеры.",
+    "vi": "Tạo công cụ thể tích Fusion/OpenFX, preset tiếng Trung và quy trình camera 3D."
+  },
+  {
+    "id": "v062.neb04.title",
+    "en": "0.4.0 / preview & smoke cache",
+    "zh": "0.4.0／預覽與煙霧快取",
+    "ja": "0.4.0／プレビューと煙キャッシュ",
+    "ko": "0.4.0 / 미리보기와 연기 캐시",
+    "ru": "0.4.0 / предпросмотр и кэш дыма",
+    "vi": "0.4.0 / xem trước và cache khói"
+  },
+  {
+    "id": "v062.neb04.body",
+    "en": "Improved preview speed and added smoke-cache resume; 65 native 1080p frames and isolated installer checks passed.",
+    "zh": "加速預覽並加入煙霧快取續算；65 幀原生 1080p 輸出與隔離安裝器檢查通過。",
+    "ja": "プレビューを高速化し煙キャッシュの再開を追加。65枚のネイティブ1080p出力と隔離環境のインストーラー検査が通過。",
+    "ko": "미리보기 가속과 연기 캐시 이어하기를 추가했어요. 네이티브 1080p 65프레임과 격리 설치 검사를 통과했어요.",
+    "ru": "Ускорен предпросмотр, добавлено продолжение кэша дыма; пройдены 65 нативных кадров 1080p и проверки установщика в изоляции.",
+    "vi": "Tăng tốc xem trước và thêm tiếp tục cache khói; 65 khung hình 1080p gốc và kiểm tra bộ cài trong môi trường riêng đều đạt."
+  },
+  {
+    "id": "v062.neb05.title",
+    "en": "0.5.0 / CameraTracker placement",
+    "zh": "0.5.0／CameraTracker 定位",
+    "ja": "0.5.0／CameraTracker 配置",
+    "ko": "0.5.0 / CameraTracker 배치",
+    "ru": "0.5.0 / размещение CameraTracker",
+    "vi": "0.5.0 / đặt vị trí CameraTracker"
+  },
+  {
+    "id": "v062.neb05.body",
+    "en": "Added draggable 3D placement and full transform baking; 52 native frames passed, real-footage tracking checks pending.",
+    "zh": "加入可拖動的 3D 定位與完整變換烘焙；52 幀原生輸出通過，實拍追蹤驗證待完成。",
+    "ja": "ドラッグできる3D配置と全変換のベイクを追加。ネイティブ52枚が通過、実写での追跡確認は未実施。",
+    "ko": "드래그 가능한 3D 배치와 전체 변환 베이크를 추가했어요. 네이티브 52프레임 통과, 실사 추적 검증은 아직이에요.",
+    "ru": "Добавлены перетаскивание в 3D и полное запекание преобразований; 52 нативных кадра пройдены, трекинг реального видео ещё не проверен.",
+    "vi": "Thêm kéo vị trí 3D và bake toàn bộ biến đổi; 52 khung hình gốc đạt, chờ kiểm tra theo dõi video thực."
+  }
+]

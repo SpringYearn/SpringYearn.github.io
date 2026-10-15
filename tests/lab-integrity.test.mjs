@@ -15,7 +15,7 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   const evaluate = code => JSON.parse(JSON.stringify(runInNewContext(code + "\nlabExperiments;")));
   const records = labExperiments;
   const previous = evaluate(original);
-  assert.equal(records.length, 9);
+  assert.equal(records.length, 10);
   for (let index = 1; index < 8; index++) {
     for (const field of ["id", "title", "type", "status", "body"]) assert.deepEqual(records[index][field], previous[index][field]);
   }
@@ -28,13 +28,24 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.match(current.body.en, /338 passing local tests/);
   assert.match(current.body.en, /Resolve host validation remain pending/);
   assert.equal(records[8].title, "SY_Handwriter");
-  assert.match(records[8].body.en, /0\.3\.0 Test 4/);
+  assert.match(records[8].body.en, /0\.5\.0/);
+  assert.match(records[8].body.en, /62 passing local checks/);
+  assert.match(records[8].body.en, /still need host validation/);
+  const previousData = execFileSync("git", ["show", "53b119d8967a148edf31465dde8ce51ff47581fc:app/lab-data.ts"], { encoding: "utf8" });
+  const previousHistories = JSON.parse(runInNewContext(previousData.slice(previousData.indexOf("export const labExperiments")).replace("export const labExperiments: LabExperiment[]", "const labExperiments") + "\nJSON.stringify(labExperiments)"));
+  for (const project of previousHistories) {
+    const updated = records.find(record => record.id === project.id);
+    assert.deepEqual(updated.history.slice(0, project.history.length), project.history, project.id + " history changed");
+  }
+  assert.equal(records[9].title, "Nebulosity Resolve");
+  assert.match(records[9].body.en, /52 native 1080p frames passed/);
+  assert.match(records[9].body.en, /real footage remains unverified/);
 });
 
-test("V.061 extends V.060 without changing existing releases or date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "98347caef5b2af68ec4ca87b038d99b5b6908af3:site-history.json"], { encoding: "utf8" }));
+test("V.062 extends V.061 without changing existing releases or date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "53b119d8967a148edf31465dde8ce51ff47581fc:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.061");
+  assert.equal(after.releases[0].version, "V.062");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);

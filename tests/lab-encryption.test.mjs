@@ -62,11 +62,12 @@ test("closing/cancelling verification cannot approve a download", async () => {
   await assert.rejects(verifyEncryptedBuild(new Blob([bytes]), password, manifest(bytes), controller.signal), { name: "AbortError" });
 });
 
-test("six current supplied builds each contain one AES-256 payload", async () => {
+test("seven current supplied builds each contain one AES-256 payload", async () => {
   const builds = JSON.parse(readFileSync(new URL("../app/lab/builds.json", import.meta.url), "utf8"));
-  assert.deepEqual(Object.keys(builds).sort(), ["LAB-01", "LAB-02", "LAB-03", "LAB-04", "LAB-06", "LAB-09"]);
+  assert.deepEqual(Object.keys(builds).sort(), ["LAB-01", "LAB-02", "LAB-03", "LAB-04", "LAB-06", "LAB-09", "LAB-10"]);
   assert.equal(builds['LAB-01'].originalFilename, 'FusionDynamics2D_v0.5.0-authoring_zh-TW.zip');
-  assert.equal(builds['LAB-09'].originalFilename, 'SY_Handwriter_0.3.0_Test4.zip');
+  assert.equal(builds['LAB-09'].originalFilename, 'SY_Handwriter_0.5.0.zip');
+  assert.equal(builds['LAB-10'].originalFilename, 'NebulosityResolve-0.5.0-zh-TW-Win64.zip');
   for (const build of Object.values(builds)) {
     const bytes = readFileSync(new URL("../public/lab-builds/" + build.filename, import.meta.url));
     assert.equal(bytes.length, build.bytes);

@@ -306,13 +306,13 @@ export const labExperiments: LabExperiment[] = [
   },
   {
     id: "LAB-09",
-    date: {"created":"2026-09-30","updated":"2026-10-03"},
+    date: {"created":"2026-09-30","updated":"2026-10-11"},
     title: "SY_Handwriter",
     type: "Fusion Lua / Handwriting",
-    status: { en: "0.3.0 Test 4 / font fitting prototype", zh: "0.3.0 Test 4／字型貼合原型" },
+    status: { en: "0.5.0 / local checks complete; host pending", zh: "0.5.0／本地驗證完成，實機待確認" },
     body: {
-      en: "A stroke-by-stroke handwriting tool for Text+ using ordered stroke paths, MaskPaint, independent PolylineStroke Write On animation and Text+ EffectMask. The 0.2.1 coordinate fix was reported working; 0.3.0 Test 4 fits the stroke centerlines and brush coverage to the rendered Text+ Alpha while preserving the original font and appearance. The supplied Test 4 archive is available for authorized testing. Different fonts and Resolve 21 Image / Pixel behavior still await host acceptance; extreme decorative fonts and complex text layouts remain limitations.",
-      zh: "為 Text+ 製作真正一筆一畫的手寫動畫：筆順路徑經 MaskPaint、獨立 PolylineStroke Write On，接入 Text+ EffectMask，保留原本字型與外觀。0.2.1 座標修正已回報正常；0.3.0 Test 4 新增以渲染後的 Text+ Alpha 貼合筆畫中心線與估算筆刷覆蓋，完整 Test 4 安裝包已提供授權測試。不同字型與 Resolve 21 Image／Pixel 介面仍待實機驗收，極端藝術字與複雜文字排版也仍有限制。",
+      en: "A stroke-by-stroke handwriting tool that keeps the original Text+ font. Version 0.5.0 adds glyph skeleton fitting, per-stroke reveal regions, frame-by-frame Follower baking and custom Unicode stroke data, with 9,574 Chinese characters included. The package records 62 passing local checks. Resolve 21, Windows installation and 細明體_HKSCS still need host validation; overlapping strokes can need manual correction, and changed source animation needs rebaking.",
+      zh: "保留 Text+ 原字型的逐筆手寫動畫工具。0.5.0 加入字形骨架貼合、逐筆顯示區域、Follower 逐幀烘焙與 Unicode 自訂筆順，內附 9,574 個中文字資料。套件紀錄為 62 項本地檢查通過；Resolve 21、Windows 安裝與細明體_HKSCS 仍待實機確認。相黏或交叉筆畫可能需要手動修正，來源動畫改動後也需要重新生成。",
     },
     history: [
       {
@@ -347,7 +347,60 @@ export const labExperiments: LabExperiment[] = [
           "en": "Fitted stroke paths and brush coverage to rendered Text+ Alpha; host checks pending.",
           "zh": "以渲染後 Text+ Alpha 貼合筆畫與筆刷覆蓋；實機確認待完成。"
         }
+      },
+      {
+        date: "2026-10-11",
+        title: { en: "0.4.0 / glyph fitting", zh: "0.4.0／字形貼合" },
+        body: {
+          en: "Added glyph segmentation and skeleton fitting, plus 9,574 Chinese stroke records; host checks pending.",
+          zh: "加入字形分割、骨架貼合與 9,574 個中文字筆順資料；實機確認待完成。",
+        },
+      },
+      {
+        date: "2026-10-11",
+        title: { en: "0.5.0 / stroke regions & tracking", zh: "0.5.0／逐筆區域與追蹤" },
+        body: {
+          en: "Per-stroke regions, frame-by-frame Follower baking and custom Unicode data; 62 local checks passed, host validation pending.",
+          zh: "加入逐筆區域、Follower 逐幀烘焙與 Unicode 自訂筆順；62 項本地檢查通過，實機仍待確認。",
+        },
       }
+    ],
+  },
+  {
+    id: "LAB-10",
+    date: { created: "2026-10-12", updated: "2026-10-13" },
+    title: "Nebulosity Resolve",
+    type: "Fusion / OpenFX / 3D Volume",
+    status: { en: "0.5.0 / native scene checks passed", zh: "0.5.0／原生場景驗證通過" },
+    body: {
+      en: "An independently built 3D cloud and fog tool for Resolve / Fusion. Version 0.5.0 follows CameraTracker-exported Camera3D data, with a draggable 3D placement control and live or baked camera, light and volume transforms. Five test groups and 52 native 1080p frames passed, including save / reload and Viewer dragging. Tests used synthetic scenes; tracking match with real footage remains unverified.",
+      zh: "為 Resolve／Fusion 獨立製作的 3D 雲霧工具。0.5.0 可接入 CameraTracker 匯出的 Camera3D，透過 3D 操控軸調整雲霧位置，並支援攝影機、燈光與定位的即時連結或烘焙。五組測試與 52 幀原生 1080p 輸出通過，也確認了保存重開與 Viewer 拖動。測試使用合成場景，實拍素材的追蹤融合仍待確認。",
+    },
+    history: [
+      {
+        date: "2026-10-12",
+        title: { en: "0.1–0.3 / volume prototype", zh: "0.1–0.3／體積原型" },
+        body: {
+          en: "Built the initial Fusion / OpenFX volume tool, Chinese presets and 3D camera workflow.",
+          zh: "建立 Fusion／OpenFX 體積工具、中文預設與 3D 攝影機流程。",
+        },
+      },
+      {
+        date: "2026-10-13",
+        title: { en: "0.4.0 / preview & smoke cache", zh: "0.4.0／預覽與煙霧快取" },
+        body: {
+          en: "Improved preview speed and added smoke-cache resume; 65 native 1080p frames and isolated installer checks passed.",
+          zh: "加速預覽並加入煙霧快取續算；65 幀原生 1080p 輸出與隔離安裝器檢查通過。",
+        },
+      },
+      {
+        date: "2026-10-13",
+        title: { en: "0.5.0 / CameraTracker placement", zh: "0.5.0／CameraTracker 定位" },
+        body: {
+          en: "Added draggable 3D placement and full transform baking; 52 native frames passed, real-footage tracking checks pending.",
+          zh: "加入可拖動的 3D 定位與完整變換烘焙；52 幀原生輸出通過，實拍追蹤驗證待完成。",
+        },
+      },
     ],
   },
 ];
