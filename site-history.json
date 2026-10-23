@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Linked horizontal strips to page scrolling and moved parallax to the hero elements."
+      "Slowed and smoothed the horizontal strips across their full time in view."
     ],
     "zh": [
-      "橫向列改隨頁面捲動，視差移至首頁大標題元素。"
+      "放慢並平滑橫向列，從進入視野持續移動至離開。"
     ]
   },
   "releases": [
+    {
+      "version": "V.067",
+      "date": "2026-10-24",
+      "en": [
+        "Slowed and smoothed the horizontal strips across their full time in view."
+      ],
+      "zh": [
+        "放慢並平滑橫向列，從進入視野持續移動至離開。"
+      ]
+    },
     {
       "version": "V.066",
       "date": "2026-10-24",

@@ -15,39 +15,84 @@ export function HorizontalStrip({ id, title, className = "", reverse = false, ch
   useEffect(() => {
     const element = viewport.current;
     if (!element) return;
-    const anchor = element.closest<HTMLElement>(".profile-strips") ?? element;
+    const header = document.querySelector<HTMLElement>(".site-header");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
-    const paint = () => {
+    let previousTime = 0;
+    let current = element.scrollLeft;
+    let target = current;
+    let initialized = false;
+    let reducedState = reduced.matches;
+    const stop = () => {
+      cancelAnimationFrame(frame);
       frame = 0;
-      if (reduced.matches) return;
-      const height = window.innerHeight;
-      const progress = Math.min(1, Math.max(0, (height * .85 - anchor.getBoundingClientRect().top) / (height * .65)));
-      const distance = Math.max(0, element.scrollWidth - element.clientWidth);
-      element.scrollLeft = distance * (reverse ? 1 - progress : progress);
+      previousTime = 0;
     };
-    const schedule = () => {
-      if (!reduced.matches && !frame) frame = requestAnimationFrame(paint);
+    const motionAllowed = () => {
+      const next = reduced.matches;
+      if (next !== reducedState) {
+        reducedState = next;
+        stop();
+        initialized = false;
+        if (next) {
+          current = target = 0;
+          element.scrollLeft = 0;
+        }
+      }
+      return !next;
+    };
+    const paint = (time: number) => {
+      frame = 0;
+      if (!motionAllowed()) return;
+      const elapsed = previousTime ? Math.min(64, time - previousTime) : 1000 / 60;
+      previousTime = time;
+      current += (target - current) * (1 - Math.exp(-elapsed / 100));
+      if (Math.abs(target - current) < .35) current = target;
+      element.scrollLeft = current;
+      if (current !== target) frame = requestAnimationFrame(paint);
+      else previousTime = 0;
+    };
+    const measure = () => {
+      if (!motionAllowed()) return;
+      const height = window.innerHeight;
+      const top = Math.max(0, Math.min(height, header?.getBoundingClientRect().bottom ?? 0));
+      const bounds = element.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (height - bounds.top) / Math.max(1, height - top + bounds.height)));
+      const distance = Math.max(0, element.scrollWidth - element.clientWidth);
+      target = distance * (reverse ? 1 - progress : progress);
+      if (!initialized || progress === 0 || progress === 1) {
+        stop();
+        current = target;
+        element.scrollLeft = target;
+        initialized = true;
+      } else if (!frame) {
+        current = element.scrollLeft;
+        frame = requestAnimationFrame(paint);
+      }
     };
     const preferenceChanged = () => {
-      cancelAnimationFrame(frame);
-      frame = 0;
-      if (reduced.matches) element.scrollLeft = 0;
-      else paint();
+      if (motionAllowed()) measure();
     };
-    const resize = new ResizeObserver(schedule);
+    const resize = new ResizeObserver(measure);
     resize.observe(element);
     if (element.firstElementChild) resize.observe(element.firstElementChild);
-    paint();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
+    measure();
+    window.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
     reduced.addEventListener("change", preferenceChanged);
+    // Direct touch, trackpad and keyboard input takes over until the next page scroll.
+    for (const event of ["pointerdown", "wheel", "keydown"] as const) {
+      element.addEventListener(event, stop, { passive: true });
+    }
     return () => {
-      cancelAnimationFrame(frame);
+      stop();
       resize.disconnect();
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
       reduced.removeEventListener("change", preferenceChanged);
+      for (const event of ["pointerdown", "wheel", "keydown"] as const) {
+        element.removeEventListener(event, stop);
+      }
     };
   }, [reverse]);
 

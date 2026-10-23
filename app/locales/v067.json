@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v067.note",
+    "en": "Slowed and smoothed the horizontal strips across their full time in view.",
+    "zh": "放慢並平滑橫向列，從進入視野持續移動至離開。",
+    "ja": "横スクロールをゆっくり滑らかにし、画面に入ってから出るまで動くようにしました。",
+    "ko": "가로 목록이 화면에 들어올 때부터 나갈 때까지 천천히 부드럽게 움직이도록 조정했어요.",
+    "ru": "Горизонтальные ленты движутся медленнее и плавнее — от появления в кадре до выхода из него.",
+    "vi": "Làm chậm và mượt thanh ngang, chuyển động từ lúc vào đến khi rời khung nhìn."
+  }
+]
