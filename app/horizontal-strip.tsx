@@ -1,46 +1,55 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Localized } from "./localized";
 
-export function HorizontalStrip({ id, title, className = "", children }: {
+export function HorizontalStrip({ id, title, className = "", reverse = false, children }: {
   id: string;
   title: string;
   className?: string;
+  reverse?: boolean;
   children: ReactNode;
 }) {
   const viewport = useRef<HTMLDivElement>(null);
-  const [edges, setEdges] = useState({ start: true, end: false });
 
   useEffect(() => {
     const element = viewport.current;
     if (!element) return;
-    const measure = () => {
-      const start = element.scrollLeft <= 2;
-      const end = element.scrollLeft + element.clientWidth >= element.scrollWidth - 2;
-      setEdges(previous => previous.start === start && previous.end === end ? previous : { start, end });
+    const anchor = element.closest<HTMLElement>(".profile-strips") ?? element;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    const paint = () => {
+      frame = 0;
+      if (reduced.matches) return;
+      const height = window.innerHeight;
+      const progress = Math.min(1, Math.max(0, (height * .85 - anchor.getBoundingClientRect().top) / (height * .65)));
+      const distance = Math.max(0, element.scrollWidth - element.clientWidth);
+      element.scrollLeft = distance * (reverse ? 1 - progress : progress);
     };
-    const wheel = (event: WheelEvent) => {
-      if (event.ctrlKey || event.shiftKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
-      const remaining = element.scrollWidth - element.clientWidth - element.scrollLeft;
-      if ((event.deltaY > 0 && remaining <= 2) || (event.deltaY < 0 && element.scrollLeft <= 2)) return;
-      event.preventDefault();
-      const delta = event.deltaY * (event.deltaMode === 1 ? 18 : event.deltaMode === 2 ? element.clientWidth : 1);
-      element.scrollLeft += delta;
+    const schedule = () => {
+      if (!reduced.matches && !frame) frame = requestAnimationFrame(paint);
     };
-    const resize = new ResizeObserver(measure);
+    const preferenceChanged = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      if (reduced.matches) element.scrollLeft = 0;
+      else paint();
+    };
+    const resize = new ResizeObserver(schedule);
     resize.observe(element);
     if (element.firstElementChild) resize.observe(element.firstElementChild);
-    measure();
-    element.addEventListener("scroll", measure, { passive: true });
-    element.addEventListener("wheel", wheel, { passive: false });
+    paint();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    reduced.addEventListener("change", preferenceChanged);
     return () => {
+      cancelAnimationFrame(frame);
       resize.disconnect();
-      element.removeEventListener("scroll", measure);
-      element.removeEventListener("wheel", wheel);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      reduced.removeEventListener("change", preferenceChanged);
     };
-  }, []);
+  }, [reverse]);
 
   const move = (direction: number) => {
     const element = viewport.current;
@@ -52,10 +61,6 @@ export function HorizontalStrip({ id, title, className = "", children }: {
   return <Localized>{<section className={`horizontal-strip ${className}`} aria-labelledby={`${id}-title`}>
     <div className="strip-heading">
       <h3 className="mono-label" id={`${id}-title`}>{title}</h3>
-      <div className="strip-controls">
-        <button type="button" aria-label="Scroll left" aria-controls={id} disabled={edges.start} onClick={() => move(-1)}><ArrowLeft aria-hidden="true" /></button>
-        <button type="button" aria-label="Scroll right" aria-controls={id} disabled={edges.end} onClick={() => move(1)}><ArrowRight aria-hidden="true" /></button>
-      </div>
     </div>
     <div className="strip-viewport" id={id} ref={viewport} tabIndex={0} role="region" aria-labelledby={`${id}-title`}
       onKeyDown={event => {
