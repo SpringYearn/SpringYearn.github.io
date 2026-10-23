@@ -137,7 +137,7 @@ export default function LabPage() {
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block lab-hero" aria-labelledby="lab-title">
-        <div className="work-archive-top mono-label"><span>LAB / EXPERIMENTS</span><span>{t.count}</span></div>
+        <div className="work-archive-top mono-label"><span>LAB / EXPERIMENTS</span></div>
         <h1 id="lab-title">{t.title}</h1>
         <LabAuthorIntro text={t.intro} />
         <nav className="lab-page-links" aria-label={language === "en" ? "Explore the site" : "網站導覽"}>
@@ -147,7 +147,7 @@ export default function LabPage() {
         </nav>
       </section>
       <section className="section-block lab-records" data-lab-platform="resolve" aria-labelledby="lab-platform-title">
-        <div className="lab-platform-heading"><h2 id="lab-platform-title">DaVinci Resolve / Fusion</h2><span className="mono-label">{t.count}</span></div>
+        <div className="lab-platform-heading"><h2 id="lab-platform-title">DaVinci Resolve / Fusion</h2></div>
         <div className="lab-access-note"><div><p>{t.access}</p><p className="lab-language-note"><span>{t.buildLanguage}</span>{t.languageNotice}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
         <div className="lab-sort-controls">
           <label className="lab-sort-field" htmlFor="lab-sort-key"><span>{t.sort}</span><span className="lab-sort-select">
@@ -162,9 +162,9 @@ export default function LabPage() {
           <span className="sr-only" role="status">{t.sorted} {t.sortKeys[sortKey]} / {sortDirection === "asc" ? t.asc : t.desc}</span>
         </div>
         <div className="lab-grid">
-          {projects.map((experiment, index) => (
+          {projects.map(experiment => (
             <article className="lab-card" key={experiment.id} id={experiment.id.toLowerCase()} data-reveal>
-              <div className="lab-card-top"><span className="lab-index">{experiment.id}</span><span className="lab-date" aria-label={(language === "en" ? "Created: " : "建立：") + experiment.date.created + (language === "en" ? "; Last updated: " : "；最後更新：") + experiment.date.updated}>
+              <div className="lab-card-top"><span className="lab-date" aria-label={(language === "en" ? "Created: " : "建立：") + experiment.date.created + (language === "en" ? "; Last updated: " : "；最後更新：") + experiment.date.updated}>
                 <time dateTime={experiment.date.created}>{experiment.date.created.replaceAll("-", ".")}</time><span aria-hidden="true"> — </span><time dateTime={experiment.date.updated}>{experiment.date.updated.replaceAll("-", ".")}</time>
               </span></div>
               <div className="lab-card-main"><span className="lab-type mono-label">{experiment.type}</span><h2>{experiment.title}</h2><p>{experiment.body[language]}</p>
@@ -173,7 +173,7 @@ export default function LabPage() {
                   {experiment.checkpoint && <details className="lab-checkpoint-full"><summary>{language === "en" ? "Full 0.3.5 validation record" : "完整 0.3.5 驗證紀錄"}</summary><p>{experiment.checkpoint.body[language]}</p></details>}
                 </details>
               </div>
-              <div className="lab-card-foot"><span className="lab-status-dot" aria-hidden="true" /><span>{experiment.status[language]}</span><span aria-hidden="true">{String(index + 1).padStart(2, "0")} / {String(labExperiments.length).padStart(2, "0")}</span></div>
+              <div className="lab-card-foot"><span className="lab-status-dot" aria-hidden="true" /><span>{experiment.status[language]}</span></div>
               <LabDownload project={experiment} language={language} />
             </article>
           ))}

@@ -3550,3 +3550,24 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .board-request .item-details-cta { justify-content: space-between; }
 }
 @media (pointer: fine) { html.has-art-cursor .whiteboard-page :is(canvas,select) { cursor: none; } } .board-tool-group button:disabled { opacity: .4; } @media (max-width: 620px) { .board-tool-group { flex-wrap: wrap; } .board-tool-group button { flex: 1 1 calc(50% - .35rem); } }
+
+/* Keep hierarchy in the layout; reserve small copy for useful context. */
+.gateway-index-panel { justify-content: center; }
+.gateway-copy-panel { justify-content: center; }
+.gateway-action-panel { justify-content: flex-end; }
+.annual-reels-heading { min-height: 60px; justify-content: flex-end; }
+.lab-entry-specimen, .lab-entry-action { justify-content: center; }
+.pf-gateway-copy strong { margin-top: 0; }
+.pf-gateway-meta { margin-top: 1rem; }
+.pf-gateway-action { justify-content: center; }
+.work-archive-intro { display: flex; justify-content: flex-end; }
+.archive-atlas .atlas-intro { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 2rem 0; }
+.atlas-intro h2 { margin: 0; font-size: clamp(1.6rem,2.6vw,2.6rem); }
+.atlas-intro .atlas-spring { position: static; width: 56px; height: 56px; flex-shrink: 0; }
+.featured-work-heading h2 { display: inline-flex; align-items: center; gap: .7rem; }
+.featured-work-heading h2 > svg { width: 24px; height: 24px; color: var(--spring-ink); flex-shrink: 0; }
+.featured-work-seal { border-radius: 50%; padding: .55rem; }
+.item-hero > .text-link { margin-bottom: 2rem; }
+.lab-card-top, .pf-card-meta, .board-frame-top { justify-content: flex-end; }
+.pf-timeline-mark { align-content: center; }
+@media (max-width: 900px) { .pf-gateway-action { justify-content: flex-end; } }

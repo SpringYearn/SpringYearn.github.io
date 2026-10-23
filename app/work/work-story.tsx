@@ -17,7 +17,7 @@ export function WorkStory({ id }: { id: string }) {
   if (!story) return null;
   const t = copy[locale], text = story.text[locale];
   return <section className="section-block item-story" aria-labelledby="work-story-title">
-    <div className="item-story-heading"><p className="mono-label">SY / {t.title}</p><h2 id="work-story-title">{t.title}</h2><div className="item-story-software"><p className="mono-label">{t.software}</p><ul>{story.software.map(name=><li key={name}>{name}</li>)}</ul></div></div>
+    <div className="item-story-heading"><h2 id="work-story-title">{t.title}</h2><div className="item-story-software"><p className="mono-label">{t.software}</p><ul>{story.software.map(name=><li key={name}>{name}</li>)}</ul></div></div>
     <div className="item-story-body">{text.paragraphs.map((paragraph,i)=><p key={i}>{paragraph}</p>)}{text.credit&&<p className="item-story-credit">{text.credit.before}<a href="https://www.youtube.com/@drgz3D" target="_blank" rel="noreferrer">Drgz<ArrowUpRight aria-hidden="true"/></a>{text.credit.after}</p>}</div>
   </section>;
 }

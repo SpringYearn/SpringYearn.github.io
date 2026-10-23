@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Moved LAB watermarks to the corner with a hover zoom."
+      "Simplified labels and repeated descriptions across the site."
     ],
     "zh": [
-      "調整 LAB 浮水印位置與懸停動畫。"
+      "精簡全站重複標籤與說明。"
     ]
   },
   "releases": [
+    {
+      "version": "V.064",
+      "date": "2026-10-23",
+      "en": [
+        "Simplified labels and repeated descriptions across the site."
+      ],
+      "zh": [
+        "精簡全站重複標籤與說明。"
+      ]
+    },
     {
       "version": "V.063",
       "date": "2026-10-15",

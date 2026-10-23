@@ -23,16 +23,12 @@ export function ProjectFilesGateway({ language }: { language: "en" | "zh" }) {
           <path className="pf-folder-baseline" d="M6 156H234M20 152V160M220 152V160" />
         </svg>
         <SpringMark className="pf-gateway-sprout" />
-        <span className="mono-label pf-gateway-art-label">SY / FROM MY TIMELINE</span>
       </div>
       <div className="pf-gateway-copy">
-        <span className="mono-label pf-gateway-eyebrow">PROJECT FILES / FREE PF</span>
         <strong>{title}</strong>
-        <p>{language === "en" ? "Open a timeline and see how an edit was made." : "打開時間軸，看看一支影片是怎麼剪的。"}</p>
         <div className="pf-gateway-meta mono-label"><span>AFTER EFFECTS</span><span>DAVINCI RESOLVE</span></div>
       </div>
       <div className="pf-gateway-action">
-        <span className="mono-label">07 / {language === "en" ? "FREE DOWNLOADS" : "免費下載"}</span>
         <span className="pf-gateway-arrow"><ArrowUpRight aria-hidden="true" /></span>
       </div>
     </Link>

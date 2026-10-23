@@ -37,7 +37,7 @@ const copy = {
       drawing: "Drawing",
     },
     overviewHint: "Start with a category, change the order, or pick a cover that looks interesting.",
-    atlasTitle: "Different formats.\nPlenty to explore.", atlasLabel: "Browse the collection", sheet: "Plate", pieces: "works",
+    atlasTitle: "All work", atlasLabel: "Browse the collection", sheet: "Plate", pieces: "works",
     sort: "Sort by", direction: "Order", asc: "Ascending", desc: "Descending", sorted: "Current order:",
     sortKeys: { original: "Original order", date: "Artwork date clues", created: "Source file created", updated: "Last updated", name: "Name", category: "Discipline" },
     dateNote: "Last updated uses file modification dates when known, then publication dates or existing year clues. Unconfirmed dates stay last.",
@@ -62,7 +62,7 @@ const copy = {
       drawing: "繪畫",
     },
     overviewHint: "可以從分類開始、換個排序，或直接點開一張喜歡的封面。",
-    atlasTitle: "各種形式，\n慢慢看。", atlasLabel: "逛逛作品集", sheet: "圖版", pieces: "件作品",
+    atlasTitle: "所有作品", atlasLabel: "逛逛作品集", sheet: "圖版", pieces: "件作品",
     sort: "排列依據", direction: "排列方向", asc: "升序", desc: "降序", sorted: "目前排列：",
     sortKeys: { original: "原始順序", date: "作品日期線索", created: "原檔建立日", updated: "最後更新日", name: "名稱", category: "媒介分類" },
     dateNote: "最後更新日優先採用已知的原檔修改日期，再使用發布日期或既有年份線索；未確認的日期排在最後。",
@@ -217,10 +217,6 @@ export default function WorkArchive() {
       </header>
 
       <section className="work-archive-hero" aria-labelledby="archive-title">
-        <div className="work-archive-top mono-label">
-          <span>{t.eyebrow}</span>
-          <span>{t.count}</span>
-        </div>
         <div
           className="work-archive-title-wrap"
           onPointerMove={setPointerPosition}
@@ -241,10 +237,8 @@ export default function WorkArchive() {
               </span>
             ))}
           </h1>
-          <span className="archive-coordinate mono-label">SY / OPEN INDEX</span>
         </div>
         <div className="work-archive-intro">
-          <p>{t.intro}</p>
           <Link href="/" className="text-link archive-home-link">
             <ArrowLeft aria-hidden="true" />
             {t.returnHome}
@@ -282,17 +276,15 @@ export default function WorkArchive() {
           <span className="sr-only" role="status">{t.sorted} {t.sortKeys[sortKey]} / {sortDirection === "asc" ? t.asc : t.desc}</span>
         </div>
         <p className="work-date-note">{t.dateNote}</p>
-        <p className="work-entry-hint">{language === "en" ? "Open a cover or title to explore the project details." : "點擊封面或標題，進入這件作品的詳細頁。"}</p>
         {filter === "all" && <FeaturedWork />}
 
         {filter === "all" ? (
           <div className="archive-overview archive-atlas">
             <div className="atlas-intro">
-              <div><p className="mono-label">{t.atlasLabel} / {projects.length} {t.pieces}</p><h2>{t.atlasTitle}</h2></div>
-              <div className="atlas-directory"><p>{t.overviewHint}</p></div><SpringMark className="atlas-spring" />
+              <h2>{t.atlasTitle}</h2><SpringMark className="atlas-spring" />
             </div>
             {plates.map((plate, plateIndex) => <section className="atlas-plate" key={plateIndex} aria-labelledby={`plate-${plateIndex}`}>
-              <div className="atlas-plate-heading"><h3 id={`plate-${plateIndex}`}><span>{String(plateIndex + 1).padStart(2, "0")}</span>{t.sheet}</h3><span className="mono-label">{String(plateIndex * 7 + 1).padStart(2, "0")} — {String(plateIndex * 7 + plate.length).padStart(2, "0")} / {filteredProjects.length}</span></div>
+              <div className="atlas-plate-heading"><h3 id={`plate-${plateIndex}`} aria-label={`${t.sheet} ${plateIndex + 1}`}><span aria-hidden="true">{String(plateIndex + 1).padStart(2, "0")}</span></h3></div>
               <div className="project-overview">
               {plate.map((project, index) => (
                 <article
@@ -332,11 +324,6 @@ export default function WorkArchive() {
               ))}
               </div>
             </section>)}
-              <div className="overview-more atlas-more">
-                <span className="mono-label">{t.moreTag}</span>
-                <strong>{t.more}</strong>
-                <p>{t.moreBody}</p>
-              </div>
           </div>
         ) : (
           <div className="project-grid" aria-live="polite">
