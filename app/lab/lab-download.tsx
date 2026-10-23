@@ -125,7 +125,6 @@ export function LabDownload({ project, language }: {
       <dialog ref={dialog} className="lab-download-dialog" aria-labelledby={project.id + "-download-title"}
         aria-describedby={project.id + "-download-notice"} onClose={cleanup}>
         <button type="button" className="lab-dialog-close" aria-label={t.close} onClick={() => dialog.current?.close()}><X aria-hidden="true" /></button>
-        <p className="mono-label">{project.id} / {t.title}</p>
         <h2 id={project.id + "-download-title"}>{project.title}</h2>
         <p id={project.id + "-download-notice"}>{t.notice}</p>
         <p className="lab-build-filename">{build.originalFilename}</p>

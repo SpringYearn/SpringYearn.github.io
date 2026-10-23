@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v064.note",
+    "en": "Simplified labels and repeated descriptions across the site.",
+    "zh": "精簡全站重複標籤與說明。",
+    "ja": "サイト全体の重複するラベルや説明を整理しました。",
+    "ko": "사이트 전체의 중복 라벨과 설명을 정리했어요.",
+    "ru": "Убраны лишние подписи и повторяющиеся пояснения на сайте.",
+    "vi": "Tinh gọn nhãn và phần mô tả lặp lại trên toàn trang."
+  },
+  {
+    "id": "v064.gateway.media",
+    "en": "Editing, motion, APP / UI, 3D, drawing and graphic design.",
+    "zh": "剪輯、動態圖形、APP／UI、3D、繪畫與平面設計。",
+    "ja": "編集、モーション、APP／UI、3D、ドローイング、グラフィックデザイン。",
+    "ko": "편집, 모션, APP/UI, 3D, 드로잉과 그래픽 디자인.",
+    "ru": "Монтаж, моушн, APP/UI, 3D, рисунок и графический дизайн.",
+    "vi": "Dựng phim, motion, APP/UI, 3D, vẽ và thiết kế đồ họa."
+  },
+  {
+    "id": "v064.work.all",
+    "en": "All work",
+    "zh": "所有作品",
+    "ja": "すべての作品",
+    "ko": "모든 작품",
+    "ru": "Все работы",
+    "vi": "Tất cả tác phẩm"
+  }
+]

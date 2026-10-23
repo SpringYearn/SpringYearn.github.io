@@ -163,27 +163,27 @@ export default function ProjectFilesPage() {
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block pf-hero" aria-labelledby="pf-title">
-        <div className="work-archive-top mono-label"><span>PROJECT FILES / FREE PF</span><span>{t.count}</span></div>
+        <div className="work-archive-top mono-label"><span>PROJECT FILES</span></div>
         <div className="pf-hero-grid">
-          <div><h1 id="pf-title">{t.title}</h1><p className="lab-intro">{t.intro}</p></div>
-          <div className="pf-timeline-mark" aria-hidden="true"><span className="mono-label">SY / OPEN TIMELINE</span><div className="pf-timeline-tracks"><i /><i /><i /><i /><span /></div><span className="mono-label">SOURCE → SHARED</span></div>
+          <div><h1 id="pf-title">{t.title}</h1></div>
+          <div className="pf-timeline-mark" aria-hidden="true"><div className="pf-timeline-tracks"><i /><i /><i /><i /><span /></div></div>
         </div>
         <nav className="lab-page-links" aria-label={language === "en" ? "Explore the site" : "網站導覽"}>
           <Link href="/" className="text-link"><ArrowLeft aria-hidden="true" />{t.back}</Link><Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link><Link href="/lab" className="text-link">LAB<ArrowUpRight aria-hidden="true" /></Link>
         </nav>
       </section>
-      <aside className="pf-help-note" aria-label={t.helpLabel}><div><span className="mono-label">{t.free}</span><p>{t.help}</p><p>{language === "en" ? "ZIP packages include media; standalone AEP files do not." : "ZIP 檔已包含素材；獨立 AEP 檔未包含素材。"}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></aside>
+      <aside className="pf-help-note" aria-label={t.helpLabel}><div><p>{t.help}</p><p>{language === "en" ? "ZIP packages include media; standalone AEP files do not." : "ZIP 檔已包含素材；獨立 AEP 檔未包含素材。"}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></aside>
       <div className="pf-category-index" role="group" aria-label={language === "en" ? "Project file categories" : "專案檔分類"}>
         {groups.map(group => <button type="button" key={group.id} aria-pressed={software === group.id} aria-controls={group.id} onClick={() => selectSoftware(group.id)}><span>{group.name}</span><span className="mono-label">{String(projectFiles.filter(file => file.software === group.id).length).padStart(2, "0")}</span></button>)}
       </div>
-      {groups.map((group, groupIndex) => (
+      {groups.map(group => (
         <section className="pf-group" key={group.id} id={group.id} aria-labelledby={group.id + "-title"} hidden={software !== group.id}>
-          <div className="pf-group-heading" data-reveal><span className="pf-software-mark" aria-hidden="true">{group.abbreviation}</span><div><p className="mono-label">0{groupIndex + 1} / PROJECT FILES</p><h2 id={group.id + "-title"}>{group.name}</h2><p>{group.id === "ae" ? t.aeNote : t.davinciNote}</p></div></div>
+          <div className="pf-group-heading" data-reveal><span className="pf-software-mark" aria-hidden="true">{group.abbreviation}</span><div><h2 id={group.id + "-title"}>{group.name}</h2></div></div>
           <div className="pf-grid">
-            {projectFiles.filter(file => file.software === group.id).map((file, index) => {
+            {projectFiles.filter(file => file.software === group.id).map(file => {
               const previewUrl = "youtubeId" in file.preview ? "https://youtu.be/" + file.preview.youtubeId : file.preview.video;
               return <article className="pf-card" key={file.id} id={file.id} data-reveal>
-                <div className="pf-card-meta mono-label"><span>{group.abbreviation} / {String(index + 1).padStart(2, "0")}</span><span>{formatSize(file.bytes)}</span></div>
+                <div className="pf-card-meta mono-label"><span>{formatSize(file.bytes)}</span></div>
                 {"youtubeId" in file.preview ? <Link className="pf-preview-link pf-detail-preview" href={`/project-files/${file.id}/`} aria-label={file.title + " — " + t.details}>
                   <img loading="lazy" src={"https://i.ytimg.com/vi/" + file.preview.youtubeId + "/hqdefault.jpg"} alt={file.title + " — " + t.preview} />
                 </Link> : <video ref={initializePreviewVolume} className="pf-preview-video" controls playsInline preload="none" poster={file.preview.poster} aria-label={t.preview + " — " + file.title}><source src={file.preview.video} type="video/mp4" /><a href={previewUrl}>{t.preview}</a></video>}

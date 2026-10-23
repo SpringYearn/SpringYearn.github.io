@@ -33,7 +33,7 @@ const copy = {
     gatewayEyebrow: "01 / Work archive",
     gatewayTitle: "A little bit\nof everything.",
     gatewayBody:
-      "Editing, motion, APP / UI, 3D, drawing and graphic design. Browse by category, or see what catches your eye.",
+      "Editing, motion, APP / UI, 3D, drawing and graphic design.",
     gatewayMeta: "Selected work / more on the way",
     gatewayIndex: "Archive index",
     gatewayCta: "Browse the work",
@@ -89,7 +89,7 @@ const copy = {
     index: "獨立創作者 / 台灣",
     gatewayEyebrow: "01 / 作品集",
     gatewayTitle: "各種作品，\n放在這裡。",
-    gatewayBody: "剪輯、動態圖形、APP／UI、3D、繪畫和平面設計。可以按分類逛，也可以直接點開感興趣的作品。",
+    gatewayBody: "剪輯、動態圖形、APP／UI、3D、繪畫與平面設計。",
     gatewayMeta: "精選作品／陸續更新",
     gatewayIndex: "作品索引",
     gatewayCta: "看看作品集",
@@ -475,13 +475,8 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-meta mono-label">
           <span>{t.index}</span>
-          <span>UTC+08 / TAIWAN</span>
         </div>
 
-        <div className="hero-status mono-label">
-          <span className="status-dot" aria-hidden="true" />
-          {t.available}
-        </div>
 
         <div
           className="hero-composition"
@@ -494,7 +489,6 @@ export default function Home() {
           <div className="axis axis-y" aria-hidden="true" />
           <SpringMark className="hero-spring-mark" />
           <div className="hero-title-cluster">
-            <p className="hero-kicker">SPRING YEARN / VISUAL PRACTICE</p>
             <h1 id="hero-title">
               <span>{t.heroTop}</span>
               <strong className="hero-display" aria-label="SPRING YEARN">
@@ -547,15 +541,12 @@ export default function Home() {
               <h2 id="work-gateway-title">{t.gatewayTitle}</h2>
             </div>
             <div className="gateway-panel gateway-index-panel">
-              <span className="mono-label">{t.gatewayIndex}</span>
               <strong data-localize="off">{workGatewayLabels[locale]}</strong>
             </div>
             <div className="gateway-panel gateway-copy-panel">
               <p>{t.gatewayBody}</p>
-              <span className="mono-label">{t.gatewayMeta}</span>
             </div>
             <div className="gateway-panel gateway-action-panel">
-              <span className="mono-label" data-localize="off">SY / {workGatewayLabels[locale]}</span>
               <strong>
                 {t.gatewayCta}
                 <ArrowUpRight aria-hidden="true" />
@@ -565,7 +556,6 @@ export default function Home() {
 
           <aside className="annual-reels" aria-labelledby="annual-reels-title" data-reveal>
             <div className="annual-reels-heading">
-              <p className="mono-label">{t.showreelEyebrow}</p>
               <h3 id="annual-reels-title">{t.showreelTitle}</h3>
             </div>
             {annualReels.map((reel) => (
@@ -594,17 +584,13 @@ export default function Home() {
       <section id="lab" className="section-block lab-gateway" aria-labelledby="lab-title">
         <Link href="/lab" className="lab-entry-link" data-reveal onPointerMove={setPointerPosition} onPointerLeave={resetPointerPosition}>
           <div className="lab-entry-specimen" aria-hidden="true">
-            <span className="mono-label">SY / GROWTH STUDIES</span>
             <SpringMark />
-            <span className="lab-entry-coordinate mono-label">{String(labExperiments.length).padStart(2, "0")} / IN PROGRESS</span>
           </div>
           <div className="lab-entry-copy">
             <p className="eyebrow">{t.labEyebrow}</p>
             <h2 id="lab-title">{t.labTitle}</h2>
-            <p className="lab-intro">{t.labBody}</p>
           </div>
           <div className="lab-entry-action">
-            <span className="mono-label">{t.labCount}</span>
             <strong>{t.labCta}<ArrowUpRight aria-hidden="true" /></strong>
           </div>
         </Link>
@@ -625,26 +611,21 @@ export default function Home() {
 
         <div className="brand-story" data-reveal>
           <div className="brand-story-intro">
-            <p className="mono-label">{t.brandEyebrow}</p>
             <h3>{t.brandTitle}</h3>
           </div>
           <figure className="brand-logo-panel">
             <SpringLogo language={language} />
-            <figcaption>SY / SPRING YEARN</figcaption>
           </figure>
           <div className="brand-meanings">
             <article>
-              <span className="brand-index">01</span>
               <BrandWord word="SPRING" />
               <p>{t.springMeaning}</p>
             </article>
             <article>
-              <span className="brand-index">02</span>
               <BrandWord word="YEARN" />
               <p>{t.yearnMeaning}</p>
             </article>
           </div>
-          <p className="brand-closing">{t.brandClosing}</p>
         </div>
 
         <div className="capability-grid" data-reveal>
@@ -726,7 +707,7 @@ export default function Home() {
       <section id="contact" className="contact-section" aria-labelledby="contact-title">
         <div className="contact-glow" aria-hidden="true" />
         <div className="contact-lower" data-reveal>
-          <div className="contact-copy"><p className="eyebrow">{t.contactEyebrow}</p><h2 id="contact-title">{t.contactTitle}</h2><p>{t.contactBody}</p></div>
+          <div className="contact-copy"><h2 id="contact-title">{t.contactTitle}</h2><p>{t.contactBody}</p></div>
           <div className="contact-actions">
             <button
               className="primary-contact"
