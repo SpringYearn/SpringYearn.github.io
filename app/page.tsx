@@ -17,6 +17,8 @@ import { SpringLogo } from "./spring-logo";
 import { SpringMark } from "./spring-mark";
 import { BrandWord } from "./brand-word";
 import { ProjectFilesGateway } from "./project-files-gateway";
+import { HomeBackdrop } from "./home-backdrop";
+import { HorizontalStrip } from "./horizontal-strip";
 import { labExperiments } from "./lab-data";
 import { useWorkGatewayMotion, workGatewayLabels } from "./work-gateway-motion";
 
@@ -442,7 +444,8 @@ export default function Home() {
   }, []);
 
   return <Localized>{(
-    <main id="top" className="site-shell">
+    <main id="top" className="site-shell home-page">
+      <HomeBackdrop />
       <div
         className="scroll-progress"
         style={{ transform: `scaleX(${scrollProgress})` }}
@@ -629,25 +632,25 @@ export default function Home() {
         </div>
 
         <div className="capability-grid" data-reveal>
-          <div>
-            <p className="mono-label">{t.services}</p>
-            <ol className="capability-list">
-              {capabilities.map((item, index) => (
-                <li key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {item}
-                </li>
-              ))}
-            </ol>
-            <div className="software-stack" aria-label={language === "en" ? "Software toolkit" : "軟體工具"}>
-              <p className="mono-label">{language === "en" ? "Software / Toolkit" : "使用軟體／工具"}</p>
+          <div className="profile-strips">
+            <HorizontalStrip id="capabilities-strip" title={t.services}>
+              <ol className="capability-list">
+                {capabilities.map((item, index) => (
+                  <li key={item}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    {item}
+                  </li>
+                ))}
+              </ol>
+            </HorizontalStrip>
+            <HorizontalStrip id="software-strip" className="software-stack" title={language === "en" ? "Software / Toolkit" : "使用軟體／工具"}>
               <ul>
                 {softwareStack.map((software) => (
                   <li key={software.id}><span className="software-logo"><img src={`/toolkit/${software.id}.svg`} alt="" loading="lazy" width="32" height="32" /></span><span>{software.name}</span></li>
                 ))}
                 <li className="software-more">{language === "en" ? "And more…" : "以及更多⋯⋯"}</li>
               </ul>
-            </div>
+            </HorizontalStrip>
           </div>
           <div className="practice-card">
             <p className="mono-label">{t.experience}</p>
