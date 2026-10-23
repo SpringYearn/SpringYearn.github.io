@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a parallax homepage background and horizontal service and software strips."
+      "Linked horizontal strips to page scrolling and moved parallax to the hero elements."
     ],
     "zh": [
-      "首頁新增背景視差，服務與軟體改為橫向捲動列。"
+      "橫向列改隨頁面捲動，視差移至首頁大標題元素。"
     ]
   },
   "releases": [
+    {
+      "version": "V.066",
+      "date": "2026-10-24",
+      "en": [
+        "Linked horizontal strips to page scrolling and moved parallax to the hero elements."
+      ],
+      "zh": [
+        "橫向列改隨頁面捲動，視差移至首頁大標題元素。"
+      ]
+    },
     {
       "version": "V.065",
       "date": "2026-10-24",

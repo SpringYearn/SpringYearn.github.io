@@ -17,7 +17,7 @@ import { SpringLogo } from "./spring-logo";
 import { SpringMark } from "./spring-mark";
 import { BrandWord } from "./brand-word";
 import { ProjectFilesGateway } from "./project-files-gateway";
-import { HomeBackdrop } from "./home-backdrop";
+import { useHeroParallax } from "./use-hero-parallax";
 import { HorizontalStrip } from "./horizontal-strip";
 import { labExperiments } from "./lab-data";
 import { useWorkGatewayMotion, workGatewayLabels } from "./work-gateway-motion";
@@ -341,6 +341,7 @@ function resetPointerPosition(event: ReactPointerEvent<HTMLElement>) {
 export default function Home() {
   const { language, locale, setLanguage } = useSiteLanguage();
   const workGatewayRef = useWorkGatewayMotion();
+  const heroRef = useHeroParallax();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isMailMenuOpen, setIsMailMenuOpen] = useState(false);
@@ -445,7 +446,6 @@ export default function Home() {
 
   return <Localized>{(
     <main id="top" className="site-shell home-page">
-      <HomeBackdrop />
       <div
         className="scroll-progress"
         style={{ transform: `scaleX(${scrollProgress})` }}
@@ -475,7 +475,7 @@ export default function Home() {
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
-      <section className="hero" aria-labelledby="hero-title">
+      <section className="hero" ref={heroRef} aria-labelledby="hero-title">
         <div className="hero-meta mono-label">
           <span>{t.index}</span>
         </div>
@@ -486,35 +486,41 @@ export default function Home() {
           onPointerMove={setPointerPosition}
           onPointerLeave={resetPointerPosition}
         >
-          <div className="orb orb-one" aria-hidden="true" />
-          <div className="orb orb-two" aria-hidden="true" />
-          <div className="axis axis-x" aria-hidden="true" />
-          <div className="axis axis-y" aria-hidden="true" />
-          <SpringMark className="hero-spring-mark" />
-          <div className="hero-title-cluster">
-            <h1 id="hero-title">
-              <span>{t.heroTop}</span>
-              <strong className="hero-display" aria-label="SPRING YEARN">
-                {displayWords.map((word) => (
-                  <span
-                    className="display-word"
-                    aria-hidden="true"
-                    data-word={word}
-                    key={word}
-                  >
-                    {Array.from(word).map((letter, letterIndex) => (
-                      <span
-                        className="display-letter"
-                        style={{ "--letter-index": letterIndex } as CSSProperties}
-                        key={`${word}-${letterIndex}`}
-                      >
-                        <span className="display-letter-inner">{letter}</span>
-                      </span>
-                    ))}
-                  </span>
-                ))}
-              </strong>
-            </h1>
+          <div className="hero-depth-layer hero-depth-far" aria-hidden="true">
+            <div className="orb orb-one" />
+            <div className="axis axis-x" />
+            <div className="axis axis-y" />
+            <SpringMark className="hero-spring-mark" />
+          </div>
+          <div className="hero-depth-layer hero-depth-near" aria-hidden="true">
+            <div className="orb orb-two" />
+          </div>
+          <div className="hero-depth-title">
+            <div className="hero-title-cluster">
+              <h1 id="hero-title">
+                <span>{t.heroTop}</span>
+                <strong className="hero-display" aria-label="SPRING YEARN">
+                  {displayWords.map((word) => (
+                    <span
+                      className="display-word"
+                      aria-hidden="true"
+                      data-word={word}
+                      key={word}
+                    >
+                      {Array.from(word).map((letter, letterIndex) => (
+                        <span
+                          className="display-letter"
+                          style={{ "--letter-index": letterIndex } as CSSProperties}
+                          key={`${word}-${letterIndex}`}
+                        >
+                          <span className="display-letter-inner">{letter}</span>
+                        </span>
+                      ))}
+                    </span>
+                  ))}
+                </strong>
+              </h1>
+            </div>
           </div>
           <p className="hero-statement">{t.heroBottom}</p>
         </div>
@@ -643,7 +649,7 @@ export default function Home() {
                 ))}
               </ol>
             </HorizontalStrip>
-            <HorizontalStrip id="software-strip" className="software-stack" title={language === "en" ? "Software / Toolkit" : "使用軟體／工具"}>
+            <HorizontalStrip id="software-strip" className="software-stack" reverse title={language === "en" ? "Software / Toolkit" : "使用軟體／工具"}>
               <ul>
                 {softwareStack.map((software) => (
                   <li key={software.id}><span className="software-logo"><img src={`/toolkit/${software.id}.svg`} alt="" loading="lazy" width="32" height="32" /></span><span>{software.name}</span></li>

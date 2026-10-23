@@ -3572,29 +3572,23 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .pf-timeline-mark { align-content: center; }
 @media (max-width: 900px) { .pf-gateway-action { justify-content: flex-end; } }
 
-/* Homepage atmosphere moves behind the paper; content keeps its normal flow. */
-.home-page { background: transparent; }
-.home-backdrop { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-.home-backdrop-wash { position: absolute; inset: -20% -12% -45%; background: radial-gradient(ellipse at 85% 18%, rgba(var(--spring-mist-rgb),.42), transparent 36%), radial-gradient(ellipse at 12% 70%, rgba(var(--spring-leaf-rgb),.16), transparent 42%); transform: translate3d(0,var(--parallax-shift,0px),0); will-change: transform; }
-.home-backdrop-orbit { position: absolute; width: min(80vw,1050px); aspect-ratio: 1; top: 22%; right: -38%; border: 1px solid rgba(var(--spring-ink-rgb),.1); border-radius: 50%; transform: translate3d(0,calc(var(--parallax-shift,0px) * 1.7),0); will-change: transform; }
-.home-backdrop-orbit::after { content: ""; position: absolute; inset: 4%; border: 1px solid rgba(var(--spring-ink-rgb),.05); border-radius: inherit; }
-.home-backdrop-grid { position: absolute; left: 4%; top: 68%; width: clamp(80px,12vw,180px); aspect-ratio: 1; opacity: .12; background: linear-gradient(var(--spring-ink) 1px,transparent 1px), linear-gradient(90deg,var(--spring-ink) 1px,transparent 1px); background-size: 22px 22px; mask-image: radial-gradient(ellipse,#000,transparent 72%); transform: translate3d(0,calc(var(--parallax-shift,0px) * .45),0) rotate(-12deg); }
+/* Scroll depth stays inside the opening composition; pointer and tilt transforms stay on the inner elements. */
+.hero-depth-title { width: 100%; transform: translate3d(0,calc(var(--hero-scroll,0px) * .14),0); will-change: transform; }
+.hero-depth-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; will-change: transform; }
+.hero-depth-far { transform: translate3d(0,clamp(0px,calc(var(--hero-scroll,0px) * .32),60px),0); }
+.hero-depth-near { transform: translate3d(0,clamp(-24px,calc(var(--hero-scroll,0px) * -.08),0px),0); }
 
-/* Two narrow, independently scrollable rails. */
+/* Two narrow rails follow page scrolling in opposite directions. */
 .home-page .capability-grid { grid-template-columns: minmax(0,1fr); gap: 3rem; }
 .profile-strips { min-width: 0; display: grid; gap: 2rem; }
 .horizontal-strip { min-width: 0; }
 .strip-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-bottom: .65rem; }
 .strip-heading h3 { margin: 0; color: var(--spring-ink); font-weight: 400; }
-.strip-controls { display: flex; gap: .35rem; flex-shrink: 0; }
-.strip-controls button { display: grid; place-items: center; width: 36px; height: 32px; border: 1px solid rgba(var(--spring-ink-rgb),.28); background: transparent; color: var(--spring-ink); transition: background 180ms ease, color 180ms ease; }
-.strip-controls button:hover:not(:disabled) { background: var(--spring-ink); color: var(--background); }
-.strip-controls button:disabled { opacity: .25; }
-.strip-controls svg { width: 16px; height: 16px; }
-.strip-viewport { width: 100%; overflow-x: auto; overflow-y: hidden; border-block: 1px solid rgba(var(--spring-ink-rgb),.4); scrollbar-width: thin; scrollbar-color: rgba(var(--spring-ink-rgb),.4) transparent; }
-.strip-viewport::-webkit-scrollbar { height: 3px; }
-.strip-viewport::-webkit-scrollbar-thumb { background: rgba(var(--spring-ink-rgb),.4); }
-.strip-viewport:focus-visible, .strip-controls button:focus-visible { outline: 2px solid var(--spring-ink); outline-offset: 4px; }
+.strip-viewport { width: 100%; overflow-x: auto; overflow-y: hidden; border-block: 1px solid rgba(var(--spring-ink-rgb),.4); scrollbar-width: thin; scrollbar-color: rgba(var(--spring-ink-rgb),.1) transparent; }
+.strip-viewport:is(:hover,:focus-visible) { scrollbar-color: rgba(var(--spring-ink-rgb),.25) transparent; }
+.strip-viewport::-webkit-scrollbar { height: 2px; }
+.strip-viewport::-webkit-scrollbar-thumb { background: rgba(var(--spring-ink-rgb),.1); }
+.strip-viewport:focus-visible { outline: 2px solid var(--spring-ink); outline-offset: 4px; }
 .home-page .capability-list, .home-page .software-stack ul { display: flex; width: max-content; min-width: 100%; margin: 0; border: 0; padding: 0; list-style: none; }
 .home-page .capability-list li { display: flex; align-items: center; flex: 0 0 auto; gap: .9rem; min-height: 86px; padding: 1.2rem 2rem; border: 0; border-right: 1px solid rgba(var(--spring-ink-rgb),.2); font-size: clamp(1.1rem,1.7vw,1.6rem); white-space: nowrap; }
 .home-page .capability-list li:hover { padding-left: 2rem; background: rgba(var(--spring-mist-rgb),.22); }
@@ -3615,9 +3609,7 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .home-page .software-stack li:nth-child(n) { min-height: 70px; padding: .85rem 1.1rem; }
   .home-page .capability-grid .practice-card { grid-template-columns: minmax(0,1fr); gap: 1.4rem; padding: 1.5rem; }
   .home-page .capability-grid .practice-mark { width: 125px; right: -70px; bottom: -65px; }
-  .home-backdrop-orbit { width: 130vw; right: -85%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-backdrop-wash, .home-backdrop-orbit, .home-backdrop-grid { transform: none; will-change: auto; }
-  .strip-controls button { transition: none; }
+  .hero-depth-title, .hero-depth-layer { transform: none; will-change: auto; }
 }

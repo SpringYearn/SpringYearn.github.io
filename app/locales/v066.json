@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v066.note",
+    "en": "Linked horizontal strips to page scrolling and moved parallax to the hero elements.",
+    "zh": "橫向列改隨頁面捲動，視差移至首頁大標題元素。",
+    "ja": "横スクロールをページのスクロールに連動させ、パララックスを冒頭のタイトル周りに移しました。",
+    "ko": "가로 목록을 페이지 스크롤에 연결하고 패럴랙스를 첫 화면의 제목 요소로 옮겼어요.",
+    "ru": "Горизонтальные ленты связаны с прокруткой страницы, а параллакс перенесён на элементы главного заголовка.",
+    "vi": "Thanh ngang chuyển động theo cuộn trang; thị sai được chuyển sang các thành phần tiêu đề đầu trang."
+  }
+]
