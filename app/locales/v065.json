@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v065.note",
+    "en": "Added a parallax homepage background and horizontal service and software strips.",
+    "zh": "首頁新增背景視差，服務與軟體改為橫向捲動列。",
+    "ja": "ホームの背景にパララックスを追加し、スキルとソフトウェアを横スクロールにしました。",
+    "ko": "홈 배경에 패럴랙스를 추가하고 작업 분야와 소프트웨어를 가로 스크롤로 바꿨어요.",
+    "ru": "На главной добавлен параллакс фона, а навыки и программы размещены в горизонтальных лентах.",
+    "vi": "Thêm nền thị sai cho trang chủ và thanh cuộn ngang cho kỹ năng, phần mềm."
+  },
+  {
+    "id": "v065.left",
+    "en": "Scroll left",
+    "zh": "向左捲動",
+    "ja": "左にスクロール",
+    "ko": "왼쪽으로 스크롤",
+    "ru": "Прокрутить влево",
+    "vi": "Cuộn sang trái"
+  },
+  {
+    "id": "v065.right",
+    "en": "Scroll right",
+    "zh": "向右捲動",
+    "ja": "右にスクロール",
+    "ko": "오른쪽으로 스크롤",
+    "ru": "Прокрутить вправо",
+    "vi": "Cuộn sang phải"
+  }
+]

@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Simplified labels and repeated descriptions across the site."
+      "Added a parallax homepage background and horizontal service and software strips."
     ],
     "zh": [
-      "精簡全站重複標籤與說明。"
+      "首頁新增背景視差，服務與軟體改為橫向捲動列。"
     ]
   },
   "releases": [
+    {
+      "version": "V.065",
+      "date": "2026-10-24",
+      "en": [
+        "Added a parallax homepage background and horizontal service and software strips."
+      ],
+      "zh": [
+        "首頁新增背景視差，服務與軟體改為橫向捲動列。"
+      ]
+    },
     {
       "version": "V.064",
       "date": "2026-10-23",
