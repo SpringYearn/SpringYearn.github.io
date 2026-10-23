@@ -3573,7 +3573,7 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 @media (max-width: 900px) { .pf-gateway-action { justify-content: flex-end; } }
 
 /* Homepage atmosphere moves behind the paper; content keeps its normal flow. */
-.home-page { isolation: isolate; background: var(--background); }
+.home-page { background: transparent; }
 .home-backdrop { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 .home-backdrop-wash { position: absolute; inset: -20% -12% -45%; background: radial-gradient(ellipse at 85% 18%, rgba(var(--spring-mist-rgb),.42), transparent 36%), radial-gradient(ellipse at 12% 70%, rgba(var(--spring-leaf-rgb),.16), transparent 42%); transform: translate3d(0,var(--parallax-shift,0px),0); will-change: transform; }
 .home-backdrop-orbit { position: absolute; width: min(80vw,1050px); aspect-ratio: 1; top: 22%; right: -38%; border: 1px solid rgba(var(--spring-ink-rgb),.1); border-radius: 50%; transform: translate3d(0,calc(var(--parallax-shift,0px) * 1.7),0); will-change: transform; }
