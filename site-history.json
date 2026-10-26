@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Slowed and smoothed the horizontal strips across their full time in view."
+      "Added a subtle screen-distortion ripple on click."
     ],
     "zh": [
-      "放慢並平滑橫向列，從進入視野持續移動至離開。"
+      "新增點按時的全畫面折射波紋。"
     ]
   },
   "releases": [
+    {
+      "version": "V.068",
+      "date": "2026-10-26",
+      "en": [
+        "Added a subtle screen-distortion ripple on click."
+      ],
+      "zh": [
+        "新增點按時的全畫面折射波紋。"
+      ]
+    },
     {
       "version": "V.067",
       "date": "2026-10-24",

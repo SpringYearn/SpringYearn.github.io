@@ -23,11 +23,12 @@ import update064 from './locales/v064.json';
 import update065 from './locales/v065.json';
 import update066 from './locales/v066.json';
 import update067 from './locales/v067.json';
+import update068 from './locales/v068.json';
 
 const dictionaries:Record<Locale,Record<string,string>>={en,zh,ja,ko,ru,vi};
 const index:Record<string,string>=aliases;
 const normalize=(value:string)=>value.replace(/\s+/g,' ').trim().toLowerCase();
-for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067]){
+for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068]){
   for(const locale of ['en','zh','ja','ko','ru','vi'] as const)dictionaries[locale][row.id]=row[locale];
   index[normalize(row.en)]=row.id;index[normalize(row.zh)]=row.id;
 }
