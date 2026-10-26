@@ -3613,3 +3613,5 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .hero-depth-title, .hero-depth-layer { transform: none; will-change: auto; }
 }
+
+.screen-ripple-defs { position: fixed; top: 0; left: 0; width: 0; height: 0; overflow: hidden; pointer-events: none; }
