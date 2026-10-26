@@ -29,7 +29,8 @@ function displacementTexture() {
       const offset = (y * size + x) * 4;
       image.data[offset] = Math.round(127.5 + 127.5 * dx / Math.max(radius, .001) * wave);
       image.data[offset + 1] = Math.round(127.5 + 127.5 * dy / Math.max(radius, .001) * wave);
-      image.data[offset + 2] = 128;
+      // The unused blue channel carries a soft crest mask for the light catch.
+      image.data[offset + 2] = Math.round(255 * Math.exp(-Math.pow((radius - .55) / .035, 2)));
       image.data[offset + 3] = 255;
     }
   }
@@ -42,6 +43,7 @@ type Surface = {
   filter: SVGFilterElement;
   image: SVGFEImageElement;
   displacement: SVGFEDisplacementMapElement;
+  highlight: SVGFEFloodElement;
   original: string;
   priority: string;
   applied: string;
@@ -107,18 +109,24 @@ export function ScreenRipple() {
           width: String(width / scaleX), height: String((bottom - top) / scaleY),
           "color-interpolation-filters": "sRGB",
         });
-        const flood = svgElement("feFlood", { "flood-color": "#808080", result: "neutral" });
+        const flood = svgElement("feFlood", { "flood-color": "#808000", result: "neutral" });
         const image = svgElement("feImage", { href: texture, preserveAspectRatio: "none", result: "wave", width: "1", height: "1" });
         const merge = svgElement("feMerge", { result: "map" });
         merge.append(svgElement("feMergeNode", { in: "neutral" }), svgElement("feMergeNode", { in: "wave" }));
-        const displacement = svgElement("feDisplacementMap", { in: "SourceGraphic", in2: "map", scale: "0", xChannelSelector: "R", yChannelSelector: "G" });
-        filter.append(flood, image, merge, displacement);
+        const displacement = svgElement("feDisplacementMap", { in: "SourceGraphic", in2: "map", scale: "0", xChannelSelector: "R", yChannelSelector: "G", result: "refracted" });
+        const crest = svgElement("feColorMatrix", { in: "map", type: "matrix",
+          values: "0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 1 0 0", result: "crest" });
+        const highlight = svgElement("feFlood", { "flood-color": "#ffffff", "flood-opacity": "0", result: "light" });
+        const lightBand = svgElement("feComposite", { in: "light", in2: "crest", operator: "in", result: "lightBand" });
+        // Atop keeps the original content alpha: the sheen never paints an extra ring over empty space.
+        const sheen = svgElement("feComposite", { in: "lightBand", in2: "refracted", operator: "atop" });
+        filter.append(flood, image, merge, displacement, crest, highlight, lightBand, sheen);
         defs.append(filter);
         const computed = style.filter;
         const original = element.style.getPropertyValue("filter");
         const priority = element.style.getPropertyPriority("filter");
         element.style.setProperty("filter", `${computed === "none" ? "" : computed + " "}url("#${id}")`);
-        surfaces.push({ element, filter, image, displacement, original, priority,
+        surfaces.push({ element, filter, image, displacement, highlight, original, priority,
           applied: element.style.getPropertyValue("filter"), left: bounds.left, top: bounds.top, scaleX, scaleY });
         if (surfaces.length === 8) break;
       }
@@ -133,13 +141,16 @@ export function ScreenRipple() {
           return;
         }
         const radius = (12 + distance * progress * 1.12) / .55;
-        const strength = (width < 600 ? 6.5 : 8) * Math.pow(Math.sin(Math.PI * progress), 1.2);
+        const envelope = Math.pow(Math.sin(Math.PI * progress), 1.2);
+        const strength = (width < 600 ? 4.3 : 5.2) * envelope;
+        const light = (width < 600 ? .16 : .2) * envelope;
         for (const surface of surfaces) {
           surface.image.setAttribute("x", String((x - radius - surface.left) / surface.scaleX));
           surface.image.setAttribute("y", String((y - radius - surface.top) / surface.scaleY));
           surface.image.setAttribute("width", String(radius * 2 / surface.scaleX));
           surface.image.setAttribute("height", String(radius * 2 / surface.scaleY));
           surface.displacement.setAttribute("scale", String(strength / surface.scaleX));
+          surface.highlight.setAttribute("flood-opacity", String(light));
         }
         frame = requestAnimationFrame(paint);
       };

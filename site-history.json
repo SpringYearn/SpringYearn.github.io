@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a subtle screen-distortion ripple on click."
+      "Added a soft ripple highlight and reduced the distortion."
     ],
     "zh": [
-      "新增點按時的全畫面折射波紋。"
+      "波紋加入柔和高光，並降低變形幅度。"
     ]
   },
   "releases": [
+    {
+      "version": "V.069",
+      "date": "2026-10-26",
+      "en": [
+        "Added a soft ripple highlight and reduced the distortion."
+      ],
+      "zh": [
+        "波紋加入柔和高光，並降低變形幅度。"
+      ]
+    },
     {
       "version": "V.068",
       "date": "2026-10-26",
