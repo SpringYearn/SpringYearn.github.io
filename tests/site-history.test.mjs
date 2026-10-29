@@ -16,7 +16,7 @@ test("daily groups retain all release versions and bilingual notes without chang
       assert.deepEqual(day[language], [...new Set(original.flatMap(release => release[language]))]);
     }
   }
-  assert.equal(days[0].version, "V.070 — V.072");
+  assert.equal(days[0].version, "V.070 — V.073");
   assert.equal(days[1].version, "V.068 — V.069");
   assert.equal(days[2].version, "V.065 — V.067");
   assert.equal(days[3].version, "V.064");

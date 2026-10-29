@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v073.note",
+    "en": "Restored the click lines and long-press animation alongside the screen ripple.",
+    "zh": "恢復線條點按與長按動畫，並保留畫面波紋。",
+    "ja": "画面の波紋を残し、クリック時の線と長押しアニメーションを復元しました。",
+    "ko": "화면 물결 효과를 유지하면서 클릭 시 선 효과와 길게 누르기 애니메이션을 복원했어요.",
+    "ru": "Анимации линий при нажатии и долгом удержании восстановлены вместе с экранной волной.",
+    "vi": "Khôi phục hiệu ứng nét khi nhấp và hoạt ảnh nhấn giữ, đồng thời giữ gợn sóng trên màn hình."
+  }
+]

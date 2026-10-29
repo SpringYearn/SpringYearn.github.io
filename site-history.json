@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made the ripple’s fast start and slow finish more noticeable."
+      "Restored the click lines and long-press animation alongside the screen ripple."
     ],
     "zh": [
-      "加強波紋先快後慢的速度對比。"
+      "恢復線條點按與長按動畫，並保留畫面波紋。"
     ]
   },
   "releases": [
+    {
+      "version": "V.073",
+      "date": "2026-10-29",
+      "en": [
+        "Restored the click lines and long-press animation alongside the screen ripple."
+      ],
+      "zh": [
+        "恢復線條點按與長按動畫，並保留畫面波紋。"
+      ]
+    },
     {
       "version": "V.072",
       "date": "2026-10-29",

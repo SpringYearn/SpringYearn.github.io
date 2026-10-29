@@ -3,6 +3,7 @@ import { ArchiveTransition } from "./archive-transition";
 import { CursorTrail } from "./cursor-trail";
 import { DeviceTiltControl } from "./device-tilt-control";
 import { InteractionAudio } from "./interaction-audio";
+import { PointerBurst } from "./pointer-burst";
 import { ScreenRipple } from "./screen-ripple";
 import { SiteLanguageProvider } from "./site-language";
 import "./globals.css";
@@ -57,6 +58,7 @@ export default function RootLayout({
         <ArchiveTransition />
         <DeviceTiltControl />
         <CursorTrail />
+        <PointerBurst />
         <ScreenRipple />
         <InteractionAudio />
         </SiteLanguageProvider>
