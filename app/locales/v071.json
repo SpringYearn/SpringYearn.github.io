@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v071.note",
+    "en": "Added a gentle slowdown to the click ripple.",
+    "zh": "點按波紋加入平滑減速。",
+    "ja": "クリック時の波紋が滑らかに減速するようにしました。",
+    "ko": "클릭할 때 퍼지는 물결이 부드럽게 느려지도록 조정했어요.",
+    "ru": "Волна при нажатии теперь плавно замедляется.",
+    "vi": "Gợn sóng khi nhấp giờ chậm dần một cách mượt mà."
+  }
+]
