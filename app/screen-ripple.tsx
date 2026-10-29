@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef } from "react";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
-const duration = 880;
+const duration = 1300;
 const directManipulation = 'input, textarea, select, video, audio, canvas, [contenteditable="true"], [role="slider"], .board-viewport, .spring-logo, [data-no-ripple]';
 
 function svgElement<K extends keyof SVGElementTagNameMap>(name: K, attributes: Record<string, string>) {
@@ -140,9 +140,13 @@ export function ScreenRipple() {
           stop();
           return;
         }
-        const expansion = 1 - Math.pow(1 - progress, 3);
+        // A brief launch gives way to a longer drift while the crest is still on screen.
+        const launch = (1 - Math.exp(-18 * progress)) / (1 - Math.exp(-18));
+        const drift = 1 - Math.pow(1 - progress, 2);
+        const expansion = .4 * launch + .6 * drift;
         const radius = (12 + distance * expansion * 1.12) / .55;
-        const envelope = Math.pow(Math.sin(Math.PI * progress), 1.2);
+        // Reveal the fast launch sooner, keeping the same peak intensity and a soft fade.
+        const envelope = Math.pow(Math.sin(Math.PI * Math.sqrt(progress)), 1.2);
         const strength = (width < 600 ? 4.3 : 5.2) * envelope;
         const light = (width < 600 ? .06 : .08) * envelope;
         for (const surface of surfaces) {
