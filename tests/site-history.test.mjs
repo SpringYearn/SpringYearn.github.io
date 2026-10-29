@@ -16,16 +16,17 @@ test("daily groups retain all release versions and bilingual notes without chang
       assert.deepEqual(day[language], [...new Set(original.flatMap(release => release[language]))]);
     }
   }
-  assert.equal(days[0].version, "V.068 — V.069");
-  assert.equal(days[1].version, "V.065 — V.067");
-  assert.equal(days[2].version, "V.064");
-  assert.equal(days[3].version, "V.062 — V.063");
-  assert.equal(days[4].version, "V.061");
-  assert.equal(days[5].version, "V.056 — V.060");
-  assert.equal(days[6].version, "V.052 — V.055");
-  assert.equal(days[7].version, "V.047 — V.051");
-  assert.equal(days[8].version, "V.042 — V.046");
-  assert.equal(days[9].version, "V.024 — V.041");
+  assert.equal(days[0].version, "V.070");
+  assert.equal(days[1].version, "V.068 — V.069");
+  assert.equal(days[2].version, "V.065 — V.067");
+  assert.equal(days[3].version, "V.064");
+  assert.equal(days[4].version, "V.062 — V.063");
+  assert.equal(days[5].version, "V.061");
+  assert.equal(days[6].version, "V.056 — V.060");
+  assert.equal(days[7].version, "V.052 — V.055");
+  assert.equal(days[8].version, "V.047 — V.051");
+  assert.equal(days[9].version, "V.042 — V.046");
+  assert.equal(days[10].version, "V.024 — V.041");
 });
 
 test("nonadjacent same-day records merge and repeated notes remain available on other dates", () => {

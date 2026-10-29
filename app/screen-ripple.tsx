@@ -143,7 +143,7 @@ export function ScreenRipple() {
         const radius = (12 + distance * progress * 1.12) / .55;
         const envelope = Math.pow(Math.sin(Math.PI * progress), 1.2);
         const strength = (width < 600 ? 4.3 : 5.2) * envelope;
-        const light = (width < 600 ? .16 : .2) * envelope;
+        const light = (width < 600 ? .06 : .08) * envelope;
         for (const surface of surfaces) {
           surface.image.setAttribute("x", String((x - radius - surface.left) / surface.scaleX));
           surface.image.setAttribute("y", String((y - radius - surface.top) / surface.scaleY));
