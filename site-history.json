@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a soft ripple highlight and reduced the distortion."
+      "Made the ripple highlight more subtle."
     ],
     "zh": [
-      "波紋加入柔和高光，並降低變形幅度。"
+      "調淡波紋高光。"
     ]
   },
   "releases": [
+    {
+      "version": "V.070",
+      "date": "2026-10-29",
+      "en": [
+        "Made the ripple highlight more subtle."
+      ],
+      "zh": [
+        "調淡波紋高光。"
+      ]
+    },
     {
       "version": "V.069",
       "date": "2026-10-26",
