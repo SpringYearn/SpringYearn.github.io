@@ -140,7 +140,8 @@ export function ScreenRipple() {
           stop();
           return;
         }
-        const radius = (12 + distance * progress * 1.12) / .55;
+        const expansion = 1 - Math.pow(1 - progress, 3);
+        const radius = (12 + distance * expansion * 1.12) / .55;
         const envelope = Math.pow(Math.sin(Math.PI * progress), 1.2);
         const strength = (width < 600 ? 4.3 : 5.2) * envelope;
         const light = (width < 600 ? .06 : .08) * envelope;

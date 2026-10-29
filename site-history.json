@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made the ripple highlight more subtle."
+      "Added a gentle slowdown to the click ripple."
     ],
     "zh": [
-      "調淡波紋高光。"
+      "點按波紋加入平滑減速。"
     ]
   },
   "releases": [
+    {
+      "version": "V.071",
+      "date": "2026-10-29",
+      "en": [
+        "Added a gentle slowdown to the click ripple."
+      ],
+      "zh": [
+        "點按波紋加入平滑減速。"
+      ]
+    },
     {
       "version": "V.070",
       "date": "2026-10-29",
