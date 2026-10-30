@@ -2096,6 +2096,10 @@ html.archive-is-transitioning { overflow: hidden; }
   line-height: 1.65;
   color: rgba(17,17,15,.68);
 }
+.lab-authorship-intro {
+  position: relative;
+  padding-top: 1.85em;
+}
 .lab-author-edit {
   display: inline-flex;
   align-items: baseline;
@@ -2120,12 +2124,14 @@ html.archive-is-transitioning { overflow: hidden; }
   pointer-events: none;
 }
 .lab-author-note {
-  display: inline-block;
-  width: 6.2em;
-  height: 1.85em;
-  margin-block: -.18em;
+  position: absolute;
+  top: .45em;
+  left: .1em;
+  width: 4em;
+  height: 1.2em;
   color: #b3443d;
-  transform: translateY(.28em) rotate(-6deg);
+  transform: rotate(-6deg);
+  transform-origin: left center;
   pointer-events: none;
 }
 .lab-author-note > svg { display: block; width: 100%; height: 100%; overflow: visible; }
