@@ -29,11 +29,12 @@ import update070 from './locales/v070.json';
 import update071 from './locales/v071.json';
 import update072 from './locales/v072.json';
 import update073 from './locales/v073.json';
+import update074 from './locales/v074.json';
 
 const dictionaries:Record<Locale,Record<string,string>>={en,zh,ja,ko,ru,vi};
 const index:Record<string,string>=aliases;
 const normalize=(value:string)=>value.replace(/\s+/g,' ').trim().toLowerCase();
-for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073]){
+for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073,...update074]){
   for(const locale of ['en','zh','ja','ko','ru','vi'] as const)dictionaries[locale][row.id]=row[locale];
   index[normalize(row.en)]=row.id;index[normalize(row.zh)]=row.id;
 }

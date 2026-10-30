@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Restored the click lines and long-press animation alongside the screen ripple."
+      "Made the handwritten LAB note smaller and moved it above the introduction."
     ],
     "zh": [
-      "恢復線條點按與長按動畫，並保留畫面波紋。"
+      "縮小 LAB 手寫註記，移至說明文字上方。"
     ]
   },
   "releases": [
+    {
+      "version": "V.074",
+      "date": "2026-10-30",
+      "en": [
+        "Made the handwritten LAB note smaller and moved it above the introduction."
+      ],
+      "zh": [
+        "縮小 LAB 手寫註記，移至說明文字上方。"
+      ]
+    },
     {
       "version": "V.073",
       "date": "2026-10-29",
