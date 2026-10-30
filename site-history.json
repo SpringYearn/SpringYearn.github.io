@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made the handwritten LAB note smaller and moved it above the introduction."
+      "Aligned the handwritten LAB note above the crossed-out subject."
     ],
     "zh": [
-      "縮小 LAB 手寫註記，移至說明文字上方。"
+      "將 LAB 手寫註記對準紅叉上方。"
     ]
   },
   "releases": [
+    {
+      "version": "V.075",
+      "date": "2026-10-30",
+      "en": [
+        "Aligned the handwritten LAB note above the crossed-out subject."
+      ],
+      "zh": [
+        "將 LAB 手寫註記對準紅叉上方。"
+      ]
+    },
     {
       "version": "V.074",
       "date": "2026-10-30",

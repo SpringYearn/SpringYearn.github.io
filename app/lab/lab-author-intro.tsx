@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { localizeText } from "../localization";
 import { useSiteLanguage, type Locale } from "../site-language";
 
@@ -30,29 +31,51 @@ function HandwrittenChatGPT() {
 
 export function LabAuthorIntro({ text }: { text: string }) {
   const { locale } = useSiteLanguage();
+  const paragraph = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    const root = paragraph.current;
+    const original = root?.querySelector<HTMLElement>(".lab-author-original");
+    const note = root?.querySelector<HTMLElement>(".lab-author-note");
+    if (!root || !original || !note) return;
+    let active = true;
+    const align = () => {
+      if (!active) return;
+      const bounds = root.getBoundingClientRect(), word = original.getBoundingClientRect();
+      const center = word.left + word.width / 2;
+      // Keep the correction over its subject; only shift it when a narrow line needs room.
+      const halfWidth = note.offsetWidth / 2 + note.offsetHeight * .06 + 2;
+      const clamped = Math.max(bounds.left + halfWidth, Math.min(center, bounds.right - halfWidth));
+      note.style.setProperty("--lab-note-shift", `${clamped - center}px`);
+    };
+    const observer = new ResizeObserver(align);
+    observer.observe(root);
+    document.fonts.ready.then(align);
+    align();
+    return () => { active = false; observer.disconnect(); };
+  }, [locale, text]);
   let intro = localizeText(text, locale);
   // These translations omit the subject; make it explicit for the same visual joke.
   if (locale === "ja") intro = "私が" + intro;
   if (locale === "ko") intro = "제가 " + intro;
   const author = authors[locale], index = intro.indexOf(author);
-  if (index < 0) return <p className="lab-intro" data-localize="off">{intro}</p>;
+  if (index < 0) return <p ref={paragraph} className="lab-intro" data-localize="off">{intro}</p>;
   const suffix = intro.slice(index + author.length);
   const contraction = locale === "en" && suffix.startsWith("’ve") ? "’ve" : "";
 
-  return <p className="lab-intro lab-authorship-intro" data-localize="off">
+  return <p ref={paragraph} className="lab-intro lab-authorship-intro" data-localize="off">
     {intro.slice(0, index)}
     <span className="lab-author-edit" role="img" aria-label={descriptions[locale]}>
       <span className="lab-author-word" aria-hidden="true">
         <span className="lab-author-original">
           {author}
+          <span className="lab-author-note" aria-hidden="true">
+            <span className="sr-only">ChatGPT</span>
+            <HandwrittenChatGPT />
+          </span>
           <svg className="lab-author-cross" viewBox="0 0 24 24" preserveAspectRatio="none" fill="none" focusable="false">
             <path d="M3 3C8 9 14 15 22 21M21 2C15 8 8 16 2 22" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
           </svg>
         </span>{contraction}
-      </span>
-      <span className="lab-author-note" aria-hidden="true">
-        <span className="sr-only">ChatGPT</span>
-        <HandwrittenChatGPT />
       </span>
     </span>
     {suffix.slice(contraction.length)}
