@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v080.note",
+    "en": "Made the build animation desktop-only, simplified Skip and added mouse and keyboard sounds.",
+    "zh": "建造動畫改為電腦限定，簡化略過按鈕並更新操作音效。",
+    "ja": "制作アニメーションをPC専用にし、スキップボタンを簡素化。マウスやキー操作の音を追加しました。",
+    "ko": "제작 애니메이션을 데스크톱 전용으로 바꾸고 건너뛰기 버튼과 마우스·키보드 소리를 다듬었어요.",
+    "ru": "Анимация оставлена для компьютеров, управление сведено к пропуску и добавлены звуки мыши и клавиатуры.",
+    "vi": "Chỉ chạy hoạt ảnh dựng trang trên máy tính, giữ nút bỏ qua và thêm âm thanh chuột, bàn phím."
+  }
+]

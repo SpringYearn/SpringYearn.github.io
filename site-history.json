@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Kept the opening pace and sped up building after scrolling."
+      "Made the build animation desktop-only, simplified Skip and added mouse and keyboard sounds."
     ],
     "zh": [
-      "保留開場節奏，加快捲動後的建造動畫。"
+      "建造動畫改為電腦限定，簡化略過按鈕並更新操作音效。"
     ]
   },
   "releases": [
+    {
+      "version": "V.080",
+      "date": "2026-11-06",
+      "en": ["Made the build animation desktop-only, simplified Skip and added mouse and keyboard sounds."],
+      "zh": ["建造動畫改為電腦限定，簡化略過按鈕並更新操作音效。"]
+    },
     {
       "version": "V.079",
       "date": "2026-11-06",

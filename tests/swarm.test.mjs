@@ -4,8 +4,32 @@ import {CursorSwarmEngine} from '../app/swarm/engine.ts';
 import {TaskScheduler} from '../app/swarm/scheduler.ts';
 import {BUILD_RATE,buildStep,scrollTempo} from '../app/swarm/timing.ts';
 import {dimensionBadge,mediaProgress,toolBox} from '../app/swarm/choreography.ts';
+import {soundTexture,SwarmAudio} from '../app/swarm/audio.ts';
 
 const task=(id,parent,y=0)=>({id,parent,rect:{x:0,y,width:120,height:80},state:'pending',depth:parent===null?0:1,order:id});
+
+const seeded=()=>{let seed=31;return()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};};
+const rms=(samples,start,end)=>{const slice=samples.slice(Math.floor(start*48000),Math.floor(end*48000));return Math.sqrt(slice.reduce((sum,v)=>sum+v*v,0)/slice.length);};
+
+test('default sound is enabled without eagerly creating browser audio and all textures stay bounded',()=>{
+  assert.equal(new SwarmAudio().enabled,true);
+  for(const cue of ['click','type','drag','snap','complete']){
+    const samples=soundTexture(cue,48000,seeded());
+    assert.ok(samples.length>900&&samples.length<=3840);
+    assert.ok(samples.every(Number.isFinite));
+    assert.ok(Math.max(...samples.map(Math.abs))<.4);
+    assert.ok(rms(samples,0,samples.length/48000)>1e-5);
+  }
+});
+
+test('clicks have press and release transients, keys decay quickly, and dragging has soft edges',()=>{
+  const click=soundTexture('click',48000,seeded()),key=soundTexture('type',48000,seeded()),drag=soundTexture('drag',48000,seeded());
+  assert.ok(rms(click,0,.008)>rms(click,.012,.017)*5);
+  assert.ok(rms(click,.018,.025)>rms(click,.012,.017)*5);
+  assert.ok(rms(key,0,.008)>rms(key,.03,.04)*20);
+  assert.ok(rms(drag,.03,.05)>rms(drag,0,.008)*4);
+  assert.ok(rms(drag,.03,.05)>rms(drag,.072,.08)*4);
+});
 
 test('visible descendants wait for their parent; concurrency and scrolling do not strand workers',()=>{
   const tasks=[task(0,null),task(1,0),task(2,null,3000)],scheduler=new TaskScheduler(tasks,2);
