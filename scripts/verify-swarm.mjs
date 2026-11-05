@@ -189,7 +189,9 @@ try {
   await extraPage.evaluate(()=>sessionStorage.removeItem('springyearn:desktop-swarm-seen'));
   await extraPage.goto(origin+'/whiteboard/',{waitUntil:'load'});await extraPage.locator('.board-sync[data-status=ready]').waitFor({state:'visible'});
   assert.equal(await extraPage.locator('.board-viewport canvas').evaluate(canvas=>!!canvas.closest('[data-swarm-pending]')),false);
-  if(active.includes(await phase(extraPage)))await skip(extraPage);await clean(extraPage);
+  // The board can be ready before the deferred desktop engine starts.
+  await extraPage.waitForFunction(()=>sessionStorage.getItem('springyearn:desktop-swarm-seen')==='1');
+  await extraPage.keyboard.press('Escape');await clean(extraPage);
   const zoom=extraPage.locator('.board-zoom-slider input'),previousZoom=Number(await zoom.inputValue());
   await extraPage.getByRole('button',{name:'Zoom in',exact:true}).click();assert.ok(Number(await zoom.inputValue())>previousZoom);
   results.push({projectFiles:true,publicFiles:7,videoPlayers:2,whiteboardCanvasPreserved:true,whiteboardZoom:true});await extras.close();
