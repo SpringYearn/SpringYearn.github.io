@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {CursorSwarmEngine} from '../app/swarm/engine.ts';
 import {TaskScheduler} from '../app/swarm/scheduler.ts';
-import {BUILD_RATE,buildStep} from '../app/swarm/timing.ts';
+import {BUILD_RATE,buildStep,scrollTempo} from '../app/swarm/timing.ts';
 import {dimensionBadge,mediaProgress,toolBox} from '../app/swarm/choreography.ts';
 
 const task=(id,parent,y=0)=>({id,parent,rect:{x:0,y,width:120,height:80},state:'pending',depth:parent===null?0:1,order:id});
@@ -63,6 +63,16 @@ test('the default build timeline is half V.077 and remains stable at maximum use
   for(const agent of engine.agents){agent.busy=true;engine.activate(agent,{x:400,y:300},1000,800);}
   for(let frame=0;frame<120;frame++)engine.step(.05,1000,800,15);
   for(const agent of engine.agents){assert.ok(Number.isFinite(agent.x));assert.ok(Math.hypot(agent.vx,agent.vy)<=570*agent.pace+.001);}
+});
+
+test('entry speed stays unchanged while newly scrolled content uses a double timeline',()=>{
+  for(const entryTop of [0,2400]){
+    assert.equal(scrollTempo(entryTop,entryTop,1000),1);
+    assert.equal(scrollTempo(entryTop,entryTop+12,1000),1,'small scroll adjustments should not rush the entry');
+    assert.equal(scrollTempo(entryTop,entryTop+650,1000),2);
+    assert.equal(scrollTempo(entryTop,entryTop-650,844),2);
+  }
+  for(const speed of [.5,1,1.5,2,3])assert.equal(buildStep(.016,speed,2),buildStep(.016,speed)*2);
 });
 
 test('a cursor completes batches of three to five tasks, with no idle flock or stranded cooldown',()=>{

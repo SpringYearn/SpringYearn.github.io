@@ -49,9 +49,10 @@ export class AnimationRenderer {
     const y=task.kind==='line'?r.y:scanning?r.y+r.height*.5:box.y+box.height;
     return{x:clamp(x-left,8,this.width-18),y:clamp(y-top,8,this.height-18)};
   }
-  paint(agents:Agent[],jobs:Job[],top:number,left:number,time:number,intro:number){
+  paint(agents:Agent[],jobs:Job[],top:number,left:number,time:number,intro:number,multiplier=1){
     const working=agents.filter(agent=>agent.present);
     this.canvas.dataset.swarmCursorCount=String(working.length);
+    this.canvas.dataset.swarmTempo=String(multiplier);
     this.canvas.dataset.swarmTasks=jobs.map(job=>`${job.task.id}:${job.agent.id}`).join(',');
     this.canvas.dataset.swarmHandoffs=working.filter(agent=>!agent.busy).map(agent=>String(agent.id)).join(',');
     this.canvas.dataset.swarmBatches=working.map(agent=>`${agent.id}:${agent.batch}:${agent.completed}:${agent.quota}`).join(',');
