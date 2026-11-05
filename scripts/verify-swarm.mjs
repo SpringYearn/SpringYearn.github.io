@@ -13,6 +13,19 @@ async function context(options={}){
   const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'no-preference',...options});
   await context.addInitScript(()=>{
     localStorage.setItem('springyearn:language','en');
+    window.__swarmPaint=null;window.__swarmFrames=[];
+    const clear=CanvasRenderingContext2D.prototype.clearRect,translate=CanvasRenderingContext2D.prototype.translate;
+    CanvasRenderingContext2D.prototype.clearRect=function(...args){
+      if(this.canvas.classList.contains('swarm-canvas')){
+        if(window.__swarmPaint){window.__swarmFrames.push(window.__swarmPaint);if(window.__swarmFrames.length>1200)window.__swarmFrames.shift();}
+        window.__swarmPaint={points:[],tasks:(this.canvas.dataset.swarmTasks||'').split(',').filter(Boolean)};
+      }
+      return clear.apply(this,args);
+    };
+    CanvasRenderingContext2D.prototype.translate=function(x,y){
+      if(this.canvas.classList.contains('swarm-canvas'))window.__swarmPaint?.points.push({x,y});
+      return translate.call(this,x,y);
+    };
     window.__swarmAudio=[];
     const Native=window.AudioContext;
     window.AudioContext=class extends Native {
@@ -47,7 +60,7 @@ try {
   page.on('pageerror',error=>errors.push(error.message));
   await page.goto(origin+'/',{waitUntil:'load'});
   await page.waitForFunction(()=>document.querySelector('.swarm-root')?.dataset.swarmPhase==='opening'&&+document.querySelector('.swarm-root').dataset.swarmTotal>0);
-  assert.ok(+await page.locator('.swarm-root').getAttribute('data-swarm-cursors')>=20);
+  assert.equal(+await page.locator('.swarm-root').getAttribute('data-swarm-cursors'),0,'no cursor should gather without a task');
   const before=await signature(page);
   await shot(page,'opening-desktop');
   await page.waitForFunction(()=>[...document.querySelectorAll('.swarm-type-ghost>span')].some(e=>getComputedStyle(e).visibility==='visible'));
@@ -85,6 +98,10 @@ try {
     }),null,{timeout:25000});
     await page.waitForFunction(()=>['waiting','done','ready'].includes(document.querySelector('.swarm-root')?.dataset.swarmPhase),null,{timeout:25000});
     const status=await phase(page);assert.notEqual(status,'ready','build stopped before completion');
+    if(status==='waiting'){
+      assert.equal(await page.locator('.swarm-canvas').getAttribute('data-swarm-cursor-count'),'0','all completed task cursors must disappear');
+      assert.equal(await page.evaluate(()=>window.__swarmPaint.points.length),0,'the actual canvas must paint no idle cursors');
+    }
     const done=+await page.locator('.swarm-root').getAttribute('data-swarm-done');assert.ok(done>=previousDone);previousDone=done;
     if(status==='done')break;
     if(screen===0)await shot(page,'first-screen-built');
@@ -96,6 +113,15 @@ try {
   assert.equal(await phase(page),'done');await clean(page);
   const counts=await page.locator('.swarm-root').evaluate(e=>({done:+e.dataset.swarmDone,total:+e.dataset.swarmTotal}));
   assert.ok(counts.total>50);assert.equal(counts.done,counts.total,'all DOM tasks should complete');assert.ok(screen>3,'lower sections must actually build');
+  const frames=await page.evaluate(()=>window.__swarmFrames);
+  const workingFrames=frames.filter(frame=>frame.tasks.length);
+  assert.ok(workingFrames.length>10);
+  for(const frame of frames){
+    assert.equal(frame.points.length,frame.tasks.length,'one rendered cursor per active task');
+    assert.ok(frame.points.length<=3,'no idle cluster or excessive concurrent work');
+    assert.equal(new Set(frame.tasks.map(pair=>pair.split(':')[0])).size,frame.tasks.length,'a task cannot have two cursors');
+    assert.equal(new Set(frame.tasks.map(pair=>pair.split(':')[1])).size,frame.tasks.length,'a cursor cannot own two tasks');
+  }
   assert.deepEqual(await signature(page),before);
   await shot(page,'completed-desktop');
   await page.getByRole('button',{name:'Replay ↺',exact:true}).click();
@@ -109,12 +135,12 @@ try {
   await page.goto(origin+'/lab/',{waitUntil:'load'});await page.getByRole('button',{name:'Replay ↺',exact:true}).click();await page.waitForFunction(()=>+document.querySelector('.swarm-root').dataset.swarmTotal>30);
   await page.locator('.swarm-root').getByRole('button',{name:'Skip ↗',exact:true}).click();await clean(page);assert.equal(await page.locator('.lab-card').count(),10);
   const build=page.locator('#lab-10 .lab-download-button');await build.scrollIntoViewIfNeeded();await build.click();await page.locator('dialog[open]').waitFor({state:'visible'});await page.keyboard.press('Escape');
-  assert.deepEqual(errors,[]);results.push({desktop:true,...counts,screens:screen,paused:true,glyphAlignment:Math.max(...alignment),replay:true,skip:true,audio:true,resize:true,routeCleanup:true,labDialog:true});await desktop.close();
+  assert.deepEqual(errors,[]);results.push({desktop:true,...counts,screens:screen,taskOwnedCursors:true,noIdleCursors:true,maxVisibleCursors:Math.max(...workingFrames.map(frame=>frame.points.length)),paused:true,glyphAlignment:Math.max(...alignment),replay:true,skip:true,audio:true,resize:true,routeCleanup:true,labDialog:true});await desktop.close();
 
   for(const width of [390,320]){
     const mobile=await context({viewport:{width,height:844},hasTouch:true,isMobile:true}),p=await mobile.newPage();
     await p.goto(origin+'/',{waitUntil:'load'});await p.waitForFunction(()=>+document.querySelector('.swarm-root')?.dataset.swarmTotal>0);
-    assert.ok(+await p.locator('.swarm-root').getAttribute('data-swarm-cursors')<=22);
+    assert.ok(+await p.locator('.swarm-root').getAttribute('data-swarm-cursors')<=2);
     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
     await p.getByRole('combobox',{name:'Speed',exact:true}).selectOption('3');
     await p.evaluate(()=>scrollTo({top:innerHeight*2,behavior:'instant'}));

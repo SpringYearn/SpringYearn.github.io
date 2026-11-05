@@ -3,6 +3,7 @@ import { CursorSwarmEngine } from './engine';
 import { TaskScheduler } from './scheduler';
 import { AnimationRenderer } from './renderer';
 import { SwarmAudio } from './audio';
+import { BUILD_RATE, INTRO_DURATION, buildStep } from './timing';
 import type { BuilderPhase, BuilderSnapshot, BuildTask, Job } from './types';
 
 type DeviceNavigator=Navigator&{deviceMemory?:number;connection?:{saveData?:boolean}};
@@ -23,9 +24,9 @@ export class SwarmController {
   constructor(private root:HTMLElement,host:HTMLElement,private report:(snapshot:BuilderSnapshot)=>void,speed=1){
     this.speed=speed;const device=navigator as DeviceNavigator,small=innerWidth<700;
     const limited=(device.hardwareConcurrency||8)<=4||(device.deviceMemory??8)<=4||device.connection?.saveData;
-    this.engine=new CursorSwarmEngine(limited?14:small?22:32,{x:innerWidth/2,y:innerHeight*.43});
+    this.engine=new CursorSwarmEngine(limited?1:small?2:3,{x:innerWidth/2,y:innerHeight*.43});
     this.renderer=new AnimationRenderer(host);
-    this.observer=new ResizeObserver(()=>{this.layoutDirty=true;});this.observer.observe(root);
+    this.observer=new ResizeObserver(()=>{this.layoutDirty=true;this.request();});this.observer.observe(root);
     this.mutations=new MutationObserver(records=>{
       if(!this.prepared)return;
       const relevant=records.some(record=>{
@@ -34,7 +35,7 @@ export class SwarmController {
       });
       if(relevant)this.finish('ready');
     });
-    window.addEventListener('scroll',this.scroll,{passive:true});window.addEventListener('resize',this.resize,{passive:true});
+    window.addEventListener('scroll',this.scroll,{passive:true,capture:true});window.addEventListener('resize',this.resize,{passive:true});
     window.addEventListener('keydown',this.keyboard);document.addEventListener('visibilitychange',this.visibility);
     this.reduced.addEventListener('change',this.preference);document.fonts.addEventListener('loadingdone',this.fonts);
     document.documentElement.classList.add('swarm-building');
@@ -49,13 +50,13 @@ export class SwarmController {
       // Settle reveal transforms before reading the complete document in one pass.
       await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));if(!this.alive)return;
       const tasks=this.analyzer.analyze(this.root);if(!tasks.length){this.finish('done');return;}
-      this.scheduler=new TaskScheduler(tasks,innerWidth<700?4:7);this.analyzer.conceal();this.prepared=true;
+      this.scheduler=new TaskScheduler(tasks,innerWidth<700?2:3);this.analyzer.conceal();this.prepared=true;
       this.mutations.observe(this.root,{subtree:true,childList:true,characterData:true});
       window.clearTimeout(this.startupTimer);window.clearTimeout(this.fontTimer);
     }catch{this.finish('ready');}
   }
   private emit(phase:BuilderPhase){
-    this.report({phase,done:this.scheduler?.done??0,total:this.scheduler?.tasks.length??0,cursors:this.engine.agents.length,speed:this.speed,sound:this.sound});
+    this.report({phase,done:this.scheduler?.done??0,total:this.scheduler?.tasks.length??0,cursors:this.scheduler?.jobs.length??0,speed:this.speed,sound:this.sound});
   }
   private request(){if(this.alive&&!this.paused&&!document.hidden&&!this.frame)this.frame=requestAnimationFrame(this.tick);}
   private scroll=()=>{this.scrollDirty=true;this.request();};
@@ -64,21 +65,21 @@ export class SwarmController {
   private keyboard=(event:KeyboardEvent)=>{if(event.key==='Escape')this.finish('done');};
   private preference=()=>{if(this.reduced.matches)this.finish('reduced');};
   private visibility=()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;this.previous=0;}else this.request();};
-  togglePause(){this.paused=!this.paused;this.previous=0;if(this.paused){cancelAnimationFrame(this.frame);this.frame=0;this.emit('paused');}else{this.emit(this.intro<1.4?'opening':'building');this.request();}}
-  setSpeed(speed:number){this.speed=clamp(speed,.5,3);this.emit(this.paused?'paused':this.intro<1.4?'opening':'building');}
-  setSound(enabled:boolean){this.audio.setEnabled(enabled);this.sound=this.audio.enabled;this.emit(this.paused?'paused':this.intro<1.4?'opening':'building');if(enabled)this.audio.play('click');}
+  togglePause(){this.paused=!this.paused;this.previous=0;if(this.paused){cancelAnimationFrame(this.frame);this.frame=0;this.emit('paused');}else{this.emit(this.intro<INTRO_DURATION?'opening':'building');this.request();}}
+  setSpeed(speed:number){this.speed=clamp(speed,.5,3);this.emit(this.paused?'paused':this.intro<INTRO_DURATION?'opening':'building');}
+  setSound(enabled:boolean){this.audio.setEnabled(enabled);this.sound=this.audio.enabled;this.emit(this.paused?'paused':this.intro<INTRO_DURATION?'opening':'building');if(enabled)this.audio.play('click');}
 
   private tick=(now:number)=>{
     this.frame=0;if(!this.alive||this.paused||document.hidden)return;
     try{
       const raw=this.previous?now-this.previous:16;this.previous=now;
       this.average=this.average*.96+raw*.04;this.samples++;
-      if(this.samples%120===0&&this.average>27)this.engine.reduce(Math.max(10,this.engine.agents.length-4));
-      const delta=Math.min(.05,raw/1000),step=delta*this.speed;this.clock+=step;
-      if(this.prepared)this.intro=Math.min(1.4,this.intro+step);
+      if(this.samples%120===0&&this.average>27)this.engine.reduce(Math.max(1,this.engine.agents.length-1));
+      const delta=Math.min(.05,raw/1000),step=buildStep(delta,this.speed);this.clock+=step;
+      if(this.prepared)this.intro=Math.min(INTRO_DURATION,this.intro+step);
       const top=scrollY,left=scrollX,height=innerHeight,width=innerWidth,scheduler=this.scheduler;
       const dropping:Job[]=[];let passed:BuildTask[]=[];
-      if(scheduler&&this.prepared&&this.intro>=1.4){
+      if(scheduler&&this.prepared&&this.intro>=INTRO_DURATION){
         if(this.layoutDirty){
           this.analyzer.measure();
           for(const job of [...scheduler.jobs]){scheduler.suspend(job);dropping.push(job);}
@@ -95,12 +96,15 @@ export class SwarmController {
         const glyphs=created.map(job=>({job,glyphs:job.task.kind==='text'?measureGlyphs(job.task):[]}));
         for(const job of dropping)this.renderer.drop(job.task);
         for(const task of passed){this.renderer.drop(task);this.analyzer.reveal(task);}
-        for(const item of glyphs)this.renderer.begin(item.job.task,item.glyphs);
+        for(const item of glyphs){
+          this.renderer.begin(item.job.task,item.glyphs);
+          this.engine.activate(item.job.agent,this.renderer.goal(item.job,top,left),width,height);
+        }
         for(const job of [...scheduler.jobs]){
           if(!job.task.element.isConnected){this.renderer.drop(job.task);scheduler.finish(job);continue;}
           const goal=this.renderer.goal(job,top,left);job.agent.goal=goal;job.travel+=step;
-          if(!job.arrived&&(Math.hypot(job.agent.x-goal.x,job.agent.y-goal.y)<32||job.travel>2.2)){
-            job.arrived=true;this.audio.play('click',job.agent.x/width);
+          if(!job.arrived&&(Math.hypot(job.agent.x-goal.x,job.agent.y-goal.y)<10||job.travel>.7)){
+            job.arrived=true;job.agent.working=true;this.audio.play('click',job.agent.x/width);
           }
           if(job.arrived){
             const before=job.progress;job.elapsed+=step;job.progress=Math.min(1,job.elapsed/job.task.duration);
@@ -112,10 +116,15 @@ export class SwarmController {
         }
         if(scheduler.complete){this.audio.play('complete');this.finish('done');return;}
       }
-      const jobs=scheduler?.jobs??[],focus=jobs[0]?.agent.goal??{x:width*.5,y:Math.min(height*.43,height-150)};
-      this.engine.step(delta,width,height,focus,this.speed);
-      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,this.intro/1.4);
-      if(now-this.lastReport>220){this.lastReport=now;this.emit(this.intro<1.4?'opening':jobs.length?'building':'waiting');}
+      const jobs=scheduler?.jobs??[];
+      // Progress changed above; update the owned handle before painting this frame.
+      for(const job of jobs)job.agent.goal=this.renderer.goal(job,top,left);
+      this.engine.step(delta,width,height,this.speed*BUILD_RATE);
+      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,this.intro/INTRO_DURATION);
+      // Finishing a parent may unlock its children on the next frame.
+      const hasWork=jobs.length>0||scheduler?.tasks.some(task=>scheduler.ready(task)&&scheduler.visible(task,top,height,width,left));
+      if(this.prepared&&this.intro>=INTRO_DURATION&&!hasWork){this.previous=0;this.emit('waiting');return;}
+      if(now-this.lastReport>100){this.lastReport=now;this.emit(this.intro<INTRO_DURATION?'opening':hasWork?'building':'waiting');}
       this.request();
     }catch{this.finish('ready');}
   };
@@ -124,8 +133,9 @@ export class SwarmController {
     if(!this.alive)return;this.alive=false;cancelAnimationFrame(this.frame);this.frame=0;
     window.clearTimeout(this.startupTimer);window.clearTimeout(this.fontTimer);
     this.observer.disconnect();this.mutations.disconnect();
-    window.removeEventListener('scroll',this.scroll);window.removeEventListener('resize',this.resize);window.removeEventListener('keydown',this.keyboard);
+    window.removeEventListener('scroll',this.scroll,true);window.removeEventListener('resize',this.resize);window.removeEventListener('keydown',this.keyboard);
     document.removeEventListener('visibilitychange',this.visibility);this.reduced.removeEventListener('change',this.preference);document.fonts.removeEventListener('loadingdone',this.fonts);
+    for(const job of [...this.scheduler?.jobs??[]])this.scheduler?.suspend(job);
     this.analyzer.restore();this.renderer.dispose();this.audio.dispose();document.documentElement.classList.remove('swarm-building');this.emit(phase);
   }
 }

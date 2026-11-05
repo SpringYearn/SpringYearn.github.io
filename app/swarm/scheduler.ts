@@ -23,7 +23,7 @@ export class TaskScheduler {
     const created: Job[] = [];
     for (const task of available) {
       if (this.jobs.length >= this.limit) break;
-      const agent = agents.filter(agent => !agent.busy).sort((a,b) => Math.hypot(a.x-task.rect.x,a.y-(task.rect.y-top))-Math.hypot(b.x-task.rect.x,b.y-(task.rect.y-top)))[0];
+      const agent = agents.find(agent => !agent.busy && agent.id === task.id % agents.length) ?? agents.find(agent => !agent.busy);
       if (!agent) break;
       agent.busy = true; task.state = 'active';
       const job = { task, agent, elapsed: 0, travel: 0, arrived: false, progress: 0 };
@@ -32,8 +32,9 @@ export class TaskScheduler {
     return created;
   }
 
-  finish(job: Job) { job.task.state = 'done'; job.agent.busy = false; this.jobs = this.jobs.filter(current => current !== job); }
-  suspend(job: Job) { job.task.state = 'pending'; job.agent.busy = false; this.jobs = this.jobs.filter(current => current !== job); }
+  private release(job:Job){job.agent.busy=false;job.agent.working=false;job.agent.vx=0;job.agent.vy=0;job.agent.trail=[];this.jobs=this.jobs.filter(current=>current!==job);}
+  finish(job: Job) { job.task.state = 'done'; this.release(job); }
+  suspend(job: Job) { job.task.state = 'pending'; this.release(job); }
   passed(top: number) {
     const passed = this.tasks.filter(task => task.state !== 'done' && task.rect.y + task.rect.height < top - 80);
     for (const task of passed) {

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v077.note",
+    "en": "Made build cursors task-specific and sped up the animation.",
+    "zh": "讓建造游標各自對應元素，並加快動畫。",
+    "ja": "各カーソルを担当要素に対応させ、アニメーションを速くしました。",
+    "ko": "커서가 각 요소를 담당하도록 바꾸고 애니메이션 속도를 높였어요.",
+    "ru": "Курсоры закреплены за отдельными элементами, а анимация ускорена.",
+    "vi": "Mỗi con trỏ phụ trách một phần tử và hoạt ảnh được tăng tốc."
+  }
+]
