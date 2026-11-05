@@ -1,0 +1,30 @@
+export type Point = { x: number; y: number };
+export type Box = Point & { width: number; height: number };
+export type TaskKind = "frame" | "text" | "image" | "line";
+export type Operation = "draw" | "type" | "scan" | "align" | "duplicate";
+export type TaskState = "pending" | "active" | "done";
+export type BuildTask = {
+  id: number;
+  element: HTMLElement | SVGElement;
+  kind: TaskKind;
+  operation: Operation;
+  nodes: Text[];
+  rect: Box;
+  clip: Box | null;
+  clipElement: HTMLElement | null;
+  parent: number | null;
+  source: number | null;
+  depth: number;
+  order: number;
+  priority: number;
+  state: TaskState;
+  duration: number;
+};
+export type Agent = Point & {
+  id: number; vx: number; vy: number; goal: Point; color: string;
+  phase: number; pace: number; busy: boolean; trail: Point[];
+};
+export type Job = { task: BuildTask; agent: Agent; elapsed: number; travel: number; arrived: boolean; progress: number };
+export type Glyph = { text: string; x: number; y: number; width: number; height: number; font: string; color: string; spacing: string };
+export type BuilderPhase = "ready" | "opening" | "building" | "waiting" | "paused" | "done" | "reduced";
+export type BuilderSnapshot = { phase: BuilderPhase; done: number; total: number; cursors: number; speed: number; sound: boolean };

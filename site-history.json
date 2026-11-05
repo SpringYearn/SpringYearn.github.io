@@ -4,13 +4,23 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Aligned the handwritten LAB note above the crossed-out subject."
+      "Added an interactive cursor swarm that builds the page as you scroll."
     ],
     "zh": [
-      "將 LAB 手寫註記對準紅叉上方。"
+      "新增隨捲動建造頁面的互動游標群集。"
     ]
   },
   "releases": [
+    {
+      "version": "V.076",
+      "date": "2026-11-05",
+      "en": [
+        "Added an interactive cursor swarm that builds the page as you scroll."
+      ],
+      "zh": [
+        "新增隨捲動建造頁面的互動游標群集。"
+      ]
+    },
     {
       "version": "V.075",
       "date": "2026-10-30",

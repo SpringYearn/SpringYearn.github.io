@@ -5,6 +5,7 @@ import { DeviceTiltControl } from "./device-tilt-control";
 import { InteractionAudio } from "./interaction-audio";
 import { PointerBurst } from "./pointer-burst";
 import { ScreenRipple } from "./screen-ripple";
+import { SwarmWebsiteBuilder } from "./swarm/swarm-website-builder";
 import { SiteLanguageProvider } from "./site-language";
 import "./globals.css";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
         <PointerBurst />
         <ScreenRipple />
         <InteractionAudio />
+        <SwarmWebsiteBuilder />
         </SiteLanguageProvider>
       </body>
     </html>
