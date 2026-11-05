@@ -41,11 +41,19 @@ export class AnimationRenderer {
     const {task,progress:p}=job,r=task.rect;
     if(task.kind==='text'){
       const glyphs=this.glyphs(task),glyph=glyphs[Math.max(0,Math.min(glyphs.length-1,Math.floor(p*glyphs.length)-1))];
-      if(glyph)return{x:clamp(r.x+glyph.x+glyph.width-left,8,this.width-18),y:clamp(r.y+glyph.y+glyph.height-top,8,this.height-18)};
+      if(glyph)return{x:clamp(r.x+glyph.x+glyph.width-left+4,8,this.width-18),y:clamp(r.y+glyph.y+glyph.height*.7-top,8,this.height-18)};
     }
-    return{x:clamp(r.x+r.width*(job.arrived?p:0)-left,8,this.width-18),y:clamp(r.y+(task.kind==='image'?r.height*.5:r.height*(job.arrived?p:0))-top,8,this.height-18)};
+    const drawn=job.arrived?clamp(p/.38,0,1):0;
+    const scanning=task.kind==='image'&&p>=.3;
+    const drift=task.operation==='duplicate'?(1-drawn)*18:0;
+    const x=task.kind==='line'?r.width*p:scanning?r.width*clamp((p-.3)/.7,0,1):r.width*drawn+drift;
+    const y=task.kind==='line'?0:scanning?r.height*.5:r.height*drawn-drift;
+    return{x:clamp(r.x+x-left,8,this.width-18),y:clamp(r.y+y-top,8,this.height-18)};
   }
   paint(agents:Agent[],jobs:Job[],top:number,left:number,time:number,intro:number){
+    const working=agents.filter(agent=>agent.busy);
+    this.canvas.dataset.swarmCursorCount=String(working.length);
+    this.canvas.dataset.swarmTasks=jobs.map(job=>`${job.task.id}:${job.agent.id}`).join(',');
     const c=this.context;c.clearRect(0,0,this.width,this.height);
     this.opening.style.opacity=String(1-clamp((intro-.65)/.35,0,1));
     this.opening.style.visibility=intro>=1?'hidden':'visible';
@@ -65,15 +73,14 @@ export class AnimationRenderer {
       if(job.task.clip){const clip=job.task.clip;c.beginPath();c.rect(clip.x-left,clip.y-top,clip.width,clip.height);c.clip();}
       this.paintTask(job,r,time);c.restore();
     }
-    for(const agent of agents){
+    for(const agent of working){
       if(agent.trail.length>1&&Math.hypot(agent.vx,agent.vy)>45){
         c.beginPath();agent.trail.forEach((point,index)=>index?c.lineTo(point.x,point.y):c.moveTo(point.x,point.y));
         c.strokeStyle=agent.color;c.globalAlpha=.17;c.lineWidth=1;c.stroke();
       }
       c.save();c.translate(agent.x,agent.y);c.rotate(Math.sin(agent.phase+time*.3)*.06);
       c.beginPath();c.moveTo(0,0);c.lineTo(3.5,17);c.lineTo(8,11);c.lineTo(15,11);c.closePath();
-      c.fillStyle=agent.color;c.strokeStyle=intro<1?'#172326':'#f7f8f5';c.lineWidth=1.25;c.globalAlpha=agent.busy||intro<1?.98:.52;c.fill();c.stroke();
-      if(agent.busy){c.font='9px monospace';c.fillStyle='#243536';c.globalAlpha=.9;c.fillText(String(agent.id+1).padStart(2,'0'),17,18);}
+      c.fillStyle=agent.color;c.strokeStyle='#f7f8f5';c.lineWidth=1.25;c.globalAlpha=.98;c.fill();c.stroke();
       c.restore();
     }
     c.globalAlpha=1;

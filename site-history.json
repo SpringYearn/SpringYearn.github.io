@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added an interactive cursor swarm that builds the page as you scroll."
+      "Made build cursors task-specific and sped up the animation."
     ],
     "zh": [
-      "新增隨捲動建造頁面的互動游標群集。"
+      "讓建造游標各自對應元素，並加快動畫。"
     ]
   },
   "releases": [
+    {
+      "version": "V.077",
+      "date": "2026-11-06",
+      "en": ["Made build cursors task-specific and sped up the animation."],
+      "zh": ["讓建造游標各自對應元素，並加快動畫。"]
+    },
     {
       "version": "V.076",
       "date": "2026-11-05",

@@ -22,7 +22,7 @@ export type BuildTask = {
 };
 export type Agent = Point & {
   id: number; vx: number; vy: number; goal: Point; color: string;
-  phase: number; pace: number; busy: boolean; trail: Point[];
+  phase: number; pace: number; busy: boolean; working: boolean; trail: Point[];
 };
 export type Job = { task: BuildTask; agent: Agent; elapsed: number; travel: number; arrived: boolean; progress: number };
 export type Glyph = { text: string; x: number; y: number; width: number; height: number; font: string; color: string; spacing: string };
