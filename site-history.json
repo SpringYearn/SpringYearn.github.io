@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made the build animation desktop-only, simplified Skip and added mouse and keyboard sounds."
+      "Fixed the cursor being hidden behind Skip."
     ],
     "zh": [
-      "建造動畫改為電腦限定，簡化略過按鈕並更新操作音效。"
+      "修正略過按鈕遮擋游標。"
     ]
   },
   "releases": [
+    {
+      "version": "V.081",
+      "date": "2026-11-06",
+      "en": ["Fixed the cursor being hidden behind Skip."],
+      "zh": ["修正略過按鈕遮擋游標。"]
+    },
     {
       "version": "V.080",
       "date": "2026-11-06",
