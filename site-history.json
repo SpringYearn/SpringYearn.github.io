@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made build cursors task-specific and sped up the animation."
+      "Refined build timing, tool visuals and cursor continuity."
     ],
     "zh": [
-      "讓建造游標各自對應元素，並加快動畫。"
+      "調整建造動畫節奏、工具視覺與游標連續操作。"
     ]
   },
   "releases": [
+    {
+      "version": "V.078",
+      "date": "2026-11-06",
+      "en": ["Refined build timing, tool visuals and cursor continuity."],
+      "zh": ["調整建造動畫節奏、工具視覺與游標連續操作。"]
+    },
     {
       "version": "V.077",
       "date": "2026-11-06",

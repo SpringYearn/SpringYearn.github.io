@@ -4,6 +4,7 @@ import { TaskScheduler } from './scheduler';
 import { AnimationRenderer } from './renderer';
 import { SwarmAudio } from './audio';
 import { BUILD_RATE, INTRO_DURATION, buildStep } from './timing';
+import { mediaProgress, SCAN_START } from './choreography';
 import type { BuilderPhase, BuilderSnapshot, BuildTask, Job } from './types';
 
 type DeviceNavigator=Navigator&{deviceMemory?:number;connection?:{saveData?:boolean}};
@@ -56,7 +57,7 @@ export class SwarmController {
     }catch{this.finish('ready');}
   }
   private emit(phase:BuilderPhase){
-    this.report({phase,done:this.scheduler?.done??0,total:this.scheduler?.tasks.length??0,cursors:this.scheduler?.jobs.length??0,speed:this.speed,sound:this.sound});
+    this.report({phase,done:this.scheduler?.done??0,total:this.scheduler?.tasks.length??0,cursors:this.engine.agents.filter(agent=>agent.present).length,speed:this.speed,sound:this.sound});
   }
   private request(){if(this.alive&&!this.paused&&!document.hidden&&!this.frame)this.frame=requestAnimationFrame(this.tick);}
   private scroll=()=>{this.scrollDirty=true;this.request();};
@@ -91,27 +92,27 @@ export class SwarmController {
         this.scrollDirty=false;
         passed.push(...scheduler.passed(top));
         for(const job of [...scheduler.jobs])if(!scheduler.visible(job.task,top,height,width,left)){scheduler.suspend(job);dropping.push(job);}
-        const created=scheduler.assign(this.engine.agents,top,height,width,left);
+        const created=scheduler.assign(this.engine.agents,top,height,width,left,this.clock);
         // Read all newly assigned glyph geometry before changing any DOM styles.
         const glyphs=created.map(job=>({job,glyphs:job.task.kind==='text'?measureGlyphs(job.task):[]}));
         for(const job of dropping)this.renderer.drop(job.task);
         for(const task of passed){this.renderer.drop(task);this.analyzer.reveal(task);}
         for(const item of glyphs){
           this.renderer.begin(item.job.task,item.glyphs);
-          this.engine.activate(item.job.agent,this.renderer.goal(item.job,top,left),width,height);
+          this.engine.activate(item.job.agent,this.renderer.goal(item.job,top,left),width,height,item.job.continuing);
         }
         for(const job of [...scheduler.jobs]){
-          if(!job.task.element.isConnected){this.renderer.drop(job.task);scheduler.finish(job);continue;}
+          if(!job.task.element.isConnected){this.renderer.drop(job.task);scheduler.suspend(job);job.task.state='done';continue;}
           const goal=this.renderer.goal(job,top,left);job.agent.goal=goal;job.travel+=step;
-          if(!job.arrived&&(Math.hypot(job.agent.x-goal.x,job.agent.y-goal.y)<10||job.travel>.7)){
+          if(!job.arrived&&(Math.hypot(job.agent.x-goal.x,job.agent.y-goal.y)<10||job.travel>(job.continuing?2.2:.7))){
             job.arrived=true;job.agent.working=true;this.audio.play('click',job.agent.x/width);
           }
           if(job.arrived){
             const before=job.progress;job.elapsed+=step;job.progress=Math.min(1,job.elapsed/job.task.duration);
             if(job.task.kind==='text'&&Math.floor(before*100)!==Math.floor(job.progress*100))this.audio.play('type',job.agent.x/width);
             else if(job.task.kind!=='text')this.audio.play('drag',job.agent.x/width);
-            if(job.task.kind==='image'&&job.progress>.3)this.analyzer.scan(job.task,clamp((job.progress-.3)/.7,0,1));
-            if(job.progress>=1){this.renderer.drop(job.task);this.analyzer.reveal(job.task);scheduler.finish(job);this.audio.play('snap',job.agent.x/width);}
+            if(job.task.kind==='image'&&job.progress>SCAN_START)this.analyzer.scan(job.task,mediaProgress(job.progress));
+            if(job.progress>=1){this.renderer.drop(job.task);this.analyzer.reveal(job.task);scheduler.finish(job,this.clock);this.audio.play('snap',job.agent.x/width);}
           }
         }
         if(scheduler.complete){this.audio.play('complete');this.finish('done');return;}
@@ -119,10 +120,11 @@ export class SwarmController {
       const jobs=scheduler?.jobs??[];
       // Progress changed above; update the owned handle before painting this frame.
       for(const job of jobs)job.agent.goal=this.renderer.goal(job,top,left);
-      this.engine.step(delta,width,height,this.speed*BUILD_RATE);
-      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,this.intro/INTRO_DURATION);
       // Finishing a parent may unlock its children on the next frame.
       const hasWork=jobs.length>0||scheduler?.tasks.some(task=>scheduler.ready(task)&&scheduler.visible(task,top,height,width,left));
+      scheduler?.retireIdle(this.engine.agents,this.clock,!!hasWork);
+      this.engine.step(delta,width,height,this.speed*BUILD_RATE);
+      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,this.intro/INTRO_DURATION);
       if(this.prepared&&this.intro>=INTRO_DURATION&&!hasWork){this.previous=0;this.emit('waiting');return;}
       if(now-this.lastReport>100){this.lastReport=now;this.emit(this.intro<INTRO_DURATION?'opening':hasWork?'building':'waiting');}
       this.request();
@@ -136,6 +138,7 @@ export class SwarmController {
     window.removeEventListener('scroll',this.scroll,true);window.removeEventListener('resize',this.resize);window.removeEventListener('keydown',this.keyboard);
     document.removeEventListener('visibilitychange',this.visibility);this.reduced.removeEventListener('change',this.preference);document.fonts.removeEventListener('loadingdone',this.fonts);
     for(const job of [...this.scheduler?.jobs??[]])this.scheduler?.suspend(job);
+    this.scheduler?.retireIdle(this.engine.agents,this.clock,false);
     this.analyzer.restore();this.renderer.dispose();this.audio.dispose();document.documentElement.classList.remove('swarm-building');this.emit(phase);
   }
 }
