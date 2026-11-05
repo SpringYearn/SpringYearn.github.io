@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v076.note",
+    "en": "Added an interactive cursor swarm that builds the page as you scroll.",
+    "zh": "新增隨捲動建造頁面的互動游標群集。",
+    "ja": "スクロールに合わせてページを作るカーソル群のアニメーションを追加しました。",
+    "ko": "스크롤에 맞춰 페이지를 만드는 커서 무리 애니메이션을 추가했어요.",
+    "ru": "Добавлен интерактивный рой курсоров, собирающий страницу при прокрутке.",
+    "vi": "Thêm nhóm con trỏ tương tác xây dựng trang khi cuộn."
+  }
+]
