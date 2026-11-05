@@ -3,7 +3,7 @@ import { CursorSwarmEngine } from './engine';
 import { TaskScheduler } from './scheduler';
 import { AnimationRenderer } from './renderer';
 import { SwarmAudio } from './audio';
-import { BUILD_RATE, INTRO_DURATION, buildStep } from './timing';
+import { BUILD_RATE, INTRO_DURATION, SCROLL_MULTIPLIER, buildStep, scrollTempo } from './timing';
 import { mediaProgress, SCAN_START } from './choreography';
 import type { BuilderPhase, BuilderSnapshot, BuildTask, Job } from './types';
 
@@ -19,6 +19,7 @@ export class SwarmController {
   private frame=0;private previous=0;private intro=0;private clock=0;private prepared=false;private alive=true;private paused=false;
   private layoutDirty=false;private scrollDirty=false;private lastReport=0;private average=16;private samples=0;
   private lastMeasure=0;
+  private entryTop=scrollY;private fasterAfterScroll=false;
   private observer:ResizeObserver;private mutations:MutationObserver;private reduced=matchMedia('(prefers-reduced-motion: reduce)');
   private startupTimer=0;private fontTimer=0;
   speed=1;sound=false;
@@ -60,7 +61,10 @@ export class SwarmController {
     this.report({phase,done:this.scheduler?.done??0,total:this.scheduler?.tasks.length??0,cursors:this.engine.agents.filter(agent=>agent.present).length,speed:this.speed,sound:this.sound});
   }
   private request(){if(this.alive&&!this.paused&&!document.hidden&&!this.frame)this.frame=requestAnimationFrame(this.tick);}
-  private scroll=()=>{this.scrollDirty=true;this.request();};
+  private scroll=()=>{
+    if(scrollTempo(this.entryTop,scrollY,innerHeight)>1)this.fasterAfterScroll=true;
+    this.scrollDirty=true;this.request();
+  };
   private resize=()=>{this.layoutDirty=true;this.renderer.resize();this.request();};
   private fonts=()=>{this.layoutDirty=true;this.request();};
   private keyboard=(event:KeyboardEvent)=>{if(event.key==='Escape')this.finish('done');};
@@ -76,8 +80,10 @@ export class SwarmController {
       const raw=this.previous?now-this.previous:16;this.previous=now;
       this.average=this.average*.96+raw*.04;this.samples++;
       if(this.samples%120===0&&this.average>27)this.engine.reduce(Math.max(1,this.engine.agents.length-1));
-      const delta=Math.min(.05,raw/1000),step=buildStep(delta,this.speed);this.clock+=step;
-      if(this.prepared)this.intro=Math.min(INTRO_DURATION,this.intro+step);
+      const multiplier=this.intro>=INTRO_DURATION&&this.fasterAfterScroll?SCROLL_MULTIPLIER:1;
+      const delta=Math.min(.05,raw/1000),step=buildStep(delta,this.speed,multiplier);this.clock+=step;
+      // The opening always keeps the entry pace, even if someone scrolls early.
+      if(this.prepared)this.intro=Math.min(INTRO_DURATION,this.intro+buildStep(delta,this.speed));
       const top=scrollY,left=scrollX,height=innerHeight,width=innerWidth,scheduler=this.scheduler;
       const dropping:Job[]=[];let passed:BuildTask[]=[];
       if(scheduler&&this.prepared&&this.intro>=INTRO_DURATION){
@@ -123,8 +129,8 @@ export class SwarmController {
       // Finishing a parent may unlock its children on the next frame.
       const hasWork=jobs.length>0||scheduler?.tasks.some(task=>scheduler.ready(task)&&scheduler.visible(task,top,height,width,left));
       scheduler?.retireIdle(this.engine.agents,this.clock,!!hasWork);
-      this.engine.step(delta,width,height,this.speed*BUILD_RATE);
-      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,this.intro/INTRO_DURATION);
+      this.engine.step(delta,width,height,this.speed*BUILD_RATE*multiplier);
+      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,this.intro/INTRO_DURATION,multiplier);
       if(this.prepared&&this.intro>=INTRO_DURATION&&!hasWork){this.previous=0;this.emit('waiting');return;}
       if(now-this.lastReport>100){this.lastReport=now;this.emit(this.intro<INTRO_DURATION?'opening':hasWork?'building':'waiting');}
       this.request();

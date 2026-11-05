@@ -13,12 +13,13 @@ async function context(options={}){
   const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'no-preference',...options});
   await context.addInitScript(()=>{
     localStorage.setItem('springyearn:language','en');
-    window.__swarmPaint=null;window.__swarmFrames=[];window.__swarmTools={};
+    window.__swarmPaint=null;window.__swarmFrames=[];window.__swarmTools={};window.__swarmTempos=[];
     const clear=CanvasRenderingContext2D.prototype.clearRect,translate=CanvasRenderingContext2D.prototype.translate;
     CanvasRenderingContext2D.prototype.clearRect=function(...args){
       if(this.canvas.classList.contains('swarm-canvas')){
         if(window.__swarmPaint){window.__swarmFrames.push(window.__swarmPaint);if(window.__swarmFrames.length>1200)window.__swarmFrames.shift();}
-        window.__swarmPaint={points:[],tasks:(this.canvas.dataset.swarmTasks||'').split(',').filter(Boolean),handoffs:(this.canvas.dataset.swarmHandoffs||'').split(',').filter(Boolean),batches:(this.canvas.dataset.swarmBatches||'').split(',').filter(Boolean)};
+        window.__swarmPaint={tempo:Number(this.canvas.dataset.swarmTempo),points:[],tasks:(this.canvas.dataset.swarmTasks||'').split(',').filter(Boolean),handoffs:(this.canvas.dataset.swarmHandoffs||'').split(',').filter(Boolean),batches:(this.canvas.dataset.swarmBatches||'').split(',').filter(Boolean)};
+        if(window.__swarmPaint.tasks.length&&!window.__swarmTempos.includes(window.__swarmPaint.tempo))window.__swarmTempos.push(window.__swarmPaint.tempo);
       }
       return clear.apply(this,args);
     };
@@ -118,9 +119,10 @@ try {
     }
     const done=+await page.locator('.swarm-root').getAttribute('data-swarm-done');assert.ok(done>=previousDone);previousDone=done;
     if(status==='done')break;
-    if(screen===0)await shot(page,'first-screen-built');
+    if(screen===0){assert.equal(await page.locator('.swarm-canvas').getAttribute('data-swarm-tempo'),'1','entry should retain its current pace');await shot(page,'first-screen-built');}
     await page.evaluate(()=>scrollBy({top:innerHeight*.65,behavior:'instant'}));
     await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+    if(screen===0)await page.waitForFunction(()=>document.querySelector('.swarm-canvas')?.dataset.swarmTempo==='2');
     console.log('viewport',screen,'completed',done);
     if(screen===3)await shot(page,'building-lower-section');screen++;
   }
@@ -130,6 +132,7 @@ try {
   const frames=await page.evaluate(()=>window.__swarmFrames);
   const workingFrames=frames.filter(frame=>frame.tasks.length);
   assert.ok(workingFrames.length>10);
+  assert.deepEqual((await page.evaluate(()=>window.__swarmTempos)).sort(),[1,2],'both entry and faster scroll construction should actually render');
   const batches=new Map();
   for(const frame of frames){
     assert.equal(frame.points.length,frame.tasks.length+frame.handoffs.length,'only task owners and brief batch handoffs may be painted');
@@ -161,7 +164,7 @@ try {
   await page.goto(origin+'/lab/',{waitUntil:'load'});await page.getByRole('button',{name:'Replay ↺',exact:true}).click();await page.waitForFunction(()=>+document.querySelector('.swarm-root').dataset.swarmTotal>30);
   await page.locator('.swarm-root').getByRole('button',{name:'Skip ↗',exact:true}).click();await clean(page);assert.equal(await page.locator('.lab-card').count(),10);
   const build=page.locator('#lab-10 .lab-download-button');await build.scrollIntoViewIfNeeded();await build.click();await page.locator('dialog[open]').waitFor({state:'visible'});await page.keyboard.press('Escape');
-  assert.deepEqual(errors,[]);results.push({desktop:true,...counts,screens:screen,taskOwnedCursors:true,cursorBatches:true,noIdleCursors:true,tools,maxVisibleCursors:Math.max(...workingFrames.map(frame=>frame.points.length)),paused:true,glyphAlignment:Math.max(...alignment),replay:true,skip:true,audio:true,resize:true,routeCleanup:true,labDialog:true});await desktop.close();
+  assert.deepEqual(errors,[]);results.push({desktop:true,...counts,screens:screen,entryPacePreserved:true,scrollSpeedMultiplier:2,taskOwnedCursors:true,cursorBatches:true,noIdleCursors:true,tools,maxVisibleCursors:Math.max(...workingFrames.map(frame=>frame.points.length)),paused:true,glyphAlignment:Math.max(...alignment),replay:true,skip:true,audio:true,resize:true,routeCleanup:true,labDialog:true});await desktop.close();
 
   for(const width of [390,320]){
     const mobile=await context({viewport:{width,height:844},hasTouch:true,isMobile:true}),p=await mobile.newPage();

@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Refined build timing, tool visuals and cursor continuity."
+      "Kept the opening pace and sped up building after scrolling."
     ],
     "zh": [
-      "調整建造動畫節奏、工具視覺與游標連續操作。"
+      "保留開場節奏，加快捲動後的建造動畫。"
     ]
   },
   "releases": [
+    {
+      "version": "V.079",
+      "date": "2026-11-06",
+      "en": ["Kept the opening pace and sped up building after scrolling."],
+      "zh": ["保留開場節奏，加快捲動後的建造動畫。"]
+    },
     {
       "version": "V.078",
       "date": "2026-11-06",
