@@ -5,6 +5,7 @@ import { AnimationRenderer } from './renderer';
 import { SwarmAudio } from './audio';
 import { BUILD_RATE, INTRO_DURATION, SCROLL_MULTIPLIER, buildStep, scrollTempo } from './timing';
 import { mediaProgress, SCAN_START } from './choreography';
+import { DESKTOP_QUERY } from './availability';
 import type { BuilderPhase, BuilderSnapshot, BuildTask, Job } from './types';
 
 type DeviceNavigator=Navigator&{deviceMemory?:number;connection?:{saveData?:boolean}};
@@ -22,11 +23,11 @@ export class SwarmController {
   private entryTop=scrollY;private fasterAfterScroll=false;
   private observer:ResizeObserver;private mutations:MutationObserver;private reduced=matchMedia('(prefers-reduced-motion: reduce)');
   private startupTimer=0;private fontTimer=0;
-  speed=1;sound=false;
+  speed=1;sound=true;
   constructor(private root:HTMLElement,host:HTMLElement,private report:(snapshot:BuilderSnapshot)=>void,speed=1){
-    this.speed=speed;const device=navigator as DeviceNavigator,small=innerWidth<700;
+    this.speed=speed;const device=navigator as DeviceNavigator;
     const limited=(device.hardwareConcurrency||8)<=4||(device.deviceMemory??8)<=4||device.connection?.saveData;
-    this.engine=new CursorSwarmEngine(limited?1:small?2:3,{x:innerWidth/2,y:innerHeight*.43});
+    this.engine=new CursorSwarmEngine(limited?1:3,{x:innerWidth/2,y:innerHeight*.43});
     this.renderer=new AnimationRenderer(host);
     this.observer=new ResizeObserver(()=>{this.layoutDirty=true;this.request();});this.observer.observe(root);
     this.mutations=new MutationObserver(records=>{
@@ -41,6 +42,7 @@ export class SwarmController {
     window.addEventListener('keydown',this.keyboard);document.addEventListener('visibilitychange',this.visibility);
     this.reduced.addEventListener('change',this.preference);document.fonts.addEventListener('loadingdone',this.fonts);
     document.documentElement.classList.add('swarm-building');
+    this.audio.arm();
     this.emit('opening');this.request();
     this.startupTimer=window.setTimeout(()=>{if(!this.prepared)this.finish('ready');},6500);
     void this.prepare();
@@ -52,7 +54,7 @@ export class SwarmController {
       // Settle reveal transforms before reading the complete document in one pass.
       await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));if(!this.alive)return;
       const tasks=this.analyzer.analyze(this.root);if(!tasks.length){this.finish('done');return;}
-      this.scheduler=new TaskScheduler(tasks,innerWidth<700?2:3);this.analyzer.conceal();this.prepared=true;
+      this.scheduler=new TaskScheduler(tasks,3);this.analyzer.conceal();this.prepared=true;
       this.mutations.observe(this.root,{subtree:true,childList:true,characterData:true});
       window.clearTimeout(this.startupTimer);window.clearTimeout(this.fontTimer);
     }catch{this.finish('ready');}
@@ -65,7 +67,7 @@ export class SwarmController {
     if(scrollTempo(this.entryTop,scrollY,innerHeight)>1)this.fasterAfterScroll=true;
     this.scrollDirty=true;this.request();
   };
-  private resize=()=>{this.layoutDirty=true;this.renderer.resize();this.request();};
+  private resize=()=>{if(!matchMedia(DESKTOP_QUERY).matches){this.finish('ready');return;}this.layoutDirty=true;this.renderer.resize();this.request();};
   private fonts=()=>{this.layoutDirty=true;this.request();};
   private keyboard=(event:KeyboardEvent)=>{if(event.key==='Escape')this.finish('done');};
   private preference=()=>{if(this.reduced.matches)this.finish('reduced');};
