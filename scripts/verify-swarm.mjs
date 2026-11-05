@@ -13,12 +13,12 @@ async function context(options={}){
   const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'no-preference',...options});
   await context.addInitScript(()=>{
     localStorage.setItem('springyearn:language','en');
-    window.__swarmPaint=null;window.__swarmFrames=[];
+    window.__swarmPaint=null;window.__swarmFrames=[];window.__swarmTools={};
     const clear=CanvasRenderingContext2D.prototype.clearRect,translate=CanvasRenderingContext2D.prototype.translate;
     CanvasRenderingContext2D.prototype.clearRect=function(...args){
       if(this.canvas.classList.contains('swarm-canvas')){
         if(window.__swarmPaint){window.__swarmFrames.push(window.__swarmPaint);if(window.__swarmFrames.length>1200)window.__swarmFrames.shift();}
-        window.__swarmPaint={points:[],tasks:(this.canvas.dataset.swarmTasks||'').split(',').filter(Boolean)};
+        window.__swarmPaint={points:[],tasks:(this.canvas.dataset.swarmTasks||'').split(',').filter(Boolean),handoffs:(this.canvas.dataset.swarmHandoffs||'').split(',').filter(Boolean),batches:(this.canvas.dataset.swarmBatches||'').split(',').filter(Boolean)};
       }
       return clear.apply(this,args);
     };
@@ -26,6 +26,20 @@ async function context(options={}){
       if(this.canvas.classList.contains('swarm-canvas'))window.__swarmPaint?.points.push({x,y});
       return translate.call(this,x,y);
     };
+    for(const method of ['stroke','strokeRect','fillText']){
+      const native=CanvasRenderingContext2D.prototype[method];
+      CanvasRenderingContext2D.prototype[method]=function(...args){
+        if(this.canvas.classList.contains('swarm-canvas')){
+          const tools=window.__swarmTools;
+          if(this.strokeStyle==='#3577ad'&&this.lineWidth>=1.6)tools.blueSelection=true;
+          if(this.strokeStyle==='#b34c4e'&&this.globalAlpha>=.55)tools.redGuides=true;
+          if(method==='strokeRect'&&args[2]===7&&args[3]===7)tools.largeHandles=true;
+          if(method==='fillText'&&String(args[0]).includes(' × ')&&this.font==='12px monospace')tools.dimensions=true;
+          if(method==='fillText'&&String(args[0]).includes('COPY'))tools.copy=true;
+        }
+        return native.apply(this,args);
+      };
+    }
     window.__swarmAudio=[];
     const Native=window.AudioContext;
     window.AudioContext=class extends Native {
@@ -116,12 +130,24 @@ try {
   const frames=await page.evaluate(()=>window.__swarmFrames);
   const workingFrames=frames.filter(frame=>frame.tasks.length);
   assert.ok(workingFrames.length>10);
+  const batches=new Map();
   for(const frame of frames){
-    assert.equal(frame.points.length,frame.tasks.length,'one rendered cursor per active task');
+    assert.equal(frame.points.length,frame.tasks.length+frame.handoffs.length,'only task owners and brief batch handoffs may be painted');
     assert.ok(frame.points.length<=3,'no idle cluster or excessive concurrent work');
     assert.equal(new Set(frame.tasks.map(pair=>pair.split(':')[0])).size,frame.tasks.length,'a task cannot have two cursors');
     assert.equal(new Set(frame.tasks.map(pair=>pair.split(':')[1])).size,frame.tasks.length,'a cursor cannot own two tasks');
+    for(const row of frame.batches){
+      const [id,batch,completed,quota]=row.split(':').map(Number),key=id+':'+batch;
+      assert.ok(quota>=3&&quota<=5);assert.ok(completed<quota);
+      const record=batches.get(key)??{quota,tasks:new Set()};
+      for(const pair of frame.tasks)if(Number(pair.split(':')[1])===id)record.tasks.add(pair.split(':')[0]);
+      batches.set(key,record);
+    }
   }
+  assert.ok([...batches.values()].some(batch=>batch.tasks.size>=3),'a visible cursor must carry through at least three tasks');
+  for(const batch of batches.values())assert.ok(batch.tasks.size<=batch.quota);
+  const tools=await page.evaluate(()=>window.__swarmTools);
+  for(const feature of ['blueSelection','redGuides','largeHandles','dimensions','copy'])assert.equal(tools[feature],true,feature+' must actually be painted');
   assert.deepEqual(await signature(page),before);
   await shot(page,'completed-desktop');
   await page.getByRole('button',{name:'Replay ↺',exact:true}).click();
@@ -135,7 +161,7 @@ try {
   await page.goto(origin+'/lab/',{waitUntil:'load'});await page.getByRole('button',{name:'Replay ↺',exact:true}).click();await page.waitForFunction(()=>+document.querySelector('.swarm-root').dataset.swarmTotal>30);
   await page.locator('.swarm-root').getByRole('button',{name:'Skip ↗',exact:true}).click();await clean(page);assert.equal(await page.locator('.lab-card').count(),10);
   const build=page.locator('#lab-10 .lab-download-button');await build.scrollIntoViewIfNeeded();await build.click();await page.locator('dialog[open]').waitFor({state:'visible'});await page.keyboard.press('Escape');
-  assert.deepEqual(errors,[]);results.push({desktop:true,...counts,screens:screen,taskOwnedCursors:true,noIdleCursors:true,maxVisibleCursors:Math.max(...workingFrames.map(frame=>frame.points.length)),paused:true,glyphAlignment:Math.max(...alignment),replay:true,skip:true,audio:true,resize:true,routeCleanup:true,labDialog:true});await desktop.close();
+  assert.deepEqual(errors,[]);results.push({desktop:true,...counts,screens:screen,taskOwnedCursors:true,cursorBatches:true,noIdleCursors:true,tools,maxVisibleCursors:Math.max(...workingFrames.map(frame=>frame.points.length)),paused:true,glyphAlignment:Math.max(...alignment),replay:true,skip:true,audio:true,resize:true,routeCleanup:true,labDialog:true});await desktop.close();
 
   for(const width of [390,320]){
     const mobile=await context({viewport:{width,height:844},hasTouch:true,isMobile:true}),p=await mobile.newPage();

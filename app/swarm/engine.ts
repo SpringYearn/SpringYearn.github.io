@@ -10,14 +10,16 @@ export class CursorSwarmEngine {
   constructor(count: number, origin: Point, random = Math.random) {
     this.agents = Array.from({length:count},(_,id) => {
       const phase = random()*Math.PI*2, radius = 20+random()*85;
-      return {id,x:origin.x+Math.cos(phase)*radius,y:origin.y+Math.sin(phase)*radius,vx:0,vy:0,goal:{...origin},color:palette[id%palette.length],phase,pace:.78+random()*.44,busy:false,working:false,trail:[]};
+      return {id,x:origin.x+Math.cos(phase)*radius,y:origin.y+Math.sin(phase)*radius,vx:0,vy:0,goal:{...origin},color:palette[id%palette.length],phase,pace:.78+random()*.44,busy:false,working:false,trail:[],present:false,batch:0,completed:0,quota:0,idleUntil:0,readyAt:0};
     });
   }
   reduce(count: number) {
-    for(let index=this.agents.length-1;index>=0&&this.agents.length>count;index--)if(!this.agents[index].busy)this.agents.splice(index,1);
+    for(let index=this.agents.length-1;index>=0&&this.agents.length>count;index--)if(!this.agents[index].present&&!this.agents[index].busy)this.agents.splice(index,1);
   }
-  activate(agent: Agent, target: Point, width: number, height: number) {
-    agent.goal={...target};agent.working=false;agent.vx=0;agent.vy=0;agent.trail=[];
+  activate(agent: Agent, target: Point, width: number, height: number, continuing=false) {
+    agent.goal={...target};agent.working=false;
+    if(continuing)return;
+    agent.vx=0;agent.vy=0;agent.trail=[];
     // Enter next to this task, never fly across the page from an idle swarm.
     agent.x=clamp(target.x-30-(agent.id%3)*7,8,width-8);
     agent.y=clamp(target.y+22+(agent.id%2)*8,8,height-8);
