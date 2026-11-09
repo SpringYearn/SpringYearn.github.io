@@ -25,7 +25,7 @@ export function ItemPage(props: Props) {
   const [progress, setProgress] = useState(0);
   const chinese = language === "zh";
   const { project, kind } = props;
-  const indexPath = kind === "work" ? `/work/#work-${project.id}` : `/project-files/#${project.id}`;
+  const indexPath = kind === "work" ? `/work/#work-${project.id}` : `/resources/#${project.id}`;
   useEffect(() => {
     const root = document.documentElement;
     const cursor = document.querySelector<HTMLElement>(".art-cursor");
@@ -45,7 +45,7 @@ export function ItemPage(props: Props) {
     if (fine) { window.addEventListener("pointermove", move, { passive: true }); window.addEventListener("pointerover", over, { passive: true }); window.addEventListener("pointerdown", down, { passive: true }); window.addEventListener("pointerup", up, { passive: true }); window.addEventListener("pointerout", out, { passive: true }); }
     return () => { root.classList.remove("motion-ready", "has-art-cursor"); window.removeEventListener("scroll", scroll); window.removeEventListener("pointermove", move); window.removeEventListener("pointerover", over); window.removeEventListener("pointerdown", down); window.removeEventListener("pointerup", up); window.removeEventListener("pointerout", out); };
   }, []);
-  const links = [{ href: "/", label: chinese ? "首頁" : "Home" }, { href: "/work/", label: chinese ? "作品集" : "Work archive" }, { href: "/lab/", label: "LAB" }, { href: "/project-files/", label: chinese ? "專案檔" : "Project files" }, { href: "/#profile", label: chinese ? "關於我" : "Profile" }, { href: "/#contact", label: chinese ? "聯絡" : "Contact" }];
+  const links = [{ href: "/", label: chinese ? "首頁" : "Home" }, { href: "/work/", label: chinese ? "作品集" : "Work archive" }, { href: "/resources/", label: chinese ? "資源區" : "Resources" }, { href: "/#profile", label: chinese ? "關於我" : "Profile" }, { href: "/#contact", label: chinese ? "聯絡" : "Contact" }];
   const preview = props.kind === "work" ? props.project.thumbnail : "youtubeId" in props.project.preview ? `https://i.ytimg.com/vi/${props.project.preview.youtubeId}/hqdefault.jpg` : props.project.preview.poster;
   const video = props.kind === "work" ? props.project.mediaType === "video" ? props.project.thumbnail : null : "video" in props.project.preview ? props.project.preview.video : null;
   const source = props.kind === "work" ? props.project.href : "youtubeId" in props.project.preview ? `https://youtu.be/${props.project.preview.youtubeId}` : props.project.preview.video;
@@ -76,6 +76,6 @@ export function ItemPage(props: Props) {
     </section>
     {props.kind === "work" && <WorkStory id={props.project.id} />}
     {props.kind === "work" && <ProjectGallery project={props.project} />}
-    <SiteStatus language={language} /><footer className="site-footer"><span>SpringYearn® — {kind === "work" ? "WORK" : "PROJECT FILES"}</span><Link href={kind === "work" ? "/work/" : "/project-files/"}>{chinese ? "返回索引" : "Back to index"}<ArrowUpRight aria-hidden="true" /></Link><a href="#top">{chinese ? "回到頂端" : "Back to top"}<ArrowUpRight aria-hidden="true" /></a></footer>
+    <SiteStatus language={language} /><footer className="site-footer"><span>SpringYearn® — {kind === "work" ? "WORK" : "PROJECT FILES"}</span><Link href={kind === "work" ? "/work/" : "/resources/"}>{chinese ? "返回索引" : "Back to index"}<ArrowUpRight aria-hidden="true" /></Link><a href="#top">{chinese ? "回到頂端" : "Back to top"}<ArrowUpRight aria-hidden="true" /></a></footer>
   </main>}</Localized>;
 }

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "v082.resources",
+    "en": "Resources",
+    "zh": "資源區",
+    "ja": "リソース",
+    "ko": "자료실",
+    "ru": "Ресурсы",
+    "vi": "Tài nguyên"
+  },
+  {
+    "id": "v082.categories",
+    "en": "Resource categories",
+    "zh": "資源分類",
+    "ja": "リソースの種類",
+    "ko": "자료 유형",
+    "ru": "Категории ресурсов",
+    "vi": "Loại tài nguyên"
+  },
+  {
+    "id": "v082.files",
+    "en": "Free project files",
+    "zh": "免費專案檔",
+    "ja": "無料プロジェクトファイル",
+    "ko": "무료 프로젝트 파일",
+    "ru": "Бесплатные файлы проектов",
+    "vi": "Tệp dự án miễn phí"
+  },
+  {
+    "id": "v082.lab",
+    "en": "LAB / Tools",
+    "zh": "LAB / 工具",
+    "ja": "LAB / ツール",
+    "ko": "LAB / 도구",
+    "ru": "LAB / Инструменты",
+    "vi": "LAB / Công cụ"
+  },
+  {
+    "id": "v082.note",
+    "en": "Combined LAB and free project files into Resources.",
+    "zh": "整合 LAB 與免費專案檔為資源區。",
+    "ja": "LAB と無料プロジェクトファイルをリソースにまとめました。",
+    "ko": "LAB과 무료 프로젝트 파일을 자료실로 통합했어요.",
+    "ru": "LAB и бесплатные файлы проектов объединены в разделе ресурсов.",
+    "vi": "Gộp LAB và tệp dự án miễn phí vào mục Tài nguyên."
+  }
+]

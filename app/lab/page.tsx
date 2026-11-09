@@ -11,6 +11,7 @@ import { ForNever } from "../for-never";
 import { labExperiments } from "../lab-data";
 import { LabDownload } from "./lab-download";
 import { LabAuthorIntro } from "./lab-author-intro";
+import { ResourceSections } from "../resources/resource-sections";
 import { sortLabProjects, type LabSortDirection, type LabSortKey } from "./project-sort";
 
 const copy = {
@@ -132,18 +133,17 @@ export default function LabPage() {
           <span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/project-files">{t.files}</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
+          <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/resources" aria-current="page">{language === "en" ? "Resources" : "資源區"}</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
         </nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block lab-hero" aria-labelledby="lab-title">
-        <div className="work-archive-top mono-label"><span>LAB / EXPERIMENTS</span></div>
+        <ResourceSections active="lab" language={language} />
         <h1 id="lab-title">{t.title}</h1>
         <LabAuthorIntro text={t.intro} />
         <nav className="lab-page-links" aria-label={language === "en" ? "Explore the site" : "網站導覽"}>
           <Link href="/" className="text-link archive-home-link"><ArrowLeft aria-hidden="true" />{t.back}</Link>
           <Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link>
-          <Link href="/project-files" className="text-link">{t.files}<ArrowUpRight aria-hidden="true" /></Link>
         </nav>
       </section>
       <section className="section-block lab-records" data-lab-platform="resolve" aria-labelledby="lab-platform-title">

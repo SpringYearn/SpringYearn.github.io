@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Fixed the cursor being hidden behind Skip."
+      "Combined LAB and free project files into Resources."
     ],
     "zh": [
-      "修正略過按鈕遮擋游標。"
+      "整合 LAB 與免費專案檔為資源區。"
     ]
   },
   "releases": [
+    {
+      "version": "V.082",
+      "date": "2026-11-10",
+      "en": ["Combined LAB and free project files into Resources."],
+      "zh": ["整合 LAB 與免費專案檔為資源區。"]
+    },
     {
       "version": "V.081",
       "date": "2026-11-06",

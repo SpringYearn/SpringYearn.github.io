@@ -467,8 +467,7 @@ export default function Home() {
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <Link href="/work">{t.nav.work}</Link>
-          <Link href="/lab">LAB</Link>
-          <Link href="/project-files">{language === "en" ? "Project files" : "專案檔"}</Link>
+          <Link href="/resources">{language === "en" ? "Resources" : "資源區"}</Link>
           <a href="#profile">{t.nav.profile}</a>
           <a href="#contact">{t.nav.contact}</a>
         </nav>
@@ -590,19 +589,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="lab" className="section-block lab-gateway" aria-labelledby="lab-title">
-        <Link href="/lab" className="lab-entry-link" data-reveal onPointerMove={setPointerPosition} onPointerLeave={resetPointerPosition}>
-          <div className="lab-entry-specimen" aria-hidden="true">
-            <SpringMark />
-          </div>
-          <div className="lab-entry-copy">
-            <p className="eyebrow">{t.labEyebrow}</p>
-            <h2 id="lab-title">{t.labTitle}</h2>
-          </div>
-          <div className="lab-entry-action">
-            <strong>{t.labCta}<ArrowUpRight aria-hidden="true" /></strong>
-          </div>
-        </Link>
+      <section id="lab" className="section-block lab-gateway" aria-label={language === "en" ? "Resources" : "資源區"}>
         <ProjectFilesGateway language={language} />
       </section>
 

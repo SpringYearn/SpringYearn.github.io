@@ -40,8 +40,7 @@ export function HeaderControls({ language }: HeaderControlsProps) {
   const links = [
     { href: "/", label: chinese ? "首頁" : "Home" },
     { href: "/work", label: chinese ? "作品集" : "Work archive" },
-    { href: "/lab", label: "LAB" },
-    { href: "/project-files", label: chinese ? "專案檔" : "Project files" },
+    { href: "/resources", label: chinese ? "資源區" : "Resources" },
     { href: "/#profile", label: chinese ? "關於我" : "Profile" },
     { href: "/#contact", label: chinese ? "聯絡" : "Contact" },
     { href: "/whiteboard", label: chinese ? "塗鴉板" : "Whiteboard" },

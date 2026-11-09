@@ -42,10 +42,10 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.match(records[9].body.en, /real footage remains unverified/);
 });
 
-test("V.081 extends V.080 without changing existing releases or date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "a5cead92a1aa31e60d403db432b17b13423f9c94:site-history.json"], { encoding: "utf8" }));
+test("V.082 extends V.081 without changing existing releases or date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "806ff0b7eb8a956efa83ce73bc176c93d475ddd0:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.081");
+  assert.equal(after.releases[0].version, "V.082");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);
@@ -63,8 +63,8 @@ test("V.081 extends V.080 without changing existing releases or date automation"
 test("homepage is an entrance and all LAB navigation resolves to existing routes", () => {
   const home = read("app/page.tsx");
   assert.doesNotMatch(home, /labExperiments\.map|className="lab-grid"/);
-  assert.match(home, /href="\/lab"/);
-  assert.match(read("app/work/page.tsx"), /href="\/lab"/);
+  assert.match(read("app/project-files-gateway.tsx"), /href="\/resources"/);
+  assert.match(read("app/work/page.tsx"), /href="\/resources"/);
   const lab = read("app/lab/page.tsx");
   for (const href of ["/", "/work", "/#contact"]) assert.ok(lab.includes('href="' + href + '"'));
   assert.match(lab, /<LabDownload project=\{experiment\}/);

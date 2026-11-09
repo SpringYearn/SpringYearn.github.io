@@ -4,9 +4,9 @@ import { ArrowUpRight } from "lucide-react";
 import { SpringMark } from "./spring-mark";
 
 export function ProjectFilesGateway({ language }: { language: "en" | "zh" }) {
-  const title = language === "en" ? "Free project files" : "免費剪輯專案檔";
+  const title = language === "en" ? "Resources" : "資源區";
   return <Localized>{(
-    <Link href="/project-files" className="pf-gateway-link" aria-label={title} data-reveal>
+    <Link href="/resources" className="pf-gateway-link" aria-label={title} data-reveal>
       <div className="pf-gateway-art" aria-hidden="true">
         <svg className="pf-folder" viewBox="0 0 240 180" fill="none">
           <path className="pf-folder-back" d="M21 142V27H86L102 42H214V142Z" />
@@ -26,7 +26,7 @@ export function ProjectFilesGateway({ language }: { language: "en" | "zh" }) {
       </div>
       <div className="pf-gateway-copy">
         <strong>{title}</strong>
-        <div className="pf-gateway-meta mono-label"><span>AFTER EFFECTS</span><span>DAVINCI RESOLVE</span></div>
+        <div className="pf-gateway-meta mono-label"><span>{language === "en" ? "Free project files" : "免費專案檔"}</span><span>{language === "en" ? "LAB / Tools" : "LAB / 工具"}</span></div>
       </div>
       <div className="pf-gateway-action">
         <span className="pf-gateway-arrow"><ArrowUpRight aria-hidden="true" /></span>

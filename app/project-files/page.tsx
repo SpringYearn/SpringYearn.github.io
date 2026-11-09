@@ -9,6 +9,7 @@ import { useSiteLanguage } from "../site-language";
 import { SiteStatus } from "../site-status";
 import { projectFiles } from "./files";
 import { materialLabel } from "../share-data";
+import { ResourceSections } from "../resources/resource-sections";
 
 const copy = {
   en: {
@@ -158,18 +159,18 @@ export default function ProjectFilesPage() {
           <span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/lab">LAB</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
+          <Link href="/">{t.home}</Link><Link href="/work">{t.work}</Link><Link href="/resources" aria-current="page">{language === "en" ? "Resources" : "資源區"}</Link><Link href="/#profile">{language === "en" ? "Profile" : "關於我"}</Link><Link href="/#contact">{t.contact}</Link>
         </nav>
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
       <section className="section-block pf-hero" aria-labelledby="pf-title">
-        <div className="work-archive-top mono-label"><span>PROJECT FILES</span></div>
+        <ResourceSections active="project-files" language={language} />
         <div className="pf-hero-grid">
           <div><h1 id="pf-title">{t.title}</h1></div>
           <div className="pf-timeline-mark" aria-hidden="true"><div className="pf-timeline-tracks"><i /><i /><i /><i /><span /></div></div>
         </div>
         <nav className="lab-page-links" aria-label={language === "en" ? "Explore the site" : "網站導覽"}>
-          <Link href="/" className="text-link"><ArrowLeft aria-hidden="true" />{t.back}</Link><Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link><Link href="/lab" className="text-link">LAB<ArrowUpRight aria-hidden="true" /></Link>
+          <Link href="/" className="text-link"><ArrowLeft aria-hidden="true" />{t.back}</Link><Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link>
         </nav>
       </section>
       <aside className="pf-help-note" aria-label={t.helpLabel}><div><p>{t.help}</p><p>{language === "en" ? "ZIP packages include media; standalone AEP files do not." : "ZIP 檔已包含素材；獨立 AEP 檔未包含素材。"}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></aside>

@@ -3617,3 +3617,18 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 }
 
 .screen-ripple-defs { position: fixed; top: 0; left: 0; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+
+/* Resource navigation reuses the existing LAB / Project Files layouts. */
+.resource-sections { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+.resource-sections > .mono-label { color: var(--spring-ink); }
+.resource-section-links { display: flex; flex-wrap: wrap; gap: .5rem; }
+.resource-section-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: .7rem 1.2rem; border: 1px solid rgba(var(--spring-ink-rgb),.3); font-size: .8rem; transition: color 180ms ease,background 180ms ease,border-color 180ms ease; }
+.resource-section-links a:hover { border-color: var(--spring-ink); background: rgba(var(--spring-mist-rgb),.16); }
+.resource-section-links a[aria-current="page"] { color: var(--background); background: var(--spring-ink); border-color: var(--spring-ink); }
+.resource-section-links a:focus-visible { outline: 2px solid var(--spring-ink); outline-offset: 4px; }
+@media (max-width: 620px) {
+  .resource-sections { align-items: flex-start; gap: 1rem; }
+  .resource-section-links { width: 100%; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  .resource-section-links a { font-size: .75rem; padding-inline: .65rem; }
+}
+@media (prefers-reduced-motion: reduce) { .resource-section-links a { transition: none; } }
