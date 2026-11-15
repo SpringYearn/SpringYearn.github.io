@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Combined LAB and free project files into Resources."
+      "Added an illustrated Resources chooser that folds into a compact switcher."
     ],
     "zh": [
-      "整合 LAB 與免費專案檔為資源區。"
+      "加入可收合的資源選擇卡。"
     ]
   },
   "releases": [
+    {
+      "version": "V.083",
+      "date": "2026-11-16",
+      "en": ["Added an illustrated Resources chooser that folds into a compact switcher."],
+      "zh": ["加入可收合的資源選擇卡。"]
+    },
     {
       "version": "V.082",
       "date": "2026-11-10",

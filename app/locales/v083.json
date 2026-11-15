@@ -1,0 +1,20 @@
+[
+  {
+    "id": "v083.labDescription",
+    "en": "Fusion tools, prototypes and development notes",
+    "zh": "Fusion 工具、原型與開發紀錄",
+    "ja": "Fusion ツール、試作品、開発記録",
+    "ko": "Fusion 도구, 프로토타입 및 개발 기록",
+    "ru": "Инструменты Fusion, прототипы и заметки о разработке",
+    "vi": "Công cụ Fusion, bản thử nghiệm và ghi chú phát triển"
+  },
+  {
+    "id": "v083.note",
+    "en": "Added an illustrated Resources chooser that folds into a compact switcher.",
+    "zh": "加入可收合的資源選擇卡。",
+    "ja": "リソースの選択カードが、選択後にコンパクトに折りたたまれるようになりました。",
+    "ko": "선택 후 작게 접히는 자료실 카드를 추가했어요.",
+    "ru": "Добавлены карточки ресурсов, которые сворачиваются после выбора.",
+    "vi": "Thêm thẻ chọn tài nguyên tự thu gọn sau khi chọn."
+  }
+]

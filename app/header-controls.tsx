@@ -10,9 +10,10 @@ import { localeNames, locales, useSiteLanguage, type Locale } from "./site-langu
 type HeaderControlsProps = {
   language: "en" | "zh";
   onToggleLanguage: () => void;
+  onBrowseResources?: () => void;
 };
 
-export function HeaderControls({ language }: HeaderControlsProps) {
+export function HeaderControls({ language, onBrowseResources }: HeaderControlsProps) {
   const {locale,setLanguage}=useSiteLanguage();
   const [open, setOpen] = useState(false);
   const [pressed, setPressed] = useState<"open" | "close" | null>(null);
@@ -68,7 +69,20 @@ export function HeaderControls({ language }: HeaderControlsProps) {
           </div>
           <Dialog.Description className="sr-only">{chinese ? "前往網站各頁面，或切換顯示語言。" : "Explore the site or change the display language."}</Dialog.Description>
           <nav className="mobile-nav-links" aria-label={chinese ? "主要導覽" : "Main navigation"}>
-            {links.map((link, index) => <Link className={link.href === "/whiteboard" ? "whiteboard-nav-link" : undefined} key={link.href} href={link.href} onClick={() => setOpen(false)}><span className="mono-label">{String(index + 1).padStart(2, "0")}</span><span>{link.label}</span><ArrowUpRight aria-hidden="true" /></Link>)}
+            {links.map((link, index) => <Link
+              className={link.href === "/whiteboard" ? "whiteboard-nav-link" : undefined}
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              onNavigate={link.href === "/resources" && onBrowseResources ? event => {
+                event.preventDefault();
+                onBrowseResources();
+              } : undefined}
+            >
+              <span className="mono-label">{String(index + 1).padStart(2, "0")}</span>
+              <span>{link.label}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </Link>)}
           </nav>
           <div className="mobile-nav-language"><span className="mono-label">{chinese ? "語言" : "Language"}</span>{picker(true)}</div>
         </Dialog.Content>

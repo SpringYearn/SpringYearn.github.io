@@ -1,0 +1,112 @@
+"use client";
+import { Localized } from "../localized";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowLeft, ArrowUpRight, Download, ArrowRight } from "lucide-react";
+import { useSiteLanguage } from "../site-language";
+import { projectFiles } from "./files";
+import { materialLabel } from "../share-data";
+import { ResourceSections } from "../resources/resource-sections";
+
+const copy = {
+  en: {
+    work: "Work archive", contact: "Contact", back: "Return home",
+    title: "Go ahead,\nopen the timeline.",
+    intro: "These are project files from my edits, free to download. Watch the video first, then open the project and take a look around.",
+    count: "07 files / 02 applications", free: "Free / public downloads",
+    help: "If you get stuck with a file, send me a message. I’m happy to help.",
+    helpLabel: "Before you start", preview: "Watch preview", download: "Free download", details: "View details",
+    aeNote: "Explore the compositions, layers and effects that make up each edit.", davinciNote: "Check out the cuts, timing and structure of each timeline.",
+    fileLabel: "Project file", aepNote: "Original .aep project file", zipNote: "Original ZIP package",
+  },
+  zh: {
+    work: "作品集", contact: "聯絡", back: "返回首頁",
+    title: "時間軸在這，\n打開看看。",
+    intro: "這裡放的是我免費分享的剪輯專案檔。先看影片，再打開專案，看看裡面的剪法和設定。",
+    count: "07 個檔案 / 02 種軟體", free: "免費 / 公開下載",
+    help: "檔案有哪裡看不懂，歡迎問我，我很樂意幫忙。",
+    helpLabel: "打開之前", preview: "觀看影片預覽", download: "免費下載", details: "查看詳情",
+    aeNote: "看看每支影片的合成、圖層與效果設定。", davinciNote: "看看每條時間軸的剪法、節奏與安排。",
+    fileLabel: "專案檔", aepNote: "原始 .aep 專案檔", zipNote: "原始 ZIP 專案包",
+  },
+};
+
+const groups = [
+  { id: "ae", name: "After Effects", abbreviation: "Ae" },
+  { id: "davinci", name: "DaVinci Resolve", abbreviation: "DR" },
+] as const;
+
+function formatSize(bytes: number) {
+  return bytes >= 1_000_000_000 ? (bytes / 1_000_000_000).toFixed(2) + " GB" : (bytes / 1_000_000).toFixed(1) + " MB";
+}
+
+function initializePreviewVolume(video: HTMLVideoElement | null) {
+  if (video) video.volume = 0.25;
+}
+
+export function ProjectFilesContent({ showResourceSections = false }: { showResourceSections?: boolean }) {
+  const { language } = useSiteLanguage();
+  const [software, setSoftware] = useState<"ae" | "davinci">("ae");
+  const t = copy[language];
+  const selectSoftware = (next: "ae" | "davinci") => {
+    document.querySelectorAll<HTMLVideoElement>(".pf-preview-video").forEach(video => video.pause());
+    setSoftware(next);
+    window.history.replaceState(window.history.state, "", `#${next}`);
+  };
+  useEffect(() => {
+    let scrollFrame = 0;
+    const followHash = () => {
+      let id: string;
+      try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
+      const file = projectFiles.find(item => item.id === id);
+      const next = file?.software ?? (id === "ae" || id === "davinci" ? id : null);
+      if (!next) return;
+      setSoftware(next);
+      document.querySelectorAll<HTMLVideoElement>(".pf-preview-video").forEach(video => video.pause());
+      cancelAnimationFrame(scrollFrame);
+      scrollFrame = requestAnimationFrame(() => document.getElementById(file?.id ?? next)?.scrollIntoView({ block: "start" }));
+    };
+    const initial = requestAnimationFrame(followHash);
+    window.addEventListener("hashchange", followHash);
+    return () => { cancelAnimationFrame(initial); cancelAnimationFrame(scrollFrame); window.removeEventListener("hashchange", followHash); };
+  }, []);
+
+  return <Localized>
+    <>
+      <section className="section-block pf-hero" aria-labelledby="pf-title">
+        {showResourceSections && <ResourceSections active="project-files" language={language} />}
+        <div className="pf-hero-grid">
+          <div><h1 id="pf-title">{t.title}</h1></div>
+          <div className="pf-timeline-mark" aria-hidden="true"><div className="pf-timeline-tracks"><i /><i /><i /><i /><span /></div></div>
+        </div>
+        <nav className="lab-page-links" aria-label={language === "en" ? "Explore the site" : "網站導覽"}>
+          <Link href="/" className="text-link"><ArrowLeft aria-hidden="true" />{t.back}</Link><Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link>
+        </nav>
+      </section>
+      <aside className="pf-help-note" aria-label={t.helpLabel}><div><p>{t.help}</p><p>{language === "en" ? "ZIP packages include media; standalone AEP files do not." : "ZIP 檔已包含素材；獨立 AEP 檔未包含素材。"}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></aside>
+      <div className="pf-category-index" role="group" aria-label={language === "en" ? "Project file categories" : "專案檔分類"}>
+        {groups.map(group => <button type="button" key={group.id} aria-pressed={software === group.id} aria-controls={group.id} onClick={() => selectSoftware(group.id)}><span>{group.name}</span><span className="mono-label">{String(projectFiles.filter(file => file.software === group.id).length).padStart(2, "0")}</span></button>)}
+      </div>
+      {groups.map(group => (
+        <section className="pf-group" key={group.id} id={group.id} aria-labelledby={group.id + "-title"} hidden={software !== group.id}>
+          <div className="pf-group-heading" data-reveal><span className="pf-software-mark" aria-hidden="true">{group.abbreviation}</span><div><h2 id={group.id + "-title"}>{group.name}</h2></div></div>
+          <div className="pf-grid">
+            {projectFiles.filter(file => file.software === group.id).map(file => {
+              const previewUrl = "youtubeId" in file.preview ? "https://youtu.be/" + file.preview.youtubeId : file.preview.video;
+              return <article className="pf-card" key={file.id} id={file.id} data-reveal>
+                <div className="pf-card-meta mono-label"><span>{formatSize(file.bytes)}</span></div>
+                {"youtubeId" in file.preview ? <Link className="pf-preview-link pf-detail-preview" href={`/project-files/${file.id}/`} aria-label={file.title + " — " + t.details}>
+                  <img loading="lazy" src={"https://i.ytimg.com/vi/" + file.preview.youtubeId + "/hqdefault.jpg"} alt={file.title + " — " + t.preview} />
+                </Link> : <video ref={initializePreviewVolume} className="pf-preview-video" controls playsInline preload="none" poster={file.preview.poster} aria-label={t.preview + " — " + file.title}><source src={file.preview.video} type="video/mp4" /><a href={previewUrl}>{t.preview}</a></video>}
+                <div className="pf-card-copy"><h3><Link href={`/project-files/${file.id}/`}>{file.title}</Link></h3><p><span>{materialLabel(file, language)}</span><span className="mono-label">{file.filename.endsWith(".aep") ? "AEP" : "ZIP"}</span></p></div>
+                <div className="pf-card-actions"><Link className="item-details-cta" href={`/project-files/${file.id}/`}>{t.details}<ArrowRight aria-hidden="true" /></Link><div className="pf-secondary-actions"><a className="text-link pf-preview-action" href={previewUrl} target="_blank" rel="noreferrer">{t.preview}<ArrowUpRight aria-hidden="true" /></a>
+                  <a className="pf-download-link" href={file.downloadUrl} download={file.downloadUrl.startsWith("/") ? file.filename : undefined} target={file.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer" aria-label={t.download + " — " + file.title}><span>{t.download}</span><Download aria-hidden="true" /></a></div></div>
+              </article>;
+            })}
+          </div>
+        </section>
+      ))}
+    </>
+  </Localized>;
+}
