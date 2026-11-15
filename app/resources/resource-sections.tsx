@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Localized } from "../localized";
 import type { ResourceSection } from "./resource-route";
 
@@ -12,8 +11,8 @@ export function ResourceSections({ active, language }: { active: ResourceSection
       {([
         ["project-files", chinese ? "免費專案檔" : "Free project files"],
         ["lab", chinese ? "LAB / 工具" : "LAB / Tools"],
-      ] as const).map(([section, label]) => <Link key={section} href={`/resources/#${section}`}
-        aria-current={active === section ? "page" : undefined}>{label}</Link>)}
+      ] as const).map(([section, label]) => <a key={section} href={`/resources/#${section}`}
+        aria-current={active === section ? "page" : undefined}>{label}</a>)}
     </nav>
   </div>}</Localized>;
 }

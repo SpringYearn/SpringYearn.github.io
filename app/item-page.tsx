@@ -26,6 +26,8 @@ export function ItemPage(props: Props) {
   const chinese = language === "zh";
   const { project, kind } = props;
   const indexPath = kind === "work" ? `/work/#work-${project.id}` : `/resources/#${project.id}`;
+  // A full navigation keeps the resource fragment intact when returning to a cached index.
+  const IndexLink = kind === "work" ? Link : "a";
   useEffect(() => {
     const root = document.documentElement;
     const cursor = document.querySelector<HTMLElement>(".art-cursor");
@@ -62,7 +64,7 @@ export function ItemPage(props: Props) {
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}><Link className="wordmark" href="/" aria-label="SpringYearn home"><span className="wordmark-symbol"><img src="/logo.png" alt="" /></span><span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span></Link>
       <nav className="desktop-nav" aria-label="Main navigation">{links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</nav><HeaderControls language={language} onToggleLanguage={() => setLanguage(value => value === "en" ? "zh" : "en")} />
     </header>
-    <section className="section-block item-hero"><Link className="text-link" href={indexPath}><ArrowLeft aria-hidden="true" />{kind === "work" ? (chinese ? "返回作品集" : "Back to work archive") : (chinese ? "返回專案檔" : "Back to project files")}</Link><h1>{project.title}</h1><p className="item-intro">{intro}</p><ItemShare path={itemPath(kind, project.id)} title={project.title} /></section>
+    <section className="section-block item-hero"><IndexLink className="text-link" href={indexPath}><ArrowLeft aria-hidden="true" />{kind === "work" ? (chinese ? "返回作品集" : "Back to work archive") : (chinese ? "返回專案檔" : "Back to project files")}</IndexLink><h1>{project.title}</h1><p className="item-intro">{intro}</p><ItemShare path={itemPath(kind, project.id)} title={project.title} /></section>
     <section className="section-block item-content" aria-label={chinese ? "項目預覽與資訊" : "Item preview and information"}>
       <div className="item-preview">{video ? <video ref={quietPreview} controls playsInline preload="none" poster={props.kind === "project-files" ? preview : undefined} src={video} /> : <a className={`item-preview-link${sourceVideo ? " is-video-destination" : ""}`} href={source} target="_blank" rel="noreferrer" aria-label={`${project.title} — ${sourceLabel}, ${chinese ? "在新分頁開啟" : "opens in a new tab"}`}>
         <span className="item-preview-visual"><img src={preview} alt={project.title} style={{ objectFit: props.kind === "work" ? props.project.fit ?? "cover" : "cover" }} />
