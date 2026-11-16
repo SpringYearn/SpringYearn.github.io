@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Moved the canvas archive below the whiteboard and added an animated folder, mouse wheel zoom and drag."
+      "Added a particle opening before the desktop build animation."
     ],
     "zh": [
-      "將舊畫布獨立放在白板下方，加入資料夾動畫、滾輪縮放與拖曳。"
+      "加入桌機粒子開場。"
     ]
   },
   "releases": [
+    {
+      "version": "V.086",
+      "date": "2026-11-16",
+      "en": ["Added a particle opening before the desktop build animation."],
+      "zh": ["加入桌機粒子開場。"]
+    },
     {
       "version": "V.085",
       "date": "2026-11-16",

@@ -6,6 +6,7 @@ import { InteractionAudio } from "./interaction-audio";
 import { PointerBurst } from "./pointer-burst";
 import { ScreenRipple } from "./screen-ripple";
 import { SwarmWebsiteBuilder } from "./swarm/swarm-website-builder";
+import { DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY } from "./swarm/availability";
 import { SiteLanguageProvider } from "./site-language";
 import "./globals.css";
 
@@ -13,6 +14,20 @@ const siteOrigin =
   process.env.GITHUB_PAGES === "1"
     ? "https://springyearn.github.io"
     : "https://springyearn-portfolio.springyearn.chatgpt.site";
+
+// Set the initial appearance before the document can paint. If hydration
+// never takes over, release the entrance and leave the static site usable.
+const entranceBootstrap = `(() => {
+  if (!matchMedia(${JSON.stringify(DESKTOP_QUERY)}).matches ||
+      matchMedia(${JSON.stringify(REDUCED_MOTION_QUERY)}).matches) return;
+  try { if (sessionStorage.getItem(${JSON.stringify(SWARM_SEEN_KEY)}) === '1') return; } catch {}
+  const root = document.documentElement;
+  const attribute = ${JSON.stringify(ENTRANCE_ATTRIBUTE)};
+  root.setAttribute(attribute, 'boot');
+  setTimeout(() => {
+    if (root.getAttribute(attribute) === 'boot') root.removeAttribute(attribute);
+  }, 5000);
+})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
@@ -53,7 +68,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: entranceBootstrap }} />
+      </head>
       <body>
         <SiteLanguageProvider>{children}
         <ArchiveTransition />
