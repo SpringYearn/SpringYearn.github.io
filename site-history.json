@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added an illustrated Resources chooser that folds into a compact switcher."
+      "Opened a new canvas, archived the previous one and updated canvas requests."
     ],
     "zh": [
-      "加入可收合的資源選擇卡。"
+      "開放新畫布，封存舊畫布並更新申請按鈕。"
     ]
   },
   "releases": [
+    {
+      "version": "V.084",
+      "date": "2026-11-16",
+      "en": ["Opened a new canvas, archived the previous one and updated canvas requests."],
+      "zh": ["開放新畫布，封存舊畫布並更新申請按鈕。"]
+    },
     {
       "version": "V.083",
       "date": "2026-11-16",

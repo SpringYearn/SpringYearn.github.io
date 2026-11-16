@@ -1,0 +1,119 @@
+[
+  {
+    "id": "v084.archive",
+    "en": "Canvas archive",
+    "zh": "舊畫布",
+    "ja": "過去のキャンバス",
+    "ko": "지난 캔버스",
+    "ru": "Архив холстов",
+    "vi": "Kho lưu trữ bảng vẽ"
+  },
+  {
+    "id": "v084.archiveInfo",
+    "en": "Browse previous shared canvases and zoom in on the drawings.",
+    "zh": "這裡收藏以前的共用畫布，可縮放瀏覽。",
+    "ja": "過去の共有キャンバスを開いて、絵を拡大して見られます。",
+    "ko": "이전 공유 캔버스를 열고 확대해서 볼 수 있어요.",
+    "ru": "Предыдущие общие холсты можно открыть и увеличить.",
+    "vi": "Xem các bảng vẽ chung trước đây và phóng to nét vẽ."
+  },
+  {
+    "id": "v084.archiveClose",
+    "en": "Close canvas archive",
+    "zh": "關閉舊畫布",
+    "ja": "キャンバスのアーカイブを閉じる",
+    "ko": "지난 캔버스 닫기",
+    "ru": "Закрыть архив холстов",
+    "vi": "Đóng kho bảng vẽ"
+  },
+  {
+    "id": "v084.canvasNumber",
+    "en": "Canvas {0}",
+    "zh": "畫布 {0}",
+    "ja": "キャンバス {0}",
+    "ko": "캔버스 {0}",
+    "ru": "Холст {0}",
+    "vi": "Bảng vẽ {0}"
+  },
+  {
+    "id": "v084.readOnly",
+    "en": "Read-only",
+    "zh": "唯讀",
+    "ja": "閲覧のみ",
+    "ko": "읽기 전용",
+    "ru": "Только просмотр",
+    "vi": "Chỉ xem"
+  },
+  {
+    "id": "v084.archivePreview",
+    "en": "Archived canvas preview",
+    "zh": "舊畫布預覽",
+    "ja": "過去のキャンバスのプレビュー",
+    "ko": "지난 캔버스 미리 보기",
+    "ru": "Просмотр архивного холста",
+    "vi": "Xem trước bảng vẽ đã lưu"
+  },
+  {
+    "id": "v084.sent",
+    "en": "Request sent",
+    "zh": "已送出申請",
+    "ja": "リクエストを送信しました",
+    "ko": "요청을 보냈어요",
+    "ru": "Запрос отправлен",
+    "vi": "Đã gửi yêu cầu"
+  },
+  {
+    "id": "v084.retry",
+    "en": "Retry request",
+    "zh": "重試申請",
+    "ja": "もう一度送信",
+    "ko": "요청 다시 보내기",
+    "ru": "Повторить запрос",
+    "vi": "Gửi lại yêu cầu"
+  },
+  {
+    "id": "v084.request",
+    "en": "Request a new canvas",
+    "zh": "申請新增畫布",
+    "ja": "新しいキャンバスをリクエスト",
+    "ko": "새 캔버스 요청",
+    "ru": "Запросить новый холст",
+    "vi": "Yêu cầu bảng vẽ mới"
+  },
+  {
+    "id": "v084.requestTitle",
+    "en": "Running out of room?",
+    "zh": "畫布快滿了？",
+    "ja": "描く場所が足りなくなった？",
+    "ko": "그릴 공간이 부족한가요?",
+    "ru": "Мало места для рисунков?",
+    "vi": "Sắp hết chỗ để vẽ?"
+  },
+  {
+    "id": "v084.requestInfo",
+    "en": "Send SpringYearn an email request for a new canvas.",
+    "zh": "申請後會寄信通知 SpringYearn。",
+    "ja": "新しいキャンバスのリクエストを SpringYearn にメールで送れます。",
+    "ko": "새 캔버스 요청을 SpringYearn에게 이메일로 보내요.",
+    "ru": "Отправьте SpringYearn запрос на новый холст по электронной почте.",
+    "vi": "Gửi yêu cầu mở bảng vẽ mới cho SpringYearn qua email."
+  },
+  {
+    "id": "v084.mailUnavailable",
+    "en": "Email unavailable. Contact me",
+    "zh": "寄信暫時無法使用，請聯絡我",
+    "ja": "メールを送信できません。お問い合わせください",
+    "ko": "메일을 보낼 수 없어요. 연락해 주세요",
+    "ru": "Почта недоступна. Свяжитесь со мной",
+    "vi": "Chưa gửi được email. Hãy liên hệ với mình"
+  },
+  {
+    "id": "v084.note",
+    "en": "Opened a new canvas, archived the previous one and updated canvas requests.",
+    "zh": "開放新畫布，封存舊畫布並更新申請按鈕。",
+    "ja": "新しいキャンバスを開き、過去のキャンバスを保存して、リクエストボタンを更新しました。",
+    "ko": "새 캔버스를 열고 이전 캔버스를 보관했으며 요청 버튼을 바꿨어요.",
+    "ru": "Открыт новый холст, прежний сохранён в архиве, кнопка запроса обновлена.",
+    "vi": "Mở bảng vẽ mới, lưu bảng cũ vào kho và cập nhật nút yêu cầu."
+  }
+]
