@@ -1,8 +1,20 @@
 .resource-picker {
   --resource-ease: cubic-bezier(.22, 1, .36, 1);
   --resource-art-height: clamp(9.5rem, 16vw, 15rem);
+  position: relative;
+  z-index: 1;
   padding-block: clamp(1.75rem, 4.7vw, 4.5rem) clamp(2.5rem, 5vw, 5.2rem);
   overflow-anchor: none;
+}
+
+.resource-vine-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }
 
 .resource-picker-heading {
