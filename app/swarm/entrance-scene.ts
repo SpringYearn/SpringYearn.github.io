@@ -1,4 +1,5 @@
 import { ENTRANCE_ATTRIBUTE } from "./availability";
+import { logoDeformation } from "./logo-deformation";
 import { ENTRANCE_TRAVEL_MS } from "./timing";
 
 type Spark = { angle: number; phase: number; range: number; size: number; turn: number };
@@ -155,6 +156,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
   const burst = sparks(smallBudget ? 60 : 105, 59);
   const streams = sparks(smallBudget ? 36 : 58, 173);
   const glow = glowTexture();
+  const logo = logoDeformation(emblem, smallBudget);
   const started = performance.now();
   let previous = started, launch: number | null = null, hover = 0, clock = 0;
   let width = 1, height = 1, frame = 0;
@@ -174,6 +176,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     cancelAnimationFrame(frame);
     window.removeEventListener("resize", resize);
     canvas.width = canvas.height = 1;
+    logo?.stop();
     emblem.style.removeProperty("transform");
   };
   const paint = (now: number) => {
@@ -205,6 +208,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     drawGrid(context, field);
     drawParticles(context, field, motes, burst);
     drawStreams(context, field, streams, hover, clock);
+    logo?.draw(ease(.25, .86, progress));
     frame = requestAnimationFrame(paint);
   };
 

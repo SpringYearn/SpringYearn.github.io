@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made the floating logo the site entrance."
+      "Added logo distortion and an original score to the desktop intro."
     ],
     "zh": [
-      "將桌機開場改為可點擊的浮動 Logo。"
+      "加入桌機開場的 Logo 拉伸、音效與配樂。"
     ]
   },
   "releases": [
+    {
+      "version": "V.088",
+      "date": "2026-11-16",
+      "en": ["Added logo distortion and an original score to the desktop intro."],
+      "zh": ["加入桌機開場的 Logo 拉伸、音效與配樂。"]
+    },
     {
       "version": "V.087",
       "date": "2026-11-16",

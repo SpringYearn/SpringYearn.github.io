@@ -16,7 +16,6 @@ export class SwarmController {
   private scheduler:TaskScheduler|null=null;
   private engine:CursorSwarmEngine;
   private renderer:AnimationRenderer;
-  private audio=new SwarmAudio();
   private frame=0;private previous=0;private intro=0;private clock=0;private prepared=false;private alive=true;private paused=false;
   private layoutDirty=false;private scrollDirty=false;private lastReport=0;private average=16;private samples=0;
   private lastMeasure=0;
@@ -24,7 +23,7 @@ export class SwarmController {
   private observer:ResizeObserver;private mutations:MutationObserver;private reduced=matchMedia('(prefers-reduced-motion: reduce)');
   private startupTimer=0;private fontTimer=0;
   speed=1;sound=true;
-  constructor(private root:HTMLElement,host:HTMLElement,private report:(snapshot:BuilderSnapshot)=>void,speed=1){
+  constructor(private root:HTMLElement,host:HTMLElement,private report:(snapshot:BuilderSnapshot)=>void,speed=1,private audio=new SwarmAudio()){
     this.speed=speed;const device=navigator as DeviceNavigator;
     const limited=(device.hardwareConcurrency||8)<=4||(device.deviceMemory??8)<=4||device.connection?.saveData;
     this.engine=new CursorSwarmEngine(limited?1:3,{x:innerWidth/2,y:innerHeight*.43});

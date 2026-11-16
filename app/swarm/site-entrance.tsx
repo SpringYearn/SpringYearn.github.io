@@ -36,7 +36,10 @@ export function SiteEntrance({ button, ready, onEnter }: {
       <canvas className="site-entrance-field" ref={field} aria-hidden="true" />
       <button className="site-entrance-enter" ref={button} type="button" aria-label={enterCopy[locale]} disabled={!ready} onClick={onEnter}>
         <span className="site-entrance-float" ref={emblem}>
-          <img className="site-entrance-logo" src="/logo.png" alt="" width={150} height={157} />
+          <span className="site-entrance-zoom">
+            <img className="site-entrance-logo" src="/logo.png" alt="" width={150} height={157} />
+            <canvas className="site-entrance-logo-warp" width={1} height={1} aria-hidden="true" />
+          </span>
         </span>
       </button>
     </section>

@@ -1,4 +1,5 @@
 export type SoundCue = 'click'|'type'|'drag'|'snap'|'complete';
+type EntranceScore = { finished: Promise<void>; stop(): void };
 
 const profiles:Record<SoundCue,{length:number;peak:number;filter:BiquadFilterType;frequency:number;thump:number}>={
   click:{length:.036,peak:.38,filter:'bandpass',frequency:1900,thump:130},
@@ -26,6 +27,7 @@ export class SwarmAudio {
   private gain:GainNode|null=null;
   private last=new Map<SoundCue,number>();
   private voices=new Set<AudioScheduledSourceNode>();
+  private entrance:EntranceScore|null=null;
   private closing=false;
   enabled=true;
   private unlisten(){
@@ -52,10 +54,28 @@ export class SwarmAudio {
   }
   setEnabled(enabled:boolean){
     this.enabled=enabled;
-    if(enabled)this.arm();else{this.unlisten();if(this.context&&this.gain)this.gain.gain.setTargetAtTime(0,this.context.currentTime,.01);}
+    if(enabled)this.arm();else{this.unlisten();this.entrance?.stop();if(this.context&&this.gain)this.gain.gain.setTargetAtTime(0,this.context.currentTime,.01);}
+  }
+  startEntrance(schedule:(context:AudioContext)=>EntranceScore){
+    this.arm();
+    const context=this.context;
+    if(!context)return;
+    const start=()=>{
+      if(!this.enabled||this.closing||this.entrance||context.state!=='running')return;
+      try{
+        const entrance=schedule(context);
+        this.entrance=entrance;
+        void entrance.finished.then(()=>{
+          this.entrance=null;
+          if(this.closing&&!this.voices.size)this.close();
+        });
+      }catch{ /* A sound failure should leave the entrance usable. */ }
+    };
+    if(context.state==='running')start();
+    else void context.resume().then(start).catch(()=>{});
   }
   private track(source:AudioScheduledSourceNode,nodes:AudioNode[],end:number){
-    this.voices.add(source);source.onended=()=>{source.disconnect();for(const node of nodes)node.disconnect();this.voices.delete(source);if(this.closing&&!this.voices.size)this.close();};source.start();source.stop(end);
+    this.voices.add(source);source.onended=()=>{source.disconnect();for(const node of nodes)node.disconnect();this.voices.delete(source);if(this.closing&&!this.voices.size&&!this.entrance)this.close();};source.start();source.stop(end);
   }
   play(cue:SoundCue,x=.5){
     const context=this.context;if(!this.enabled||!context||!this.gain||context.state!=='running'||this.closing)return;
@@ -79,8 +99,10 @@ export class SwarmAudio {
     if(context){context.removeEventListener('statechange',this.stateChanged);if(context.state!=='closed')void context.close().catch(()=>{});}
   }
   dispose(){
+    if(this.closing)return;
     this.enabled=false;this.closing=true;this.unlisten();this.last.clear();
+    this.entrance?.stop();
     if(this.context&&this.gain)this.gain.gain.setTargetAtTime(0,this.context.currentTime,.012);
-    if(!this.voices.size)this.close();
+    if(!this.voices.size&&!this.entrance)this.close();
   }
 }

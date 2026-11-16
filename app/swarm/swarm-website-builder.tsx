@@ -6,6 +6,8 @@ import {useSiteLanguage} from '../site-language';
 import type {SwarmController} from './controller';
 import type {BuilderSnapshot} from './types';
 import {DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY} from './availability';
+import {SwarmAudio} from './audio';
+import {scheduleEntranceScore} from './entrance-audio';
 import {SiteEntrance} from './site-entrance';
 import {ENTRANCE_TRAVEL_MS} from './timing';
 import './swarm.css';
@@ -43,6 +45,7 @@ export function SwarmWebsiteBuilder() {
 
     let phase: 'boot' | 'waiting' | 'launching' | 'handoff' | 'closed' = 'boot';
     const originalInert = root.inert;
+    const audio = new SwarmAudio();
     let launchTimer = 0, handoffTimer = 0, loadDeadline = 0;
     // Preload on eligible desktops. The engine itself starts after the click.
     const engine = import('./controller').catch(() => null);
@@ -63,6 +66,7 @@ export function SwarmWebsiteBuilder() {
       window.clearTimeout(launchTimer);
       window.clearTimeout(handoffTimer);
       window.clearTimeout(loadDeadline);
+      if (!controller.current) audio.dispose();
       root.inert = originalInert;
       html.removeAttribute(ENTRANCE_ATTRIBUTE);
       setEntranceReady(false);
@@ -72,7 +76,7 @@ export function SwarmWebsiteBuilder() {
       window.clearTimeout(loadDeadline);
       if (module) {
         try {
-          controller.current = new module.SwarmController(root, surface, setState);
+          controller.current = new module.SwarmController(root, surface, setState, 1, audio);
         } catch {
           surface.replaceChildren();
           html.classList.remove('swarm-building');
@@ -89,6 +93,7 @@ export function SwarmWebsiteBuilder() {
       phase = 'launching';
       html.setAttribute(ENTRANCE_ATTRIBUTE, phase);
       setEntranceReady(false);
+      audio.startEntrance(context => scheduleEntranceScore(context, context.destination, ENTRANCE_TRAVEL_MS / 1000));
       launchTimer = window.setTimeout(() => { void engine.then(handoff); }, ENTRANCE_TRAVEL_MS);
       loadDeadline = window.setTimeout(() => handoff(null), ENTRANCE_TRAVEL_MS + 1400);
     };
@@ -114,6 +119,7 @@ export function SwarmWebsiteBuilder() {
       enter.current = null;
       controller.current?.finish('ready');
       controller.current = null;
+      audio.dispose();
       window.removeEventListener('keydown', escape);
       desktop.removeEventListener('change', preferenceChanged);
       reducedMotion.removeEventListener('change', preferenceChanged);
