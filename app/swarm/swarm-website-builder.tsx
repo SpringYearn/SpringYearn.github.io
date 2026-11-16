@@ -7,11 +7,11 @@ import type {SwarmController} from './controller';
 import type {BuilderSnapshot} from './types';
 import {DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY} from './availability';
 import {SiteEntrance} from './site-entrance';
+import {ENTRANCE_TRAVEL_MS} from './timing';
 import './swarm.css';
 
 const skipCopy={en:'Skip',zh:'略過',ja:'スキップ',ko:'건너뛰기',ru:'Пропустить',vi:'Bỏ qua'};
 const initial:BuilderSnapshot={phase:'ready',done:0,total:0,cursors:0,speed:1,sound:true};
-const launchDuration = 380;
 const handoffDuration = 280;
 
 export function SwarmWebsiteBuilder() {
@@ -89,8 +89,8 @@ export function SwarmWebsiteBuilder() {
       phase = 'launching';
       html.setAttribute(ENTRANCE_ATTRIBUTE, phase);
       setEntranceReady(false);
-      launchTimer = window.setTimeout(() => { void engine.then(handoff); }, launchDuration);
-      loadDeadline = window.setTimeout(() => handoff(null), 2400);
+      launchTimer = window.setTimeout(() => { void engine.then(handoff); }, ENTRANCE_TRAVEL_MS);
+      loadDeadline = window.setTimeout(() => handoff(null), ENTRANCE_TRAVEL_MS + 1400);
     };
 
     const escape = (event: KeyboardEvent) => {

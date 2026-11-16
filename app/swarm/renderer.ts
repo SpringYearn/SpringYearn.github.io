@@ -14,9 +14,6 @@ export class AnimationRenderer {
   private width=0;private height=0;
   constructor(private host:HTMLElement){
     this.opening=document.createElement('div');this.opening.className='swarm-opening';
-    const mark=document.createElement('div');mark.className='swarm-assembly';
-    const logo=document.createElement('img');logo.src='/logo.png';logo.alt='';logo.width=72;logo.height=72;
-    const name=document.createElement('span');name.textContent='SPRING YEARN';mark.append(logo,name);this.opening.append(mark);
     this.canvas=document.createElement('canvas');this.canvas.className='swarm-canvas';this.canvas.setAttribute('aria-hidden','true');
     const context=this.canvas.getContext('2d');if(!context)throw new Error('Canvas unavailable');this.context=context;
     host.append(this.opening,this.canvas);this.resize();

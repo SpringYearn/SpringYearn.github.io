@@ -1,33 +1,21 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
-import type { CSSProperties, RefObject } from "react";
+import { useEffect, useRef, type CSSProperties, type RefObject } from "react";
 import { useSiteLanguage } from "../site-language";
+import { ENTRANCE_ATTRIBUTE } from "./availability";
+import { animateEntrance } from "./entrance-scene";
+import { ENTRANCE_TRAVEL_MS } from "./timing";
 import "./site-entrance.css";
 
 const enterCopy = {
-  en: "Click to enter",
-  zh: "點擊進入",
-  ja: "クリックして入る",
-  ko: "클릭해서 들어가기",
-  ru: "Нажмите, чтобы войти",
-  vi: "Nhấp để vào",
+  en: "Enter SpringYearn",
+  zh: "進入 SpringYearn",
+  ja: "SpringYearn に入る",
+  ko: "SpringYearn 들어가기",
+  ru: "Войти на SpringYearn",
+  vi: "Vào SpringYearn",
 };
-
-// Offset the phases so particles drift at different speeds and the field
-// already has depth when the first frame appears.
-const particles = Array.from({ length: 30 }, (_, index) => {
-  const angle = index * 2.39996;
-  const reach = .56 + ((index * 13) % 23) * .025;
-  const duration = 6.5 + (index * 7 % 13) * .39;
-  return {
-    "--drift-x": `${Math.round(Math.cos(angle) * reach * 318)}px`,
-    "--drift-y": `${Math.round(Math.sin(angle) * reach * 205)}px`,
-    "--particle-size": `${index % 5 === 0 ? 2.8 : index % 3 === 0 ? 2.1 : 1.5}px`,
-    "--particle-duration": `${duration.toFixed(2)}s`,
-    "--particle-delay": `${(-duration * ((index * 19) % 31) / 31).toFixed(2)}s`,
-  } as CSSProperties;
-});
+const entranceStyle = { "--entrance-travel": `${ENTRANCE_TRAVEL_MS}ms` } as CSSProperties;
 
 export function SiteEntrance({ button, ready, onEnter }: {
   button: RefObject<HTMLButtonElement | null>;
@@ -35,16 +23,21 @@ export function SiteEntrance({ button, ready, onEnter }: {
   onEnter: () => void;
 }) {
   const { locale } = useSiteLanguage();
+  const field = useRef<HTMLCanvasElement>(null);
+  const emblem = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    if (!field.current || !emblem.current || !button.current ||
+        !document.documentElement.hasAttribute(ENTRANCE_ATTRIBUTE)) return;
+    return animateEntrance(field.current, emblem.current, button.current);
+  }, [button]);
+
   return (
-    <section className="site-entrance" role="dialog" aria-modal="true" aria-label="SpringYearn" data-no-ripple>
-      <div className="site-entrance-particles" aria-hidden="true">
-        {particles.map((style, index) => <i key={index} style={style} />)}
-      </div>
-      <button className="site-entrance-enter" ref={button} type="button" disabled={!ready} onClick={onEnter}>
-        <span className="site-entrance-guides" aria-hidden="true" />
-        <img className="site-entrance-logo" src="/logo.png" alt="" width={116} height={121} />
-        <span className="site-entrance-light" aria-hidden="true" />
-        <span className="site-entrance-cue">{enterCopy[locale]}<ArrowUpRight aria-hidden="true" /></span>
+    <section className="site-entrance" role="dialog" aria-modal="true" aria-label="SpringYearn" style={entranceStyle} data-no-ripple>
+      <canvas className="site-entrance-field" ref={field} aria-hidden="true" />
+      <button className="site-entrance-enter" ref={button} type="button" aria-label={enterCopy[locale]} disabled={!ready} onClick={onEnter}>
+        <span className="site-entrance-float" ref={emblem}>
+          <img className="site-entrance-logo" src="/logo.png" alt="" width={150} height={157} />
+        </span>
       </button>
     </section>
   );

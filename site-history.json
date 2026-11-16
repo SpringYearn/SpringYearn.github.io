@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added a particle opening before the desktop build animation."
+      "Made the floating logo the site entrance."
     ],
     "zh": [
-      "加入桌機粒子開場。"
+      "將桌機開場改為可點擊的浮動 Logo。"
     ]
   },
   "releases": [
+    {
+      "version": "V.087",
+      "date": "2026-11-16",
+      "en": ["Made the floating logo the site entrance."],
+      "zh": ["將桌機開場改為可點擊的浮動 Logo。"]
+    },
     {
       "version": "V.086",
       "date": "2026-11-16",
