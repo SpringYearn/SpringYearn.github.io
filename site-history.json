@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Opened a new canvas, archived the previous one and updated canvas requests."
+      "Moved the canvas archive below the whiteboard and added an animated folder, mouse wheel zoom and drag."
     ],
     "zh": [
-      "開放新畫布，封存舊畫布並更新申請按鈕。"
+      "將舊畫布獨立放在白板下方，加入資料夾動畫、滾輪縮放與拖曳。"
     ]
   },
   "releases": [
+    {
+      "version": "V.085",
+      "date": "2026-11-16",
+      "en": ["Moved the canvas archive below the whiteboard and added an animated folder, mouse wheel zoom and drag."],
+      "zh": ["將舊畫布獨立放在白板下方，加入資料夾動畫、滾輪縮放與拖曳。"]
+    },
     {
       "version": "V.084",
       "date": "2026-11-16",

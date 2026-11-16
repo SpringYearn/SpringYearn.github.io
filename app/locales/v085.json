@@ -1,0 +1,20 @@
+[
+  {
+    "id": "v085.archiveMouseHelp",
+    "en": "Use the mouse wheel to zoom, and hold the left button to drag the canvas.",
+    "zh": "用滑鼠滾輪縮放，按住左鍵拖曳畫布。",
+    "ja": "マウスホイールで拡大・縮小し、左ボタンを押しながらドラッグすると移動できます。",
+    "ko": "마우스 휠로 확대·축소하고, 왼쪽 버튼을 누른 채 드래그해 캔버스를 이동하세요.",
+    "ru": "Прокручивайте колёсико мыши для масштабирования и перетаскивайте холст, удерживая левую кнопку.",
+    "vi": "Cuộn con lăn để thu phóng và giữ nút chuột trái để kéo bảng vẽ."
+  },
+  {
+    "id": "v085.release",
+    "en": "Moved the canvas archive below the whiteboard and added an animated folder, mouse wheel zoom and drag.",
+    "zh": "將舊畫布獨立放在白板下方，加入資料夾動畫、滾輪縮放與拖曳。",
+    "ja": "過去のキャンバスをホワイトボードの下に移動し、フォルダーのアニメーション、ホイールでの拡大・縮小、ドラッグ操作を追加。",
+    "ko": "지난 캔버스를 화이트보드 아래로 옮기고 폴더 애니메이션, 휠 확대·축소, 드래그를 추가했어요.",
+    "ru": "Архив перенесён под доску. Добавлены анимация папки, масштабирование колёсиком и перетаскивание.",
+    "vi": "Chuyển kho bảng vẽ xuống dưới bảng trắng, thêm hiệu ứng mở thư mục, thu phóng bằng con lăn và kéo để di chuyển."
+  }
+]
