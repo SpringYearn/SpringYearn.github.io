@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Restored the original homepage layout, added a background reel, and refreshed the intro, glass controls, and featured works."
+      "Removed the glass background from the desktop opening logo."
     ],
     "zh": [
-      "恢復首頁原本構圖，加入背景精華，並更新片頭、玻璃介面與精選作品。"
+      "桌機開場 Logo 改回透明底。"
     ]
   },
   "releases": [
+    {
+      "version": "V.092",
+      "date": "2026-11-18",
+      "en": ["Removed the glass background from the desktop opening logo."],
+      "zh": ["桌機開場 Logo 改回透明底。"]
+    },
     {
       "version": "V.091",
       "date": "2026-11-18",

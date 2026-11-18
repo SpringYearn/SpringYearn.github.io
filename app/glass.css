@@ -9,7 +9,7 @@
 
 /* Controls share the same body and highlights as the header and the play button. */
 html :is(.site-shell,.swarm-root,[role="dialog"],.status-update-panel)
-  :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(.for-never-trigger,.board-colors button,.brand-word)) {
+  :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(.site-entrance-enter,.for-never-trigger,.board-colors button,.brand-word)) {
   border: 1px solid var(--glass-control-edge);
   border-radius: var(--glass-control-radius, 9px);
   background-color: var(--glass-control-fill);
@@ -19,7 +19,7 @@ html :is(.site-shell,.swarm-root,[role="dialog"],.status-update-panel)
 }
 
 html :is(.site-shell,.swarm-root,[role="dialog"],.status-update-panel)
-  :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(.for-never-trigger,.board-colors button,.brand-word)):is(:hover,:focus-visible,[aria-expanded="true"],[data-state="open"]):not(:disabled) {
+  :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(.site-entrance-enter,.for-never-trigger,.board-colors button,.brand-word)):is(:hover,:focus-visible,[aria-expanded="true"],[data-state="open"]):not(:disabled) {
   --glass-control-fill: rgba(51,83,72,.86);
   --glass-control-edge: rgba(208,247,224,.59);
 }
