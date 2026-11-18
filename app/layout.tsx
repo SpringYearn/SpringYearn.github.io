@@ -18,7 +18,8 @@ const siteOrigin =
 // Set the initial appearance before the document can paint. If hydration
 // never takes over, release the entrance and leave the static site usable.
 const entranceBootstrap = `(() => {
-  if (!matchMedia(${JSON.stringify(DESKTOP_QUERY)}).matches ||
+  if (location.pathname !== '/' || location.hash ||
+      !matchMedia(${JSON.stringify(DESKTOP_QUERY)}).matches ||
       matchMedia(${JSON.stringify(REDUCED_MOTION_QUERY)}).matches) return;
   try { if (sessionStorage.getItem(${JSON.stringify(SWARM_SEEN_KEY)}) === '1') return; } catch {}
   const root = document.documentElement;

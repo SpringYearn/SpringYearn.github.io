@@ -196,8 +196,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     clock += delta * (1 + 2.8 * rush);
     const bob = Math.sin(time * 1.12) * 5.6 * (1 - ease(.12, .8, progress));
     emblem.style.transform = `translate3d(0,${bob.toFixed(2)}px,0)`;
-    const paper = ease(.55, .93, progress);
-    const ink = `${Math.round(188 - paper * 111)},${Math.round(231 - paper * 105)},${Math.round(206 - paper * 86)}`;
+    const ink = "188,231,206";
     const field = { x: width / 2, y: height / 2 + bob, width, height, radius: Math.min(width, height) / 2,
       time, progress, rush, fade, ink };
     context.clearRect(0, 0, width, height);

@@ -10,13 +10,11 @@ export class AnimationRenderer {
   canvas: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
   private ghosts=new Map<number,Ghost>();
-  private opening: HTMLDivElement;
   private width=0;private height=0;
   constructor(private host:HTMLElement){
-    this.opening=document.createElement('div');this.opening.className='swarm-opening';
     this.canvas=document.createElement('canvas');this.canvas.className='swarm-canvas';this.canvas.setAttribute('aria-hidden','true');
     const context=this.canvas.getContext('2d');if(!context)throw new Error('Canvas unavailable');this.context=context;
-    host.append(this.opening,this.canvas);this.resize();
+    host.append(this.canvas);this.resize();
   }
   resize(){
     this.width=innerWidth;this.height=innerHeight;const dpr=Math.min(2,devicePixelRatio||1);
@@ -46,7 +44,7 @@ export class AnimationRenderer {
     const y=task.kind==='line'?r.y:scanning?r.y+r.height*.5:box.y+box.height;
     return{x:clamp(x-left,8,this.width-18),y:clamp(y-top,8,this.height-18)};
   }
-  paint(agents:Agent[],jobs:Job[],top:number,left:number,time:number,intro:number,multiplier=1){
+  paint(agents:Agent[],jobs:Job[],top:number,left:number,time:number,multiplier=1){
     const working=agents.filter(agent=>agent.present);
     this.canvas.dataset.swarmCursorCount=String(working.length);
     this.canvas.dataset.swarmTempo=String(multiplier);
@@ -54,8 +52,6 @@ export class AnimationRenderer {
     this.canvas.dataset.swarmHandoffs=working.filter(agent=>!agent.busy).map(agent=>String(agent.id)).join(',');
     this.canvas.dataset.swarmBatches=working.map(agent=>`${agent.id}:${agent.batch}:${agent.completed}:${agent.quota}`).join(',');
     const c=this.context;c.clearRect(0,0,this.width,this.height);
-    this.opening.style.opacity=String(1-clamp((intro-.65)/.35,0,1));
-    this.opening.style.visibility=intro>=1?'hidden':'visible';
     for(const job of jobs){
       if(!job.arrived)continue;
       const r={...job.task.rect,x:job.task.rect.x-left,y:job.task.rect.y-top},p=job.progress;
@@ -136,5 +132,5 @@ export class AnimationRenderer {
     c.globalAlpha=.98;c.fillStyle='#f7f8f5';c.fillRect(badge.x,badge.y,badge.width,badge.height);c.strokeStyle='#3577ad';c.lineWidth=1.3;c.strokeRect(badge.x,badge.y,badge.width,badge.height);
     c.fillStyle='#284e69';c.fillText(label,badge.x+10,badge.y+17);
   }
-  dispose(){for(const ghost of this.ghosts.values())ghost.root.remove();this.ghosts.clear();this.canvas.remove();this.opening.remove();}
+  dispose(){for(const ghost of this.ghosts.values())ghost.root.remove();this.ghosts.clear();this.canvas.remove();}
 }

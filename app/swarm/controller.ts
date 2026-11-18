@@ -131,7 +131,7 @@ export class SwarmController {
       const hasWork=jobs.length>0||scheduler?.tasks.some(task=>scheduler.ready(task)&&scheduler.visible(task,top,height,width,left));
       scheduler?.retireIdle(this.engine.agents,this.clock,!!hasWork);
       this.engine.step(delta,width,height,this.speed*BUILD_RATE*multiplier);
-      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,this.intro/INTRO_DURATION,multiplier);
+      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,multiplier);
       if(this.prepared&&this.intro>=INTRO_DURATION&&!hasWork){this.previous=0;this.emit('waiting');return;}
       if(now-this.lastReport>100){this.lastReport=now;this.emit(this.intro<INTRO_DURATION?'opening':hasWork?'building':'waiting');}
       this.request();

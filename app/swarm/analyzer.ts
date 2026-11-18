@@ -2,7 +2,7 @@ import type { Box, BuildTask, Glyph, TaskKind } from "./types";
 
 const excluded = '.sr-only,script,style,noscript,dialog,[hidden],.art-cursor,.grain,.scroll-progress,.site-status,.spring-logo,.spring-logo-controls,.language-menu,.mobile-nav-panel,.mobile-nav-overlay,.board-viewport,.board-tool-group,input,textarea,select,[contenteditable="true"],[data-swarm-ignore]';
 const semantics = 'h1,h2,h3,h4,p,a,button,li,label,summary,time,small,strong,figcaption';
-const frames = '.site-header,.hero-composition,.work-gateway,.project-files-gateway,.pf-gateway,.lab-entry-link,.project-card,.overview-item,.featured-work-card,.pf-card,.lab-card,.brand-meanings article,.practice-card,.history-item,section.section-block';
+const frames = '.site-header,.pf-gateway,.lab-entry-link,.project-card,.overview-item,.featured-work-card,.pf-card,.lab-card,.brand-meanings article,.practice-card,.history-item,section.section-block';
 
 export function documentBox(element: Element): Box {
   const box = element.getBoundingClientRect();
@@ -62,7 +62,7 @@ export class DOMAnalyzer {
       const kind = targets.get(element)!;
       const previous = element.previousElementSibling;
       const source = previous && ids.has(previous as HTMLElement) ? ids.get(previous as HTMLElement)! : null;
-      const priority = element.closest('.site-header') ? 0 : kind === 'frame' || element.matches('h1,h2,h3,h4,strong.hero-display') ? 1 : kind === 'image' ? 3 : element.matches('button') ? 4 : kind === 'line' ? 5 : 2;
+      const priority = element.closest('.site-header') ? 0 : kind === 'frame' || element.matches('h1,h2,h3,h4,#home-feature-title') ? 1 : kind === 'image' ? 3 : element.matches('button') ? 4 : kind === 'line' ? 5 : 2;
       const clipElement = clipFor(element.parentElement);
       return { id: order, element, kind, nodes, rect: documentBox(element), clipElement, clip: clipElement ? documentBox(clipElement) : null, parent, source, depth, order, priority, state: 'pending',
         operation: kind === 'text' ? 'type' : kind === 'image' ? 'scan' : source !== null ? 'duplicate' : order % 3 === 0 ? 'align' : 'draw',

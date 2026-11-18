@@ -16,8 +16,8 @@ const roots = [
 ] as const;
 
 const palettes = [
-  { stem: "#648064", leaves: ["#91ac80", "#a8bc92", "#799b77"], vein: "#506d52" },
-  { stem: "#47736a", leaves: ["#80a999", "#a1bcaa", "#678f83"], vein: "#42675f" },
+  { stem: "#8ba985", leaves: ["#a8bc92", "#b9c99f", "#91ad8d"], vein: "#526f54" },
+  { stem: "#77a496", leaves: ["#8caca0", "#a1bcaa", "#82a79b"], vein: "#4c7569" },
 ];
 
 const limit = (n: number) => Math.max(0, Math.min(n, 1));

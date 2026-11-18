@@ -58,25 +58,42 @@ export function ItemPage(props: Props) {
     : instagram ? (sourceVideo ? (chinese ? "在 Instagram 播放" : "Watch on Instagram") : (chinese ? "在 Instagram 開啟" : "Open on Instagram"))
     : (chinese ? "開啟原圖" : "Open full image");
   const label = props.kind === "work" ? props.project.type[language] : `${props.project.software === "ae" ? "After Effects" : "DaVinci Resolve"} / ${chinese ? "免費專案檔" : "FREE PROJECT FILE"}`;
-  const intro = props.kind === "work" ? workStories[props.project.id]?.summary?.[locale] ?? featuredSummaries[props.project.id]?.[locale] ?? featuredSummaries[props.project.id]?.[language] ?? props.project.detail[language] : materialLabel(props.project, language);
-  return <Localized>{<main id="top" className="site-shell item-page">
+  const story = props.kind === "work" ? workStories[props.project.id] : undefined;
+  const intro = props.kind === "work" ? featuredSummaries[props.project.id]?.[locale] ?? featuredSummaries[props.project.id]?.[language] : materialLabel(props.project, language);
+  return <Localized>{<main id="top" className={`site-shell item-page item-page-${kind}`}>
     <div className="scroll-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" /><div className="grain" aria-hidden="true" /><div className="art-cursor" aria-hidden="true"><span className="cursor-ring" /><span className="cursor-core" /></div>
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}><Link className="wordmark" href="/" aria-label="SpringYearn home"><span className="wordmark-symbol"><img src="/logo.png" alt="" /></span><span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span></Link>
       <nav className="desktop-nav" aria-label="Main navigation">{links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</nav><HeaderControls language={language} onToggleLanguage={() => setLanguage(value => value === "en" ? "zh" : "en")} />
     </header>
-    <section className="section-block item-hero"><IndexLink className="text-link" href={indexPath}><ArrowLeft aria-hidden="true" />{kind === "work" ? (chinese ? "返回作品集" : "Back to work archive") : (chinese ? "返回專案檔" : "Back to project files")}</IndexLink><h1>{project.title}</h1><p className="item-intro">{intro}</p><ItemShare path={itemPath(kind, project.id)} title={project.title} /></section>
+    <section className="section-block item-hero">
+      <IndexLink className="text-link" href={indexPath}><ArrowLeft aria-hidden="true" />{kind === "work" ? (chinese ? "返回作品集" : "Back to work archive") : (chinese ? "返回專案檔" : "Back to project files")}</IndexLink>
+      <div className="item-title-row">
+        <h1>{project.title}</h1>
+        <ItemShare path={itemPath(kind, project.id)} title={project.title} />
+      </div>
+      {kind === "project-files" && <p className="item-intro">{intro}</p>}
+    </section>
     <section className="section-block item-content" aria-label={chinese ? "項目預覽與資訊" : "Item preview and information"}>
       <div className="item-preview">{video ? <video ref={quietPreview} controls playsInline preload="none" poster={props.kind === "project-files" ? preview : undefined} src={video} /> : <a className={`item-preview-link${sourceVideo ? " is-video-destination" : ""}`} href={source} target="_blank" rel="noreferrer" aria-label={`${project.title} — ${sourceLabel}, ${chinese ? "在新分頁開啟" : "opens in a new tab"}`}>
         <span className="item-preview-visual"><img src={preview} alt={project.title} style={{ objectFit: props.kind === "work" ? props.project.fit ?? "cover" : "cover" }} />
         {sourceVideo && <span className="item-preview-play" aria-hidden="true"><Play /></span>}</span>
         <span className="item-preview-caption"><span>{!sourceVideo && <Expand aria-hidden="true" />}{sourceLabel}</span><span className="item-preview-newtab">{chinese ? "在新分頁開啟" : "New tab"}<ArrowUpRight aria-hidden="true" /></span></span>
       </a>}</div>
-      <div className="item-information"><h2>{label}</h2>{props.kind === "work" && <WorkProjectLink id={props.project.id} />}
-        {props.kind === "project-files" && <><p className="item-file-meta">{props.project.filename} / {props.project.bytes >= 1_000_000_000 ? `${(props.project.bytes / 1_000_000_000).toFixed(2)} GB` : `${(props.project.bytes / 1_000_000).toFixed(1)} MB`}</p><a className="pf-download-link" href={props.project.downloadUrl} download={props.project.downloadUrl.startsWith("/") ? props.project.filename : undefined} target={props.project.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer"><span>{chinese ? "免費下載" : "Free download"}</span><Download aria-hidden="true" /></a></>}
-        {video && <a className="text-link" href={source} target="_blank" rel="noreferrer">{chinese ? "觀看原始作品／預覽" : "View original work / preview"}<ArrowUpRight aria-hidden="true" /></a>}<Link className="text-link" href="/#contact">{chinese ? "聯絡" : "Contact"}<ArrowUpRight aria-hidden="true" /></Link>
+      <div className="item-information">
+        {props.kind === "work" ? <>
+          <p className="mono-label item-category">{label}</p>
+          {!story && intro && <p className="item-intro">{intro}</p>}
+          <WorkStory id={props.project.id} />
+          <WorkProjectLink id={props.project.id} />
+        </> : <>
+          <h2>{label}</h2>
+          <p className="item-file-meta">{props.project.filename} / {props.project.bytes >= 1_000_000_000 ? `${(props.project.bytes / 1_000_000_000).toFixed(2)} GB` : `${(props.project.bytes / 1_000_000).toFixed(1)} MB`}</p>
+          <a className="pf-download-link" href={props.project.downloadUrl} download={props.project.downloadUrl.startsWith("/") ? props.project.filename : undefined} target={props.project.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer"><span>{chinese ? "免費下載" : "Free download"}</span><Download aria-hidden="true" /></a>
+        </>}
+        {video && <a className="text-link" href={source} target="_blank" rel="noreferrer">{chinese ? "觀看原始作品／預覽" : "View original work / preview"}<ArrowUpRight aria-hidden="true" /></a>}
+        <Link className="text-link" href="/#contact">{chinese ? "聯絡" : "Contact"}<ArrowUpRight aria-hidden="true" /></Link>
       </div>
     </section>
-    {props.kind === "work" && <WorkStory id={props.project.id} />}
     {props.kind === "work" && <ProjectGallery project={props.project} />}
     <SiteStatus language={language} /><footer className="site-footer"><span>SpringYearn® — {kind === "work" ? "WORK" : "PROJECT FILES"}</span><Link href={kind === "work" ? "/work/" : "/resources/"}>{chinese ? "返回索引" : "Back to index"}<ArrowUpRight aria-hidden="true" /></Link><a href="#top">{chinese ? "回到頂端" : "Back to top"}<ArrowUpRight aria-hidden="true" /></a></footer>
   </main>}</Localized>;

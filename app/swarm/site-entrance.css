@@ -43,16 +43,25 @@
 .site-entrance-field {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+}
+
+.site-entrance-cut {
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  background-position: center;
+  background-size: cover;
   pointer-events: none;
 }
 
 .site-entrance-enter {
   position: absolute;
   inset: 50% auto auto 50%;
-  z-index: 2;
+  z-index: 3;
   width: clamp(128px, min(13vw, 24dvh), 180px);
   padding: 0;
   border: 0;
@@ -86,7 +95,7 @@
 .site-entrance-zoom {
   position: relative;
   display: block;
-  filter: drop-shadow(0 0 6px rgba(var(--spring-soft-rgb), .47)) drop-shadow(0 0 24px rgba(var(--spring-leaf-rgb), .40));
+  filter: drop-shadow(0 0 6px rgba(var(--foreground-rgb), .47)) drop-shadow(0 0 24px rgba(var(--spring-leaf-rgb), .40));
   transition: filter 450ms ease;
 }
 
@@ -106,7 +115,7 @@
 .site-entrance-float[data-warped] .site-entrance-logo-warp { visibility: visible; }
 
 .site-entrance-enter:hover:enabled .site-entrance-zoom {
-  filter: drop-shadow(0 0 8px rgba(var(--spring-soft-rgb), .68)) drop-shadow(0 0 32px rgba(var(--spring-leaf-rgb), .55));
+  filter: drop-shadow(0 0 8px rgba(var(--foreground-rgb), .68)) drop-shadow(0 0 32px rgba(var(--spring-leaf-rgb), .55));
 }
 
 html:is([data-site-entrance="launching"], [data-site-entrance="handoff"]) .site-entrance::after {
@@ -117,7 +126,28 @@ html:is([data-site-entrance="launching"], [data-site-entrance="handoff"]) .site-
   animation: entrance-dive var(--entrance-travel) cubic-bezier(.26,.39,.42,1) both;
 }
 
+html:is([data-site-entrance="launching"], [data-site-entrance="handoff"]) .site-entrance-cut[data-positioned] {
+  animation: entrance-cut var(--entrance-travel) linear both;
+}
+
 html[data-site-entrance="handoff"] .site-entrance { opacity: 0; }
+
+@keyframes entrance-cut {
+  0%, 44% {
+    opacity: 0;
+    transform: translate(var(--cut-x), var(--cut-y)) scale(var(--cut-scale));
+  }
+  58% {
+    opacity: .52;
+    transform: translate(var(--cut-x), var(--cut-y)) scale(var(--cut-scale));
+    animation-timing-function: cubic-bezier(.14,.61,.31,1);
+  }
+  84% { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
 
 @keyframes entrance-exposure {
   0% { opacity: 0; }

@@ -9,26 +9,23 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
 import { HeaderControls } from "../header-controls";
 import { useSiteLanguage } from "../site-language";
 import { Button } from "@/components/ui/button";
 import { projects, type Category } from "../portfolio-data";
 import { SiteStatus } from "../site-status";
 import { ForNever } from "../for-never";
-import { SpringMark } from "../spring-mark";
 import { projectDates } from "./project-dates";
 import { sortWorkProjects, type WorkSortDirection, type WorkSortKey } from "./project-sort";
 import { WorkDate } from "./work-date";
 import { FeaturedWork } from "./featured-work";
+import "./work.css";
 
 const copy = {
   en: {
     nav: { home: "Home", profile: "Profile", contact: "Contact" },
-    eyebrow: "Work / 2020—Now",
-    intro:
-      "A collection of my APP / UI, editing, motion, 3D, drawing and graphic design work. Pick a category, or browse the whole mix.",
-    count: "Work archive / Taiwan",
+    title: "Work archive",
     filters: {
       all: "All",
       design: "APP / UI",
@@ -36,24 +33,17 @@ const copy = {
       "3d": "3D",
       drawing: "Drawing",
     },
-    overviewHint: "Start with a category, change the order, or pick a cover that looks interesting.",
-    atlasTitle: "All work", atlasLabel: "Browse the collection", sheet: "Plate", pieces: "works",
+    atlasTitle: "All work",
     sort: "Sort by", direction: "Order", asc: "Ascending", desc: "Descending", sorted: "Current order:",
     sortKeys: { original: "Original order", date: "Artwork date clues", created: "Source file created", updated: "Last updated", name: "Name", category: "Discipline" },
     dateNote: "Last updated uses file modification dates when known, then publication dates or existing year clues. Unconfirmed dates stay last.",
-    more: "More to come.",
-    moreBody: "I’m still adding work here. Check back for more edits, designs and experiments.",
-    moreTag: "Ongoing archive",
     view: "View details",
-    returnHome: "Return to profile",
     footer: "SpringYearn® — Work Archive",
     backTop: "Back to top",
   },
   zh: {
     nav: { home: "首頁", profile: "關於我", contact: "聯絡" },
-    eyebrow: "作品／2020—現在",
-    intro: "這裡整理了我的 APP／UI、剪輯、動態圖形、3D、繪畫和平面設計作品。挑一個分類看，或全部逛一遍。",
-    count: "作品集／台灣",
+    title: "作品集",
     filters: {
       all: "全部",
       design: "APP／UI",
@@ -61,16 +51,11 @@ const copy = {
       "3d": "3D",
       drawing: "繪畫",
     },
-    overviewHint: "可以從分類開始、換個排序，或直接點開一張喜歡的封面。",
-    atlasTitle: "所有作品", atlasLabel: "逛逛作品集", sheet: "圖版", pieces: "件作品",
+    atlasTitle: "所有作品",
     sort: "排列依據", direction: "排列方向", asc: "升序", desc: "降序", sorted: "目前排列：",
     sortKeys: { original: "原始順序", date: "作品日期線索", created: "原檔建立日", updated: "最後更新日", name: "名稱", category: "媒介分類" },
     dateNote: "最後更新日優先採用已知的原檔修改日期，再使用發布日期或既有年份線索；未確認的日期排在最後。",
-    more: "還有作品慢慢補上。",
-    moreBody: "作品還在陸續整理上架，之後會再放更多剪輯、設計與實驗。",
-    moreTag: "持續更新",
     view: "查看詳情",
-    returnHome: "回到個人介紹",
     footer: "SpringYearn® — 作品集",
     backTop: "回到頂端",
   },
@@ -215,38 +200,16 @@ export default function WorkArchive() {
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
-      <section className="work-archive-hero" aria-labelledby="archive-title">
-        <div
-          className="work-archive-title-wrap"
-          onPointerMove={setPointerPosition}
-          onPointerLeave={resetPointerPosition}
-        >
-          <h1 id="archive-title" aria-label="WORK ARCHIVE">
-            {["WORK", "ARCHIVE"].map((word) => (
-              <span className="archive-word" aria-hidden="true" key={word}>
-                {Array.from(word).map((letter, letterIndex) => (
-                  <span
-                    className="archive-letter"
-                    style={{ "--archive-index": letterIndex } as CSSProperties}
-                    key={`${word}-${letterIndex}`}
-                  >
-                    {letter}
-                  </span>
-                ))}
-              </span>
-            ))}
-          </h1>
-        </div>
-        <div className="work-archive-intro">
-          <Link href="/" className="text-link archive-home-link">
-            <ArrowLeft aria-hidden="true" />
-            {t.returnHome}
-          </Link>
-        </div>
-      </section>
+      <div className="section-block work-archive-heading">
+        <h1 id="archive-title">{t.title}</h1>
+      </div>
 
-      <section className="section-block work-archive-gallery" aria-label={t.count}>
-        <div className="filter-row archive-filter-row" role="group" aria-label="Project filters" data-reveal>
+      <FeaturedWork />
+
+      <section className="section-block work-archive-gallery" aria-labelledby="all-work-title">
+        <div className="archive-controls">
+          <h2 id="all-work-title">{t.atlasTitle}</h2>
+          <div className="filter-row archive-filter-row" role="group" aria-label="Project filters">
           {(["all", "editing", "3d", "drawing", "design"] as Category[]).map((category) => (
             <Button
               key={category}
@@ -260,6 +223,7 @@ export default function WorkArchive() {
               {t.filters[category]}
             </Button>
           ))}
+          </div>
         </div>
 
         <div className="lab-sort-controls work-sort-controls">
@@ -274,16 +238,11 @@ export default function WorkArchive() {
           </fieldset>
           <span className="sr-only" role="status">{t.sorted} {t.sortKeys[sortKey]} / {sortDirection === "asc" ? t.asc : t.desc}</span>
         </div>
-        <p className="work-date-note">{t.dateNote}</p>
-        {filter === "all" && <FeaturedWork />}
+        {sortKey === "updated" && <p className="work-date-note">{t.dateNote}</p>}
 
         {filter === "all" ? (
           <div className="archive-overview archive-atlas">
-            <div className="atlas-intro">
-              <h2>{t.atlasTitle}</h2><SpringMark className="atlas-spring" />
-            </div>
-            {plates.map((plate, plateIndex) => <section className="atlas-plate" key={plateIndex} aria-labelledby={`plate-${plateIndex}`}>
-              <div className="atlas-plate-heading"><h3 id={`plate-${plateIndex}`} aria-label={`${t.sheet} ${plateIndex + 1}`}><span aria-hidden="true">{String(plateIndex + 1).padStart(2, "0")}</span></h3></div>
+            {plates.map((plate, plateIndex) => <div className="atlas-plate" key={plateIndex}>
               <div className="project-overview">
               {plate.map((project, index) => (
                 <article
@@ -310,19 +269,19 @@ export default function WorkArchive() {
                       className={`overview-media${project.fit === "contain" ? " media-contain" : ""}`}
                       src={project.thumbnail}
                       alt=""
+                      loading="lazy"
                       draggable={false}
                     />
                   )}
-                  <span className="overview-index">{project.id}</span>
                   </span>
                   <span className="atlas-meta"><span className="overview-category mono-label">{t.filters[project.category]}</span><WorkDate id={project.id} language={language} basis={sortKey} /></span>
-                  <h4 className="atlas-title">{project.title}</h4>
+                  <h3 className="atlas-title" data-localize="off">{project.title}</h3>
                   <span className="item-details-cta">{t.view}<ArrowRight aria-hidden="true" /></span>
                   </Link>
                 </article>
               ))}
               </div>
-            </section>)}
+            </div>)}
           </div>
         ) : (
           <div className="project-grid" aria-live="polite">
@@ -357,13 +316,12 @@ export default function WorkArchive() {
                       alt=""
                     />
                   )}
-                  <span className="project-index">{project.id}</span>
                   <span className="art-title">{project.title.split(" / ")[0]}</span>
                 </div>
                 <div className="project-info">
                   <div>
                     <p className="mono-label">{project.type[language]} / {project.detail[language]}</p>
-                    <h2>{project.title}</h2>
+                    <h3 data-localize="off">{project.title}</h3>
                     <WorkDate id={project.id} language={language} basis={sortKey} />
                   </div>
                   <span className="project-detail-action"><span className="project-action" aria-hidden="true"><ArrowRight /></span><span className="project-detail-label">{t.view}</span></span>

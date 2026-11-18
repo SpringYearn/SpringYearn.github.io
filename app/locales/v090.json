@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v090.release",
+    "en": "Redesigned the site with a dark palette, a new opening cut and clearer paths to works and downloads.",
+    "zh": "改版為暗色系，換上新的開場轉場，並整理作品與下載入口。",
+    "ja": "ダークテーマに刷新し、新しいオープニングに。作品やダウンロードも探しやすくしました。",
+    "ko": "다크 테마와 새 오프닝을 적용하고 작품과 다운로드를 찾기 쉽게 정리했어요.",
+    "ru": "Обновил сайт: тёмная палитра, новое вступление и более понятные ссылки на работы и файлы.",
+    "vi": "Trang có tông màu tối, đoạn mở đầu mới và lối vào tác phẩm, mục tải xuống rõ ràng hơn."
+  },
+  {
+    "id": "v090.publicDownloads",
+    "en": "After Effects / DaVinci Resolve · Public downloads",
+    "zh": "After Effects／DaVinci Resolve・公開下載",
+    "ja": "After Effects / DaVinci Resolve・公開ダウンロード",
+    "ko": "After Effects / DaVinci Resolve · 공개 다운로드",
+    "ru": "After Effects / DaVinci Resolve · свободное скачивание",
+    "vi": "After Effects / DaVinci Resolve · tải xuống công khai"
+  },
+  {
+    "id": "v090.authorizedBuilds",
+    "en": "Fusion tools and prototypes · Authorized test builds",
+    "zh": "Fusion 工具與原型・測試版需授權",
+    "ja": "Fusion ツールと試作品・テスト版は許可制",
+    "ko": "Fusion 도구와 프로토타입 · 테스트 버전은 승인 필요",
+    "ru": "Инструменты и прототипы Fusion · тестовые сборки по разрешению",
+    "vi": "Công cụ và nguyên mẫu Fusion · bản thử nghiệm cần quyền truy cập"
+  }
+]

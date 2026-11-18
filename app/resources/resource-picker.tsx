@@ -13,13 +13,13 @@ const choices = [
   {
     id: "project-files",
     title: { en: "Free project files", zh: "免費專案檔" },
-    description: "After Effects / DaVinci Resolve",
+    description: { en: "After Effects / DaVinci Resolve · Public downloads", zh: "After Effects／DaVinci Resolve・公開下載" },
     Icon: Clapperboard,
   },
   {
     id: "lab",
     title: { en: "LAB / Tools", zh: "LAB / 工具" },
-    description: "Fusion tools, prototypes and development notes",
+    description: { en: "Fusion tools and prototypes · Authorized test builds", zh: "Fusion 工具與原型・測試版需授權" },
     Icon: Workflow,
   },
 ] as const;
@@ -71,7 +71,7 @@ export function ResourcePicker({ active, animate, onSelect }: {
             <span className="resource-choice-text">
               <span className="resource-choice-title" id={`resource-label-${id}`}>{title[language]}</span>
               <span className="resource-choice-description" aria-hidden={active !== null}>
-                <span id={`resource-description-${id}`}>{description}</span>
+                <span id={`resource-description-${id}`}>{description[language]}</span>
               </span>
             </span>
             <span className="resource-choice-arrow">

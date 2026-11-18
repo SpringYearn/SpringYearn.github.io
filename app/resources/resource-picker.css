@@ -37,11 +37,11 @@
 }
 
 .resource-choice {
-  --choice-surface: #ecf1ee;
-  --choice-text: #1d3230;
-  --choice-edge: #8a9f99;
-  --choice-art: #dfeae6;
-  --choice-line: #688c83;
+  --choice-surface: #c0cdcb;
+  --choice-text: #192d2e;
+  --choice-edge: #819d9b;
+  --choice-art: #a9bfc0;
+  --choice-line: #345d60;
   display: grid;
   grid-template-rows: auto 1fr;
   min-width: 0;
@@ -51,11 +51,11 @@
 }
 
 .resource-choice-lab {
-  --choice-surface: #243532;
-  --choice-text: #eef5ec;
-  --choice-edge: #536b61;
-  --choice-art: #273b36;
-  --choice-line: #aac2b3;
+  --choice-surface: #20312b;
+  --choice-text: var(--foreground);
+  --choice-edge: #5e8375;
+  --choice-art: #263b33;
+  --choice-line: #a4c5b4;
 }
 
 .resource-choice:focus-visible {
@@ -276,14 +276,9 @@
 }
 
 .resource-picker[data-expanded="false"] .resource-choice:not([aria-current="page"]) {
-  --choice-surface: var(--background);
-  --choice-text: var(--spring-ink);
-  --choice-edge: #a8bbb7;
-}
-
-.resource-picker[data-expanded="false"] .resource-choice-project-files[aria-current="page"] {
-  --choice-surface: #dfeae5;
-  --choice-edge: var(--spring-ink);
+  --choice-surface: var(--surface);
+  --choice-text: var(--muted-foreground);
+  --choice-edge: var(--divider);
 }
 
 .resource-picker[data-expanded="false"] .resource-choice-title {

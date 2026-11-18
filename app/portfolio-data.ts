@@ -25,7 +25,7 @@ export const projects: Project[] = [
     category: "editing",
     art: "video",
     href: "https://youtu.be/GTrQrntgJ-k?si=HJJYSvUyAUpN1mwP",
-    thumbnail: "https://i.ytimg.com/vi/GTrQrntgJ-k/maxresdefault.jpg",
+    thumbnail: "/works/blight.jpg",
   },
   {
     id: "02",
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     category: "editing",
     art: "video",
     href: "https://youtu.be/u5NagxwYeoE?si=MrOpPlLWEP967aC1",
-    thumbnail: "https://i.ytimg.com/vi/u5NagxwYeoE/maxresdefault.jpg",
+    thumbnail: "/works/in-my-room.jpg",
   },
   {
     id: "03",
@@ -45,7 +45,7 @@ export const projects: Project[] = [
     category: "editing",
     art: "video",
     href: "https://youtu.be/XXijIJn98B4?si=HJxj_z7j_QlCHOXm",
-    thumbnail: "https://i.ytimg.com/vi/XXijIJn98B4/maxresdefault.jpg",
+    thumbnail: "/works/14-3-billion-years.jpg",
   },
   {
     id: "04",
