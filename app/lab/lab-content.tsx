@@ -60,7 +60,7 @@ export function LabContent({ showResourceSections = false }: { showResourceSecti
       <section className="section-block lab-records" data-lab-platform="resolve" aria-labelledby="lab-platform-title">
         <div className="lab-platform-heading"><h2 id="lab-platform-title">DaVinci Resolve / Fusion</h2></div>
         <div className="lab-access-note"><div><p>{t.access}</p><p className="lab-language-note"><span>{t.buildLanguage}</span>{t.languageNotice}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
-        <div className="lab-sort-controls">
+        <div className="lab-sort-controls lab-sort-panel">
           <SortSelect id="lab-sort-key" label={t.sort} value={sortKey} options={t.sortKeys} onChange={setSortKey} />
           <fieldset className="lab-sort-direction"><legend className="sr-only">{t.direction}</legend>
             <button type="button" aria-pressed={sortDirection === "asc"} onClick={() => setSortDirection("asc")}><ArrowUp aria-hidden="true" />{t.asc}</button>

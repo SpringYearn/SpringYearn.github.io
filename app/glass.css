@@ -1,5 +1,6 @@
 :root {
   --glass-reflection: linear-gradient(143deg, rgba(220,252,235,.20), rgba(165,212,207,.04) 44%, transparent 63%, rgba(160,225,211,.09));
+  --glass-control-radius: 3px;
   --glass-control-fill: rgba(37,58,54,.70);
   --glass-control-edge: rgba(196,232,216,.32);
   --glass-panel-tint: rgba(18,33,32,.92);
@@ -8,20 +9,22 @@
 }
 
 /* Controls share the same body and highlights as the header and the play button. */
-html :is(.site-shell,.swarm-root,[role="dialog"],.status-update-panel)
-  :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(.site-entrance-enter,.for-never-trigger,.board-colors button,.brand-word)) {
+html :is(.site-shell,.swarm-root,[role="dialog"])
+  :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(
+    .site-entrance-enter,.for-never-trigger,.board-colors button,.brand-word,
+    .site-status button,.status-update-panel *,.legacy-index summary
+  )) {
   border: 1px solid var(--glass-control-edge);
-  border-radius: var(--glass-control-radius, 9px);
+  border-radius: var(--glass-control-radius);
   background-color: var(--glass-control-fill);
   background-image: var(--glass-reflection);
   color: var(--foreground);
   box-shadow: var(--glass-rim), 0 3px 8px rgba(4,12,13,.15);
-}
 
-html :is(.site-shell,.swarm-root,[role="dialog"],.status-update-panel)
-  :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(.site-entrance-enter,.for-never-trigger,.board-colors button,.brand-word)):is(:hover,:focus-visible,[aria-expanded="true"],[data-state="open"]):not(:disabled) {
-  --glass-control-fill: rgba(51,83,72,.86);
-  --glass-control-edge: rgba(208,247,224,.59);
+  &:is(:hover,:focus-visible,[aria-expanded="true"],[data-state="open"]):not(:disabled) {
+    --glass-control-fill: rgba(51,83,72,.86);
+    --glass-control-edge: rgba(208,247,224,.59);
+  }
 }
 
 html :is(.site-shell,[role="dialog"]) :is(button[aria-pressed="true"],button[data-active="true"],button[type="submit"],.board-request-button) {
@@ -34,33 +37,31 @@ html :is(.site-shell,.swarm-root,[role="dialog"]) :is(button[disabled],button[ar
   --glass-control-edge: rgba(196,232,216,.21);
 }
 
-html .site-shell :is(.language-switch,.mobile-language-switch,.hero-reel-control,.work-gateway-arrow) { --glass-control-radius: 999px; }
 html .site-shell .hero-reel-control { backdrop-filter: blur(9px) saturate(1.24); }
 html .site-shell .work-gateway-arrow { backdrop-filter: blur(12px) saturate(1.24); }
 html .site-shell .board-colors button { box-shadow: inset 0 1px 2px rgba(240,255,246,.35), inset 0 -3px 4px rgba(10,25,22,.34); }
-html .site-shell .brand-word { border: 1px solid transparent; border-radius: 10px; }
+html .site-shell .brand-word { border: 1px solid transparent; border-radius: var(--glass-control-radius); }
 html .site-shell .brand-word:is(:hover,:focus-visible) { border-color: var(--glass-control-edge); background: var(--glass-reflection); box-shadow: var(--glass-rim); }
-html .site-shell .for-never-trigger:is(:hover,:focus-visible) { background: var(--glass-reflection); border-radius: 8px; }
+html .site-shell .for-never-trigger:is(:hover,:focus-visible) { background: var(--glass-reflection); border-radius: var(--glass-control-radius); }
 html .site-shell .board-folder-trigger { padding: .6rem clamp(.7rem, 1.8vw, 1.5rem); }
 html .site-shell .lab-sort-direction { border: 0; gap: .35rem; }
 html .site-shell .primary-contact { padding-inline: clamp(.8rem, 2vw, 1.65rem); }
 html .site-shell .primary-contact:hover { padding-inline: clamp(.8rem, 2vw, 1.65rem); }
 
 html .site-shell :is(.lab-share-button,.lab-download-button,.lab-checkpoint summary) { padding-inline: .75rem; }
-html .site-shell :is(.status-updated,.status-visitors) { padding: .45rem .7rem; }
 html .site-shell :is(.resource-choice,.resource-section-links a) {
   background-image: var(--glass-reflection);
   box-shadow: var(--glass-rim), 0 5px 17px rgba(4,12,13,.17);
-  border-radius: 12px;
+  border-radius: var(--glass-control-radius);
 }
 html .site-shell .resource-choice { overflow: hidden; }
 html .site-shell .resource-choice-arrow {
   background-image: linear-gradient(145deg, rgba(244,255,251,.28), transparent 58%, rgba(153,203,187,.10));
   box-shadow: inset 0 1px rgba(244,255,251,.24);
 }
-html .site-shell .pf-gateway-link { border-radius: 14px; box-shadow: var(--glass-rim); }
+html .site-shell .pf-gateway-link { border-radius: var(--glass-control-radius); box-shadow: var(--glass-rim); }
 
-html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.status-update-panel,.status-note,.contact-mail-menu) {
+html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.contact-mail-menu,.lab-sort-panel) {
   border: 1px solid rgba(202,236,221,.4);
   border-radius: 15px;
   background: var(--glass-reflection), #1c3130;
@@ -69,21 +70,46 @@ html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.status-update-panel,.status-note,.contact-mail-menu) {
+  html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.contact-mail-menu,.lab-sort-panel) {
     background: var(--glass-reflection), var(--glass-panel-tint);
     backdrop-filter: blur(19px) saturate(1.24);
   }
 }
 
 html .mobile-nav-panel { border-radius: 18px 0 0 18px; }
-html .language-menu-option { border-radius: 7px; }
+html .language-menu-option { border-radius: var(--glass-control-radius); }
 html .language-menu-option[data-highlighted] { background: var(--glass-reflection), rgba(70,104,92,.75); color: var(--foreground); }
-html .lab-download-dialog input { border-color: var(--glass-control-edge); border-radius: 8px; background: rgba(15,28,28,.63); }
+html .lab-download-dialog input { border-color: var(--glass-control-edge); border-radius: var(--glass-control-radius); background: rgba(15,28,28,.63); }
 html .contact-mail-menu { gap: .45rem; padding: .5rem; }
 html .swarm-panel { padding: 0; border: 0; background: none; box-shadow: none; }
 
-@media (max-width: 420px) {
-  html .site-shell :is(.status-updated,.status-visitors) { padding-inline: .45rem; }
+html .lab-sort-panel {
+  --glass-control-fill: transparent;
+  --glass-control-edge: transparent;
+  --glass-panel-tint: rgba(32,49,46,.72);
+  --glass-panel-shadow: var(--glass-rim), 0 8px 24px rgba(2,8,10,.24);
+  gap: .55rem 1rem;
+  margin-bottom: 1.5rem;
+  padding: .5rem clamp(.55rem,1.6vw,1rem);
+  border-radius: var(--glass-control-radius);
+}
+html .site-shell .lab-sort-panel :is(.sort-select-trigger,.lab-sort-direction button) {
+  background-image: none;
+  box-shadow: none;
+}
+html .site-shell .lab-sort-panel .lab-sort-direction {
+  padding-inline-start: .5rem;
+  border-inline-start: 1px solid var(--divider);
+}
+@media (max-width: 640px) {
+  .lab-sort-panel :is(.lab-sort-field,.lab-sort-direction) { width: 100%; }
+  .lab-sort-panel .lab-sort-field { flex-wrap: nowrap; gap: .6rem; }
+  .lab-sort-panel :is(.sort-select-trigger,.lab-sort-direction button) { flex: 1; min-width: 0; }
+  html .site-shell .lab-sort-panel .lab-sort-direction {
+    padding: .5rem 0 0;
+    border-inline-start: 0;
+    border-top: 1px solid var(--divider);
+  }
 }
 
 @media (forced-colors: active) {

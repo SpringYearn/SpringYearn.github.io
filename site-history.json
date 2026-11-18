@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Removed the glass background from the desktop opening logo."
+      "Squared off the buttons, added a glass toolbar in LAB, and simplified the footer."
     ],
     "zh": [
-      "桌機開場 Logo 改回透明底。"
+      "按鈕改成近直角，LAB 工具列採用整片玻璃，頁尾改用素面樣式。"
     ]
   },
   "releases": [
+    {
+      "version": "V.093",
+      "date": "2026-11-18",
+      "en": ["Squared off the buttons, added a glass toolbar in LAB, and simplified the footer."],
+      "zh": ["按鈕改成近直角，LAB 工具列採用整片玻璃，頁尾改用素面樣式。"]
+    },
     {
       "version": "V.092",
       "date": "2026-11-18",

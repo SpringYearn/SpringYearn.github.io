@@ -48,11 +48,12 @@ import update089 from './locales/v089.json';
 import update090 from './locales/v090.json';
 import update091 from './locales/v091.json';
 import update092 from './locales/v092.json';
+import update093 from './locales/v093.json';
 
 const dictionaries:Record<Locale,Record<string,string>>={en,zh,ja,ko,ru,vi};
 const index:Record<string,string>=aliases;
 const normalize=(value:string)=>value.replace(/\s+/g,' ').trim().toLowerCase();
-for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073,...update074,...update075,...update076,...update077,...update078,...update079,...update080,...update081,...update082,...update083,...update084,...update085,...update086,...update087,...update088,...update089,...update090,...update091,...update092]){
+for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073,...update074,...update075,...update076,...update077,...update078,...update079,...update080,...update081,...update082,...update083,...update084,...update085,...update086,...update087,...update088,...update089,...update090,...update091,...update092,...update093]){
   for(const locale of ['en','zh','ja','ko','ru','vi'] as const)dictionaries[locale][row.id]=row[locale];
   index[normalize(row.en)]=row.id;index[normalize(row.zh)]=row.id;
 }

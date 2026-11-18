@@ -244,7 +244,7 @@
   width: clamp(2.4rem, 4.8vw, 4rem);
   aspect-ratio: 1;
   border: 1px solid color-mix(in srgb, currentColor 46%, transparent);
-  border-radius: 50%;
+  border-radius: var(--glass-control-radius);
 }
 
 .resource-choice-arrow svg { width: 52%; height: 52%; }
