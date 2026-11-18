@@ -1248,7 +1248,7 @@ html.archive-is-transitioning { overflow: hidden; }
   overflow: hidden;
   padding: 1.5rem;
   background: #11110f;
-  color: var(--background);
+  color: var(--foreground);
 }
 .practice-card strong {
   display: block;
@@ -1447,10 +1447,10 @@ html.archive-is-transitioning { overflow: hidden; }
 .lab-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid rgba(var(--foreground-rgb),0.36);
-  border-left: 1px solid rgba(var(--foreground-rgb),0.36);
+  gap: clamp(.9rem, 1.8vw, 1.65rem);
 }
 .lab-card {
+  min-width: 0;
   min-height: 360px;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -1458,10 +1458,7 @@ html.archive-is-transitioning { overflow: hidden; }
   padding: clamp(1.2rem, 2.2vw, 2rem);
   position: relative;
   overflow: hidden;
-  border-right: 1px solid rgba(var(--foreground-rgb),0.36);
-  border-bottom: 1px solid rgba(var(--foreground-rgb),0.36);
-  background: rgba(var(--paper-rgb),.18);
-  transition: background 320ms ease, transform 420ms cubic-bezier(.22,1,.36,1);
+  transition: background-color 320ms ease, border-color 280ms ease;
 }
 .lab-card::before {
   content: "";
@@ -1475,10 +1472,7 @@ html.archive-is-transitioning { overflow: hidden; }
   box-shadow: 0 0 0 28px rgba(var(--spring-rgb),.035);
   transition: transform 520ms cubic-bezier(.22,1,.36,1), opacity 320ms ease;
 }
-.lab-card:hover {
-  background: rgba(var(--spring-rgb),.42);
-}
-.lab-card:hover::before {
+.lab-card:is(:hover,:focus-within)::before {
   transform: translate(-10px, 10px) scale(1.12);
 }
 .lab-card-top,
@@ -2174,37 +2168,38 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   position: relative;
   margin-left: auto;
 }
-.legacy-index summary {
-  list-style: none;
+.legacy-index-trigger {
   padding: .4rem 0;
+  border: 0;
+  background: transparent;
   color: var(--muted-foreground);
+  text-transform: inherit;
+  white-space: nowrap;
   cursor: pointer;
   transition: color 220ms ease, letter-spacing 280ms cubic-bezier(.22,1,.36,1);
 }
-.legacy-index summary::-webkit-details-marker { display: none; }
-.legacy-index summary:hover,
-.legacy-index summary:focus-visible,
-.legacy-index[open] summary {
+.legacy-index-trigger:is(:hover,:focus-visible,[aria-expanded="true"]) {
   color: var(--foreground);
   letter-spacing: .18em;
 }
-.legacy-index summary:focus-visible {
+.legacy-index-trigger:focus-visible {
   outline: 1px solid var(--foreground);
   outline-offset: 4px;
 }
+@media (pointer: fine) { html.has-art-cursor .legacy-index-trigger { cursor: none; } }
 .legacy-index-panel {
-  width: min(300px, 74vw);
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 1.2rem);
-  z-index: 65;
+  width: min(300px, calc(100vw - 24px));
+  max-height: var(--radix-popover-content-available-height);
+  overflow-y: auto;
+  z-index: 85;
   display: grid;
   gap: 1rem;
   padding: 1rem;
   border: 1px solid rgba(var(--foreground-rgb),0.42);
   background: var(--surface);
   box-shadow: 0 18px 55px rgba(17,17,15,.12);
-  animation: legacy-index-in 320ms cubic-bezier(.22,1,.36,1) both;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
 }
 .legacy-index-panel > span {
   color: var(--muted-foreground);
@@ -2213,14 +2208,19 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   letter-spacing: .08em;
 }
 .legacy-index-panel > a {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: .8rem;
   padding-top: .85rem;
   border-top: 1px solid rgba(var(--foreground-rgb),0.22);
   font-size: .75rem;
 }
-@keyframes legacy-index-in {
-  from { opacity: 0; transform: translateY(8px) scale(.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+.legacy-index-panel > a svg { width: 14px; height: 14px; flex-shrink: 0; }
+.legacy-index-panel > a:hover { color: var(--spring-ink); }
+@media (prefers-reduced-motion: reduce) {
+  .legacy-index-trigger, .lab-card, .lab-card::before { transition: none; }
+  .legacy-index-panel[data-state] { animation: none; }
 }
 .site-footer > a { margin-left: 1.2rem; }
 .site-footer a { display: inline-flex; align-items: center; gap: .5rem; }
@@ -2396,7 +2396,6 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   .social-grid > :nth-child(2n) { padding-left: 0; border-left: 0; }
   .site-footer { min-height: 96px; align-items: flex-start; padding: 1.5rem 0; flex-direction: column; }
   .legacy-index { margin-left: 0; }
-  .legacy-index-panel { left: 0; right: auto; }
   .site-footer > a { margin-left: 0; }
   .archive-transition-content { width: min(100% - 32px, 1120px); min-height: 72svh; }
   .archive-transition-meta span:first-child { max-width: 180px; line-height: 1.5; }

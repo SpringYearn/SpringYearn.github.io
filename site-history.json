@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Squared off the buttons, added a glass toolbar in LAB, and simplified the footer."
+      "Refined the intro, homepage and featured work, updated LAB cards and glass buttons, and fixed the old-site popup."
     ],
     "zh": [
-      "按鈕改成近直角，LAB 工具列採用整片玻璃，頁尾改用素面樣式。"
+      "調整開場、首頁與精選作品，更新 LAB 卡片和玻璃按鈕，並修正舊站彈窗。"
     ]
   },
   "releases": [
+    {
+      "version": "V.094",
+      "date": "2026-11-18",
+      "en": ["Refined the intro, homepage and featured work, updated LAB cards and glass buttons, and fixed the old-site popup."],
+      "zh": ["調整開場、首頁與精選作品，更新 LAB 卡片和玻璃按鈕，並修正舊站彈窗。"]
+    },
     {
       "version": "V.093",
       "date": "2026-11-18",

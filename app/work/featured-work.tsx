@@ -7,15 +7,19 @@ import { ArrowRight } from "lucide-react";
 import { projects } from "../portfolio-data";
 import { useSiteLanguage } from "../site-language";
 import { CardVines } from "../card-vines";
+import { SpringMark } from "../spring-mark";
 import { featuredWorkIds, featuredSummaries } from "./featured-data";
 
 export function FeaturedWork() {
   const { language, locale } = useSiteLanguage();
   const grid = useRef<HTMLDivElement>(null);
   return <Localized>{<>
-    <CardVines grid={grid} selector=".featured-work-card" className="featured-vine-field" />
+    <CardVines grid={grid} selector=".featured-work-card" className="featured-vine-field" restGrowth={.62} />
     <section className="section-block featured-work" aria-labelledby="featured-work-title">
-    <h2 id="featured-work-title">{language === "en" ? "Selected works" : "精選作品"}</h2>
+    <div className="featured-work-heading">
+      <h2 id="featured-work-title">{language === "en" ? "Selected works" : "精選作品"}</h2>
+      <SpringMark className="featured-work-sprig" />
+    </div>
     <div className="featured-work-grid" ref={grid}>
       {featuredWorkIds.map(id => {
         const project = projects.find(item => item.id === id)!;

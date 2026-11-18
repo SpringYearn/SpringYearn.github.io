@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArchiveTransition } from "./archive-transition";
 import { CursorTrail } from "./cursor-trail";
 import { DeviceTiltControl } from "./device-tilt-control";
+import { GlassInteractions } from "./glass-interactions";
 import { InteractionAudio } from "./interaction-audio";
 import { PointerBurst } from "./pointer-burst";
 import { ScreenRipple } from "./screen-ripple";
@@ -81,6 +82,7 @@ export default function RootLayout({
         <CursorTrail />
         <PointerBurst />
         <ScreenRipple />
+        <GlassInteractions />
         <InteractionAudio />
         <SwarmWebsiteBuilder />
         </SiteLanguageProvider>

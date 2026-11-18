@@ -3,29 +3,36 @@
 import { useEffect, useRef, type RefObject } from "react";
 import { growVines, paintVines } from "./resources/resource-vine-drawing";
 
-function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: string) {
+function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: string, restGrowth: number) {
   const shell = field.parentElement;
-  const picker = grid.parentElement;
-  if (!shell || !picker) return;
+  const section = grid.closest("section");
+  if (!shell || !section) return;
+  const boundary = shell.closest(".site-shell") ?? shell;
   const hover = matchMedia("(hover: hover) and (pointer: fine)");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-  const cards = Array.from(grid.querySelectorAll<HTMLAnchorElement>(selector), element => ({
+  const elements = grid.matches(selector) ? [grid] : Array.from(grid.querySelectorAll<HTMLElement>(selector));
+  const cards = elements.map(element => ({
     element, cool: element.dataset.vineTone === "cool",
     growth: 0, vines: [] as ReturnType<typeof growVines>,
   }));
   type Card = typeof cards[number];
   let pointer: Card | undefined, focus: Card | undefined;
+  let visible = restGrowth === 0;
   let frame = 0, previous = 0, width = 1, height = 1, dirty = true;
   let context: CanvasRenderingContext2D | null = null;
 
   const measure = () => {
     const parent = shell.getBoundingClientRect();
+    const bounds = boundary.getBoundingClientRect();
     const group = grid.getBoundingClientRect();
-    const section = picker.getBoundingClientRect();
-    const left = Math.max(parent.left, group.left - 104);
-    const right = Math.min(parent.right, group.right + 104);
-    const top = Math.max(section.top, group.top - 92);
-    const bottom = Math.min(section.bottom, group.bottom + 69);
+    const padding = section.getBoundingClientRect();
+    const neighbor = section.querySelector("[data-vine-obstacle]")?.getBoundingClientRect();
+    const horizontalLimit = neighbor && neighbor.left >= group.right ? Math.max(group.right, neighbor.left - 4) : bounds.right;
+    const verticalLimit = neighbor && neighbor.top >= group.bottom ? Math.max(group.bottom, neighbor.top - 4) : padding.bottom;
+    const left = Math.max(bounds.left, group.left - 104);
+    const right = Math.min(bounds.right, horizontalLimit, group.right + 104);
+    const top = Math.max(padding.top, group.top - 92);
+    const bottom = Math.min(padding.bottom, verticalLimit, group.bottom + 69);
     width = Math.max(1, right - left);
     height = Math.max(1, bottom - top);
     const ratio = Math.min(devicePixelRatio || 1, 1.5, Math.sqrt(2_200_000 / (width * height)));
@@ -63,13 +70,17 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
   };
   const paint = (now: number) => {
     frame = 0;
+    if (!visible || document.hidden) { previous = 0; return; }
     const active = reduced.matches ? undefined : pointer ?? focus;
+    const target = (card: Card) => card === active ? 1 : restGrowth;
     const elapsed = previous ? Math.min(45, now - previous) : 16;
     previous = now;
     for (const card of cards) {
-      card.growth = reduced.matches ? 0 : card === active
-        ? Math.min(1, card.growth + elapsed / 1060)
-        : Math.max(0, card.growth - elapsed / 415);
+      const goal = target(card);
+      const growing = card.growth < goal;
+      card.growth = reduced.matches ? goal : growing
+        ? Math.min(goal, card.growth + elapsed / (card === active ? 1060 : 1800))
+        : Math.max(goal, card.growth - elapsed / 415);
     }
     if (!cards.some(card => card.growth > 0)) { clear(); return; }
     context ??= field.getContext("2d");
@@ -77,7 +88,7 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
     if (dirty) measure();
     context.clearRect(0, 0, width, height);
     for (const card of cards) if (card.growth > 0) paintVines(context, card.vines, card.growth, card.cool);
-    if (cards.some(card => card.growth !== (card === active ? 1 : 0))) request();
+    if (cards.some(card => card.growth !== target(card))) request();
     else previous = 0;
   };
   const request = () => { if (!frame) frame = requestAnimationFrame(paint); };
@@ -109,8 +120,21 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
     dirty = true;
     if (pointer || focus || cards.some(card => card.growth > 0)) request();
   };
+  const visibilityChanged = () => {
+    if (restGrowth > 0) grid.dataset.vinesVisible = String(visible && !document.hidden);
+    if (visible && !document.hidden) request();
+  };
   const observer = new ResizeObserver(resized);
   observer.observe(grid);
+  const viewport = restGrowth > 0 ? new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    visibilityChanged();
+  }, { rootMargin: "64px 0px" }) : undefined;
+  viewport?.observe(grid);
+  document.addEventListener("visibilitychange", visibilityChanged, { signal });
+  shell.addEventListener("transitionend", event => {
+    if (event.target === shell && event.propertyName === "transform") resized();
+  }, { signal });
   window.addEventListener("resize", resized, { signal, passive: true });
   reduced.addEventListener("change", preferencesChanged, { signal });
   hover.addEventListener("change", preferencesChanged, { signal });
@@ -118,19 +142,22 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
   return () => {
     listeners.abort();
     observer.disconnect();
+    viewport?.disconnect();
+    delete grid.dataset.vinesVisible;
     cancelAnimationFrame(frame);
     clear();
   };
 }
 
-export function CardVines({ grid, selector, className }: {
+export function CardVines({ grid, selector, className, restGrowth = 0 }: {
   grid: RefObject<HTMLElement | null>;
   selector: string;
   className: string;
+  restGrowth?: number;
 }) {
   const field = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    if (field.current && grid.current) return attachVines(field.current, grid.current, selector);
-  }, [grid, selector]);
+    if (field.current && grid.current) return attachVines(field.current, grid.current, selector, restGrowth);
+  }, [grid, selector, restGrowth]);
   return <canvas ref={field} className={className} width={1} height={1} data-swarm-ignore aria-hidden="true" />;
 }

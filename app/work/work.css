@@ -27,11 +27,26 @@
   pointer-events: none;
 }
 
-.featured-work > h2 {
-  margin: 0 0 1.25rem;
+.featured-work-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin: 0 0 1.5rem;
+  border-bottom: 1px solid var(--divider);
+}
+
+.featured-work-heading h2 {
+  margin: 0;
   color: var(--spring-ink);
   font-size: clamp(.95rem, 1.5vw, 1.15rem);
   font-weight: 500;
+}
+
+.featured-work-sprig {
+  width: 47px;
+  flex: 0 0 auto;
+  color: var(--spring-leaf);
 }
 
 .featured-work-grid {
@@ -57,6 +72,7 @@
   aspect-ratio: 16 / 8;
   overflow: hidden;
   background: var(--surface);
+  box-shadow: 0 9px 25px rgba(2,8,10,.24);
 }
 
 .featured-work-card:first-child .featured-work-art {
@@ -70,6 +86,22 @@
   border: 1px solid rgba(var(--foreground-rgb), .23);
   pointer-events: none;
   transition: border-color 220ms ease;
+}
+
+.featured-work-art::before {
+  --tick: rgba(214,241,222,.76);
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: .55rem;
+  background:
+    linear-gradient(var(--tick),var(--tick)) left top / 15px 1px,
+    linear-gradient(var(--tick),var(--tick)) left top / 1px 15px,
+    linear-gradient(var(--tick),var(--tick)) right bottom / 15px 1px,
+    linear-gradient(var(--tick),var(--tick)) right bottom / 1px 15px;
+  background-repeat: no-repeat;
+  opacity: .67;
+  pointer-events: none;
 }
 
 .featured-work-art img {
@@ -126,6 +158,26 @@
 
 .featured-work-card:is(:hover,:focus-visible) .featured-work-art::after {
   border-color: var(--spring-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .featured-work-art { animation: featured-sway 11.8s ease-in-out infinite paused; }
+  .featured-work-card:nth-child(2) .featured-work-art {
+    --sway-angle: .96deg;
+    animation-delay: -4.4s;
+    animation-duration: 14.2s;
+  }
+  .featured-work-card:nth-child(3) .featured-work-art {
+    --sway-angle: .82deg;
+    animation-delay: -8.1s;
+    animation-duration: 13.6s;
+  }
+  .featured-work-grid[data-vines-visible="true"] .featured-work-art { animation-play-state: running; }
+}
+
+@keyframes featured-sway {
+  0%, 100% { rotate: calc(-1 * var(--sway-angle, .55deg)); }
+  50% { rotate: var(--sway-angle, .55deg); }
 }
 
 .work-page .work-archive-gallery {

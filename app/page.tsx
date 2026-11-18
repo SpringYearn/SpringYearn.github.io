@@ -9,6 +9,7 @@ import {
 } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { HeaderControls } from "./header-controls";
 import { useSiteLanguage } from "./site-language";
 import { SiteStatus } from "./site-status";
@@ -473,7 +474,7 @@ export default function Home() {
 
       <section id="work" className="section-block work-gateway" aria-labelledby="work-gateway-title">
         <WorkGateway />
-        <aside className="annual-reels" aria-labelledby="annual-reels-title" data-reveal>
+        <aside className="annual-reels" aria-labelledby="annual-reels-title" data-reveal data-vine-obstacle>
           <h3 id="annual-reels-title">{t.showreelTitle}</h3>
           {annualReels.map(reel => (
             <a
@@ -667,18 +668,21 @@ export default function Home() {
       <footer className="site-footer">
         <span>{t.footer}</span>
         <ForNever language={language} place="home" />
-        <details className="legacy-index">
-          <summary aria-label={language === "en" ? "Reveal legacy site" : "顯示舊網站入口"}>
-            SY / V.01
-          </summary>
-          <div className="legacy-index-panel">
-            <span>{t.legacyNote}</span>
-            <a href="https://springyearn.webflow.io/" target="_blank" rel="noreferrer">
-              {t.legacyEnter}
-              <ArrowUpRight aria-hidden="true" />
-            </a>
-          </div>
-        </details>
+        <div className="legacy-index">
+          <Popover>
+            <PopoverTrigger className="legacy-index-trigger" aria-label={language === "en" ? "Reveal legacy site" : "顯示舊網站入口"}>
+              SY / V.01
+            </PopoverTrigger>
+            <PopoverContent className="legacy-index-panel" side="top" align="end" sideOffset={10} collisionPadding={12}
+              aria-label={t.legacyNote}>
+              <span>{t.legacyNote}</span>
+              <a href="https://springyearn.webflow.io/" target="_blank" rel="noreferrer">
+                {t.legacyEnter}
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            </PopoverContent>
+          </Popover>
+        </div>
         <a href="#top">
           {t.backTop}
           <ArrowUpRight aria-hidden="true" />

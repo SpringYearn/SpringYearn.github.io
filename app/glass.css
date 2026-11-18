@@ -8,12 +8,19 @@
   --glass-panel-shadow: var(--glass-rim), 0 22px 64px rgba(2,8,10,.43);
 }
 
+@property --glass-interactive {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
 /* Controls share the same body and highlights as the header and the play button. */
 html :is(.site-shell,.swarm-root,[role="dialog"])
   :is(button,summary,.pf-download-link,.item-details-cta,.annual-reel-card,.work-gateway-arrow,.contact-mail-menu a):not(:where(
     .site-entrance-enter,.for-never-trigger,.board-colors button,.brand-word,
-    .site-status button,.status-update-panel *,.legacy-index summary
+    .site-status button,.status-update-panel *,.legacy-index-trigger
   )) {
+  --glass-interactive: 1;
   border: 1px solid var(--glass-control-edge);
   border-radius: var(--glass-control-radius);
   background-color: var(--glass-control-fill);
@@ -37,12 +44,14 @@ html :is(.site-shell,.swarm-root,[role="dialog"]) :is(button[disabled],button[ar
   --glass-control-edge: rgba(196,232,216,.21);
 }
 
-html .site-shell .hero-reel-control { backdrop-filter: blur(9px) saturate(1.24); }
 html .site-shell .work-gateway-arrow { backdrop-filter: blur(12px) saturate(1.24); }
 html .site-shell .board-colors button { box-shadow: inset 0 1px 2px rgba(240,255,246,.35), inset 0 -3px 4px rgba(10,25,22,.34); }
 html .site-shell .brand-word { border: 1px solid transparent; border-radius: var(--glass-control-radius); }
-html .site-shell .brand-word:is(:hover,:focus-visible) { border-color: var(--glass-control-edge); background: var(--glass-reflection); box-shadow: var(--glass-rim); }
-html .site-shell .for-never-trigger:is(:hover,:focus-visible) { background: var(--glass-reflection); border-radius: var(--glass-control-radius); }
+html .site-shell .for-never-trigger:is(:hover,:focus-visible) {
+  --glass-interactive: 1;
+  background: var(--glass-reflection);
+  border-radius: var(--glass-control-radius);
+}
 html .site-shell .board-folder-trigger { padding: .6rem clamp(.7rem, 1.8vw, 1.5rem); }
 html .site-shell .lab-sort-direction { border: 0; gap: .35rem; }
 html .site-shell .primary-contact { padding-inline: clamp(.8rem, 2vw, 1.65rem); }
@@ -60,17 +69,20 @@ html .site-shell .resource-choice-arrow {
   box-shadow: inset 0 1px rgba(244,255,251,.24);
 }
 html .site-shell .pf-gateway-link { border-radius: var(--glass-control-radius); box-shadow: var(--glass-rim); }
+html :is(.work-gateway-link,.pf-gateway-link,.resource-choice,.resource-section-links a,.item-preview-play,.language-menu-option) {
+  --glass-interactive: 1;
+}
 
-html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.contact-mail-menu,.lab-sort-panel) {
+html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.contact-mail-menu,.lab-sort-panel,.lab-card) {
   border: 1px solid rgba(202,236,221,.4);
-  border-radius: 15px;
+  border-radius: var(--glass-panel-radius, 15px);
   background: var(--glass-reflection), #1c3130;
   color: var(--foreground);
   box-shadow: var(--glass-panel-shadow);
 }
 
 @supports (backdrop-filter: blur(1px)) {
-  html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.contact-mail-menu,.lab-sort-panel) {
+  html :is(.lab-download-dialog,.board-archive-dialog,.for-never-note,.mobile-nav-panel,.language-menu,.contact-mail-menu,.lab-sort-panel,.lab-card) {
     background: var(--glass-reflection), var(--glass-panel-tint);
     backdrop-filter: blur(19px) saturate(1.24);
   }
@@ -82,6 +94,16 @@ html .language-menu-option[data-highlighted] { background: var(--glass-reflectio
 html .lab-download-dialog input { border-color: var(--glass-control-edge); border-radius: var(--glass-control-radius); background: rgba(15,28,28,.63); }
 html .contact-mail-menu { gap: .45rem; padding: .5rem; }
 html .swarm-panel { padding: 0; border: 0; background: none; box-shadow: none; }
+
+html .lab-card {
+  --glass-panel-radius: var(--glass-control-radius);
+  --glass-panel-tint: rgba(27,43,40,.76);
+  --glass-panel-shadow: var(--glass-rim), 0 10px 27px rgba(2,8,10,.26);
+}
+html .lab-card:is(:hover,:focus-within) {
+  --glass-panel-tint: rgba(40,59,54,.8);
+  border-color: rgba(202,236,221,.57);
+}
 
 html .lab-sort-panel {
   --glass-control-fill: transparent;

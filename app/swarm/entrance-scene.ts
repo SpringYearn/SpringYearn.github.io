@@ -1,6 +1,6 @@
 import { ENTRANCE_ATTRIBUTE } from "./availability";
 import { logoDeformation } from "./logo-deformation";
-import { GridWarp } from "./grid-warp";
+import { EntranceGrid } from "./entrance-grid";
 import { ENTRANCE_TRAVEL_MS } from "./timing";
 
 type Spark = { angle: number; phase: number; range: number; size: number; turn: number };
@@ -158,42 +158,22 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
   const streams = sparks(smallBudget ? 36 : 58, 173);
   const glow = glowTexture();
   const logo = logoDeformation(emblem, smallBudget);
-  const grid = new GridWarp();
+  const grid = new EntranceGrid();
+  const portal = canvas.parentElement;
   const started = performance.now();
   let previous = started, launch: number | null = null, hover = 0, clock = 0;
   let particleClock = 0;
   let width = 1, height = 1, frame = 0;
   let stopped = false;
-  let held: { id: number; x: number; y: number } | null = null;
-  let dragged = false;
   const listeners = new AbortController();
   const signal = listeners.signal;
 
-  button.closest(".site-entrance")?.addEventListener("pointerdown", raw => {
-    const event = raw as PointerEvent;
-    if (event.button !== 0 || event.pointerType !== "mouse") return;
-    held = { id: event.pointerId, x: event.clientX, y: event.clientY };
-    dragged = false;
-  }, { signal });
   window.addEventListener("pointermove", event => {
-    if (!held || event.pointerId !== held.id || !(event.buttons & 1)) return;
-    const dx = event.clientX - held.x, dy = event.clientY - held.y;
-    if (Math.hypot(dx, dy) < (dragged ? .5 : 5)) return;
-    grid.move(event.clientX, event.clientY, dx, dy);
-    held.x = event.clientX;
-    held.y = event.clientY;
-    dragged = true;
+    if (launch !== null || !event.isPrimary || event.pointerType === "touch") return;
+    grid.move(event.clientX, event.clientY, event.timeStamp);
   }, { signal, passive: true });
-  const endDrag = (event: PointerEvent) => { if (event.pointerId === held?.id) held = null; };
-  window.addEventListener("pointerup", endDrag, { signal });
-  window.addEventListener("pointercancel", endDrag, { signal });
-  button.addEventListener("click", event => {
-    if (dragged && event.detail > 0) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }
-    dragged = false;
-  }, { signal, capture: true });
+  window.addEventListener("blur", () => grid.resetPointer(), { signal });
+  portal?.addEventListener("pointerleave", () => grid.resetPointer(), { signal });
 
   const resize = () => {
     width = Math.max(1, canvas.clientWidth);
@@ -202,6 +182,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     canvas.width = Math.round(width * density);
     canvas.height = Math.round(height * density);
     context.setTransform(canvas.width / width, 0, 0, canvas.height / height, 0, 0);
+    grid.resize(context, width, height);
   };
   const stop = () => {
     if (stopped) return;
@@ -209,6 +190,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     cancelAnimationFrame(frame);
     listeners.abort();
     canvas.width = canvas.height = 1;
+    portal?.removeAttribute("data-live-grid");
     logo?.stop();
     emblem.style.removeProperty("transform");
   };
@@ -238,8 +220,8 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     context.globalAlpha = (.65 + hover * .16 + rush * .18) * fade;
     context.drawImage(glow, field.x - glowSize / 2, field.y - glowSize / 2, glowSize, glowSize);
     context.globalAlpha = 1;
+    grid.paint(context, now, fade * (1 - rush * .58));
     drawGrid(context, field);
-    grid.paint(context, delta);
     drawParticles(context, field, motes, burst);
     drawStreams(context, field, streams, hover, clock);
     logo?.draw(ease(.25, .86, progress));
@@ -247,6 +229,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
   };
 
   resize();
+  portal?.setAttribute("data-live-grid", "");
   window.addEventListener("resize", resize, { passive: true, signal });
   frame = requestAnimationFrame(paint);
   return stop;

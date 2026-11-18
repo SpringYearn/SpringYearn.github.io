@@ -38,6 +38,10 @@
   mask-image: radial-gradient(ellipse at center, #000 15%, transparent 90%);
 }
 
+.site-entrance[data-live-grid]::before {
+  background: radial-gradient(rgba(var(--spring-mist-rgb), .15) .65px, transparent .8px) 0 0 / 14px 14px;
+}
+
 .site-entrance::after {
   background: var(--background);
   opacity: 0;
