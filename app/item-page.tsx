@@ -90,7 +90,7 @@ export function ItemPage(props: Props) {
           <p className="item-file-meta">{props.project.filename} / {props.project.bytes >= 1_000_000_000 ? `${(props.project.bytes / 1_000_000_000).toFixed(2)} GB` : `${(props.project.bytes / 1_000_000).toFixed(1)} MB`}</p>
           <a className="pf-download-link" href={props.project.downloadUrl} download={props.project.downloadUrl.startsWith("/") ? props.project.filename : undefined} target={props.project.downloadUrl.startsWith("/") ? undefined : "_blank"} rel="noreferrer"><span>{chinese ? "免費下載" : "Free download"}</span><Download aria-hidden="true" /></a>
         </>}
-        {video && <a className="text-link" href={source} target="_blank" rel="noreferrer">{chinese ? "觀看原始作品／預覽" : "View original work / preview"}<ArrowUpRight aria-hidden="true" /></a>}
+        {video && <a className="text-link" href={source} target="_blank" rel="noreferrer">{chinese ? "觀看原始作品 / 預覽" : "View original work / preview"}<ArrowUpRight aria-hidden="true" /></a>}
         <Link className="text-link" href="/#contact">{chinese ? "聯絡" : "Contact"}<ArrowUpRight aria-hidden="true" /></Link>
       </div>
     </section>

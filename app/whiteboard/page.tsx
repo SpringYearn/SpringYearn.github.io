@@ -115,7 +115,7 @@ export default function WhiteboardPage() {
             return;
           }
           if((error as Error&{code?:string}).code==="board_reset"){queue.current=[];current.current=null;currentErase.current=null;stash();etag.current="";await sync();break;}
-          if(m.type==="undo"&&(error as Error&{status?:number}).status===409){queue.current.shift();stash();etag.current="";await sync();setMessage(chinese.current?"白板已更新，請再按一次復原。":"The board changed. Please try Undo again.");continue;}
+          if(m.type==="undo"&&(error as Error&{status?:number}).status===409){queue.current.shift();stash();etag.current="";await sync();setMessage(chinese.current?"塗鴉板已更新，請再按一次復原。":"The board changed. Please try Undo again.");continue;}
           throw error;
         }
         const result=await r.json(), removed=new Set<string>(result.removed??[]), added:Stroke[]=result.added??(result.stroke?[result.stroke]:[]);
@@ -217,13 +217,13 @@ export default function WhiteboardPage() {
     }
   };
 
-  const statusText=status==="loading"?(zh?"連線中":"Connecting"):status==="saving"?(zh?"儲存中":"Saving"):status==="offline"?(zh?"等待重新連線":"Waiting for connection"):(zh?"已同步・共用白板":"Synced · shared board");
+  const statusText=status==="loading"?(zh?"連線中":"Connecting"):status==="saving"?(zh?"儲存中":"Saving"):status==="offline"?(zh?"等待重新連線":"Waiting for connection"):(zh?"已同步 · 塗鴉板":"Synced · shared board");
   return <Localized>{<main id="top" className="site-shell whiteboard-page">
     <header className={`site-header${scrolled?" is-scrolled":""}`}><Link className="wordmark" href="/" aria-label="SpringYearn home"><span className="wordmark-symbol"><img src="/logo.png" alt=""/></span><span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span></Link>
       <nav className="desktop-nav" aria-label="Main navigation"><Link href="/">{zh?"首頁":"Home"}</Link><Link href="/work">{zh?"作品集":"Work"}</Link><Link href="/resources">{zh?"資源區":"Resources"}</Link><Link href="/#profile">{zh?"關於我":"Profile"}</Link><Link href="/#contact">{zh?"聯絡":"Contact"}</Link></nav><HeaderControls language={language} onToggleLanguage={()=>setLanguage(v=>v==="en"?"zh":"en")}/>
     </header>
-    <section className="section-block board-intro"><div><h1>{zh?"有空嗎？畫點什麼吧。":"Got a minute? Doodle something."}</h1><p>{zh?"這是大家共用的白板。畫個塗鴉、小圖，或隨手留一條線，給下一位訪客看看。":"This board is shared with everyone who visits. Leave a doodle, a little sketch, or just a line for the next person to find."}</p></div><Leaf className="board-intro-leaf" aria-hidden="true"/></section>
-    <section className="section-block board-workspace" aria-label={zh?"共用塗鴉白板":"Shared doodle whiteboard"}>
+    <section className="section-block board-intro"><div><h1>{zh?"有空嗎？畫點什麼吧。":"Got a minute? Doodle something."}</h1><p>{zh?"這是大家共用的塗鴉板。畫個塗鴉、小圖，或隨手留一條線，給下一位訪客看看。":"This board is shared with everyone who visits. Leave a doodle, a little sketch, or just a line for the next person to find."}</p></div><Leaf className="board-intro-leaf" aria-hidden="true"/></section>
+    <section className="section-block board-workspace" aria-label={zh?"塗鴉板":"Shared doodle whiteboard"}>
       <div className="board-toolbar"><div className="board-tool-group" aria-label={zh?"繪畫工具":"Drawing tools"}>
         <button type="button" onClick={()=>{setTool("pen");setPanning(false);}} aria-pressed={tool==="pen"&&!panning}><Pencil aria-hidden="true"/>{zh?"畫筆":"Pen"}</button><button type="button" onClick={()=>{setTool("eraser");setPanning(false);}} aria-pressed={tool==="eraser"&&!panning}><Eraser aria-hidden="true"/>{zh?"橡皮擦":"Eraser"}</button><button type="button" onClick={undo} disabled={!undoId||status!=="ready"||interacting} aria-label={zh?"返回上一步":"Undo last action"} title={zh?"復原上一步（Ctrl+Z / ⌘Z）":"Undo (Ctrl+Z / ⌘Z)"}><RotateCcw aria-hidden="true"/>{zh?"復原":"Undo"}</button>
       </div><div className="board-colors" aria-label={zh?"畫筆顏色":"Pen colors"}>{colors.map(c=><button key={c} type="button" style={{background:c}} disabled={tool==="eraser"||panning} onClick={()=>setColor(c)} aria-label={`${zh?"顏色":"Color"} ${c}`} aria-pressed={color===c}/>)}</div><label className="board-custom-color">{zh?"自選色":"Custom"}<input type="color" value={color} disabled={tool==="eraser"||panning} onChange={e=>setColor(e.target.value)}/></label><label className="board-width">{tool==="eraser"?(zh?"擦除範圍":"Eraser size"):(zh?"筆寬":"Width")}<input type="range" disabled={panning} min="1" max={tool==="eraser"?48:6} step="1" value={tool==="eraser"?eraserWidth:width} onChange={e=>(tool==="eraser"?setEraserWidth:setWidth)(Number(e.target.value))}/><span className="mono-label">{tool==="eraser"?eraserWidth:width} px</span></label></div>
@@ -234,11 +234,11 @@ export default function WhiteboardPage() {
           <button type="button" className="board-fit" onClick={fit} disabled={interacting}>{zh?"全覽":"Fit view"}</button>
           <button type="button" className="board-pan-toggle" onClick={()=>setPanning(v=>!v)} disabled={interacting} aria-pressed={panning} title={zh?"放大後，開啟拖曳模式移動畫布":"Zoom in, then use drag mode to move the canvas"}><Hand aria-hidden="true"/><span>{zh?"拖曳":"Drag"}</span></button>
         </div></div>
-        <div className="board-viewport" ref={viewport}><div className="board-sheet" style={{width:`${scale*100}%`}}><canvas ref={canvas} width={BOARD_WIDTH} height={BOARD_HEIGHT} data-tool={panning?"hand":tool} aria-label={zh?"使用滑鼠或觸控在共用白板繪畫":"Draw on the shared whiteboard with a mouse or touch"} onAuxClick={e=>{if(e.button===1)e.preventDefault();}} onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={end}>{zh?"你的瀏覽器不支援畫布。":"Your browser does not support canvas."}</canvas>{!loaded&&<BoardLoading offline={status==="offline"} />}</div></div>
+        <div className="board-viewport" ref={viewport}><div className="board-sheet" style={{width:`${scale*100}%`}}><canvas ref={canvas} width={BOARD_WIDTH} height={BOARD_HEIGHT} data-tool={panning?"hand":tool} aria-label={zh?"使用滑鼠或觸控在塗鴉板作畫":"Draw on the shared whiteboard with a mouse or touch"} onAuxClick={e=>{if(e.button===1)e.preventDefault();}} onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={end}>{zh?"你的瀏覽器不支援畫布。":"Your browser does not support canvas."}</canvas>{!loaded&&<BoardLoading offline={status==="offline"} />}</div></div>
         <div className="board-frame-bottom"><span className="board-sync mono-label" data-status={status} role="status"><i aria-hidden="true"/>{statusText}</span>{board !== null && <span className="board-current-id mono-label">{(zh ? "畫布 " : "Canvas ") + String(board).padStart(2, "0")}</span>}<span className="mono-label">1920 × 1080</span></div>
       </div>
       <div className="board-footnote">{tool==="eraser"&&<p>{zh?"橡皮擦只會擦掉你自己筆跡中滑過的部分，其他人的畫會保留。":"The eraser only removes your own marks where you pass over them. Other visitors’ drawings are kept."}</p>}{status==="offline"&&<button type="button" className="text-link" onClick={()=>{void sync().then(flush);}}><RefreshCw aria-hidden="true"/>{zh?"重試連線":"Retry connection"}</button>}</div>
-      <p className="board-instructions">{zh?"使用右上角的滑桿或 ＋／－ 按鈕縮放。開啟「拖曳」後，用滑鼠左鍵或單指移動畫布；點選畫筆或橡皮擦即可繼續繪畫。":"Use the top-right slider or + / − buttons to zoom. Turn on Drag to move the canvas with the left mouse button or one finger; choose Pen or Eraser to keep drawing."}</p>
+      <p className="board-instructions">{zh?"使用右上角的滑桿或 + / - 按鈕縮放。開啟「拖曳」後，可用滑鼠左鍵或單指移動畫布；點選畫筆或橡皮擦即可繼續作畫。":"Use the top-right slider or + / − buttons to zoom. Turn on Drag to move the canvas with the left mouse button or one finger; choose Pen or Eraser to keep drawing."}</p>
       <p className="board-message" role="status">{message}</p>
       <BoardRequest loaded={loaded} online={status!=="offline"} emailReady={emailReady} requested={requested} requesting={requesting} failed={requestFailed} onRequest={()=>void requestBoard()}/>
     </section>

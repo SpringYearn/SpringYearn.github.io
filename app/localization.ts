@@ -54,23 +54,35 @@ import update095 from './locales/v095.json';
 import update096 from './locales/v096.json';
 import update097 from './locales/v097.json';
 import update098 from './locales/v098.json';
+import update099 from './locales/v099.json';
 
 const dictionaries:Record<Locale,Record<string,string>>={en,zh,ja,ko,ru,vi};
 const index:Record<string,string>=aliases;
 const normalize=(value:string)=>value.replace(/\s+/g,' ').trim().toLowerCase();
-for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073,...update074,...update075,...update076,...update077,...update078,...update079,...update080,...update081,...update082,...update083,...update084,...update085,...update086,...update087,...update088,...update089,...update090,...update091,...update092,...update093,...update094,...update095,...update096,...update097,...update098]){
+for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073,...update074,...update075,...update076,...update077,...update078,...update079,...update080,...update081,...update082,...update083,...update084,...update085,...update086,...update087,...update088,...update089,...update090,...update091,...update092,...update093,...update094,...update095,...update096,...update097,...update098,...update099]){
   for(const locale of ['en','zh','ja','ko','ru','vi'] as const)dictionaries[locale][row.id]=row[locale];
   index[normalize(row.en)]=row.id;index[normalize(row.zh)]=row.id;
 }
 const patterns=Object.entries(index).filter(([text])=>/\{\d+\}/.test(text)).map(([text,id])=>({id,regex:new RegExp('^'+text.split(/(\{\d+\})/).map(part=>/^\{\d+\}$/.test(part)?'(.+?)':part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('')+'$','i')}));
 
-export function localizeText(value:string,locale:Locale):string {
+function translateText(value:string,locale:Locale):string {
   const normalized=normalize(value),id=index[normalized];
   if(id&&dictionaries[locale][id])return dictionaries[locale][id];
   for(const pattern of patterns){const match=value.replace(/\s+/g,' ').trim().match(pattern.regex);if(match){const translated=dictionaries[locale][pattern.id];if(translated)return translated.replace(/\{(\d+)\}/g,(_,n)=>match[Number(n)+1]??'');}}
   // Dynamic labels combine fixed UI copy with project names, dates or counts.
   // Translate only the fixed pieces; URLs, filenames and form values stay intact.
   const pieces=value.split(/(\n| — | · | \/ |: )/);
-  if(pieces.length>1)return pieces.map((part,i)=>i%2?part:localizeText(part,locale)).join('');
+  if(pieces.length>1)return pieces.map((part,i)=>i%2?part:translateText(part,locale)).join('');
   return value;
+}
+
+export function localizeText(value: string, locale: Locale): string {
+  const text = translateText(value, locale);
+  if (locale !== 'zh') return text;
+
+  // Apply the current Chinese typography when rendering older records as well.
+  return text.replace(/[^\S\r\n]*／[^\S\r\n]*/g, ' / ')
+    .replaceAll('動態圖形', '動態設計')
+    .replaceAll('聯繫我', '聯絡我')
+    .replace(/共用(?:塗鴉)?白板|共享白板/g, '塗鴉板');
 }

@@ -30,8 +30,8 @@ export function BoardRequest({ loaded, online, emailReady, requesting, requested
       <div className="board-request-copy">
         <span className="board-request-symbol"><MailPlus aria-hidden="true" /></span>
         <div>
-          <h2 id="board-request-title">{zh ? "畫布快滿了？" : "Running out of room?"}</h2>
-          <p>{zh ? "申請後會寄信通知 SpringYearn。" : "Send SpringYearn an email request for a new canvas."}</p>
+          <h2 id="board-request-title">{zh ? "畫布快滿了嗎？" : "Running out of room?"}</h2>
+          <p>{zh ? "點選下方按鈕即可寄信通知 SpringYearn 開啟新畫布。" : "Send SpringYearn an email request for a new canvas."}</p>
         </div>
       </div>
       <div className="board-request-actions">

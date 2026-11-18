@@ -19,3 +19,15 @@ test('UI translation preserves project names, URLs and dynamic values',()=>{
  assert.ok(t('FusionDynamics2D — Share this project','ja').startsWith('FusionDynamics2D — '));
  assert.ok(t('Color #AbCdEf','ru').includes('#AbCdEf'));
 });
+test('Traditional Chinese uses context-specific labels and formats older text',()=>{
+ const {localizeText:t}=exports;
+ assert.equal(t('Contact','zh'),'聯絡');
+ assert.equal(t('Contact me','zh'),'聯絡我');
+ assert.equal(t('Profile','zh'),'關於我');
+ assert.equal(t('Discord profile','zh'),'個人主頁');
+ assert.equal(t('Discord profile','en'),'Profile');
+ assert.equal(t('Published','zh'),'發布於');
+ assert.equal(t('Date unconfirmed','zh'),'年份未標註');
+ assert.equal(t('剪輯　／ 動態圖形','zh'),'剪輯 / 動態設計');
+ assert.equal(t('テスト／公開','ja'),'テスト／公開');
+});

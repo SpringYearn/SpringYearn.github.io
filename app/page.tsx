@@ -70,8 +70,8 @@ const copy = {
   zh: {
     nav: { work: "作品集", profile: "關於我", contact: "聯絡" },
     heroTop: "視覺藝術家 / 剪輯師",
-    heroBottom: "讓影像動起來，也做點靜態創作。",
-    intro: "我做剪輯、動態圖形、繪畫、平面設計和 3D。有些點子適合用不同的方式呈現，那就試試看。",
+    heroBottom: "讓畫面動起來，有時也讓它安靜停格。",
+    intro: "創作橫跨剪輯、動態設計、繪畫、平面與 3D。只要點子需要不同的媒材呈現，我都樂於嘗試。",
     index: "獨立創作者 / 台灣",
     allWorks: "所有作品",
     showreelTitle: "這一年剪了什麼",
@@ -79,18 +79,18 @@ const copy = {
     profileEyebrow: "02 / 關於我",
     profileTitle: "嗨，我是\nSpringYearn。",
     profileBody:
-      "我是來自台灣的視覺藝術家、設計師與剪輯師，目前就讀視覺傳達動畫設計系。平常做動態影像、繪畫、平面設計、合成和 3D。",
+      "我是來自台灣的視覺藝術家、設計師與剪輯師，目前主修視覺傳達與動畫設計，創作涵蓋動態影像、特效合成、3D、插畫與平面設計。",
     profileBody2:
-      "剪輯是我的創作重心。試試其他媒介，也讓我能用不同的方法測試點子，看看什麼最適合。",
+      "剪輯是我的創作核心；而跨足其他媒材，讓我能從不同維度實驗想法，找出最適合的表現形式。",
     brandEyebrow: "名稱 / 創作理念",
     brandTitle: "SpringYearn 是什麼意思？",
-    springMeaning: "Spring 是春天，也代表新的開始、希望，以及再試一次的動力。",
-    yearnMeaning: "Yearn 是對新知識和新作品的期待，也希望每次都能再進步一點。",
+    springMeaning: "象徵春天與新的開始，帶著希望與再次嘗試的動力。",
+    yearnMeaning: "代表對新知與未知作品的渴望，期許每一次創作都能更進一步。",
     brandClosing: "合在一起，就是保持好奇、繼續學、繼續做。",
     services: "我會做的事",
     experience: "一路以來",
     contactEyebrow: "03 / 聯絡",
-    contactTitle: "聯繫我",
+    contactTitle: "聯絡我",
     contactBody: "有專案想聊、點子想分享，或想討論鳳梨到底該不該放在披薩上，都歡迎寫信給我。",
     email: "bbal96421@gmail.com",
     emailOptions: "選擇寄信方式",
@@ -102,7 +102,7 @@ const copy = {
     emailCopied: "已複製信箱地址",
     socials: "其他地方也找得到我",
     footer: "SpringYearn® — 視覺藝術家 / 設計師 / 剪輯師",
-    legacyNote: "舊網站／已停止更新",
+    legacyNote: "舊網站 / 已停止更新",
     legacyEnter: "進入舊版本網站",
     backTop: "回到頂端",
   },
@@ -187,8 +187,8 @@ const practiceHistory = [
     year: { en: "2023", zh: "2023" },
     href: "https://youtu.be/ByVA3G0X1IU?si=8x4yM1sRhwDJtD0b",
     phase: { en: "Personal project", zh: "個人專案" },
-    partner: { en: "Project / Yelodog", zh: "專案／黃狗" },
-    title: { en: "A fictional trailer takes shape", zh: "虛構預告片成形" },
+    partner: { en: "Project / Yelodog", zh: "專案 / 黃狗" },
+    title: { en: "A fictional trailer takes shape", zh: "完成首支概念預告片" },
     body: {
       en: "Created a fictional trailer through Blender and DaVinci Resolve.",
       zh: "以 Blender 與 DaVinci Resolve 完成一支虛構預告片。",
@@ -197,8 +197,8 @@ const practiceHistory = [
   {
     year: { en: "2024", zh: "2024" },
     href: "https://youtube.com/@dfh-r6869?si=Ck2eNc0wMIyhQmBU",
-    phase: { en: "Collaboration", zh: "合作階段" },
-    partner: { en: "With / 江爸", zh: "合作／江爸" },
+    phase: { en: "Collaboration", zh: "合作專案" },
+    partner: { en: "With / 江爸", zh: "合作 / 江爸" },
     title: { en: "Editing & thumbnail design", zh: "剪輯與縮圖設計" },
     body: {
       en: "Edited and designed thumbnails across 14 published videos.",
@@ -232,7 +232,7 @@ const practiceHistory = [
     href: "https://x.com/ValorantEsports/status/2102684410382287046?s=20",
     phase: { en: "Official project", zh: "官方專案" },
     partner: { en: "Riot Games × Rosewood Creative", zh: "Riot Games × Rosewood Creative" },
-    title: { en: "VALORANT Esports / Creator Editor", zh: "VALORANT Esports／Creator Editor" },
+    title: { en: "VALORANT Esports / Creator Editor", zh: "VALORANT Esports / Creator Editor" },
     body: {
       en: "Created an official VALORANT Esports video as a Creator Editor through Rosewood Creative.",
       zh: "透過 Rosewood Creative 參與 Riot Games 官方 VALORANT Esports 影像製作，擔任 Creator Editor。",
@@ -243,7 +243,7 @@ const practiceHistory = [
     href: null,
     phase: { en: "Current practice", zh: "現在" },
     partner: { en: "Various collaborators", zh: "不定期合作對象" },
-    title: { en: "Independent commissions", zh: "零散自由接案" },
+    title: { en: "Independent commissions", zh: "獨立接案與委託創作" },
     body: {
       en: "Additional independent projects across editing and visual design.",
       zh: "持續承接剪輯與視覺設計相關的獨立專案。",
@@ -270,7 +270,7 @@ const socialLinks = [
   },
   { label: "Bilibili", handle: "SpringYearn", href: "https://space.bilibili.com/1302495143" },
   { label: "Douyin", handle: "SpringYearn", href: "https://v.douyin.com/qTySM3kJ0LA/" },
-  { label: "Discord", handle: "Profile", href: "https://discord.com/users/696278366663213106" },
+  { label: "Discord", handle: "Discord profile", href: "https://discord.com/users/696278366663213106" },
   { label: "Discord", handle: "Server", href: "https://discord.gg/Y4MQSsEBGN" },
 ];
 
@@ -542,7 +542,7 @@ export default function Home() {
                 ))}
               </ol>
             </HorizontalStrip>
-            <HorizontalStrip id="software-strip" className="software-stack" reverse title={language === "en" ? "Software / Toolkit" : "使用軟體／工具"}>
+            <HorizontalStrip id="software-strip" className="software-stack" reverse title={language === "en" ? "Software / Toolkit" : "使用軟體 / 工具"}>
               <ul>
                 {softwareStack.map((software) => (
                   <li key={software.id}><span className="software-logo"><img src={`/toolkit/${software.id}.svg`} alt="" loading="lazy" width="32" height="32" /></span><span>{software.name}</span></li>
@@ -647,7 +647,7 @@ export default function Home() {
             <div className="social-grid" aria-label={t.socials}>
               {socialLinks.map((social) =>
                 social.href ? (
-                  <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
+                  <a key={social.href} href={social.href} target="_blank" rel="noreferrer">
                     <span>{social.label}</span>
                     <strong>{social.handle}</strong>
                     <ArrowUpRight aria-hidden="true" />

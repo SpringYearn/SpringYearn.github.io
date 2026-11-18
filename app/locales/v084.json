@@ -83,7 +83,7 @@
   {
     "id": "v084.requestTitle",
     "en": "Running out of room?",
-    "zh": "畫布快滿了？",
+    "zh": "畫布快滿了嗎？",
     "ja": "描く場所が足りなくなった？",
     "ko": "그릴 공간이 부족한가요?",
     "ru": "Мало места для рисунков?",
@@ -92,7 +92,7 @@
   {
     "id": "v084.requestInfo",
     "en": "Send SpringYearn an email request for a new canvas.",
-    "zh": "申請後會寄信通知 SpringYearn。",
+    "zh": "點選下方按鈕即可寄信通知 SpringYearn 開啟新畫布。",
     "ja": "新しいキャンバスのリクエストを SpringYearn にメールで送れます。",
     "ko": "새 캔버스 요청을 SpringYearn에게 이메일로 보내요.",
     "ru": "Отправьте SpringYearn запрос на новый холст по электронной почте.",

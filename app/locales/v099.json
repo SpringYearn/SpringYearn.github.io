@@ -1,0 +1,65 @@
+[
+  {
+    "id": "v099.release",
+    "en": "Refined the Traditional Chinese copy and work date labels across the site.",
+    "zh": "潤飾全站繁中文案，更新作品日期標示。",
+    "ja": "サイト全体の繁体字中国語の文言と作品の日付表示を整えました。",
+    "ko": "사이트 전체의 번체 중국어 문구와 작품 날짜 표기를 다듬었어요.",
+    "ru": "Уточнил тексты на традиционном китайском и подписи дат работ.",
+    "vi": "Chỉnh sửa nội dung tiếng Hoa phồn thể và cách hiển thị ngày của các tác phẩm."
+  },
+  {
+    "id": "workDate.published",
+    "en": "Published",
+    "zh": "發布於",
+    "ja": "公開日",
+    "ko": "공개일",
+    "ru": "Опубликовано",
+    "vi": "Ngày đăng"
+  },
+  {
+    "id": "workDate.created",
+    "en": "File created",
+    "zh": "建立於",
+    "ja": "ファイル作成日",
+    "ko": "파일 생성일",
+    "ru": "Файл создан",
+    "vi": "Ngày tạo tệp"
+  },
+  {
+    "id": "workDate.modified",
+    "en": "File modified",
+    "zh": "檔案更新",
+    "ja": "ファイル更新日",
+    "ko": "파일 수정일",
+    "ru": "Файл изменён",
+    "vi": "Ngày sửa tệp"
+  },
+  {
+    "id": "workDate.fileClue",
+    "en": "File clue",
+    "zh": "檔案日期",
+    "ja": "ファイルの日付",
+    "ko": "파일 날짜",
+    "ru": "Дата файла",
+    "vi": "Ngày của tệp"
+  },
+  {
+    "id": "workDate.recorded",
+    "en": "Recorded",
+    "zh": "年份紀錄",
+    "ja": "記録年",
+    "ko": "기록 연도",
+    "ru": "Год по записям",
+    "vi": "Năm ghi nhận"
+  },
+  {
+    "id": "workDate.unknown",
+    "en": "Date unconfirmed",
+    "zh": "年份未標註",
+    "ja": "年の記載なし",
+    "ko": "연도 미기재",
+    "ru": "Год не указан",
+    "vi": "Chưa ghi năm"
+  }
+]

@@ -13,13 +13,13 @@ const choices = [
   {
     id: "project-files",
     title: { en: "Free project files", zh: "免費專案檔" },
-    description: { en: "After Effects / DaVinci Resolve · Public downloads", zh: "After Effects／DaVinci Resolve・公開下載" },
+    description: { en: "After Effects / DaVinci Resolve · Public downloads", zh: "After Effects / DaVinci Resolve • 公開下載" },
     Icon: Clapperboard,
   },
   {
     id: "lab",
     title: { en: "LAB / Tools", zh: "LAB / 工具" },
-    description: { en: "Fusion tools and prototypes · Authorized test builds", zh: "Fusion 工具與原型・測試版需授權" },
+    description: { en: "Fusion tools and prototypes · Authorized test builds", zh: "Fusion 工具與開發原型 • 開放授權測試版" },
     Icon: Workflow,
   },
 ] as const;

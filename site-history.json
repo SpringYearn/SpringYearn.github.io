@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Updated the homepage background reel to 1080p at 60 fps."
+      "Refined the Traditional Chinese copy and work date labels across the site."
     ],
     "zh": [
-      "首頁背景影片改為 1080p、60 fps。"
+      "潤飾全站繁中文案，更新作品日期標示。"
     ]
   },
   "releases": [
+    {
+      "version": "V.099",
+      "date": "2026-11-19",
+      "en": ["Refined the Traditional Chinese copy and work date labels across the site."],
+      "zh": ["潤飾全站繁中文案，更新作品日期標示。"]
+    },
     {
       "version": "V.098",
       "date": "2026-11-18",
