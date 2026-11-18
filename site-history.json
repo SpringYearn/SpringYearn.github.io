@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Made the desktop opening grid larger and softer, with bends that follow the expanding logo."
+      "Updated the homepage background reel to 1080p at 60 fps."
     ],
     "zh": [
-      "放大並淡化桌機開場網格，進站時讓線條沿著 Logo 輪廓變形。"
+      "首頁背景影片改為 1080p、60 fps。"
     ]
   },
   "releases": [
+    {
+      "version": "V.098",
+      "date": "2026-11-18",
+      "en": ["Updated the homepage background reel to 1080p at 60 fps."],
+      "zh": ["首頁背景影片改為 1080p、60 fps。"]
+    },
     {
       "version": "V.097",
       "date": "2026-11-18",

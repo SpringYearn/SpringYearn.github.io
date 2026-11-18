@@ -16,7 +16,7 @@ export function HomeReel() {
     const update = () => {
       if (!reduced.matches && !connection?.saveData && visible && !document.hidden &&
           !document.documentElement.hasAttribute(ENTRANCE_ATTRIBUTE)) {
-        if (!element.hasAttribute("src")) element.src = "/works/home-reel.mp4?v=096";
+        if (!element.hasAttribute("src")) element.src = "/works/home-reel.mp4?v=098";
         element.muted = true;
         if (element.paused) void element.play().catch(() => {});
       } else {
