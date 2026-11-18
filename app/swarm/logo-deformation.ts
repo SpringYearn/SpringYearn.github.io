@@ -71,6 +71,7 @@ export function logoDeformation(emblem: HTMLElement, smallBudget: boolean) {
         }
       }
       if (!emblem.hasAttribute("data-warped")) emblem.setAttribute("data-warped", "");
+      return canvas;
     },
     stop() {
       emblem.removeAttribute("data-warped");

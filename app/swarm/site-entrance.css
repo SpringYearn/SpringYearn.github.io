@@ -31,15 +31,16 @@
 }
 
 .site-entrance::before {
+  --dot-spacing: calc(var(--entrance-grid-spacing) / 2);
   background:
-    linear-gradient(rgba(var(--spring-mist-rgb), .045) 1px, transparent 1px) 0 0 / 28px 28px,
-    linear-gradient(90deg, rgba(var(--spring-mist-rgb), .045) 1px, transparent 1px) 0 0 / 28px 28px,
-    radial-gradient(rgba(var(--spring-mist-rgb), .15) .65px, transparent .8px) 0 0 / 14px 14px;
+    linear-gradient(rgba(var(--spring-mist-rgb), .032) 1px, transparent 1px) 0 0 / var(--entrance-grid-spacing) var(--entrance-grid-spacing),
+    linear-gradient(90deg, rgba(var(--spring-mist-rgb), .032) 1px, transparent 1px) 0 0 / var(--entrance-grid-spacing) var(--entrance-grid-spacing),
+    radial-gradient(rgba(var(--spring-mist-rgb), .084) .55px, transparent .78px) 0 0 / var(--dot-spacing) var(--dot-spacing);
   mask-image: radial-gradient(ellipse at center, #000 15%, transparent 90%);
 }
 
 .site-entrance[data-live-grid]::before {
-  background: radial-gradient(rgba(var(--spring-mist-rgb), .15) .65px, transparent .8px) 0 0 / 14px 14px;
+  background: radial-gradient(rgba(var(--spring-mist-rgb), .084) .55px, transparent .78px) 0 0 / var(--dot-spacing) var(--dot-spacing);
 }
 
 .site-entrance::after {

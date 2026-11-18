@@ -1,11 +1,12 @@
 import { ENTRANCE_ATTRIBUTE } from "./availability";
 import { logoDeformation } from "./logo-deformation";
 import { EntranceGrid } from "./entrance-grid";
+import { LogoGridWarp } from "./logo-grid-warp";
 import { ENTRANCE_TRAVEL_MS } from "./timing";
 
 type Spark = { angle: number; phase: number; range: number; size: number; turn: number };
 type Field = {
-  x: number; y: number; width: number; height: number; radius: number;
+  x: number; y: number; radius: number;
   time: number; progress: number; rush: number; fade: number; ink: string;
 };
 
@@ -44,43 +45,6 @@ function glowTexture() {
   context.fillStyle = light;
   context.fillRect(0, 0, image.width, image.height);
   return image;
-}
-
-function drawGrid(context: CanvasRenderingContext2D, field: Field) {
-  const { width, height, x, y, radius, progress, rush, fade, ink } = field;
-  const strength = rush * fade;
-  if (strength < .01) return;
-
-  const spacing = Math.max(32, Math.min(59, radius * .105));
-  const wave = radius * (.18 + progress * 1.49);
-  const vertex = (dx: number, dy: number, first: boolean) => {
-    const distance = Math.hypot(dx, dy);
-    const near = Math.exp(-distance / (radius * .47));
-    const ripple = Math.exp(-(((distance - wave) / (radius * .24)) ** 2));
-    const angle = strength * (.93 * near + .24 * ripple);
-    const scale = 1 + strength * (.16 * ripple - .43 * near);
-    const cos = Math.cos(angle), sin = Math.sin(angle);
-    const px = x + (dx * cos - dy * sin) * scale;
-    const py = y + (dx * sin + dy * cos) * scale;
-    if (first) context.moveTo(px, py);
-    else context.lineTo(px, py);
-  };
-  const h = Math.ceil(width * .5 / spacing) + 2;
-  const v = Math.ceil(height * .5 / spacing) + 2;
-  context.beginPath();
-  for (let row = -v; row <= v; row++) {
-    for (let column = -2 * h; column <= 2 * h; column++) {
-      vertex(column * spacing * .5, (row - .5) * spacing, column === -2 * h);
-    }
-  }
-  for (let column = -h; column <= h; column++) {
-    for (let row = -2 * v; row <= 2 * v; row++) {
-      vertex((column - .5) * spacing, row * spacing * .5, row === -2 * v);
-    }
-  }
-  context.strokeStyle = `rgba(${ink},${strength * .24})`;
-  context.lineWidth = .76;
-  context.stroke();
 }
 
 function drawParticles(context: CanvasRenderingContext2D, field: Field, motes: Spark[], burst: Spark[]) {
@@ -157,8 +121,10 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
   const burst = sparks(smallBudget ? 60 : 105, 59);
   const streams = sparks(smallBudget ? 36 : 58, 173);
   const glow = glowTexture();
+  const artwork = emblem.querySelector<HTMLImageElement>(".site-entrance-logo");
   const logo = logoDeformation(emblem, smallBudget);
   const grid = new EntranceGrid();
+  const logoBend = new LogoGridWarp(smallBudget ? 94 : 116);
   const portal = canvas.parentElement;
   const started = performance.now();
   let previous = started, launch: number | null = null, hover = 0, clock = 0;
@@ -213,18 +179,23 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     const bob = Math.sin(time * 1.12) * 5.6 * (1 - ease(.12, .8, progress));
     emblem.style.transform = `translate3d(0,${bob.toFixed(2)}px,0)`;
     const ink = "188,231,206";
-    const field = { x: width / 2, y: height / 2 + bob, width, height, radius: Math.min(width, height) / 2,
+    const field = { x: width / 2, y: height / 2 + bob, radius: Math.min(width, height) / 2,
       time: particleClock, progress, rush, fade, ink };
     context.clearRect(0, 0, width, height);
     const glowSize = field.radius * (1.39 + hover * .16 + rush * 1.85);
     context.globalAlpha = (.65 + hover * .16 + rush * .18) * fade;
     context.drawImage(glow, field.x - glowSize / 2, field.y - glowSize / 2, glowSize, glowSize);
     context.globalAlpha = 1;
-    grid.paint(context, now, fade * (1 - rush * .58));
-    drawGrid(context, field);
+    const deformation = ease(.25, .86, progress);
+    const warped = logo?.draw(deformation);
+    const surface = warped ?? artwork;
+    const pressure = ease(.045, .59, progress) * (1 - ease(.81, .98, progress));
+    const bend = surface && logoBend.update(surface, warped ? deformation : 0, pressure) ? logoBend : undefined;
+    const breathing = .72 + .22 * (.5 + .5 * Math.cos(time * .71));
+    const edgeLight = bend ? .48 + .5 * pressure : 1;
+    grid.paint(context, now, fade * breathing * edgeLight, bend);
     drawParticles(context, field, motes, burst);
     drawStreams(context, field, streams, hover, clock);
-    logo?.draw(ease(.25, .86, progress));
     frame = requestAnimationFrame(paint);
   };
 

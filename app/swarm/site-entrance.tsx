@@ -4,6 +4,7 @@ import { useEffect, useRef, type CSSProperties, type RefObject } from "react";
 import { useSiteLanguage } from "../site-language";
 import { ENTRANCE_ATTRIBUTE } from "./availability";
 import { animateEntrance } from "./entrance-scene";
+import { ENTRANCE_GRID_SPACING } from "./entrance-grid";
 import { ENTRANCE_TRAVEL_MS } from "./timing";
 import "./site-entrance.css";
 
@@ -15,7 +16,10 @@ const enterCopy = {
   ru: "Войти на SpringYearn",
   vi: "Vào SpringYearn",
 };
-const entranceStyle = { "--entrance-travel": `${ENTRANCE_TRAVEL_MS}ms` } as CSSProperties;
+const entranceStyle = {
+  "--entrance-travel": `${ENTRANCE_TRAVEL_MS}ms`,
+  "--entrance-grid-spacing": `${ENTRANCE_GRID_SPACING}px`,
+} as CSSProperties;
 
 export function SiteEntrance({ button, ready, onEnter }: {
   button: RefObject<HTMLButtonElement | null>;
