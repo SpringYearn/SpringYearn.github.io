@@ -4,11 +4,27 @@ import { useEffect, useId, useRef } from "react";
 
 const controls = "button, a[href], summary, [role=button], [role=option]";
 const disabled = ":disabled, [aria-disabled=true], [inert]";
-const reach = 13;
+const reach = 30;
+const pullLimit = 10.4;
 const settle = .065;
 type Pointer = { x: number; y: number; target: EventTarget | null };
 type Edge = { x: number; y: number; nx: number; ny: number; pull: number; width: number; height: number };
-type FilterState = { value: string; priority: string; applied: string };
+type StyleState = { value: string; priority: string; applied: string };
+type Offset = { x: number; y: number };
+type MotionProperty = "filter" | "translate";
+
+function applyStyle(element: HTMLElement, property: MotionProperty, value: string, original?: StyleState) {
+  const state = original ?? { value: element.style.getPropertyValue(property), priority: element.style.getPropertyPriority(property), applied: "" };
+  element.style.setProperty(property, value, state.priority);
+  state.applied = element.style.getPropertyValue(property);
+  return state;
+}
+
+function restoreStyle(element: HTMLElement, property: MotionProperty, state?: StyleState) {
+  if (!state || element.style.getPropertyValue(property) !== state.applied) return;
+  if (state.value) element.style.setProperty(property, state.value, state.priority);
+  else element.style.removeProperty(property);
+}
 
 function surfaceFor(target: EventTarget | null) {
   const control = target instanceof Element ? target.closest<HTMLElement>(controls) : null;
@@ -17,30 +33,34 @@ function surfaceFor(target: EventTarget | null) {
   return getComputedStyle(surface).getPropertyValue("--glass-interactive").trim() === "1" ? surface : null;
 }
 
-function edgeAt(element: HTMLElement, pointer: Pointer): Edge | null {
+function edgeAt(element: HTMLElement, pointer: Pointer, drift: Offset): Edge | null {
   const rect = element.getBoundingClientRect();
   const width = element.offsetWidth, height = element.offsetHeight;
   if (!rect.width || !rect.height || !width || !height) return null;
-  const x = (pointer.x - rect.left) * width / rect.width;
-  const y = (pointer.y - rect.top) * height / rect.height;
+  // Measure against the resting hit area so the surface cannot chase its own motion.
+  const x = (pointer.x - rect.left + drift.x) * width / rect.width;
+  const y = (pointer.y - rect.top + drift.y) * height / rect.height;
   const outside = Math.max(-x, -y, x - width, y - height);
-  if (outside > 7) return null;
+  if (outside > 11) return null;
   const px = Math.max(0, Math.min(width, x)), py = Math.max(0, Math.min(height, y));
-  const sides = [
-    { distance: Math.abs(x), x: 0, y: py, nx: -1, ny: 0 },
-    { distance: Math.abs(width - x), x: width, y: py, nx: 1, ny: 0 },
-    { distance: Math.abs(y), x: px, y: 0, nx: 0, ny: -1 },
-    { distance: Math.abs(height - y), x: px, y: height, nx: 0, ny: 1 },
-  ];
-  const { distance, ...side } = sides.reduce((a, b) => a.distance <= b.distance ? a : b);
-  const span = Math.min(reach, Math.min(width, height) * .36);
-  const pull = Math.max(0, 1 - Math.max(distance, outside) / span) ** .8;
-  return { ...side, pull: pull * 8.4, width, height };
+  const span = Math.min(reach, Math.min(width, height) * .66);
+  const weight = (distance: number) => Math.max(0, 1 - Math.max(Math.abs(distance), outside) / span) ** 1.65;
+  const left = weight(x), right = weight(width - x), top = weight(y), bottom = weight(height - y);
+  // Blend the two sides of a corner so the direction changes continuously.
+  const dx = right - left, dy = bottom - top;
+  const strength = Math.hypot(dx, dy);
+  if (strength < .004) return null;
+  const total = left + right + top + bottom;
+  return {
+    x: (right * width + (top + bottom) * px) / total,
+    y: (bottom * height + (left + right) * py) / total,
+    nx: dx / strength, ny: dy / strength, pull: Math.min(1, strength) * pullLimit, width, height,
+  };
 }
 
 function displacementBrush() {
   const canvas = document.createElement("canvas");
-  const size = 64;
+  const size = 224;
   canvas.width = canvas.height = size;
   const context = canvas.getContext("2d");
   if (!context) return null;
@@ -59,35 +79,48 @@ function displacementBrush() {
   return canvas.toDataURL();
 }
 
+function positionBrush(element: SVGFEImageElement, cx: number, cy: number, width: number, height: number) {
+  element.setAttribute("x", (cx - width / 2).toFixed(2));
+  element.setAttribute("y", (cy - height / 2).toFixed(2));
+  element.setAttribute("width", width.toFixed(2));
+  element.setAttribute("height", height.toFixed(2));
+}
+
 export function GlassInteractions() {
   const id = "glass-edge-" + useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const filter = useRef<SVGFilterElement>(null);
   const brush = useRef<SVGFEImageElement>(null);
+  const rimBrush = useRef<SVGFEImageElement>(null);
+  const softener = useRef<SVGFEGaussianBlurElement>(null);
   const tint = useRef<SVGFEColorMatrixElement>(null);
   const warp = useRef<SVGFEDisplacementMapElement>(null);
 
   useEffect(() => {
-    const lens = filter.current, image = brush.current, vector = tint.current, shift = warp.current;
-    if (!lens || !image || !vector || !shift) return;
+    const lens = filter.current, image = brush.current, rim = rimBrush.current, blur = softener.current;
+    const vector = tint.current, shift = warp.current;
+    if (!lens || !image || !rim || !blur || !vector || !shift) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce), (forced-colors: active)");
     const fine = matchMedia("(hover: hover) and (pointer: fine)");
     const presses = new Set<Animation>();
     const lastPress = new WeakMap<HTMLElement, Animation>();
     const events = new AbortController();
     const { signal } = events;
-    let active: HTMLElement | null = null, original: FilterState | null = null;
+    let active: HTMLElement | null = null;
+    let originalFilter: StyleState | undefined, originalTranslate: StyleState | undefined;
+    const drift: Offset = { x: 0, y: 0 };
     let pointer: Pointer | null = null, pending = false;
     let current: Edge | null = null, goal: Edge | null = null;
     let frame = 0, previous = 0;
     let texture: string | null | undefined;
 
     const detach = () => {
-      if (active && original && active.style.getPropertyValue("filter") === original.applied) {
-        if (original.value) active.style.setProperty("filter", original.value, original.priority);
-        else active.style.removeProperty("filter");
+      if (active) {
+        restoreStyle(active, "filter", originalFilter);
+        restoreStyle(active, "translate", originalTranslate);
       }
       active = null;
-      original = null;
+      originalFilter = originalTranslate = undefined;
+      drift.x = drift.y = 0;
       current = goal = null;
     };
     const clear = () => {
@@ -100,17 +133,18 @@ export function GlassInteractions() {
     const draw = (now: number) => {
       frame = 0;
       if (reduced.matches || !fine.matches || document.hidden) { clear(); return; }
-      const blend = 1 - Math.exp(-Math.min(48, previous ? now - previous : 16) / 46);
+      const elapsed = Math.min(48, previous ? now - previous : 16);
       previous = now;
       if (pending) {
         pending = false;
         const candidate = surfaceFor(pointer?.target ?? null);
         if (candidate && candidate !== active) { detach(); active = candidate; }
-        goal = active && pointer ? edgeAt(active, pointer) : null;
+        goal = active && pointer ? edgeAt(active, pointer, drift) : null;
       }
-      if (!active?.isConnected || (!current && !goal?.pull)) { detach(); return; }
+      if (!active?.isConnected || active.closest(disabled) || (!current && !goal?.pull)) { detach(); return; }
       current ??= { ...goal!, pull: 0 };
       const target = goal ?? { ...current, pull: 0 };
+      const blend = 1 - Math.exp(-elapsed / (target.pull ? 56 : 84));
       current.x += (target.x - current.x) * blend;
       current.y += (target.y - current.y) * blend;
       current.nx += (target.nx - current.nx) * blend;
@@ -120,25 +154,32 @@ export function GlassInteractions() {
 
       texture = texture === undefined ? displacementBrush() : texture;
       if (!texture) { detach(); return; }
-      if (!image.hasAttribute("href")) image.setAttribute("href", texture);
+      if (!image.hasAttribute("href")) {
+        image.setAttribute("href", texture);
+        rim.setAttribute("href", texture);
+      }
       const { width, height, x, y, nx, ny, pull } = current;
-      const size = Math.max(26, Math.min(76, Math.min(width, height) * 1.36));
-      // The brush shifts only the small arc of glass immediately under the pointer.
-      image.setAttribute("x", (x - size / 2).toFixed(2));
-      image.setAttribute("y", (y - size / 2).toFixed(2));
-      image.setAttribute("width", size.toFixed(2));
-      image.setAttribute("height", size.toFixed(2));
+      const ax = Math.abs(nx), ay = Math.abs(ny);
+      const normalSpan = Math.min(66, Math.max(26, Math.min(width, height) * .80));
+      const spanX = ax * normalSpan + (1 - ax) * Math.min(320, Math.max(82, width * 1.24));
+      const spanY = ay * normalSpan + (1 - ay) * Math.min(224, Math.max(64, height * 1.38));
+      positionBrush(image, x, y, spanX, spanY);
+      // Smooth along the rim's tangent, within a narrow mask away from the label.
+      positionBrush(rim, x + nx * pull / 2, y + ny * pull / 2,
+        22 + (spanX - 22) * (1 - ax), 22 + (spanY - 22) * (1 - ay));
+      blur.setAttribute("stdDeviation", `${(.46 + 3.55 * ay).toFixed(2)} ${(.46 + 3.55 * ax).toFixed(2)}`);
       vector.setAttribute("values", `${(-nx / 2).toFixed(3)} 0 0 0 .5 ${(-ny / 2).toFixed(3)} 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0`);
       shift.setAttribute("scale", pull.toFixed(3));
-      if (!original) {
-        lens.setAttribute("width", String(width + 28));
-        lens.setAttribute("height", String(height + 28));
-        const value = active.style.getPropertyValue("filter");
-        const priority = active.style.getPropertyPriority("filter");
+      if (!originalFilter) {
+        lens.setAttribute("width", String(width + 32));
+        lens.setAttribute("height", String(height + 32));
         const existing = getComputedStyle(active).filter;
-        active.style.setProperty("filter", `${existing === "none" ? "" : existing + " "}url("#${id}")`, priority);
-        original = { value, priority, applied: active.style.getPropertyValue("filter") };
+        originalFilter = applyStyle(active, "filter", `${existing === "none" ? "" : existing + " "}url("#${id}")`);
       }
+      const follow = pull / pullLimit * 3.8;
+      drift.x = (nx * .86 + .28 * (x / width - .5)) * follow;
+      drift.y = (ny * .86 + .28 * (y / height - .5)) * follow;
+      originalTranslate = applyStyle(active, "translate", `${drift.x.toFixed(3)}px ${drift.y.toFixed(3)}px`, originalTranslate);
       const difference = Math.abs(target.pull - pull) + Math.hypot(target.x - x, target.y - y) +
         4 * Math.hypot(target.nx - nx, target.ny - ny);
       if (difference > settle) request();
@@ -198,12 +239,18 @@ export function GlassInteractions() {
   return <svg className="screen-ripple-defs" aria-hidden="true" focusable="false">
     <defs>
       <filter ref={filter} id={id} filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse"
-        x="-14" y="-14" width="1" height="1" colorInterpolationFilters="sRGB">
+        x="-16" y="-16" width="1" height="1" colorInterpolationFilters="sRGB">
         <feFlood floodColor="#808080" result="neutral" />
         <feImage ref={brush} preserveAspectRatio="none" result="brush" x="0" y="0" width="1" height="1" />
         <feColorMatrix ref={tint} in="brush" type="matrix" result="direction" />
         <feMerge result="map"><feMergeNode in="neutral" /><feMergeNode in="direction" /></feMerge>
-        <feDisplacementMap ref={warp} in="SourceGraphic" in2="map" scale="0" xChannelSelector="R" yChannelSelector="G" />
+        <feDisplacementMap ref={warp} in="SourceGraphic" in2="map" scale="0" xChannelSelector="R" yChannelSelector="G" result="pulled" />
+        <feImage ref={rimBrush} preserveAspectRatio="none" result="rim" x="0" y="0" width="1" height="1" />
+        <feColorMatrix in="rim" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0" result="rimMask" />
+        <feGaussianBlur ref={softener} in="pulled" stdDeviation=".46" result="softened" />
+        <feComposite in="softened" in2="rimMask" operator="in" result="softRim" />
+        <feComposite in="pulled" in2="rimMask" operator="out" result="crispCenter" />
+        <feComposite in="softRim" in2="crispCenter" operator="arithmetic" k2="1" k3="1" />
       </filter>
     </defs>
   </svg>;

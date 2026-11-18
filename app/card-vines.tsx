@@ -8,6 +8,8 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
   const section = grid.closest("section");
   if (!shell || !section) return;
   const boundary = shell.closest(".site-shell") ?? shell;
+  // A canvas inside its own image frame shares the image's sway and local coordinates.
+  const followsImage = grid === shell && grid.matches(selector);
   const hover = matchMedia("(hover: hover) and (pointer: fine)");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const elements = grid.matches(selector) ? [grid] : Array.from(grid.querySelectorAll<HTMLElement>(selector));
@@ -21,18 +23,25 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
   let frame = 0, previous = 0, width = 1, height = 1, dirty = true;
   let context: CanvasRenderingContext2D | null = null;
 
-  const measure = () => {
-    const parent = shell.getBoundingClientRect();
+  const groupRegion = (group: DOMRect) => {
     const bounds = boundary.getBoundingClientRect();
-    const group = grid.getBoundingClientRect();
     const padding = section.getBoundingClientRect();
     const neighbor = section.querySelector("[data-vine-obstacle]")?.getBoundingClientRect();
     const horizontalLimit = neighbor && neighbor.left >= group.right ? Math.max(group.right, neighbor.left - 4) : bounds.right;
     const verticalLimit = neighbor && neighbor.top >= group.bottom ? Math.max(group.bottom, neighbor.top - 4) : padding.bottom;
-    const left = Math.max(bounds.left, group.left - 104);
-    const right = Math.min(bounds.right, horizontalLimit, group.right + 104);
-    const top = Math.max(padding.top, group.top - 92);
-    const bottom = Math.min(padding.bottom, verticalLimit, group.bottom + 69);
+    return {
+      left: Math.max(bounds.left, group.left - 104), right: Math.min(bounds.right, horizontalLimit, group.right + 104),
+      top: Math.max(padding.top, group.top - 92), bottom: Math.min(padding.bottom, verticalLimit, group.bottom + 69),
+    };
+  };
+
+  const measure = () => {
+    const parent = followsImage ? { left: 0, top: 0 } : shell.getBoundingClientRect();
+    const group = followsImage ? new DOMRect(0, 0, grid.clientWidth, grid.clientHeight) : grid.getBoundingClientRect();
+    const side = Math.min(42, Math.max(14, group.width * .083));
+    const { left, right, top, bottom } = followsImage
+      ? { left: -side, right: group.width + side, top: -Math.min(57, group.height * .31), bottom: group.height }
+      : groupRegion(group);
     width = Math.max(1, right - left);
     height = Math.max(1, bottom - top);
     const ratio = Math.min(devicePixelRatio || 1, 1.5, Math.sqrt(2_200_000 / (width * height)));
@@ -43,7 +52,7 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
       width: `${width}px`, height: `${height}px`,
     });
     context?.setTransform(field.width / width, 0, 0, field.height / height, 0, 0);
-    const boxes = cards.map(card => card.element.getBoundingClientRect());
+    const boxes = followsImage ? [group] : cards.map(card => card.element.getBoundingClientRect());
     cards.forEach((card, index) => {
       const box = boxes[index];
       const edges = { left: box.left - left, right: right - box.right, top: box.top - top, bottom: bottom - box.bottom };
@@ -58,7 +67,7 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
           if (other.top >= box.bottom) edges.bottom = Math.min(edges.bottom, other.top - box.bottom);
         }
       }
-      card.vines = growVines({ x: box.left - left, y: box.top - top, width: box.width, height: box.height }, edges, card.cool);
+      card.vines = growVines({ x: box.left - left, y: box.top - top, width: box.width, height: box.height }, edges, card.cool, !followsImage);
     });
     dirty = false;
   };

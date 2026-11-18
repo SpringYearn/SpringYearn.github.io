@@ -17,7 +17,7 @@ test("daily groups retain all release versions and bilingual notes without chang
     }
   }
   assert.deepEqual(days.slice(0, 17).map(day => day.version), [
-    "V.090 — V.094", "V.083 — V.089", "V.082", "V.077 — V.081", "V.076", "V.074 — V.075",
+    "V.090 — V.095", "V.083 — V.089", "V.082", "V.077 — V.081", "V.076", "V.074 — V.075",
     "V.070 — V.073", "V.068 — V.069", "V.065 — V.067", "V.064",
     "V.062 — V.063", "V.061", "V.056 — V.060", "V.052 — V.055",
     "V.047 — V.051", "V.042 — V.046", "V.024 — V.041",

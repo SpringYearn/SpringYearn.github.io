@@ -4,7 +4,7 @@ type Wake = Point & { dx: number; dy: number; strength: number };
 const spacing = 28;
 const sampleStep = spacing / 2;
 const radius = 83;
-const lifetime = 420;
+const lifetime = 660;
 
 /** The actual grid bends along the last few pointer positions. */
 export class EntranceGrid {

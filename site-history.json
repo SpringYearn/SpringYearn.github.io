@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Refined the intro, homepage and featured work, updated LAB cards and glass buttons, and fixed the old-site popup."
+      "Slowed the intro grid, refreshed the featured thumbnails with vines and light, and smoothed the glass pull."
     ],
     "zh": [
-      "調整開場、首頁與精選作品，更新 LAB 卡片和玻璃按鈕，並修正舊站彈窗。"
+      "放慢開場網格回正，更新精選縮圖的藤蔓、微光與粒子，並讓玻璃按鈕的牽引更滑順。"
     ]
   },
   "releases": [
+    {
+      "version": "V.095",
+      "date": "2026-11-18",
+      "en": ["Slowed the intro grid, refreshed the featured thumbnails with vines and light, and smoothed the glass pull."],
+      "zh": ["放慢開場網格回正，更新精選縮圖的藤蔓、微光與粒子，並讓玻璃按鈕的牽引更滑順。"]
+    },
     {
       "version": "V.094",
       "date": "2026-11-18",

@@ -60,8 +60,8 @@ function onSide(box: Box, side: Side, along: number, away: number): Point {
   return { x: box.x + box.width + away, y: box.y + along };
 }
 
-export function growVines(box: Box, edges: Edges, lab: boolean): Vine[] {
-  return roots.map(({ side, at, run, reach, delay }, index) => {
+export function growVines(box: Box, edges: Edges, lab: boolean, growBelow = true): Vine[] {
+  return roots.filter(root => growBelow || root.side !== "bottom").map(({ side, at, run, reach, delay }, index) => {
     const horizontal = side === "top" || side === "bottom";
     const span = horizontal ? box.width : box.height;
     const space = edges[side];
