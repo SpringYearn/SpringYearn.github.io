@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v096.release",
+    "en": "Replaced the homepage reel and cleaned up the Resolve watermark in LAB.",
+    "zh": "更新首頁背景影片，並移除 LAB 的 DaVinci Resolve 浮水印底板與白邊。",
+    "ja": "ホームの背景動画を差し替え、LABのDaVinci Resolveウォーターマークの背景と白い縁を取り除きました。",
+    "ko": "홈 배경 영상을 교체하고 LAB의 DaVinci Resolve 워터마크에서 배경과 흰 테두리를 제거했어요.",
+    "ru": "Заменил фоновое видео на главной и убрал подложку и белую кайму у знака DaVinci Resolve в LAB.",
+    "vi": "Thay video nền trang chủ và bỏ nền cùng viền trắng khỏi hình mờ DaVinci Resolve trong LAB."
+  }
+]

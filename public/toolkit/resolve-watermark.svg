@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="147 99 346 346">
+  <g fill="#bfd5c9">
+    <path id="lobe" d="M320 271c-4 0-13-10-25-24-13-15-20-29-20-42 0-25 20-45 45-45s45 20 45 45c0 13-7 27-20 42-12 14-21 24-25 24Z"/>
+    <use href="#lobe" transform="rotate(120 320 278)"/>
+    <use href="#lobe" transform="rotate(240 320 278)"/>
+  </g>
+</svg>
