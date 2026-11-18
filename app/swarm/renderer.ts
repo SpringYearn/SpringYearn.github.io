@@ -1,5 +1,6 @@
 import type { Agent, Box, BuildTask, Glyph, Job, Point } from './types';
 import { dimensionBadge, mediaProgress, SCAN_START, toolBox } from './choreography';
+import { GridWarp } from './grid-warp';
 
 type Ghost = { root: HTMLDivElement; letters: HTMLSpanElement[]; glyphs: Glyph[]; shown: number };
 const mix=(a:number,b:number,t:number)=>a+(b-a)*t;
@@ -10,6 +11,7 @@ export class AnimationRenderer {
   canvas: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
   private ghosts=new Map<number,Ghost>();
+  private dragGrids=new Map<number,{ point: Point; grid: GridWarp }>();
   private width=0;private height=0;
   constructor(private host:HTMLElement){
     this.canvas=document.createElement('canvas');this.canvas.className='swarm-canvas';this.canvas.setAttribute('aria-hidden','true');
@@ -44,7 +46,7 @@ export class AnimationRenderer {
     const y=task.kind==='line'?r.y:scanning?r.y+r.height*.5:box.y+box.height;
     return{x:clamp(x-left,8,this.width-18),y:clamp(y-top,8,this.height-18)};
   }
-  paint(agents:Agent[],jobs:Job[],top:number,left:number,time:number,multiplier=1){
+  paint(agents:Agent[],jobs:Job[],top:number,left:number,time:number,seconds:number,multiplier=1){
     const working=agents.filter(agent=>agent.present);
     this.canvas.dataset.swarmCursorCount=String(working.length);
     this.canvas.dataset.swarmTempo=String(multiplier);
@@ -52,6 +54,19 @@ export class AnimationRenderer {
     this.canvas.dataset.swarmHandoffs=working.filter(agent=>!agent.busy).map(agent=>String(agent.id)).join(',');
     this.canvas.dataset.swarmBatches=working.map(agent=>`${agent.id}:${agent.batch}:${agent.completed}:${agent.quota}`).join(',');
     const c=this.context;c.clearRect(0,0,this.width,this.height);
+    for(const job of jobs){
+      if(!job.arrived||job.task.kind==='text')continue;
+      const point=this.goal(job,top,left);
+      const previous=this.dragGrids.get(job.agent.id)??{point,grid:new GridWarp()};
+      previous.grid.move(point.x,point.y,point.x-previous.point.x,point.y-previous.point.y);
+      previous.point=point;
+      this.dragGrids.set(job.agent.id,previous);
+    }
+    let fadingGrid=false;
+    for(const [id,drag] of this.dragGrids){
+      if(drag.grid.paint(c,seconds))fadingGrid=true;
+      else if(!jobs.some(job=>job.agent.id===id))this.dragGrids.delete(id);
+    }
     for(const job of jobs){
       if(!job.arrived)continue;
       const r={...job.task.rect,x:job.task.rect.x-left,y:job.task.rect.y-top},p=job.progress;
@@ -79,6 +94,7 @@ export class AnimationRenderer {
       c.restore();
     }
     c.globalAlpha=1;
+    return fadingGrid;
   }
   private paintTask(job:Job,r:Box,time:number){
     const c=this.context,{task,progress:p}=job;

@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
   type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -13,19 +14,23 @@ import { useSiteLanguage } from "./site-language";
 import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
+import { SpringMark } from "./spring-mark";
 import { BrandWord } from "./brand-word";
 import { ProjectFilesGateway } from "./project-files-gateway";
 import { useHeroParallax } from "./use-hero-parallax";
 import { HorizontalStrip } from "./horizontal-strip";
-import { projects } from "./portfolio-data";
+import { HomeReel } from "./home-reel";
+import { WorkGateway } from "./work-gateway";
 import "./home.css";
 
 const copy = {
   en: {
     nav: { work: "Work archive", profile: "Profile", contact: "Contact" },
     heroTop: "Visual Artist / Editor",
+    heroBottom: "I make images move, and sometimes stay still.",
+    intro: "I work across editing, motion, drawing, graphic design and 3D. If an idea calls for a different medium, I’m happy to try it.",
+    index: "Independent creative / Taiwan",
     allWorks: "All work",
-    viewWork: "View details",
     showreelTitle: "A year of edits",
     showreelView: "Watch showreel",
     profileEyebrow: "02 / Profile",
@@ -64,8 +69,10 @@ const copy = {
   zh: {
     nav: { work: "作品集", profile: "關於我", contact: "聯絡" },
     heroTop: "視覺藝術家 / 剪輯師",
+    heroBottom: "讓影像動起來，也做點靜態創作。",
+    intro: "我做剪輯、動態圖形、繪畫、平面設計和 3D。有些點子適合用不同的方式呈現，那就試試看。",
+    index: "獨立創作者 / 台灣",
     allWorks: "所有作品",
-    viewWork: "查看詳情",
     showreelTitle: "這一年剪了什麼",
     showreelView: "觀看 Showreel",
     profileEyebrow: "02 / 關於我",
@@ -266,7 +273,7 @@ const socialLinks = [
   { label: "Discord", handle: "Server", href: "https://discord.gg/Y4MQSsEBGN" },
 ];
 
-const homeFeature = projects.find(project => project.id === "02")!;
+const displayWords = ["SPRING", "YEARN"];
 
 const annualReels = [
   {
@@ -290,6 +297,16 @@ export default function Home() {
   const [emailCopied, setEmailCopied] = useState(false);
   const t = copy[language];
 
+  const moveHero = (event: ReactPointerEvent<HTMLElement>) => {
+    if (event.pointerType === "touch") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--hero-x", String((event.clientX - rect.left) / rect.width - .5));
+    event.currentTarget.style.setProperty("--hero-y", String((event.clientY - rect.top) / rect.height - .5));
+  };
+  const resetHero = (event: ReactPointerEvent<HTMLElement>) => {
+    event.currentTarget.style.removeProperty("--hero-x");
+    event.currentTarget.style.removeProperty("--hero-y");
+  };
   const copyEmailAddress = async () => {
     const address = "bbal96421@gmail.com";
 
@@ -416,51 +433,65 @@ export default function Home() {
         <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
       </header>
 
-      <section id="work" className="home-hero" ref={heroRef} aria-labelledby="hero-title">
-        <div className="home-hero-copy">
-          <h1 id="hero-title" aria-label="SpringYearn">
-            <span aria-hidden="true">Spring</span>
-            <span aria-hidden="true">Yearn</span>
-          </h1>
-          <p>{t.heroTop}</p>
-          <Link href="/work/" className="home-hero-index" data-audio="work-gateway">
+      <section className="home-hero" ref={heroRef} aria-labelledby="hero-title" data-swarm-ignore>
+        <p className="hero-meta mono-label">{t.index}</p>
+        <div className="hero-composition" onPointerMove={moveHero} onPointerLeave={resetHero}>
+          <HomeReel />
+          <div className="hero-geometry" aria-hidden="true">
+            <div className="hero-orb hero-orb-large" />
+            <div className="hero-orb hero-orb-small" />
+            <div className="hero-axis hero-axis-horizontal" />
+            <div className="hero-axis hero-axis-vertical" />
+            <SpringMark className="hero-spring-mark" />
+          </div>
+          <div className="hero-title-cluster">
+            <h1 id="hero-title">
+              <span>{t.heroTop}</span>
+              <strong className="hero-display" aria-label="SPRING YEARN">
+                {displayWords.map(word => (
+                  <span className="display-word" aria-hidden="true" key={word}>
+                    {Array.from(word, (letter, index) => (
+                      <span className="display-letter" style={{ "--letter-index": index } as CSSProperties} key={index}>
+                        {letter}
+                      </span>
+                    ))}
+                  </span>
+                ))}
+              </strong>
+            </h1>
+            <p className="hero-statement">{t.heroBottom}</p>
+          </div>
+        </div>
+        <div className="hero-footer">
+          <p>{t.intro}</p>
+          <Link href="/work/" className="text-link">
             {t.allWorks}
             <ArrowUpRight aria-hidden="true" />
           </Link>
         </div>
-        <Link
-          href={`/work/${homeFeature.id}/`}
-          className="home-feature-link"
-          aria-labelledby="home-feature-title home-feature-action"
-        >
-          <span className="home-feature-visual" data-swarm-ignore>
-            <img src={homeFeature.thumbnail} alt="" width={1280} height={720} fetchPriority="high" data-entrance-frame />
-          </span>
-          <span className="home-feature-caption">
-            <strong id="home-feature-title" data-localize="off">{homeFeature.title}</strong>
-            <small id="home-feature-action">{t.viewWork}<ArrowUpRight aria-hidden="true" /></small>
-          </span>
-        </Link>
       </section>
 
-      <section className="section-block annual-reels" aria-labelledby="annual-reels-title" data-reveal>
-        <h2 id="annual-reels-title">{t.showreelTitle}</h2>
-        {annualReels.map((reel) => (
-          <a
-            className="annual-reel-card"
-            href={reel.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`${reel.year} — ${t.showreelView}`}
-            key={reel.year}
-          >
-            <span className="annual-reel-thumb" aria-hidden="true">
-              <img src={reel.thumbnail} alt="" loading="lazy" />
-            </span>
-            <strong>{reel.year}</strong>
-            <ArrowUpRight aria-hidden="true" />
-          </a>
-        ))}
+      <section id="work" className="section-block work-gateway" aria-labelledby="work-gateway-title">
+        <WorkGateway />
+        <aside className="annual-reels" aria-labelledby="annual-reels-title" data-reveal>
+          <h3 id="annual-reels-title">{t.showreelTitle}</h3>
+          {annualReels.map(reel => (
+            <a
+              className="annual-reel-card"
+              href={reel.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${reel.year} — ${t.showreelView}`}
+              key={reel.year}
+            >
+              <span className="annual-reel-thumb" aria-hidden="true">
+                <img src={reel.thumbnail} alt="" loading="lazy" />
+              </span>
+              <strong>{reel.year}</strong>
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+          ))}
+        </aside>
       </section>
 
       <section id="lab" className="section-block lab-gateway" aria-label={language === "en" ? "Resources" : "資源區"}>

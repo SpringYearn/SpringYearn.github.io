@@ -6,7 +6,7 @@ import { ArrowDownRight, Check, Clapperboard, Workflow } from "lucide-react";
 import { Localized } from "../localized";
 import { useSiteLanguage } from "../site-language";
 import type { ResourceSection } from "./resource-route";
-import { ResourceVines } from "./resource-vines";
+import { CardVines } from "../card-vines";
 import "./resource-picker.css";
 
 const choices = [
@@ -33,7 +33,7 @@ export function ResourcePicker({ active, animate, onSelect }: {
   const grid = useRef<HTMLElement>(null);
   const title = language === "zh" ? "資源區" : "Resources";
   return <Localized>
-    {active === null && <ResourceVines grid={grid} />}
+    {active === null && <CardVines grid={grid} selector=".resource-choice" className="resource-vine-field" />}
     <section className="section-block resource-picker" data-expanded={active === null} data-animate={animate} aria-labelledby="resource-picker-title">
       <div className="resource-picker-heading">
         {active === null ? <h1 id="resource-picker-title">{title}</h1> : <p id="resource-picker-title">{title}</p>}
@@ -43,6 +43,7 @@ export function ResourcePicker({ active, animate, onSelect }: {
           key={id}
           href={`/resources/#${id}`}
           className={`resource-choice resource-choice-${id}`}
+          data-vine-tone={id === "lab" ? "cool" : undefined}
           aria-current={active === id ? "page" : undefined}
           aria-labelledby={`resource-label-${id}`}
           aria-describedby={active === null ? `resource-description-${id}` : undefined}

@@ -2,19 +2,25 @@
 import { Localized } from "../localized";
 
 import Link from "next/link";
+import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { projects } from "../portfolio-data";
 import { useSiteLanguage } from "../site-language";
+import { CardVines } from "../card-vines";
 import { featuredWorkIds, featuredSummaries } from "./featured-data";
 
 export function FeaturedWork() {
   const { language, locale } = useSiteLanguage();
-  return <Localized>{<section className="section-block featured-work" aria-labelledby="featured-work-title">
+  const grid = useRef<HTMLDivElement>(null);
+  return <Localized>{<>
+    <CardVines grid={grid} selector=".featured-work-card" className="featured-vine-field" />
+    <section className="section-block featured-work" aria-labelledby="featured-work-title">
     <h2 id="featured-work-title">{language === "en" ? "Selected works" : "精選作品"}</h2>
-    <div className="featured-work-grid">
+    <div className="featured-work-grid" ref={grid}>
       {featuredWorkIds.map(id => {
         const project = projects.find(item => item.id === id)!;
-        return <Link className="featured-work-card" href={`/work/${id}/`} key={id} aria-labelledby={`featured-title-${id} featured-action-${id}`}>
+        return <Link className="featured-work-card" href={`/work/${id}/`} key={id}
+          data-vine-tone={id === "01" ? "cool" : undefined} aria-labelledby={`featured-title-${id} featured-action-${id}`}>
           <div className="featured-work-art">
             <img src={project.thumbnail} alt="" loading="lazy" width={1280} height={720} style={{ objectFit: project.fit ?? "cover" }} />
           </div>
@@ -26,5 +32,6 @@ export function FeaturedWork() {
         </Link>;
       })}
     </div>
-  </section>}</Localized>;
+    </section>
+  </>}</Localized>;
 }

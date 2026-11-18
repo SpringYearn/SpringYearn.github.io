@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v091.release",
+    "en": "Restored the original homepage layout, added a background reel, and refreshed the intro, glass controls, and featured works.",
+    "zh": "恢復首頁原本構圖，加入背景精華，並更新片頭、玻璃介面與精選作品。",
+    "ja": "ホームの構成を元に戻し、背景映像、オープニング、ガラス調の操作部、注目作品を更新しました。",
+    "ko": "기존 홈 레이아웃을 되살리고 배경 영상, 오프닝, 유리 스타일의 인터페이스와 추천 작품을 새로 꾸몄어요.",
+    "ru": "Вернул прежнюю композицию главной, добавил фоновый ролик и обновил вступление, стеклянные элементы и подборку работ.",
+    "vi": "Khôi phục bố cục trang chủ, thêm video nền và làm mới đoạn mở đầu, nút kính cùng các tác phẩm nổi bật."
+  },
+  {
+    "id": "v091.playReel",
+    "en": "Play background video",
+    "zh": "播放背景影片",
+    "ja": "背景映像を再生",
+    "ko": "배경 영상 재생",
+    "ru": "Воспроизвести фоновое видео",
+    "vi": "Phát video nền"
+  },
+  {
+    "id": "v091.pauseReel",
+    "en": "Pause background video",
+    "zh": "暫停背景影片",
+    "ja": "背景映像を一時停止",
+    "ko": "배경 영상 일시 정지",
+    "ru": "Приостановить фоновое видео",
+    "vi": "Tạm dừng video nền"
+  }
+]

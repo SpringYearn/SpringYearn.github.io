@@ -1,5 +1,6 @@
 import { ENTRANCE_ATTRIBUTE } from "./availability";
 import { logoDeformation } from "./logo-deformation";
+import { GridWarp } from "./grid-warp";
 import { ENTRANCE_TRAVEL_MS } from "./timing";
 
 type Spark = { angle: number; phase: number; range: number; size: number; turn: number };
@@ -157,10 +158,42 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
   const streams = sparks(smallBudget ? 36 : 58, 173);
   const glow = glowTexture();
   const logo = logoDeformation(emblem, smallBudget);
+  const grid = new GridWarp();
   const started = performance.now();
   let previous = started, launch: number | null = null, hover = 0, clock = 0;
+  let particleClock = 0;
   let width = 1, height = 1, frame = 0;
   let stopped = false;
+  let held: { id: number; x: number; y: number } | null = null;
+  let dragged = false;
+  const listeners = new AbortController();
+  const signal = listeners.signal;
+
+  button.closest(".site-entrance")?.addEventListener("pointerdown", raw => {
+    const event = raw as PointerEvent;
+    if (event.button !== 0 || event.pointerType !== "mouse") return;
+    held = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    dragged = false;
+  }, { signal });
+  window.addEventListener("pointermove", event => {
+    if (!held || event.pointerId !== held.id || !(event.buttons & 1)) return;
+    const dx = event.clientX - held.x, dy = event.clientY - held.y;
+    if (Math.hypot(dx, dy) < (dragged ? .5 : 5)) return;
+    grid.move(event.clientX, event.clientY, dx, dy);
+    held.x = event.clientX;
+    held.y = event.clientY;
+    dragged = true;
+  }, { signal, passive: true });
+  const endDrag = (event: PointerEvent) => { if (event.pointerId === held?.id) held = null; };
+  window.addEventListener("pointerup", endDrag, { signal });
+  window.addEventListener("pointercancel", endDrag, { signal });
+  button.addEventListener("click", event => {
+    if (dragged && event.detail > 0) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+    dragged = false;
+  }, { signal, capture: true });
 
   const resize = () => {
     width = Math.max(1, canvas.clientWidth);
@@ -174,7 +207,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     if (stopped) return;
     stopped = true;
     cancelAnimationFrame(frame);
-    window.removeEventListener("resize", resize);
+    listeners.abort();
     canvas.width = canvas.height = 1;
     logo?.stop();
     emblem.style.removeProperty("transform");
@@ -194,17 +227,19 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
     const fade = 1 - ease(.82, 1, progress);
     const time = Math.max(0, (now - started) / 1000);
     clock += delta * (1 + 2.8 * rush);
+    particleClock += delta * (1 + hover * 2.1 + rush * 1.1);
     const bob = Math.sin(time * 1.12) * 5.6 * (1 - ease(.12, .8, progress));
     emblem.style.transform = `translate3d(0,${bob.toFixed(2)}px,0)`;
     const ink = "188,231,206";
     const field = { x: width / 2, y: height / 2 + bob, width, height, radius: Math.min(width, height) / 2,
-      time, progress, rush, fade, ink };
+      time: particleClock, progress, rush, fade, ink };
     context.clearRect(0, 0, width, height);
     const glowSize = field.radius * (1.39 + hover * .16 + rush * 1.85);
     context.globalAlpha = (.65 + hover * .16 + rush * .18) * fade;
     context.drawImage(glow, field.x - glowSize / 2, field.y - glowSize / 2, glowSize, glowSize);
     context.globalAlpha = 1;
     drawGrid(context, field);
+    grid.paint(context, delta);
     drawParticles(context, field, motes, burst);
     drawStreams(context, field, streams, hover, clock);
     logo?.draw(ease(.25, .86, progress));
@@ -212,7 +247,7 @@ export function animateEntrance(canvas: HTMLCanvasElement, emblem: HTMLElement, 
   };
 
   resize();
-  window.addEventListener("resize", resize, { passive: true });
+  window.addEventListener("resize", resize, { passive: true, signal });
   frame = requestAnimationFrame(paint);
   return stop;
 }

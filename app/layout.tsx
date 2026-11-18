@@ -9,6 +9,7 @@ import { SwarmWebsiteBuilder } from "./swarm/swarm-website-builder";
 import { DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY } from "./swarm/availability";
 import { SiteLanguageProvider } from "./site-language";
 import "./globals.css";
+import "./glass.css";
 
 const siteOrigin =
   process.env.GITHUB_PAGES === "1"

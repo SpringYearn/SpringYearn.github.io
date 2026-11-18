@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
-import { growVines, paintVines } from "./resource-vine-drawing";
+import { growVines, paintVines } from "./resources/resource-vine-drawing";
 
-function attachVines(field: HTMLCanvasElement, grid: HTMLElement) {
+function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: string) {
   const shell = field.parentElement;
   const picker = grid.parentElement;
   if (!shell || !picker) return;
   const hover = matchMedia("(hover: hover) and (pointer: fine)");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-  const cards = Array.from(grid.querySelectorAll<HTMLAnchorElement>(".resource-choice"), element => ({
-    element, lab: element.classList.contains("resource-choice-lab"),
+  const cards = Array.from(grid.querySelectorAll<HTMLAnchorElement>(selector), element => ({
+    element, cool: element.dataset.vineTone === "cool",
     growth: 0, vines: [] as ReturnType<typeof growVines>,
   }));
   type Card = typeof cards[number];
@@ -51,7 +51,7 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement) {
           if (other.top >= box.bottom) edges.bottom = Math.min(edges.bottom, other.top - box.bottom);
         }
       }
-      card.vines = growVines({ x: box.left - left, y: box.top - top, width: box.width, height: box.height }, edges, card.lab);
+      card.vines = growVines({ x: box.left - left, y: box.top - top, width: box.width, height: box.height }, edges, card.cool);
     });
     dirty = false;
   };
@@ -76,7 +76,7 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement) {
     if (!context) return;
     if (dirty) measure();
     context.clearRect(0, 0, width, height);
-    for (const card of cards) if (card.growth > 0) paintVines(context, card.vines, card.growth, card.lab);
+    for (const card of cards) if (card.growth > 0) paintVines(context, card.vines, card.growth, card.cool);
     if (cards.some(card => card.growth !== (card === active ? 1 : 0))) request();
     else previous = 0;
   };
@@ -123,10 +123,14 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement) {
   };
 }
 
-export function ResourceVines({ grid }: { grid: RefObject<HTMLElement | null> }) {
+export function CardVines({ grid, selector, className }: {
+  grid: RefObject<HTMLElement | null>;
+  selector: string;
+  className: string;
+}) {
   const field = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    if (field.current && grid.current) return attachVines(field.current, grid.current);
-  }, [grid]);
-  return <canvas ref={field} className="resource-vine-field" width={1} height={1} data-swarm-ignore aria-hidden="true" />;
+    if (field.current && grid.current) return attachVines(field.current, grid.current, selector);
+  }, [grid, selector]);
+  return <canvas ref={field} className={className} width={1} height={1} data-swarm-ignore aria-hidden="true" />;
 }

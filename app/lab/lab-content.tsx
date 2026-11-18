@@ -9,6 +9,7 @@ import { labExperiments } from "../lab-data";
 import { LabDownload } from "./lab-download";
 import { LabAuthorIntro } from "./lab-author-intro";
 import { ResourceSections } from "../resources/resource-sections";
+import { SortSelect } from "../sort-select";
 import { sortLabProjects, type LabSortDirection, type LabSortKey } from "./project-sort";
 
 const copy = {
@@ -60,11 +61,7 @@ export function LabContent({ showResourceSections = false }: { showResourceSecti
         <div className="lab-platform-heading"><h2 id="lab-platform-title">DaVinci Resolve / Fusion</h2></div>
         <div className="lab-access-note"><div><p>{t.access}</p><p className="lab-language-note"><span>{t.buildLanguage}</span>{t.languageNotice}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
         <div className="lab-sort-controls">
-          <label className="lab-sort-field" htmlFor="lab-sort-key"><span>{t.sort}</span><span className="lab-sort-select">
-            <select id="lab-sort-key" value={sortKey} onChange={event => setSortKey(event.target.value as LabSortKey)}>
-              {(Object.keys(t.sortKeys) as LabSortKey[]).map(key => <option key={key} value={key}>{t.sortKeys[key]}</option>)}
-            </select><ChevronDown aria-hidden="true" />
-          </span></label>
+          <SortSelect id="lab-sort-key" label={t.sort} value={sortKey} options={t.sortKeys} onChange={setSortKey} />
           <fieldset className="lab-sort-direction"><legend className="sr-only">{t.direction}</legend>
             <button type="button" aria-pressed={sortDirection === "asc"} onClick={() => setSortDirection("asc")}><ArrowUp aria-hidden="true" />{t.asc}</button>
             <button type="button" aria-pressed={sortDirection === "desc"} onClick={() => setSortDirection("desc")}><ArrowDown aria-hidden="true" />{t.desc}</button>

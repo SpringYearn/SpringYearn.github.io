@@ -9,7 +9,7 @@ import {DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY}
 import {SwarmAudio} from './audio';
 import {scheduleEntranceScore} from './entrance-audio';
 import {SiteEntrance} from './site-entrance';
-import {ENTRANCE_TRAVEL_MS} from './timing';
+import {ENTRANCE_TRAVEL_MS, scrollTempo} from './timing';
 import './swarm.css';
 
 const skipCopy={en:'Skip',zh:'略過',ja:'スキップ',ko:'건너뛰기',ru:'Пропустить',vi:'Bỏ qua'};
@@ -32,60 +32,61 @@ export function SwarmWebsiteBuilder() {
 
   useEffect(() => {
     const html = document.documentElement;
-    if (html.getAttribute(ENTRANCE_ATTRIBUTE) !== 'boot') return;
-
     const desktop = matchMedia(DESKTOP_QUERY);
     const reducedMotion = matchMedia(REDUCED_MOTION_QUERY);
-    const root = document.querySelector<HTMLElement>('main.site-shell');
+    const root = document.querySelector<HTMLElement>('main.home-page');
     const surface = host.current;
-    if (!root || !surface || !desktop.matches || reducedMotion.matches) {
+    if (!root || pathname !== '/' || !surface || location.hash || !desktop.matches || reducedMotion.matches) {
       html.removeAttribute(ENTRANCE_ATTRIBUTE);
       return;
     }
 
-    let phase: 'boot' | 'waiting' | 'launching' | 'handoff' | 'closed' = 'boot';
+    const opening = html.getAttribute(ENTRANCE_ATTRIBUTE) === 'boot';
+    let phase: 'boot' | 'waiting' | 'launching' | 'handoff' | 'closed' = opening ? 'boot' : 'closed';
     const originalInert = root.inert;
-    const audio = new SwarmAudio();
-    let launchTimer = 0, handoffTimer = 0, loadDeadline = 0;
-    // Preload on eligible desktops. The engine itself starts after the click.
+    let audio = new SwarmAudio();
+    let launchTimer = 0, handoffTimer = 0, cancelled = false, started = false;
+    const entryTop = scrollY;
+    let previousTop = entryTop;
     const engine = import('./controller').catch(() => null);
-    const frame = requestAnimationFrame(() => {
-      if (html.getAttribute(ENTRANCE_ATTRIBUTE) !== 'boot') return;
+    const frame = opening ? requestAnimationFrame(() => {
+      if (html.getAttribute(ENTRANCE_ATTRIBUTE) !== 'boot') { phase = 'closed'; return; }
       root.inert = true;
       phase = 'waiting';
       html.setAttribute(ENTRANCE_ATTRIBUTE, phase);
       setEntranceReady(true);
-    });
+    }) : 0;
 
     const rememberEntry = () => {
       try { sessionStorage.setItem(SWARM_SEEN_KEY, '1'); } catch { /* This page can still open. */ }
     };
     const dismiss = () => {
-      if (phase === 'closed') return;
       phase = 'closed';
       window.clearTimeout(launchTimer);
       window.clearTimeout(handoffTimer);
-      window.clearTimeout(loadDeadline);
-      if (!controller.current) audio.dispose();
       root.inert = originalInert;
       html.removeAttribute(ENTRANCE_ATTRIBUTE);
       setEntranceReady(false);
     };
-    const handoff = (module: Awaited<typeof engine>) => {
-      if (phase !== 'launching') return;
-      window.clearTimeout(loadDeadline);
-      if (module) {
+    const beginBuildOnScroll = () => {
+      const top = scrollY;
+      const down = top > previousTop;
+      previousTop = top;
+      if (cancelled || started || phase !== 'closed' || !down || top <= entryTop ||
+          scrollTempo(entryTop, top, innerHeight) === 1) return;
+      started = true;
+      const entryFold = entryTop + innerHeight;
+      void engine.then(module => {
+        if (!module || cancelled || !root.isConnected || location.hash ||
+            !desktop.matches || reducedMotion.matches) return;
         try {
-          controller.current = new module.SwarmController(root, surface, setState, 1, audio);
+          controller.current = new module.SwarmController(root, surface, setState, entryFold, audio);
         } catch {
           surface.replaceChildren();
           html.classList.remove('swarm-building');
           setState(initial);
         }
-      }
-      phase = 'handoff';
-      html.setAttribute(ENTRANCE_ATTRIBUTE, phase);
-      handoffTimer = window.setTimeout(dismiss, handoffDuration);
+      });
     };
     enter.current = () => {
       if (phase !== 'waiting') return;
@@ -94,39 +95,54 @@ export function SwarmWebsiteBuilder() {
       html.setAttribute(ENTRANCE_ATTRIBUTE, phase);
       setEntranceReady(false);
       audio.startEntrance(context => scheduleEntranceScore(context, context.destination, ENTRANCE_TRAVEL_MS / 1000));
-      launchTimer = window.setTimeout(() => { void engine.then(handoff); }, ENTRANCE_TRAVEL_MS);
-      loadDeadline = window.setTimeout(() => handoff(null), ENTRANCE_TRAVEL_MS + 1400);
+      launchTimer = window.setTimeout(() => {
+        if (phase !== 'launching') return;
+        phase = 'handoff';
+        html.setAttribute(ENTRANCE_ATTRIBUTE, phase);
+        handoffTimer = window.setTimeout(dismiss, handoffDuration);
+      }, ENTRANCE_TRAVEL_MS);
     };
 
     const escape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape' || phase === 'closed' || phase === 'boot') return;
       rememberEntry();
-      controller.current?.finish('done');
+      audio.dispose();
+      audio = new SwarmAudio();
       dismiss();
+    };
+    const cancelBuild = () => {
+      cancelled = true;
+      controller.current?.finish('done');
+      if (phase !== 'closed') dismiss();
     };
     const preferenceChanged = () => {
       if (desktop.matches && !reducedMotion.matches) return;
-      controller.current?.finish(reducedMotion.matches ? 'reduced' : 'ready');
-      dismiss();
+      cancelBuild();
+      audio.dispose();
     };
+    window.addEventListener('scroll', beginBuildOnScroll, { passive: true });
+    window.addEventListener('hashchange', cancelBuild);
     window.addEventListener('keydown', escape);
     desktop.addEventListener('change', preferenceChanged);
     reducedMotion.addEventListener('change', preferenceChanged);
 
     return () => {
       cancelAnimationFrame(frame);
-      if (phase !== 'boot') dismiss();
+      cancelled = true;
+      if (phase !== 'closed') dismiss();
       enter.current = null;
       controller.current?.finish('ready');
       controller.current = null;
       audio.dispose();
+      window.removeEventListener('scroll', beginBuildOnScroll);
+      window.removeEventListener('hashchange', cancelBuild);
       window.removeEventListener('keydown', escape);
       desktop.removeEventListener('change', preferenceChanged);
       reducedMotion.removeEventListener('change', preferenceChanged);
     };
   }, [pathname]);
 
-  const active = ['opening', 'building', 'waiting', 'paused'].includes(state.phase);
+  const active = ['building', 'waiting', 'paused'].includes(state.phase);
   return <>
     <SiteEntrance button={entryButton} ready={entranceReady} onEnter={() => enter.current?.()} />
     <aside className="swarm-root" data-swarm-phase={state.phase} data-swarm-done={state.done} data-swarm-total={state.total} data-swarm-cursors={state.cursors} data-swarm-sound={String(state.sound)} data-no-ripple data-localize="off" aria-label="Swarm Website Builder">

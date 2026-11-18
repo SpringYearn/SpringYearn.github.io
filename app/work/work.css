@@ -12,7 +12,19 @@
 }
 
 .featured-work {
+  position: relative;
+  z-index: 1;
   padding-block: 0 clamp(3.5rem, 8vw, 7.5rem);
+}
+
+.featured-vine-field {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }
 
 .featured-work > h2 {
@@ -175,12 +187,8 @@
   .featured-work-card:nth-child(3) {
     transform: translateY(.3rem) rotate(-.6deg);
   }
-  .featured-work-card {
-    transition: transform 460ms cubic-bezier(.22,1,.36,1);
-  }
-  .featured-work-card:is(:hover,:focus-visible) {
-    transform: translateY(-.28rem);
-  }
+  .featured-work-art img { transition: transform 460ms cubic-bezier(.22,1,.36,1); }
+  .featured-work-card:is(:hover,:focus-visible) .featured-work-art img { transform: scale(1.026); }
   .featured-card-heading svg {
     transition: transform 240ms ease;
   }

@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Redesigned the site with a dark palette, a new opening cut and clearer paths to works and downloads."
+      "Restored the original homepage layout, added a background reel, and refreshed the intro, glass controls, and featured works."
     ],
     "zh": [
-      "改版為暗色系，換上新的開場轉場，並整理作品與下載入口。"
+      "恢復首頁原本構圖，加入背景精華，並更新片頭、玻璃介面與精選作品。"
     ]
   },
   "releases": [
+    {
+      "version": "V.091",
+      "date": "2026-11-18",
+      "en": ["Restored the original homepage layout, added a background reel, and refreshed the intro, glass controls, and featured works."],
+      "zh": ["恢復首頁原本構圖，加入背景精華，並更新片頭、玻璃介面與精選作品。"]
+    },
     {
       "version": "V.090",
       "date": "2026-11-18",

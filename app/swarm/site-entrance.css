@@ -31,8 +31,11 @@
 }
 
 .site-entrance::before {
-  background: radial-gradient(rgba(var(--spring-mist-rgb), .18) .65px, transparent .8px) 0 0 / 13px 13px;
-  mask-image: radial-gradient(ellipse at center, #000 6%, transparent 75%);
+  background:
+    linear-gradient(rgba(var(--spring-mist-rgb), .045) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(var(--spring-mist-rgb), .045) 1px, transparent 1px) 0 0 / 28px 28px,
+    radial-gradient(rgba(var(--spring-mist-rgb), .15) .65px, transparent .8px) 0 0 / 14px 14px;
+  mask-image: radial-gradient(ellipse at center, #000 15%, transparent 90%);
 }
 
 .site-entrance::after {
@@ -49,15 +52,6 @@
   pointer-events: none;
 }
 
-.site-entrance-cut {
-  position: absolute;
-  z-index: 1;
-  opacity: 0;
-  background-position: center;
-  background-size: cover;
-  pointer-events: none;
-}
-
 .site-entrance-enter {
   position: absolute;
   inset: 50% auto auto 50%;
@@ -68,6 +62,7 @@
   background: transparent;
   transform: translate(-50%, -50%);
   cursor: pointer;
+  user-select: none;
 }
 
 .site-entrance-enter:disabled { cursor: default; }
@@ -126,28 +121,7 @@ html:is([data-site-entrance="launching"], [data-site-entrance="handoff"]) .site-
   animation: entrance-dive var(--entrance-travel) cubic-bezier(.26,.39,.42,1) both;
 }
 
-html:is([data-site-entrance="launching"], [data-site-entrance="handoff"]) .site-entrance-cut[data-positioned] {
-  animation: entrance-cut var(--entrance-travel) linear both;
-}
-
 html[data-site-entrance="handoff"] .site-entrance { opacity: 0; }
-
-@keyframes entrance-cut {
-  0%, 44% {
-    opacity: 0;
-    transform: translate(var(--cut-x), var(--cut-y)) scale(var(--cut-scale));
-  }
-  58% {
-    opacity: .52;
-    transform: translate(var(--cut-x), var(--cut-y)) scale(var(--cut-scale));
-    animation-timing-function: cubic-bezier(.14,.61,.31,1);
-  }
-  84% { opacity: 1; }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
-}
 
 @keyframes entrance-exposure {
   0% { opacity: 0; }

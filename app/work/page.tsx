@@ -9,7 +9,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUp, ArrowUpRight, ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, ArrowRight } from "lucide-react";
 import { HeaderControls } from "../header-controls";
 import { useSiteLanguage } from "../site-language";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ import { projectDates } from "./project-dates";
 import { sortWorkProjects, type WorkSortDirection, type WorkSortKey } from "./project-sort";
 import { WorkDate } from "./work-date";
 import { FeaturedWork } from "./featured-work";
+import { SortSelect } from "../sort-select";
 import "./work.css";
 
 const copy = {
@@ -227,11 +228,7 @@ export default function WorkArchive() {
         </div>
 
         <div className="lab-sort-controls work-sort-controls">
-          <label className="lab-sort-field" htmlFor="work-sort-key"><span>{t.sort}</span><span className="lab-sort-select">
-            <select id="work-sort-key" value={sortKey} onChange={event => setSortKey(event.target.value as WorkSortKey)}>
-              {(Object.keys(t.sortKeys) as WorkSortKey[]).map(key => <option key={key} value={key}>{t.sortKeys[key]}</option>)}
-            </select><ChevronDown aria-hidden="true" />
-          </span></label>
+          <SortSelect id="work-sort-key" label={t.sort} value={sortKey} options={t.sortKeys} onChange={setSortKey} />
           <fieldset className="lab-sort-direction"><legend className="sr-only">{t.direction}</legend>
             <button type="button" aria-pressed={sortDirection === "asc"} onClick={() => setSortDirection("asc")}><ArrowUp aria-hidden="true" />{t.asc}</button>
             <button type="button" aria-pressed={sortDirection === "desc"} onClick={() => setSortDirection("desc")}><ArrowDown aria-hidden="true" />{t.desc}</button>

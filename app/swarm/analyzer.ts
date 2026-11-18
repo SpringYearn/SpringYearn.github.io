@@ -1,8 +1,8 @@
 import type { Box, BuildTask, Glyph, TaskKind } from "./types";
 
-const excluded = '.sr-only,script,style,noscript,dialog,[hidden],.art-cursor,.grain,.scroll-progress,.site-status,.spring-logo,.spring-logo-controls,.language-menu,.mobile-nav-panel,.mobile-nav-overlay,.board-viewport,.board-tool-group,input,textarea,select,[contenteditable="true"],[data-swarm-ignore]';
+const excluded = '.sr-only,script,style,noscript,dialog,[hidden],.site-header,.art-cursor,.grain,.scroll-progress,.site-status,.spring-logo,.spring-logo-controls,.language-menu,.mobile-nav-panel,.mobile-nav-overlay,.board-viewport,.board-tool-group,input,textarea,select,[contenteditable="true"],[data-swarm-ignore]';
 const semantics = 'h1,h2,h3,h4,p,a,button,li,label,summary,time,small,strong,figcaption';
-const frames = '.site-header,.pf-gateway,.lab-entry-link,.project-card,.overview-item,.featured-work-card,.pf-card,.lab-card,.brand-meanings article,.practice-card,.history-item,section.section-block';
+const frames = '.work-gateway-link,.annual-reel-card,.pf-gateway,.lab-entry-link,.project-card,.overview-item,.featured-work-card,.pf-card,.lab-card,.brand-meanings article,.practice-card,.history-item,section.section-block';
 
 export function documentBox(element: Element): Box {
   const box = element.getBoundingClientRect();
@@ -16,7 +16,7 @@ export class DOMAnalyzer {
   private saved = new Map<HTMLElement | SVGElement, Saved>();
   tasks: BuildTask[] = [];
 
-  analyze(root: HTMLElement) {
+  analyze(root: HTMLElement, below: number) {
     const groups = new Map<HTMLElement | SVGElement, Text[]>();
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node: Node | null;
@@ -36,10 +36,14 @@ export class DOMAnalyzer {
       if (!element.closest(excluded)) targets.set(element, element.tagName === 'HR' ? 'line' : 'image');
     }
     for (const element of groups.keys()) targets.set(element, 'text');
+    const boxes = new Map<HTMLElement | SVGElement, Box>();
     const elements = [...targets.keys()].filter(element => {
       if (element.closest(excluded)) return false;
       const style = getComputedStyle(element), box = element.getBoundingClientRect();
-      return style.display !== 'none' && style.visibility !== 'hidden' && box.width > 1 && box.height > 1;
+      if (style.display === "none" || style.visibility === "hidden" || box.width <= 1 || box.height <= 1 ||
+          box.top + scrollY < below) return false;
+      boxes.set(element, { x: box.left + scrollX, y: box.top + scrollY, width: box.width, height: box.height });
+      return true;
     });
     elements.sort((a, b) => a === b ? 0 : a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1);
     const ids = new Map(elements.map((element, index) => [element, index]));
@@ -62,9 +66,9 @@ export class DOMAnalyzer {
       const kind = targets.get(element)!;
       const previous = element.previousElementSibling;
       const source = previous && ids.has(previous as HTMLElement) ? ids.get(previous as HTMLElement)! : null;
-      const priority = element.closest('.site-header') ? 0 : kind === 'frame' || element.matches('h1,h2,h3,h4,#home-feature-title') ? 1 : kind === 'image' ? 3 : element.matches('button') ? 4 : kind === 'line' ? 5 : 2;
+      const priority = kind === 'frame' || element.matches('h1,h2,h3,h4') ? 1 : kind === 'image' ? 3 : element.matches('button') ? 4 : kind === 'line' ? 5 : 2;
       const clipElement = clipFor(element.parentElement);
-      return { id: order, element, kind, nodes, rect: documentBox(element), clipElement, clip: clipElement ? documentBox(clipElement) : null, parent, source, depth, order, priority, state: 'pending',
+      return { id: order, element, kind, nodes, rect: boxes.get(element)!, clipElement, clip: clipElement ? documentBox(clipElement) : null, parent, source, depth, order, priority, state: 'pending',
         operation: kind === 'text' ? 'type' : kind === 'image' ? 'scan' : source !== null ? 'duplicate' : order % 3 === 0 ? 'align' : 'draw',
         duration: kind === 'text' ? Math.min(3.2, Math.max(.55, length * .018)) : kind === 'image' ? 1.15 : .72 };
     });

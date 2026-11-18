@@ -27,5 +27,5 @@ export type Agent = Point & {
 };
 export type Job = { task: BuildTask; agent: Agent; elapsed: number; travel: number; arrived: boolean; progress: number; continuing: boolean; source: Box | null };
 export type Glyph = { text: string; x: number; y: number; width: number; height: number; font: string; color: string; spacing: string };
-export type BuilderPhase = "ready" | "opening" | "building" | "waiting" | "paused" | "done" | "reduced";
+export type BuilderPhase = "ready" | "building" | "waiting" | "paused" | "done" | "reduced";
 export type BuilderSnapshot = { phase: BuilderPhase; done: number; total: number; cursors: number; speed: number; sound: boolean };

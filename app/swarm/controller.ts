@@ -3,7 +3,7 @@ import { CursorSwarmEngine } from './engine';
 import { TaskScheduler } from './scheduler';
 import { AnimationRenderer } from './renderer';
 import { SwarmAudio } from './audio';
-import { BUILD_RATE, INTRO_DURATION, SCROLL_MULTIPLIER, buildStep, scrollTempo } from './timing';
+import { BUILD_RATE, SCROLL_MULTIPLIER, buildStep } from './timing';
 import { mediaProgress, SCAN_START } from './choreography';
 import { DESKTOP_QUERY } from './availability';
 import type { BuilderPhase, BuilderSnapshot, BuildTask, Job } from './types';
@@ -16,15 +16,14 @@ export class SwarmController {
   private scheduler:TaskScheduler|null=null;
   private engine:CursorSwarmEngine;
   private renderer:AnimationRenderer;
-  private frame=0;private previous=0;private intro=0;private clock=0;private prepared=false;private alive=true;private paused=false;
+  private frame=0;private previous=0;private clock=0;private prepared=false;private alive=true;private paused=false;
   private layoutDirty=false;private scrollDirty=false;private lastReport=0;private average=16;private samples=0;
   private lastMeasure=0;
-  private entryTop=scrollY;private fasterAfterScroll=false;
   private observer:ResizeObserver;private mutations:MutationObserver;private reduced=matchMedia('(prefers-reduced-motion: reduce)');
   private startupTimer=0;private fontTimer=0;
   speed=1;sound=true;
-  constructor(private root:HTMLElement,host:HTMLElement,private report:(snapshot:BuilderSnapshot)=>void,speed=1,private audio=new SwarmAudio()){
-    this.speed=speed;const device=navigator as DeviceNavigator;
+  constructor(private root:HTMLElement,host:HTMLElement,private report:(snapshot:BuilderSnapshot)=>void,private entryFold:number,private audio=new SwarmAudio()){
+    const device=navigator as DeviceNavigator;
     const limited=(device.hardwareConcurrency||8)<=4||(device.deviceMemory??8)<=4||device.connection?.saveData;
     this.engine=new CursorSwarmEngine(limited?1:3,{x:innerWidth/2,y:innerHeight*.43});
     this.renderer=new AnimationRenderer(host);
@@ -33,16 +32,14 @@ export class SwarmController {
       if(!this.prepared)return;
       const relevant=records.some(record=>{
         const element=record.target instanceof Element?record.target:record.target.parentElement;
-        return element&&!element.closest('.site-status,.art-cursor,.spring-logo,.spring-logo-controls,.language-menu,.mobile-nav-panel,dialog');
+        return element&&!element.closest('.site-status,.art-cursor,.spring-logo,.spring-logo-controls,.language-menu,.mobile-nav-panel,dialog,[data-swarm-ignore]');
       });
       if(relevant)this.finish('ready');
     });
     window.addEventListener('scroll',this.scroll,{passive:true,capture:true});window.addEventListener('resize',this.resize,{passive:true});
     window.addEventListener('keydown',this.keyboard);document.addEventListener('visibilitychange',this.visibility);
     this.reduced.addEventListener('change',this.preference);document.fonts.addEventListener('loadingdone',this.fonts);
-    document.documentElement.classList.add('swarm-building');
     this.audio.arm();
-    this.emit('opening');this.request();
     this.startupTimer=window.setTimeout(()=>{if(!this.prepared)this.finish('ready');},6500);
     void this.prepare();
   }
@@ -50,30 +47,30 @@ export class SwarmController {
     try{
       await Promise.race([document.fonts.ready,new Promise(resolve=>{this.fontTimer=window.setTimeout(resolve,1500);})]);
       if(!this.alive)return;
-      // Settle reveal transforms before reading the complete document in one pass.
+      // Leave the first viewport and any already passed content fully usable.
       await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));if(!this.alive)return;
-      const tasks=this.analyzer.analyze(this.root);if(!tasks.length){this.finish('done');return;}
+      const tasks=this.analyzer.analyze(this.root, Math.max(this.entryFold, scrollY + Math.min(110, innerHeight * .16)));
+      if(!tasks.length){this.finish('done');return;}
+      document.documentElement.classList.add('swarm-building');
       this.scheduler=new TaskScheduler(tasks,3);this.analyzer.conceal();this.prepared=true;
       this.mutations.observe(this.root,{subtree:true,childList:true,characterData:true});
       window.clearTimeout(this.startupTimer);window.clearTimeout(this.fontTimer);
+      this.request();
     }catch{this.finish('ready');}
   }
   private emit(phase:BuilderPhase){
     this.report({phase,done:this.scheduler?.done??0,total:this.scheduler?.tasks.length??0,cursors:this.engine.agents.filter(agent=>agent.present).length,speed:this.speed,sound:this.sound});
   }
   private request(){if(this.alive&&!this.paused&&!document.hidden&&!this.frame)this.frame=requestAnimationFrame(this.tick);}
-  private scroll=()=>{
-    if(scrollTempo(this.entryTop,scrollY,innerHeight)>1)this.fasterAfterScroll=true;
-    this.scrollDirty=true;this.request();
-  };
+  private scroll=()=>{this.scrollDirty=true;this.request();};
   private resize=()=>{if(!matchMedia(DESKTOP_QUERY).matches){this.finish('ready');return;}this.layoutDirty=true;this.renderer.resize();this.request();};
   private fonts=()=>{this.layoutDirty=true;this.request();};
   private keyboard=(event:KeyboardEvent)=>{if(event.key==='Escape')this.finish('done');};
   private preference=()=>{if(this.reduced.matches)this.finish('reduced');};
   private visibility=()=>{if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;this.previous=0;}else this.request();};
-  togglePause(){this.paused=!this.paused;this.previous=0;if(this.paused){cancelAnimationFrame(this.frame);this.frame=0;this.emit('paused');}else{this.emit(this.intro<INTRO_DURATION?'opening':'building');this.request();}}
-  setSpeed(speed:number){this.speed=clamp(speed,.5,3);this.emit(this.paused?'paused':this.intro<INTRO_DURATION?'opening':'building');}
-  setSound(enabled:boolean){this.audio.setEnabled(enabled);this.sound=this.audio.enabled;this.emit(this.paused?'paused':this.intro<INTRO_DURATION?'opening':'building');if(enabled)this.audio.play('click');}
+  togglePause(){this.paused=!this.paused;this.previous=0;if(this.paused){cancelAnimationFrame(this.frame);this.frame=0;this.emit('paused');}else{this.emit('building');this.request();}}
+  setSpeed(speed:number){this.speed=clamp(speed,.5,3);this.emit(this.paused?'paused':'building');}
+  setSound(enabled:boolean){this.audio.setEnabled(enabled);this.sound=this.audio.enabled;this.emit(this.paused?'paused':'building');if(enabled)this.audio.play('click');}
 
   private tick=(now:number)=>{
     this.frame=0;if(!this.alive||this.paused||document.hidden)return;
@@ -81,13 +78,11 @@ export class SwarmController {
       const raw=this.previous?now-this.previous:16;this.previous=now;
       this.average=this.average*.96+raw*.04;this.samples++;
       if(this.samples%120===0&&this.average>27)this.engine.reduce(Math.max(1,this.engine.agents.length-1));
-      const multiplier=this.intro>=INTRO_DURATION&&this.fasterAfterScroll?SCROLL_MULTIPLIER:1;
+      const multiplier=SCROLL_MULTIPLIER;
       const delta=Math.min(.05,raw/1000),step=buildStep(delta,this.speed,multiplier);this.clock+=step;
-      // The opening always keeps the entry pace, even if someone scrolls early.
-      if(this.prepared)this.intro=Math.min(INTRO_DURATION,this.intro+buildStep(delta,this.speed));
       const top=scrollY,left=scrollX,height=innerHeight,width=innerWidth,scheduler=this.scheduler;
       const dropping:Job[]=[];let passed:BuildTask[]=[];
-      if(scheduler&&this.prepared&&this.intro>=INTRO_DURATION){
+      if(scheduler&&this.prepared){
         if(this.layoutDirty){
           this.analyzer.measure();
           for(const job of [...scheduler.jobs]){scheduler.suspend(job);dropping.push(job);}
@@ -131,9 +126,9 @@ export class SwarmController {
       const hasWork=jobs.length>0||scheduler?.tasks.some(task=>scheduler.ready(task)&&scheduler.visible(task,top,height,width,left));
       scheduler?.retireIdle(this.engine.agents,this.clock,!!hasWork);
       this.engine.step(delta,width,height,this.speed*BUILD_RATE*multiplier);
-      this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,multiplier);
-      if(this.prepared&&this.intro>=INTRO_DURATION&&!hasWork){this.previous=0;this.emit('waiting');return;}
-      if(now-this.lastReport>100){this.lastReport=now;this.emit(this.intro<INTRO_DURATION?'opening':hasWork?'building':'waiting');}
+      const fadingGrid=this.renderer.paint(this.engine.agents,jobs,top,left,this.clock,delta,multiplier);
+      if(!hasWork&&!fadingGrid){this.previous=0;this.emit('waiting');return;}
+      if(now-this.lastReport>100){this.lastReport=now;this.emit(hasWork?'building':'waiting');}
       this.request();
     }catch{this.finish('ready');}
   };

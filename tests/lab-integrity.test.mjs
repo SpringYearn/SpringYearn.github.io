@@ -42,10 +42,10 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.match(records[9].body.en, /real footage remains unverified/);
 });
 
-test("V.090 extends V.089 without changing existing releases or date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "8918e1c401b1a6173cb861d2c1cd8ef10faa5f14:site-history.json"], { encoding: "utf8" }));
+test("V.091 extends V.090 without changing existing releases or date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "ede803d94e69e525bce2496bb8ddc04d2d39d55a:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.090");
+  assert.equal(after.releases[0].version, "V.091");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);
