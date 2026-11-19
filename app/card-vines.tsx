@@ -3,7 +3,7 @@
 import { useEffect, useRef, type RefObject } from "react";
 import { growVines, paintVines } from "./resources/resource-vine-drawing";
 
-function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: string, restGrowth: number) {
+function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: string, hoverOnly: boolean) {
   const shell = field.parentElement;
   const section = grid.closest("section");
   if (!shell || !section) return;
@@ -18,8 +18,9 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
     growth: 0, vines: [] as ReturnType<typeof growVines>,
   }));
   type Card = typeof cards[number];
-  let pointer: Card | undefined, focus: Card | undefined;
-  let visible = restGrowth === 0;
+  // The gateway can become interactive while the pointer is already over it.
+  let pointer = hoverOnly && hover.matches ? cards.find(card => card.element.matches(":hover")) : undefined;
+  let focus: Card | undefined;
   let frame = 0, previous = 0, width = 1, height = 1, dirty = true;
   let context: CanvasRenderingContext2D | null = null;
 
@@ -79,16 +80,16 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
   };
   const paint = (now: number) => {
     frame = 0;
-    if (!visible || document.hidden) { previous = 0; return; }
+    if (document.hidden) { previous = 0; return; }
     const active = reduced.matches ? undefined : pointer ?? focus;
-    const target = (card: Card) => card === active ? 1 : restGrowth;
+    const target = (card: Card) => Number(card === active);
     const elapsed = previous ? Math.min(45, now - previous) : 16;
     previous = now;
     for (const card of cards) {
       const goal = target(card);
       const growing = card.growth < goal;
       card.growth = reduced.matches ? goal : growing
-        ? Math.min(goal, card.growth + elapsed / (card === active ? 1060 : 1800))
+        ? Math.min(goal, card.growth + elapsed / 1060)
         : Math.max(goal, card.growth - elapsed / 415);
     }
     if (!cards.some(card => card.growth > 0)) { clear(); return; }
@@ -114,12 +115,14 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
     element.addEventListener("pointerleave", () => {
       if (pointer === card) { pointer = undefined; request(); }
     }, { signal });
-    element.addEventListener("focus", () => {
-      if (element.matches(":focus-visible")) { focus = card; request(); }
-    }, { signal });
-    element.addEventListener("blur", () => {
-      if (focus === card) { focus = undefined; request(); }
-    }, { signal });
+    if (!hoverOnly) {
+      element.addEventListener("focus", () => {
+        if (element.matches(":focus-visible")) { focus = card; request(); }
+      }, { signal });
+      element.addEventListener("blur", () => {
+        if (focus === card) { focus = undefined; request(); }
+      }, { signal });
+    }
   }
   const preferencesChanged = () => {
     if (!hover.matches) pointer = undefined;
@@ -129,44 +132,35 @@ function attachVines(field: HTMLCanvasElement, grid: HTMLElement, selector: stri
     dirty = true;
     if (pointer || focus || cards.some(card => card.growth > 0)) request();
   };
-  const visibilityChanged = () => {
-    if (restGrowth > 0) grid.dataset.vinesVisible = String(visible && !document.hidden);
-    if (visible && !document.hidden) request();
-  };
   const observer = new ResizeObserver(resized);
   observer.observe(grid);
-  const viewport = restGrowth > 0 ? new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting;
-    visibilityChanged();
-  }, { rootMargin: "64px 0px" }) : undefined;
-  viewport?.observe(grid);
-  document.addEventListener("visibilitychange", visibilityChanged, { signal });
+  document.addEventListener("visibilitychange", request, { signal });
   shell.addEventListener("transitionend", event => {
     if (event.target === shell && event.propertyName === "transform") resized();
   }, { signal });
   window.addEventListener("resize", resized, { signal, passive: true });
   reduced.addEventListener("change", preferencesChanged, { signal });
   hover.addEventListener("change", preferencesChanged, { signal });
+  if (pointer) request();
 
   return () => {
     listeners.abort();
     observer.disconnect();
-    viewport?.disconnect();
-    delete grid.dataset.vinesVisible;
     cancelAnimationFrame(frame);
     clear();
   };
 }
 
-export function CardVines({ grid, selector, className, restGrowth = 0 }: {
+export function CardVines({ grid, selector, className, hoverOnly = false, enabled = true }: {
   grid: RefObject<HTMLElement | null>;
   selector: string;
   className: string;
-  restGrowth?: number;
+  hoverOnly?: boolean;
+  enabled?: boolean;
 }) {
   const field = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    if (field.current && grid.current) return attachVines(field.current, grid.current, selector, restGrowth);
-  }, [grid, selector, restGrowth]);
+    if (enabled && field.current && grid.current) return attachVines(field.current, grid.current, selector, hoverOnly);
+  }, [grid, selector, hoverOnly, enabled]);
   return <canvas ref={field} className={className} width={1} height={1} data-swarm-ignore aria-hidden="true" />;
 }

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v100.release",
+    "en": "Added flickering light and drifting particles to the homepage work entrance. Vines grow on hover after construction.",
+    "zh": "首頁作品入口加入微光與粒子，建構完成後可懸停長出藤蔓。",
+    "ja": "トップページの作品入口に、明滅する光と漂う粒子を追加しました。組み立てが終わったあと、カーソルを重ねるとつるが伸びます。",
+    "ko": "홈페이지 작품 입구에 은은하게 깜박이는 빛과 흩날리는 입자를 추가했어요. 입구가 완성된 뒤 마우스를 올리면 덩굴이 자라요.",
+    "ru": "У входа в портфолио на главной появились мерцающий свет и частицы. После завершения сборки при наведении вырастают побеги.",
+    "vi": "Lối vào bộ sưu tập trên trang chủ có ánh sáng chớp nhẹ và các hạt bay. Dây leo mọc khi rê chuột sau khi hiệu ứng dựng trang hoàn tất."
+  }
+]

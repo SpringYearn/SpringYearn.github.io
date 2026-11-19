@@ -5,7 +5,7 @@ import {usePathname} from 'next/navigation';
 import {useSiteLanguage} from '../site-language';
 import type {SwarmController} from './controller';
 import type {BuilderSnapshot} from './types';
-import {DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY} from './availability';
+import {BUILD_AWAITING_ATTRIBUTE, DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY} from './availability';
 import {SwarmAudio} from './audio';
 import {scheduleEntranceScore} from './entrance-audio';
 import {SiteEntrance} from './site-entrance';
@@ -48,7 +48,16 @@ export function SwarmWebsiteBuilder() {
     let launchTimer = 0, handoffTimer = 0, cancelled = false, started = false;
     const entryTop = scrollY;
     let previousTop = entryTop;
-    const engine = import('./controller').catch(() => null);
+    root.setAttribute(BUILD_AWAITING_ATTRIBUTE, '');
+    const releaseAwaiting = () => root.removeAttribute(BUILD_AWAITING_ATTRIBUTE);
+    const report = (snapshot: BuilderSnapshot) => {
+      releaseAwaiting();
+      setState(snapshot);
+    };
+    const engine = import('./controller').catch(() => {
+      if (!cancelled) releaseAwaiting();
+      return null;
+    });
     const frame = opening ? requestAnimationFrame(() => {
       if (html.getAttribute(ENTRANCE_ATTRIBUTE) !== 'boot') { phase = 'closed'; return; }
       root.inert = true;
@@ -77,14 +86,17 @@ export function SwarmWebsiteBuilder() {
       started = true;
       const entryFold = entryTop + innerHeight;
       void engine.then(module => {
-        if (!module || cancelled || !root.isConnected || location.hash ||
-            !desktop.matches || reducedMotion.matches) return;
+        if (cancelled || !root.isConnected) return;
+        if (!module || location.hash || !desktop.matches || reducedMotion.matches) {
+          releaseAwaiting();
+          return;
+        }
         try {
-          controller.current = new module.SwarmController(root, surface, setState, entryFold, audio);
+          controller.current = new module.SwarmController(root, surface, report, entryFold, audio);
         } catch {
           surface.replaceChildren();
           html.classList.remove('swarm-building');
-          setState(initial);
+          report(initial);
         }
       });
     };
@@ -112,6 +124,7 @@ export function SwarmWebsiteBuilder() {
     };
     const cancelBuild = () => {
       cancelled = true;
+      releaseAwaiting();
       controller.current?.finish('done');
       if (phase !== 'closed') dismiss();
     };
@@ -129,6 +142,7 @@ export function SwarmWebsiteBuilder() {
     return () => {
       cancelAnimationFrame(frame);
       cancelled = true;
+      releaseAwaiting();
       if (phase !== 'closed') dismiss();
       enter.current = null;
       controller.current?.finish('ready');
