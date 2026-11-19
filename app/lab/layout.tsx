@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "LAB / Experiments — SpringYearn",
-  description: "DaVinci Resolve and Fusion tools, prototypes and development records by SpringYearn.",
+  description: "DaVinci Resolve, Fusion and Blender tools, prototypes and development records by SpringYearn.",
 };
 
 export default function LabLayout({ children }: Readonly<{ children: ReactNode }>) {

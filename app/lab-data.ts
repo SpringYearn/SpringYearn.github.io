@@ -2,6 +2,7 @@ type LabCopy = { en: string; zh: string };
 export type LabCheckpoint = { date: string; title: LabCopy; body: LabCopy };
 export type LabExperiment = {
   id: string; date: { created: string; updated: string }; title: string; type: string;
+  platform?: "resolve" | "blender";
   history: LabCheckpoint[];
   status: LabCopy; body: LabCopy;
   checkpoint?: { date: string; status: LabCopy; body: LabCopy };
@@ -399,6 +400,94 @@ export const labExperiments: LabExperiment[] = [
         body: {
           en: "Added draggable 3D placement and full transform baking; 52 native frames passed, real-footage tracking checks pending.",
           zh: "加入可拖動的 3D 定位與完整變換烘焙；52 幀原生輸出通過，實拍追蹤驗證待完成。",
+        },
+      },
+    ],
+  },
+  {
+    id: "LAB-11",
+    date: { created: "2026-10-30", updated: "2026-10-30" },
+    title: "CurveDrag OFX",
+    type: "OpenFX / Curve Distortion",
+    status: { en: "0.1.0 / Windows test build", zh: "0.1.0 / Windows 測試版" },
+    body: {
+      en: "An OpenFX effect that drags an image along a four-point Bézier curve, with five luminance weights to control the pull. The Windows x64 prototype passed 15 core checks and 88 mock-host checks. Plug-in loading, Fusion / Color workflows and Deliver exports still need testing in Resolve.",
+      zh: "用四個 Bézier 控制點搭配五個亮度權重，沿指定路徑拉伸畫面。Windows x64 原型通過 15 項核心測試與 88 項 OpenFX 模擬宿主檢查。插件載入、Fusion / Color 操作與 Deliver 輸出仍待 Resolve 實測。",
+    },
+    history: [
+      {
+        date: "2026-10-30",
+        title: { en: "0.1.0 / First Windows prototype", zh: "0.1.0 / 首個 Windows 原型" },
+        body: {
+          en: "Built the Win64 bundle and tested rendering in a mock host and installation in an isolated directory.",
+          zh: "完成 Win64 套件，通過模擬宿主渲染與隔離安裝測試。",
+        },
+      },
+    ],
+  },
+  {
+    id: "LAB-12",
+    date: { created: "2026-09", updated: "2026-10-05" },
+    title: "SY_WarpChroma",
+    type: "OpenFX / Chromatic Warp",
+    status: { en: "Source prototype / build pending", zh: "程式原型 / 待編譯" },
+    body: {
+      en: "A Fusion effect prototype for warping an image and offsetting its color channels. The latest pass separated CPU warp helpers and a CUDA kernel. The Windows OpenFX bundle and Resolve host testing are pending.",
+      zh: "為 Fusion 探索影像扭曲與色彩通道偏移的效果原型。最新一輪將 CPU 扭曲邏輯與 CUDA 核心拆開，Windows OpenFX 套件與 Resolve 實機測試仍待完成。",
+    },
+    history: [
+      {
+        date: "2026-09",
+        title: { en: "Initial effect source", zh: "效果原始碼" },
+        body: {
+          en: "Packaged the first chromatic warp source and build configuration for Resolve.",
+          zh: "整理色彩扭曲效果的初版原始碼與 Resolve 編譯設定。",
+        },
+      },
+      {
+        date: "2026-10-05",
+        title: { en: "CPU / CUDA separation", zh: "拆分 CPU / CUDA" },
+        body: {
+          en: "Separated the CPU warp helpers and CUDA kernel while investigating OpenFX host integration.",
+          zh: "拆分 CPU 扭曲邏輯與 CUDA 核心，並排查 OpenFX 宿主介接。",
+        },
+      },
+    ],
+  },
+  {
+    id: "LAB-13",
+    date: { created: "2026-10-12", updated: "2026-10-23" },
+    title: "SY Render",
+    type: "Blender / Render Engine",
+    platform: "blender",
+    status: { en: "0.1.2 / Blender 4.5 add-on", zh: "0.1.2 / Blender 4.5 外掛版" },
+    body: {
+      en: "An experimental Blender render engine with a native integration and a Windows add-on. The 0.1.2 add-on passed Install from Disk and F12 output checks in an isolated Blender 4.5.5 profile. Native development has reached a second reflection bounce and volume shadow experiments. Viewport responsiveness and performance in larger scenes still need testing.",
+      zh: "實驗性的 Blender 渲染引擎，有原生整合版與 Windows 外掛版。0.1.2 外掛在隔離的 Blender 4.5.5 環境通過從磁碟安裝及 F12 渲染檢查。原生版已加入第二次反射與體積陰影實驗，視窗即時預覽與大型場景效能仍待驗證。",
+    },
+    history: [
+      {
+        date: "2026-10-21",
+        title: { en: "Native / Second reflection bounce", zh: "原生版 / 第二次反射" },
+        body: {
+          en: "Checked a second reflection bounce on mirror, rough metal and coated materials in native renders.",
+          zh: "加入第二次反射，完成鏡面、粗糙金屬及鍍膜等材質的原生輸出檢查。",
+        },
+      },
+      {
+        date: "2026-10-23",
+        title: { en: "Native / Volume shadow experiment", zh: "原生版 / 體積陰影實驗" },
+        body: {
+          en: "Volume shadow tagging matched the control renders. Timing varied by scene, so the prototype stays opt-in.",
+          zh: "體積陰影標記去重的輸出與對照一致。速度因場景而異，維持為選用實驗。",
+        },
+      },
+      {
+        date: "2026-10-23",
+        title: { en: "0.1.2 / Add-on installer fix", zh: "0.1.2 / 外掛安裝修正" },
+        body: {
+          en: "Fixed Blender’s archive detection and verified install, engine selection and F12 output in an isolated profile.",
+          zh: "修正 Blender 對安裝包的辨識，在獨立設定中確認安裝、引擎選取與 F12 輸出。",
         },
       },
     ],

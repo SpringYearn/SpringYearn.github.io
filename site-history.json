@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added flickering light and drifting particles to the homepage work entrance. Vines grow on hover after construction."
+      "Added CurveDrag OFX, SY_WarpChroma and SY Render development records to LAB."
     ],
     "zh": [
-      "首頁作品入口加入微光與粒子，建構完成後可懸停長出藤蔓。"
+      "LAB 新增 CurveDrag OFX、SY_WarpChroma 與 SY Render 的開發紀錄。"
     ]
   },
   "releases": [
+    {
+      "version": "V.101",
+      "date": "2026-11-20",
+      "en": ["Added CurveDrag OFX, SY_WarpChroma and SY Render development records to LAB."],
+      "zh": ["LAB 新增 CurveDrag OFX、SY_WarpChroma 與 SY Render 的開發紀錄。"]
+    },
     {
       "version": "V.100",
       "date": "2026-11-19",

@@ -19,7 +19,7 @@ const choices = [
   {
     id: "lab",
     title: { en: "LAB / Tools", zh: "LAB / 工具" },
-    description: { en: "Fusion tools and prototypes · Authorized test builds", zh: "Fusion 工具與開發原型 • 開放授權測試版" },
+    description: { en: "Fusion / Blender tools and prototypes · Authorized test builds", zh: "Fusion / Blender 工具與開發原型 • 開放授權測試版" },
     Icon: Workflow,
   },
 ] as const;

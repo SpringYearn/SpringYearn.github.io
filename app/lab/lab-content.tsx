@@ -16,8 +16,8 @@ const copy = {
   en: {
     work: "Work archive", contact: "Contact",
     title: "Small tools,\nideas to test.",
-    intro: "Tools and experiments I’ve built in DaVinci Resolve and Fusion. Some are usable builds; others are prototypes or research. Each starts with an idea worth trying.",
-    count: `${String(labExperiments.length).padStart(2, "0")} development records / 2026`, back: "Return home",
+    intro: "Tools and experiments I’ve built for DaVinci Resolve, Fusion and Blender.",
+    back: "Return home",
     access: "These experimental builds are available for authorized testing only. To request a download, please contact SpringYearn directly for access.",
     buildLanguage: "Build language",
     languageNotice: "Most files currently available here are Traditional Chinese versions.",
@@ -28,8 +28,8 @@ const copy = {
   zh: {
     work: "作品集", contact: "聯絡",
     title: "工具、原型，\n還有一些實驗。",
-    intro: "這裡記錄我在 DaVinci Resolve 和 Fusion 裡做的工具、插件與實驗。有些已經能用，有些還是原型或研究；有個想試的點子，就動手做做看。",
-    count: `${String(labExperiments.length).padStart(2, "0")} 筆開發紀錄 / 2026`, back: "返回首頁",
+    intro: "這裡記錄我為 DaVinci Resolve、Fusion 和 Blender 做的工具與實驗。",
+    back: "返回首頁",
     access: "此實驗版本僅提供授權測試。若需要下載，請直接聯絡 SpringYearn 取得存取權限。",
     buildLanguage: "版本語言",
     languageNotice: "目前大多數檔案都是繁體中文版本。",
@@ -57,8 +57,8 @@ export function LabContent({ showResourceSections = false }: { showResourceSecti
           <Link href="/work" className="text-link">{t.work}<ArrowUpRight aria-hidden="true" /></Link>
         </nav>
       </section>
-      <section className="section-block lab-records" data-lab-platform="resolve" aria-labelledby="lab-platform-title">
-        <div className="lab-platform-heading"><h2 id="lab-platform-title">DaVinci Resolve / Fusion</h2></div>
+      <section className="section-block lab-records" aria-labelledby="lab-platform-title">
+        <div className="lab-platform-heading"><h2 id="lab-platform-title">DaVinci Resolve / Fusion · Blender</h2></div>
         <div className="lab-access-note"><div><p>{t.access}</p><p className="lab-language-note"><span>{t.buildLanguage}</span>{t.languageNotice}</p></div><Link href="/#contact" className="text-link">{t.contact}<ArrowUpRight aria-hidden="true" /></Link></div>
         <div className="lab-sort-controls lab-sort-panel">
           <SortSelect id="lab-sort-key" label={t.sort} value={sortKey} options={t.sortKeys} onChange={setSortKey} />
@@ -70,7 +70,8 @@ export function LabContent({ showResourceSections = false }: { showResourceSecti
         </div>
         <div className="lab-grid">
           {projects.map(experiment => (
-            <article className="lab-card" key={experiment.id} id={experiment.id.toLowerCase()} data-reveal>
+            <article className="lab-card" key={experiment.id} id={experiment.id.toLowerCase()}
+              data-lab-platform={experiment.platform ?? "resolve"} data-reveal>
               <div className="lab-card-top"><span className="lab-date" aria-label={(language === "en" ? "Created: " : "建立：") + experiment.date.created + (language === "en" ? "; Last updated: " : "；最後更新：") + experiment.date.updated}>
                 <time dateTime={experiment.date.created}>{experiment.date.created.replaceAll("-", ".")}</time><span aria-hidden="true"> — </span><time dateTime={experiment.date.updated}>{experiment.date.updated.replaceAll("-", ".")}</time>
               </span></div>

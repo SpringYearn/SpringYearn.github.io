@@ -19,11 +19,11 @@
   },
   {
     "id": "v090.authorizedBuilds",
-    "en": "Fusion tools and prototypes · Authorized test builds",
-    "zh": "Fusion 工具與開發原型 • 開放授權測試版",
-    "ja": "Fusion ツールと試作品・テスト版は許可制",
-    "ko": "Fusion 도구와 프로토타입 · 테스트 버전은 승인 필요",
-    "ru": "Инструменты и прототипы Fusion · тестовые сборки по разрешению",
-    "vi": "Công cụ và nguyên mẫu Fusion · bản thử nghiệm cần quyền truy cập"
+    "en": "Fusion / Blender tools and prototypes · Authorized test builds",
+    "zh": "Fusion / Blender 工具與開發原型 • 開放授權測試版",
+    "ja": "Fusion / Blender のツールと試作品・テスト版は許可制",
+    "ko": "Fusion / Blender 도구와 프로토타입 · 테스트 버전은 승인 필요",
+    "ru": "Инструменты и прототипы Fusion / Blender · тестовые сборки по разрешению",
+    "vi": "Công cụ và nguyên mẫu Fusion / Blender · bản thử nghiệm cần quyền truy cập"
   }
 ]
