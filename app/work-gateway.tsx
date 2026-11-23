@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Localized } from "./localized";
-import { projects } from "./portfolio-data";
+import { projects, projectTitle } from "./portfolio-data";
 import { useSiteLanguage } from "./site-language";
 import { featuredWorkIds } from "./work/featured-data";
 
 const selections = featuredWorkIds.map(id => projects.find(project => project.id === id)!);
 
 export function WorkGateway() {
-  const { language } = useSiteLanguage();
+  const { language, locale } = useSiteLanguage();
   return <Localized>
     <Link href="/work/" className="work-gateway-link editorial-work-card"
       aria-labelledby="work-gateway-title work-gateway-action">
@@ -22,7 +22,7 @@ export function WorkGateway() {
         {selections.map(project => (
           <figure key={project.id}>
             <span><img src={project.thumbnail} alt="" loading="lazy" width="1280" height="720" /></span>
-            <figcaption data-localize="off">{project.title}</figcaption>
+            <figcaption data-localize="off">{projectTitle(project, locale)}</figcaption>
           </figure>
         ))}
       </div>

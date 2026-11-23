@@ -3,19 +3,19 @@
 import { useEffect, useRef } from "react";
 import { REDUCED_MOTION_QUERY } from "./swarm/availability";
 
-export function HomeReel() {
+export function useVisibleVideo(source: string | undefined) {
   const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const element = video.current;
-    if (!element) return;
+    if (!element || !source) return;
     const reduced = matchMedia(REDUCED_MOTION_QUERY);
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     let visible = false;
 
     const update = () => {
       if (!reduced.matches && !connection?.saveData && visible && !document.hidden) {
-        if (!element.hasAttribute("src")) element.src = "/works/home-reel.mp4?v=098";
+        if (element.getAttribute("src") !== source) element.src = source;
         element.muted = true;
         if (element.paused) void element.play().catch(() => {});
       } else {
@@ -36,7 +36,13 @@ export function HomeReel() {
       reduced.removeEventListener("change", update);
       element.pause();
     };
-  }, []);
+  }, [source]);
+
+  return video;
+}
+
+export function HomeReel() {
+  const video = useVisibleVideo("/works/home-reel.mp4?v=098");
 
   return (
     <div className="hero-reel" aria-hidden="true">

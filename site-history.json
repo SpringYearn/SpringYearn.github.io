@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Refined the lowercase g used in headings."
+      "Refreshed the home and work layouts, improved navigation and interactions, and restored the ten-second bear animation."
     ],
     "zh": [
-      "調整標題的小寫 g 字形。"
+      "重整首頁和作品集，加入捲動入場效果，修正導覽、LAB 游標與小熊影片。"
     ]
   },
   "releases": [
+    {
+      "version": "V.105",
+      "date": "2026-11-24",
+      "en": ["Refreshed the home and work layouts, improved navigation and interactions, and restored the ten-second bear animation."],
+      "zh": ["重整首頁和作品集，加入捲動入場效果，修正導覽、LAB 游標與小熊影片。"]
+    },
     {
       "version": "V.104",
       "date": "2026-11-24",

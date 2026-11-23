@@ -12,7 +12,6 @@ import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
 import { HomeReel } from "./home-reel";
-import { HomeCursor } from "./home-cursor";
 import { WorkGateway } from "./work-gateway";
 import "./home.css";
 
@@ -306,41 +305,43 @@ export default function Home() {
 
   return <Localized>
     <main id="top" className="site-shell home-page">
-      <HomeCursor />
       <SiteHeader />
 
       <section className="editorial-hero" aria-labelledby="hero-title">
-        <div className="editorial-hero-main">
-          <span className="editorial-capsule mono-label">{t.index}</span>
-          <div className="editorial-hero-copy">
-            <h1 id="hero-title" className="editorial-name" lang="en" data-localize="off"><span>SPRINGYEARN</span></h1>
+        <div className="editorial-hero-identity">
+          <div className="editorial-hero-overline">
+            <span className="editorial-capsule mono-label">{t.index}</span>
             <p className="editorial-role">{t.heroTop}</p>
-            <HeroStatement text={t.heroBottom} locale={locale} />
           </div>
-          <div className="editorial-hero-actions">
-            <Link href="/work/" className="editorial-cta">{t.exploreWorks}<ArrowRight aria-hidden="true" /></Link>
-            <a href="#contact" className="editorial-cta editorial-cta-secondary">{t.nav.contact}</a>
-          </div>
+          <h1 id="hero-title" className="editorial-name" lang="en" data-localize="off"><span>SPRINGYEARN</span></h1>
         </div>
-        <aside className="editorial-hero-aside">
+        <div className="editorial-hero-story">
+          <HeroStatement text={t.heroBottom} locale={locale} />
           <p>{t.intro}</p>
-          <HomeReel />
-          <dl className="editorial-facts">
-            <div>
-              <dt>{chinese ? "創作跨度" : "Creative practice"}</dt>
-              <dd>2020—NOW</dd>
-            </div>
-            <div>
-              <dt>{chinese ? "核心媒介" : "Primary medium"}</dt>
-              <dd>{chinese ? "剪輯 / 動態設計" : "Editing / Motion"}</dd>
-            </div>
-          </dl>
-        </aside>
+          <a href="#contact" className="editorial-cta editorial-cta-secondary">{t.nav.contact}<ArrowUpRight aria-hidden="true" /></a>
+        </div>
+        <Link href="/work/" className="editorial-hero-jump">
+          <div className="editorial-hero-film">
+            <HomeReel />
+            <span className="editorial-hero-mark" aria-hidden="true"><ArrowUpRight /></span>
+          </div>
+          <span className="editorial-hero-jump-label">{t.exploreWorks}<ArrowRight aria-hidden="true" /></span>
+        </Link>
+        <dl className="editorial-facts">
+          <div>
+            <dt>{chinese ? "創作跨度" : "Creative practice"}</dt>
+            <dd>2020—NOW</dd>
+          </div>
+          <div>
+            <dt>{chinese ? "核心媒介" : "Primary medium"}</dt>
+            <dd>{chinese ? "剪輯 / 動態設計" : "Editing / Motion"}</dd>
+          </div>
+        </dl>
       </section>
 
       <section id="work" className="editorial-band editorial-works" aria-labelledby="work-gateway-title">
         <SectionIndex number="01">{chinese ? "作品" : "Works"}</SectionIndex>
-        <div className="editorial-bento">
+        <div className="editorial-bento" data-reveal>
           <WorkGateway />
           <div className="editorial-bento-side">
             <div className="editorial-reels">
@@ -370,7 +371,7 @@ export default function Home() {
 
       <section id="profile" className="editorial-band editorial-profile" aria-labelledby="profile-title">
         <SectionIndex number="02">{t.nav.profile}</SectionIndex>
-        <div className="editorial-profile-intro">
+        <div className="editorial-profile-intro" data-reveal>
           <h2 id="profile-title">{t.profileTitle}</h2>
           <div>
             <p>{t.profileBody}</p>
@@ -378,7 +379,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="editorial-brand">
+        <div className="editorial-brand" data-reveal>
           <figure className="brand-logo-panel editorial-logo">
             <SpringLogo language={language} />
           </figure>
@@ -392,7 +393,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="editorial-practice">
+        <div className="editorial-practice" data-reveal>
           <section aria-labelledby="capabilities-title">
             <h3 id="capabilities-title">{t.services}</h3>
             <ol className="editorial-capabilities">
@@ -454,7 +455,7 @@ export default function Home() {
 
       <section id="contact" className="editorial-band editorial-contact" aria-labelledby="contact-title">
         <SectionIndex number="04">{t.nav.contact}</SectionIndex>
-        <div className="editorial-contact-info">
+        <div className="editorial-contact-info" data-reveal>
           <div>
             <h2 id="contact-title">{t.contactTitle}</h2>
             <p>{t.contactBody}</p>

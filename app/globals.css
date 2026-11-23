@@ -135,7 +135,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   html.has-art-cursor body,
   html.has-art-cursor a,
   html.has-art-cursor button,
-  html.has-art-cursor input { cursor: none; }
+  html.has-art-cursor :is(input, textarea, select, summary, [role=menuitemradio]) { cursor: none; }
 }
 
 .site-shell {
@@ -1609,14 +1609,10 @@ html:has(.pf-preview-video:hover) .art-cursor { visibility: hidden; }
 .lab-download-button:disabled { opacity: .5; cursor: wait; }
 .lab-download-dialog { width: min(560px, calc(100% - 32px)); max-height: calc(100svh - 48px); margin: auto; padding: clamp(1.5rem, 4vw, 3rem); overflow-y: auto; border: 1px solid var(--foreground); background: var(--background); color: var(--foreground); }
 .lab-download-dialog::backdrop { background: rgba(17,17,15,.65); backdrop-filter: blur(5px); }
-/* Native dialogs occupy the browser top layer, above the decorative cursor. */
-html.has-art-cursor:has(.lab-download-dialog[open]),
+/* Paint the cursor inside the native dialog's top layer. */
 html.has-art-cursor .lab-download-dialog,
-html.has-art-cursor .lab-download-dialog::backdrop { cursor: auto; }
-html.has-art-cursor .lab-download-dialog a,
-html.has-art-cursor .lab-download-dialog button { cursor: pointer; }
-html.has-art-cursor .lab-download-dialog input { cursor: text; }
-html:has(.lab-download-dialog[open]) .art-cursor,
+html.has-art-cursor .lab-download-dialog::backdrop { cursor: none; }
+html:has(.lab-download-dialog[open]) .art-cursor:not(.lab-dialog-cursor),
 html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .lab-download-dialog h2 { margin: 1.5rem 0; font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.1; letter-spacing: -.04em; overflow-wrap: anywhere; }
 .lab-download-dialog p { font-size: .9rem; line-height: 1.7; }

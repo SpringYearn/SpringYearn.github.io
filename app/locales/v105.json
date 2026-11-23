@@ -1,0 +1,20 @@
+[
+  {
+    "id": "v105.release",
+    "en": "Refreshed the home and work layouts, improved navigation and interactions, and restored the ten-second bear animation.",
+    "zh": "重整首頁和作品集，加入捲動入場效果，修正導覽、LAB 游標與小熊影片。",
+    "ja": "ホームと作品一覧のレイアウトを刷新し、スクロール時の演出やナビゲーションを改善。LAB のカーソルとクマの10秒映像も修復しました。",
+    "ko": "홈과 작품 목록의 레이아웃, 스크롤 효과와 탐색을 개선하고 LAB 커서와 10초 곰 영상을 복구했어요.",
+    "ru": "Обновлены главная страница и портфолио, добавлена анимация прокрутки, исправлены меню, курсор LAB и десятисекундный ролик с медведем.",
+    "vi": "Làm mới trang chủ và danh mục tác phẩm, thêm chuyển động khi cuộn, sửa menu, con trỏ LAB và khôi phục video gấu 10 giây."
+  },
+  {
+    "id": "v105.modeling",
+    "en": "3D character modeling",
+    "zh": "3D 角色建模",
+    "ja": "3D キャラクターモデリング",
+    "ko": "3D 캐릭터 모델링",
+    "ru": "3D-моделирование персонажа",
+    "vi": "Dựng mô hình nhân vật 3D"
+  }
+]

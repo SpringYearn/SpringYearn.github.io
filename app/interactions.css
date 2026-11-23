@@ -1,0 +1,146 @@
+/* Shared interaction on both editorial palettes. */
+:root {
+  --accent-wash: color-mix(in srgb, var(--accent) 12%, var(--bg-surface));
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: auto auto -1px 0;
+  width: clamp(1.25rem, 4vw, 3.5rem);
+  height: 2px;
+  background: var(--accent);
+  pointer-events: none;
+}
+
+.site-header .desktop-nav a, .site-header .header-extra-tools > a { position: relative; }
+.site-header .desktop-nav a::after, .site-header .header-extra-tools > a::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 .22rem;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.site-header .desktop-nav a:is([aria-current="page"], :hover, :focus-visible)::after,
+.site-header .header-extra-tools > a:is([aria-current="page"], :hover, :focus-visible)::after { transform: scaleX(1); }
+.mobile-nav-links a[aria-current="page"] {
+  padding-inline-start: .7rem;
+  box-shadow: inset 3px 0 var(--accent);
+  background: var(--accent-wash);
+  color: var(--accent-text);
+}
+
+:is(.header-language-switch, .mobile-language-switch)[data-state="open"] {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+:is(.header-language-switch, .mobile-language-switch)[data-state="open"] .language-chevron { transform: rotate(180deg); }
+.language-menu { border-top: 2px solid var(--accent); }
+.language-menu-option:is([data-highlighted], [data-state="checked"]) {
+  background: var(--accent-wash);
+  box-shadow: inset 2px 0 var(--accent);
+}
+.language-menu-option[data-state="checked"] svg { color: var(--accent-text); }
+
+:is(.theme-switch, .header-language-switch, .mobile-language-switch, .mobile-menu-toggle, .mobile-menu-close,
+  .editorial-cta, .item-share-button, .item-details-cta, .lab-share-button, .lab-dialog-close)
+  :where(svg) { flex-shrink: 0; }
+:is(.theme-switch, .header-language-switch, .mobile-language-switch, .mobile-menu-toggle, .mobile-menu-close,
+  .editorial-cta, .item-share-button, .lab-share-button, .lab-dialog-close):is(:hover, :focus-visible) {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+:is(.lab-confirm-button, .pf-download-link):not(:disabled),
+.whiteboard-page .board-request-button:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--action-ink);
+}
+:is(.lab-confirm-button, .pf-download-link):not(:disabled):is(:hover, :focus-visible),
+.whiteboard-page .board-request-button:not(:disabled):is(:hover, :focus-visible) {
+  background: var(--bg);
+  color: var(--accent-text);
+}
+:is(.lab-sort-direction, .archive-filter-row, .board-tool-group, .pf-category-index) button[aria-pressed="true"] {
+  background: var(--accent-wash);
+  color: var(--fg);
+  box-shadow: inset 0 -2px var(--accent);
+}
+:is(.lab-sort-direction, .archive-filter-row, .board-tool-group, .pf-category-index) button:not(:disabled):is(:hover, :focus-visible) {
+  box-shadow: inset 0 -2px var(--accent);
+  color: var(--accent-text);
+}
+
+:is(.resource-choice, .lab-download-button, .board-folder-trigger):is(:hover, :focus-visible),
+.resource-choice[aria-current="page"] { border-color: var(--accent); }
+.resource-choice[aria-current="page"] .resource-choice-arrow,
+.resource-choice:is(:hover, :focus-visible) .resource-choice-arrow {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--action-ink);
+}
+.lab-download-button:not(:disabled) > svg:first-child,
+.item-title-row .item-share-button svg, .board-archive-close svg { color: var(--accent-text); }
+.lab-download-button:not(:disabled):is(:hover, :focus-visible) {
+  background: var(--accent-wash);
+  color: var(--fg);
+}
+.lab-download-dialog input:focus-visible { outline-color: var(--accent); }
+.item-preview-link:is(:hover, :focus-visible) .item-preview-play {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--action-ink);
+}
+:is(.work-detail-link, .pf-card-actions) .item-details-cta:is(:hover, :focus-visible),
+:where(.editorial-work-card, .editorial-resources-card):is(:hover, :focus-visible) { border-color: var(--accent); }
+.pf-card-actions a.item-details-cta:is(:hover, :focus-visible) { background: var(--accent-wash); }
+:is(.text-link, .site-footer a, .editorial-mail-links a):is(:hover, :focus-visible) {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: .28em;
+}
+.editorial-socials a:is(:hover, :focus-visible) {
+  box-shadow: inset 0 -2px var(--accent);
+  color: var(--accent-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(.site-header .desktop-nav a, .site-header .header-extra-tools > a)::after {
+    transition: transform 190ms cubic-bezier(.16, 1, .3, 1);
+  }
+  :is(.theme-switch, .header-language-switch, .mobile-language-switch, .mobile-menu-toggle, .mobile-menu-close,
+    .editorial-cta, .item-share-button, .item-details-cta, .lab-share-button, .lab-dialog-close,
+    .lab-confirm-button, .pf-download-link, .lab-download-button) {
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, translate 150ms ease;
+  }
+  :is(.site-header nav a, .site-header .header-extra-tools > a, .mobile-nav-links a,
+    .theme-switch, .header-language-switch, .mobile-language-switch, .mobile-menu-toggle, .mobile-menu-close,
+    .editorial-cta, .item-share-button, .item-details-cta, .lab-share-button, .lab-dialog-close,
+    .lab-confirm-button, .pf-download-link, .lab-download-button, .board-request-button, .item-preview-link,
+    .lab-sort-direction button, .archive-filter-row button, .board-tool-group button,
+    .pf-category-index button, .board-folder-trigger, .resource-choice, .editorial-work-card, .editorial-resources-card,
+    .site-status > button):not(:disabled):active { translate: 0 2px; }
+  :is(.text-link, .editorial-mail-links a, .site-footer a, .lab-download-button, .pf-download-link) svg:last-child,
+  .language-chevron { transition: transform 180ms cubic-bezier(.16, 1, .3, 1); }
+  :is(.text-link, .site-footer a, .editorial-mail-links a, .lab-download-button, .pf-download-link):is(:hover, :focus-visible)
+    svg:last-child { transform: translate(2px,-2px); }
+
+  [data-reveal].is-panel-entering:not(:focus-within) {
+    animation: editorial-panel-in 310ms cubic-bezier(.16,1,.3,1) both;
+  }
+}
+@keyframes editorial-panel-in {
+  from {
+    opacity: .46;
+    translate: 0 8px;
+    clip-path: polygon(0 0, 83% 0, 96% 25%, 96% 100%, 0 100%);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}

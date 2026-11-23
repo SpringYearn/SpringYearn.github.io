@@ -1,9 +1,12 @@
+import type { Locale } from "./site-language";
+
 export type Language = "en" | "zh";
 export type Category = "all" | "design" | "editing" | "3d" | "drawing";
 
 export type Project = {
   id: string;
   title: string;
+  localizedTitle?: Partial<Record<Locale, string>>;
   type: Record<Language, string>;
   detail: Record<Language, string>;
   category: Category;
@@ -11,10 +14,15 @@ export type Project = {
   href: string;
   thumbnail: string;
   mediaType?: "image" | "video";
+  poster?: string;
   fit?: "cover" | "contain";
   frame?: "landscape" | "portrait";
   gallery?: { src: string; title: Record<Language, string> }[];
 };
+
+export function projectTitle(project: Project, locale: Locale) {
+  return project.localizedTitle?.[locale] ?? project.title;
+}
 
 export const projects: Project[] = [
   {
@@ -226,14 +234,22 @@ export const projects: Project[] = [
   },
   {
     id: "21",
-    title: "BEAR CAMERA STUDY",
-    type: { en: "3D camera study", zh: "3D 運鏡練習" },
+    title: "Cartoon Bear Modeling Study",
+    localizedTitle: {
+      zh: "卡通雄建模練習",
+      ja: "カートゥーンのクマのモデリング練習",
+      ko: "카툰 곰 모델링 연습",
+      ru: "Учебная модель мультяшного медведя",
+      vi: "Bài tập dựng mô hình gấu hoạt hình",
+    },
+    type: { en: "3D character modeling", zh: "3D 角色建模" },
     detail: { en: "Original animation", zh: "完整動畫" },
     category: "3d",
     art: "video",
-    href: "/works/bear-camera-study.mp4",
-    thumbnail: "/works/bear-camera-study.mp4",
+    href: "/works/bear-camera-study.mp4?v=105",
+    thumbnail: "/works/bear-camera-study.mp4?v=105",
     mediaType: "video",
+    poster: "/works/bear-camera-study.webp",
   },
   {
     id: "22",

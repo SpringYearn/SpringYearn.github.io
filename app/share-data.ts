@@ -16,7 +16,7 @@ export function getShareItem(kind: ItemKind, id: string) {
   if (kind === "work") {
     const item = projects.find(project => project.id === resolveWorkId(id));
     if (!item) return null;
-    return { kind, id: item.id, title: item.title, label: item.type.en, description: `${workStories[item.id]?.summary?.en ?? featuredSummaries[item.id]?.en ?? `${item.title} — ${item.type.en}.`} A work by SpringYearn.`, image: item.mediaType === "video" ? null : item.thumbnail, fit: item.fit ?? "cover" };
+    return { kind, id: item.id, title: item.title, label: item.type.en, description: `${workStories[item.id]?.summary?.en ?? featuredSummaries[item.id]?.en ?? `${item.title} — ${item.type.en}.`} A work by SpringYearn.`, image: item.mediaType === "video" ? item.poster ?? null : item.thumbnail, fit: item.fit ?? "cover" };
   }
   const item = projectFiles.find(file => file.id === id);
   if (!item) return null;

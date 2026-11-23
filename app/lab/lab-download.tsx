@@ -8,6 +8,7 @@ import { labExperiments } from "../lab-data";
 import builds from "./builds.json";
 import { verifyEncryptedBuild } from "./verify-encrypted-build";
 import { LabShare } from "./lab-share";
+import { CursorMark } from "../site-cursor";
 
 const copy = {
   en: {
@@ -124,6 +125,7 @@ export function LabDownload({ project, language }: {
       </button>
       <dialog ref={dialog} className="lab-download-dialog" aria-labelledby={project.id + "-download-title"}
         aria-describedby={project.id + "-download-notice"} onClose={cleanup}>
+        <CursorMark inDialog />
         <button type="button" className="lab-dialog-close" aria-label={t.close} onClick={() => dialog.current?.close()}><X aria-hidden="true" /></button>
         <h2 id={project.id + "-download-title"}>{project.title}</h2>
         <p id={project.id + "-download-notice"}>{t.notice}</p>

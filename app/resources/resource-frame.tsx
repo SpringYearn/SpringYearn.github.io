@@ -19,57 +19,22 @@ type Props = {
 export function ResourceFrame({ section, onBrowseResources, children }: Props) {
   const { language } = useSiteLanguage();
   const shell = useRef<HTMLElement>(null);
-  const cursor = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const chinese = language === "zh";
 
   useEffect(() => {
     const root = document.documentElement;
-    const mark = cursor.current;
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const move = (event: PointerEvent) => {
-      mark?.style.setProperty("--cursor-x", `${event.clientX}px`);
-      mark?.style.setProperty("--cursor-y", `${event.clientY}px`);
-      mark?.classList.add("is-visible");
-    };
-    const target = (event: PointerEvent) => {
-      if (!(event.target instanceof Element)) return;
-      mark?.classList.toggle("is-active", !!event.target.closest(
-        "[role=option], [role=combobox], a, button, select, summary, .project-card",
-      ));
-    };
-    const press = () => mark?.classList.add("is-pressed");
-    const release = () => mark?.classList.remove("is-pressed");
-    const leave = (event: PointerEvent) => {
-      if (!event.relatedTarget) mark?.classList.remove("is-visible");
-    };
     const updateScroll = () => {
       const maximum = root.scrollHeight - window.innerHeight;
       setScrollProgress(maximum > 0 ? window.scrollY / maximum : 0);
     };
-    if (fine) {
-      root.classList.add("has-art-cursor");
-      window.addEventListener("pointermove", move, { passive: true });
-      window.addEventListener("pointerover", target, { passive: true });
-      window.addEventListener("pointerdown", press, { passive: true });
-      window.addEventListener("pointerup", release, { passive: true });
-      window.addEventListener("pointercancel", release, { passive: true });
-      window.addEventListener("pointerout", leave, { passive: true });
-    }
     updateScroll();
     window.addEventListener("scroll", updateScroll, { passive: true });
     const size = new ResizeObserver(updateScroll);
     if (shell.current) size.observe(shell.current);
     return () => {
       size.disconnect();
-      root.classList.remove("has-art-cursor");
       window.removeEventListener("scroll", updateScroll);
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerover", target);
-      window.removeEventListener("pointerdown", press);
-      window.removeEventListener("pointerup", release);
-      window.removeEventListener("pointercancel", release);
-      window.removeEventListener("pointerout", leave);
     };
   }, []);
 
@@ -81,7 +46,6 @@ export function ResourceFrame({ section, onBrowseResources, children }: Props) {
     <main id="top" className={`site-shell${sectionClass}${pageClass}`} ref={shell}>
       <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
-      <div ref={cursor} className="art-cursor" aria-hidden="true"><span className="cursor-ring" /><span className="cursor-core" /></div>
       <SiteHeader active="resources" onBrowseResources={onBrowseResources} />
       {children}
       <SiteStatus language={language} />

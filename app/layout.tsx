@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { SiteLanguageProvider } from "./site-language";
+import { SiteCursor } from "./site-cursor";
+import { ScrollPanels } from "./scroll-panels";
 import "./globals.css";
 import "./editorial.css";
+import "./interactions.css";
 
 const siteOrigin =
   process.env.GITHUB_PAGES === "1"
@@ -63,7 +66,11 @@ export default function RootLayout({
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}
           storageKey="springyearn:theme" themes={["dark", "light"]}>
-          <SiteLanguageProvider>{children}</SiteLanguageProvider>
+          <SiteLanguageProvider>
+            <SiteCursor />
+            <ScrollPanels />
+            {children}
+          </SiteLanguageProvider>
         </ThemeProvider>
       </body>
     </html>

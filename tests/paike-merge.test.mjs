@@ -8,6 +8,21 @@ test('PAIKE preserves both images and every unrelated work record',()=>{
  for (const item of before.filter(p => p.id !== '14' && p.id !== '15')) {
    const expected = { ...item };
    if (item.id === '28') expected.title = 'NEED 2';
+   if (item.id === '21') {
+     expected.title = 'Cartoon Bear Modeling Study';
+     expected.localizedTitle = {
+       zh: '卡通雄建模練習',
+       ja: 'カートゥーンのクマのモデリング練習',
+       ko: '카툰 곰 모델링 연습',
+       ru: 'Учебная модель мультяшного медведя',
+       vi: 'Bài tập dựng mô hình gấu hoạt hình',
+     };
+     expected.type = { en: '3D character modeling', zh: '3D 角色建模' };
+     expected.href = '/works/bear-camera-study.mp4?v=105';
+     expected.thumbnail = expected.href;
+     expected.poster = '/works/bear-camera-study.webp';
+     assert.ok(existsSync(new URL('../public' + expected.poster, import.meta.url)));
+   }
    if (selfHostedStills[item.id]) {
      expected.thumbnail = selfHostedStills[item.id];
      assert.ok(existsSync(new URL('../public' + expected.thumbnail, import.meta.url)));

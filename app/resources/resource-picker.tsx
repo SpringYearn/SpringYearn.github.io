@@ -37,6 +37,7 @@ export function ResourcePicker({ active, animate, onSelect }: {
       <nav className="resource-choice-grid" aria-label={language === "zh" ? "資源分類" : "Resource categories"}>
         {choices.map(({ id, title, description, Icon }) => <Link
           key={id}
+          data-reveal
           href={`/resources/#${id}`}
           className={`resource-choice resource-choice-${id}`}
           aria-current={active === id ? "page" : undefined}

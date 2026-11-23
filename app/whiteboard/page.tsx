@@ -36,7 +36,7 @@ export default function WhiteboardPage() {
   const [board,setBoard]=useState<number|null>(null), [archives,setArchives]=useState<number[]>([]);
   const [requested,setRequested]=useState(false), [requesting,setRequesting]=useState(false), [emailReady,setEmailReady]=useState(false), [requestFailed,setRequestFailed]=useState(false);
   const [status,setStatus]=useState<"loading"|"ready"|"saving"|"offline">("loading"), [message,setMessage]=useState(""), [loaded,setLoaded]=useState(false), [undoId,setUndoId]=useState<string|null>(null), [interacting,setInteracting]=useState(false);
-  const canvas=useRef<HTMLCanvasElement>(null), viewport=useRef<HTMLDivElement>(null), artCursor=useRef<HTMLDivElement>(null);
+  const canvas=useRef<HTMLCanvasElement>(null), viewport=useRef<HTMLDivElement>(null);
   const session=useRef<Session|null>(null), strokes=useRef<Stroke[]>([]), current=useRef<Stroke|null>(null), queue=useRef<Mutation[]>([]), pointer=useRef<number|null>(null), busy=useRef(false), boardId=useRef<number|null>(null), etag=useRef(""), alive=useRef(false);
   const gesture=useRef("");
   const epoch=useRef(0), scaleRef=useRef(1), zoomFrame=useRef(0);
@@ -128,15 +128,6 @@ export default function WhiteboardPage() {
     finally{busy.current=false;}
   },[redraw,stash,sync]);
   useEffect(()=>{
-    const root=document.documentElement;
-    const fine=window.matchMedia("(pointer: fine)").matches,cursor=artCursor.current;
-    const move=(e:PointerEvent)=>{if(!fine||e.pointerType==="touch"||!cursor)return;cursor.style.setProperty("--cursor-x",`${e.clientX}px`);cursor.style.setProperty("--cursor-y",`${e.clientY}px`);cursor.classList.add("is-visible");};
-    const target=(e:PointerEvent)=>{if(cursor&&e.target instanceof Element)cursor.classList.toggle("is-active",!!e.target.closest("[role=option],[role=combobox],a,button,input,select,summary"));};
-    const press=()=>cursor?.classList.add("is-pressed"),release=()=>cursor?.classList.remove("is-pressed"),hide=(e:PointerEvent)=>{if(!e.relatedTarget)cursor?.classList.remove("is-visible");};
-    if(fine){root.classList.add("has-art-cursor");window.addEventListener("pointermove",move,{passive:true});window.addEventListener("pointerover",target,{passive:true});window.addEventListener("pointerdown",press,{passive:true});window.addEventListener("pointerup",release,{passive:true});window.addEventListener("pointercancel",release,{passive:true});window.addEventListener("pointerout",hide,{passive:true});}
-    return()=>{root.classList.remove("has-art-cursor");window.removeEventListener("pointermove",move);window.removeEventListener("pointerover",target);window.removeEventListener("pointerdown",press);window.removeEventListener("pointerup",release);window.removeEventListener("pointercancel",release);window.removeEventListener("pointerout",hide);};
-  },[]);
-  useEffect(()=>{
     alive.current=true;
     redraw();const refresh=async()=>{await sync();await flush();};void refresh();
     const interval=setInterval(()=>{if(!document.hidden)void refresh();},3000),wake=()=>{if(!document.hidden)void refresh();};
@@ -220,7 +211,7 @@ export default function WhiteboardPage() {
   return <Localized>{<main id="top" className="site-shell whiteboard-page">
     <SiteHeader active="whiteboard" />
     <section className="section-block board-intro"><div><h1>{zh?"有空嗎？畫點什麼吧。":"Got a minute? Doodle something."}</h1><p>{zh?"這是大家共用的塗鴉板。畫個塗鴉、小圖，或隨手留一條線，給下一位訪客看看。":"This board is shared with everyone who visits. Leave a doodle, a little sketch, or just a line for the next person to find."}</p></div><Leaf className="board-intro-leaf" aria-hidden="true"/></section>
-    <section className="section-block board-workspace" aria-label={zh?"塗鴉板":"Shared doodle whiteboard"}>
+    <section className="section-block board-workspace" aria-label={zh?"塗鴉板":"Shared doodle whiteboard"} data-reveal>
       <div className="board-toolbar"><div className="board-tool-group" aria-label={zh?"繪畫工具":"Drawing tools"}>
         <button type="button" onClick={()=>{setTool("pen");setPanning(false);}} aria-pressed={tool==="pen"&&!panning}><Pencil aria-hidden="true"/>{zh?"畫筆":"Pen"}</button><button type="button" onClick={()=>{setTool("eraser");setPanning(false);}} aria-pressed={tool==="eraser"&&!panning}><Eraser aria-hidden="true"/>{zh?"橡皮擦":"Eraser"}</button><button type="button" onClick={undo} disabled={!undoId||status!=="ready"||interacting} aria-label={zh?"返回上一步":"Undo last action"} title={zh?"復原上一步（Ctrl+Z / ⌘Z）":"Undo (Ctrl+Z / ⌘Z)"}><RotateCcw aria-hidden="true"/>{zh?"復原":"Undo"}</button>
       </div><div className="board-colors" aria-label={zh?"畫筆顏色":"Pen colors"}>{colors.map(c=><button key={c} type="button" style={{background:c}} disabled={tool==="eraser"||panning} onClick={()=>setColor(c)} aria-label={`${zh?"顏色":"Color"} ${c}`} aria-pressed={color===c}/>)}</div><label className="board-custom-color">{zh?"自選色":"Custom"}<input type="color" value={color} disabled={tool==="eraser"||panning} onChange={e=>setColor(e.target.value)}/></label><label className="board-width">{tool==="eraser"?(zh?"擦除範圍":"Eraser size"):(zh?"筆寬":"Width")}<input type="range" disabled={panning} min="1" max={tool==="eraser"?48:6} step="1" value={tool==="eraser"?eraserWidth:width} onChange={e=>(tool==="eraser"?setEraserWidth:setWidth)(Number(e.target.value))}/><span className="mono-label">{tool==="eraser"?eraserWidth:width} px</span></label></div>
@@ -240,6 +231,6 @@ export default function WhiteboardPage() {
       <BoardRequest loaded={loaded} online={status!=="offline"} emailReady={emailReady} requested={requested} requesting={requesting} failed={requestFailed} onRequest={()=>void requestBoard()}/>
     </section>
     <BoardArchive boards={archives} />
-    <section className="section-block board-return"><Link className="text-link" href="/"><ArrowLeft aria-hidden="true"/>{zh?"返回首頁":"Return home"}</Link><Link className="text-link" href="/#contact">{zh?"聯絡":"Contact"}<ArrowUpRight aria-hidden="true"/></Link></section><SiteStatus language={language}/><div ref={artCursor} className="art-cursor" aria-hidden="true"><span className="cursor-ring"/><span className="cursor-core"/></div>
+    <section className="section-block board-return" data-reveal><Link className="text-link" href="/"><ArrowLeft aria-hidden="true"/>{zh?"返回首頁":"Return home"}</Link><Link className="text-link" href="/#contact">{zh?"聯絡":"Contact"}<ArrowUpRight aria-hidden="true"/></Link></section><SiteStatus language={language}/>
   </main>}</Localized>;
 }

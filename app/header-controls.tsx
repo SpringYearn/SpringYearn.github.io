@@ -4,7 +4,7 @@ import { Localized } from "./localized";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Dialog, Select } from "radix-ui";
+import { Dialog, DropdownMenu } from "radix-ui";
 import { ArrowUpRight, Check, ChevronDown, Globe2, Menu, Moon, Sun, X } from "lucide-react";
 import { localeNames, locales, useSiteLanguage, type Locale } from "./site-language";
 
@@ -30,10 +30,28 @@ export function SiteHeader({ active, onBrowseResources }: SiteHeaderProps) {
   const chinese = language === "zh";
   const languageLabel = chinese ? "選擇顯示語言" : "Choose display language";
   const themeLabel = chinese ? "淺色主題" : "Light theme";
-  const picker=(mobile=false)=><Select.Root value={locale} onValueChange={code=>setLanguage(code as Locale)}>
-    <Select.Trigger className={mobile?"mobile-language-switch":"language-switch header-language-switch"} aria-label={languageLabel}><Globe2 aria-hidden="true"/><span data-localize="off">{localeNames[locale]}</span><Select.Icon><ChevronDown aria-hidden="true"/></Select.Icon></Select.Trigger>
-    <Select.Portal><Select.Content className="language-menu" position="popper" sideOffset={8} align="end"><Select.Viewport>{locales.map(code=><Select.Item className="language-menu-option" key={code} value={code}><Select.ItemText><span data-localize="off" lang={code==="zh"?"zh-Hant":code}>{localeNames[code]}</span></Select.ItemText><Select.ItemIndicator><Check aria-hidden="true"/></Select.ItemIndicator></Select.Item>)}</Select.Viewport></Select.Content></Select.Portal>
-  </Select.Root>;
+  const picker = (mobile = false) => (
+    <DropdownMenu.Root modal={false}>
+      <DropdownMenu.Trigger className={mobile ? "mobile-language-switch" : "language-switch header-language-switch"}
+        aria-label={languageLabel} title={languageLabel}>
+        <Globe2 aria-hidden="true" />
+        <span data-localize="off">{localeNames[locale]}</span>
+        <ChevronDown className="language-chevron" aria-hidden="true" />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content className="language-menu" sideOffset={8} align="end" collisionPadding={12} loop>
+          <DropdownMenu.RadioGroup value={locale} onValueChange={code => setLanguage(code as Locale)}>
+            {locales.map(code => (
+              <DropdownMenu.RadioItem className="language-menu-option" key={code} value={code} textValue={localeNames[code]}>
+                <span data-localize="off" lang={code === "zh" ? "zh-Hant" : code}>{localeNames[code]}</span>
+                <DropdownMenu.ItemIndicator><Check aria-hidden="true" /></DropdownMenu.ItemIndicator>
+              </DropdownMenu.RadioItem>
+            ))}
+          </DropdownMenu.RadioGroup>
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
   const navLabel = chinese ? "主要導覽" : "Main navigation";
   const browseResources = onBrowseResources ? (event: { preventDefault: () => void }) => {
     event.preventDefault();
