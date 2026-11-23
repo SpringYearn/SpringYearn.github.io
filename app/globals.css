@@ -2,6 +2,16 @@
 @import "tw-animate-css";
 @import "../vendor/shadcn-tailwind-4.13.0.css";
 
+/* Syne's official Stylistic Set 04 alternate for lowercase g. */
+@font-face {
+  font-family: "SpringYearn Display G";
+  src: url("/fonts/display-g.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  unicode-range: U+0067;
+}
+
 :root, [data-theme="dark"] {
   color-scheme: dark;
   --bg: #0A0A0C;
@@ -44,7 +54,7 @@
 
 :root {
   --body-type: "Satoshi", "LXGW WenKai TC", Georgia, serif;
-  --display-type: "Syne", "LXGW WenKai TC", Georgia, serif;
+  --display-type: "SpringYearn Display G", "Syne", "LXGW WenKai TC", Georgia, serif;
   --italic-type: "Instrument Serif", "LXGW WenKai TC", Georgia, serif;
   --code-type: "IBM Plex Mono", "LXGW WenKai TC", Consolas, monospace;
   --background: var(--bg);

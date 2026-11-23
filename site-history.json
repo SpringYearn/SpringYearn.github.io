@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Restored the custom cursor on the homepage."
+      "Refined the lowercase g used in headings."
     ],
     "zh": [
-      "恢復首頁的專屬游標。"
+      "調整標題的小寫 g 字形。"
     ]
   },
   "releases": [
+    {
+      "version": "V.104",
+      "date": "2026-11-24",
+      "en": ["Refined the lowercase g used in headings."],
+      "zh": ["調整標題的小寫 g 字形。"]
+    },
     {
       "version": "V.103",
       "date": "2026-11-24",
