@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Rebuilt the portfolio with editorial layouts, a new type system and two color themes."
+      "Restored the custom cursor on the homepage."
     ],
     "zh": [
-      "重整網站版型與字體，加入暗色和紙本淺色主題。"
+      "恢復首頁的專屬游標。"
     ]
   },
   "releases": [
+    {
+      "version": "V.103",
+      "date": "2026-11-24",
+      "en": ["Restored the custom cursor on the homepage."],
+      "zh": ["恢復首頁的專屬游標。"]
+    },
     {
       "version": "V.102",
       "date": "2026-11-24",

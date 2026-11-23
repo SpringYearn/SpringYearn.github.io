@@ -12,6 +12,7 @@ import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
 import { HomeReel } from "./home-reel";
+import { HomeCursor } from "./home-cursor";
 import { WorkGateway } from "./work-gateway";
 import "./home.css";
 
@@ -305,6 +306,7 @@ export default function Home() {
 
   return <Localized>
     <main id="top" className="site-shell home-page">
+      <HomeCursor />
       <SiteHeader />
 
       <section className="editorial-hero" aria-labelledby="hero-title">
