@@ -1,36 +1,16 @@
 import type { Metadata } from "next";
-import { ArchiveTransition } from "./archive-transition";
-import { CursorTrail } from "./cursor-trail";
-import { DeviceTiltControl } from "./device-tilt-control";
-import { GlassInteractions } from "./glass-interactions";
-import { InteractionAudio } from "./interaction-audio";
-import { PointerBurst } from "./pointer-burst";
-import { ScreenRipple } from "./screen-ripple";
-import { SwarmWebsiteBuilder } from "./swarm/swarm-website-builder";
-import { DESKTOP_QUERY, ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY, SWARM_SEEN_KEY } from "./swarm/availability";
+import { ThemeProvider } from "next-themes";
 import { SiteLanguageProvider } from "./site-language";
 import "./globals.css";
-import "./glass.css";
+import "./editorial.css";
 
 const siteOrigin =
   process.env.GITHUB_PAGES === "1"
     ? "https://springyearn.github.io"
     : "https://springyearn-portfolio.springyearn.chatgpt.site";
 
-// Set the initial appearance before the document can paint. If hydration
-// never takes over, release the entrance and leave the static site usable.
-const entranceBootstrap = `(() => {
-  if (location.pathname !== '/' || location.hash ||
-      !matchMedia(${JSON.stringify(DESKTOP_QUERY)}).matches ||
-      matchMedia(${JSON.stringify(REDUCED_MOTION_QUERY)}).matches) return;
-  try { if (sessionStorage.getItem(${JSON.stringify(SWARM_SEEN_KEY)}) === '1') return; } catch {}
-  const root = document.documentElement;
-  const attribute = ${JSON.stringify(ENTRANCE_ATTRIBUTE)};
-  root.setAttribute(attribute, 'boot');
-  setTimeout(() => {
-    if (root.getAttribute(attribute) === 'boot') root.removeAttribute(attribute);
-  }, 5000);
-})();`;
+const googleFonts = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=LXGW+WenKai+TC:wght@300;400;700&family=Syne:wght@400..800&display=swap";
+const fontshare = "https://api.fontshare.com/v2/css?f%5B%5D=satoshi@300,400,500,700,900&display=swap";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
@@ -71,21 +51,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: entranceBootstrap }} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={googleFonts} />
+        <link rel="stylesheet" href={fontshare} />
       </head>
       <body>
-        <SiteLanguageProvider>{children}
-        <ArchiveTransition />
-        <DeviceTiltControl />
-        <CursorTrail />
-        <PointerBurst />
-        <ScreenRipple />
-        <GlassInteractions />
-        <InteractionAudio />
-        <SwarmWebsiteBuilder />
-        </SiteLanguageProvider>
+        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}
+          storageKey="springyearn:theme" themes={["dark", "light"]}>
+          <SiteLanguageProvider>{children}</SiteLanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

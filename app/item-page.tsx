@@ -4,7 +4,7 @@ import { Localized } from "./localized";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Download, Play, Expand } from "lucide-react";
-import { HeaderControls } from "./header-controls";
+import { SiteHeader } from "./header-controls";
 import { SiteStatus } from "./site-status";
 import { ItemShare } from "./item-share";
 import { useSiteLanguage } from "./site-language";
@@ -20,8 +20,7 @@ type Props = { kind: "work"; project: Project } | { kind: "project-files"; proje
 function quietPreview(video: HTMLVideoElement | null) { if (video) video.volume = .25; }
 
 export function ItemPage(props: Props) {
-  const { language, locale, setLanguage } = useSiteLanguage();
-  const [scrolled, setScrolled] = useState(false);
+  const { language, locale } = useSiteLanguage();
   const [progress, setProgress] = useState(0);
   const chinese = language === "zh";
   const { project, kind } = props;
@@ -32,7 +31,6 @@ export function ItemPage(props: Props) {
     const root = document.documentElement;
     const cursor = document.querySelector<HTMLElement>(".art-cursor");
     const fine = window.matchMedia("(pointer: fine)").matches;
-    root.classList.add("motion-ready");
     if (fine) root.classList.add("has-art-cursor");
     const move = (event: PointerEvent) => {
       if (!fine || !cursor) return;
@@ -42,12 +40,11 @@ export function ItemPage(props: Props) {
     const down = () => cursor?.classList.add("is-pressed");
     const up = () => cursor?.classList.remove("is-pressed");
     const out = (event: PointerEvent) => { if (!event.relatedTarget) cursor?.classList.remove("is-visible"); };
-    const scroll = () => { setScrolled(window.scrollY > 28); const max = root.scrollHeight - innerHeight; setProgress(max > 0 ? scrollY / max : 0); };
+    const scroll = () => { const max = root.scrollHeight - innerHeight; setProgress(max > 0 ? scrollY / max : 0); };
     window.addEventListener("scroll", scroll, { passive: true }); scroll();
     if (fine) { window.addEventListener("pointermove", move, { passive: true }); window.addEventListener("pointerover", over, { passive: true }); window.addEventListener("pointerdown", down, { passive: true }); window.addEventListener("pointerup", up, { passive: true }); window.addEventListener("pointerout", out, { passive: true }); }
-    return () => { root.classList.remove("motion-ready", "has-art-cursor"); window.removeEventListener("scroll", scroll); window.removeEventListener("pointermove", move); window.removeEventListener("pointerover", over); window.removeEventListener("pointerdown", down); window.removeEventListener("pointerup", up); window.removeEventListener("pointerout", out); };
+    return () => { root.classList.remove("has-art-cursor"); window.removeEventListener("scroll", scroll); window.removeEventListener("pointermove", move); window.removeEventListener("pointerover", over); window.removeEventListener("pointerdown", down); window.removeEventListener("pointerup", up); window.removeEventListener("pointerout", out); };
   }, []);
-  const links = [{ href: "/", label: chinese ? "首頁" : "Home" }, { href: "/work/", label: chinese ? "作品集" : "Work archive" }, { href: "/resources/", label: chinese ? "資源區" : "Resources" }, { href: "/#profile", label: chinese ? "關於我" : "Profile" }, { href: "/#contact", label: chinese ? "聯絡" : "Contact" }];
   const preview = props.kind === "work" ? props.project.thumbnail : "youtubeId" in props.project.preview ? `https://i.ytimg.com/vi/${props.project.preview.youtubeId}/hqdefault.jpg` : props.project.preview.poster;
   const video = props.kind === "work" ? props.project.mediaType === "video" ? props.project.thumbnail : null : "video" in props.project.preview ? props.project.preview.video : null;
   const source = props.kind === "work" ? props.project.href : "youtubeId" in props.project.preview ? `https://youtu.be/${props.project.preview.youtubeId}` : props.project.preview.video;
@@ -62,9 +59,7 @@ export function ItemPage(props: Props) {
   const intro = props.kind === "work" ? featuredSummaries[props.project.id]?.[locale] ?? featuredSummaries[props.project.id]?.[language] : materialLabel(props.project, language);
   return <Localized>{<main id="top" className={`site-shell item-page item-page-${kind}`}>
     <div className="scroll-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" /><div className="grain" aria-hidden="true" /><div className="art-cursor" aria-hidden="true"><span className="cursor-ring" /><span className="cursor-core" /></div>
-    <header className={`site-header${scrolled ? " is-scrolled" : ""}`}><Link className="wordmark" href="/" aria-label="SpringYearn home"><span className="wordmark-symbol"><img src="/logo.png" alt="" /></span><span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span></Link>
-      <nav className="desktop-nav" aria-label="Main navigation">{links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</nav><HeaderControls language={language} onToggleLanguage={() => setLanguage(value => value === "en" ? "zh" : "en")} />
-    </header>
+    <SiteHeader active={kind === "work" ? "work" : "resources"} />
     <section className="section-block item-hero">
       <IndexLink className="text-link" href={indexPath}><ArrowLeft aria-hidden="true" />{kind === "work" ? (chinese ? "返回作品集" : "Back to work archive") : (chinese ? "返回專案檔" : "Back to project files")}</IndexLink>
       <div className="item-title-row">

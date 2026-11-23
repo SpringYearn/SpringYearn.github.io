@@ -4,7 +4,7 @@ import { Localized } from "../localized";
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Eraser, Hand, Leaf, Pencil, RefreshCw, RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
-import { HeaderControls } from "../header-controls";
+import { SiteHeader } from "../header-controls";
 import { SiteStatus } from "../site-status";
 import { useSiteLanguage } from "../site-language";
 import { boardFetch, getSession, paintBoard, readStored, writeStored, type BoardData, type Point, type Session, type Stroke } from "./board-client";
@@ -31,8 +31,8 @@ function restorePending(id: number, epoch: number): Mutation[] {
 }
 
 export default function WhiteboardPage() {
-  const {language,setLanguage} = useSiteLanguage(), zh=language==="zh";
-  const [scrolled,setScrolled]=useState(false), [tool,setTool]=useState<"pen"|"eraser">("pen"), [color,setColor]=useState(colors[0]), [width,setWidth]=useState(3), [eraserWidth,setEraserWidth]=useState(32), [scale,setScale]=useState(1), [panning,setPanning]=useState(false);
+  const {language} = useSiteLanguage(), zh=language==="zh";
+  const [tool,setTool]=useState<"pen"|"eraser">("pen"), [color,setColor]=useState(colors[0]), [width,setWidth]=useState(3), [eraserWidth,setEraserWidth]=useState(32), [scale,setScale]=useState(1), [panning,setPanning]=useState(false);
   const [board,setBoard]=useState<number|null>(null), [archives,setArchives]=useState<number[]>([]);
   const [requested,setRequested]=useState(false), [requesting,setRequesting]=useState(false), [emailReady,setEmailReady]=useState(false), [requestFailed,setRequestFailed]=useState(false);
   const [status,setStatus]=useState<"loading"|"ready"|"saving"|"offline">("loading"), [message,setMessage]=useState(""), [loaded,setLoaded]=useState(false), [undoId,setUndoId]=useState<string|null>(null), [interacting,setInteracting]=useState(false);
@@ -128,14 +128,13 @@ export default function WhiteboardPage() {
     finally{busy.current=false;}
   },[redraw,stash,sync]);
   useEffect(()=>{
-    const root=document.documentElement;root.classList.add("motion-ready");
+    const root=document.documentElement;
     const fine=window.matchMedia("(pointer: fine)").matches,cursor=artCursor.current;
     const move=(e:PointerEvent)=>{if(!fine||e.pointerType==="touch"||!cursor)return;cursor.style.setProperty("--cursor-x",`${e.clientX}px`);cursor.style.setProperty("--cursor-y",`${e.clientY}px`);cursor.classList.add("is-visible");};
     const target=(e:PointerEvent)=>{if(cursor&&e.target instanceof Element)cursor.classList.toggle("is-active",!!e.target.closest("[role=option],[role=combobox],a,button,input,select,summary"));};
     const press=()=>cursor?.classList.add("is-pressed"),release=()=>cursor?.classList.remove("is-pressed"),hide=(e:PointerEvent)=>{if(!e.relatedTarget)cursor?.classList.remove("is-visible");};
     if(fine){root.classList.add("has-art-cursor");window.addEventListener("pointermove",move,{passive:true});window.addEventListener("pointerover",target,{passive:true});window.addEventListener("pointerdown",press,{passive:true});window.addEventListener("pointerup",release,{passive:true});window.addEventListener("pointercancel",release,{passive:true});window.addEventListener("pointerout",hide,{passive:true});}
-    const scroll=()=>setScrolled(window.scrollY>20);scroll();window.addEventListener("scroll",scroll,{passive:true});
-    return()=>{window.removeEventListener("scroll",scroll);root.classList.remove("motion-ready","has-art-cursor");window.removeEventListener("pointermove",move);window.removeEventListener("pointerover",target);window.removeEventListener("pointerdown",press);window.removeEventListener("pointerup",release);window.removeEventListener("pointercancel",release);window.removeEventListener("pointerout",hide);};
+    return()=>{root.classList.remove("has-art-cursor");window.removeEventListener("pointermove",move);window.removeEventListener("pointerover",target);window.removeEventListener("pointerdown",press);window.removeEventListener("pointerup",release);window.removeEventListener("pointercancel",release);window.removeEventListener("pointerout",hide);};
   },[]);
   useEffect(()=>{
     alive.current=true;
@@ -219,9 +218,7 @@ export default function WhiteboardPage() {
 
   const statusText=status==="loading"?(zh?"連線中":"Connecting"):status==="saving"?(zh?"儲存中":"Saving"):status==="offline"?(zh?"等待重新連線":"Waiting for connection"):(zh?"已同步 · 塗鴉板":"Synced · shared board");
   return <Localized>{<main id="top" className="site-shell whiteboard-page">
-    <header className={`site-header${scrolled?" is-scrolled":""}`}><Link className="wordmark" href="/" aria-label="SpringYearn home"><span className="wordmark-symbol"><img src="/logo.png" alt=""/></span><span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span></Link>
-      <nav className="desktop-nav" aria-label="Main navigation"><Link href="/">{zh?"首頁":"Home"}</Link><Link href="/work">{zh?"作品集":"Work"}</Link><Link href="/resources">{zh?"資源區":"Resources"}</Link><Link href="/#profile">{zh?"關於我":"Profile"}</Link><Link href="/#contact">{zh?"聯絡":"Contact"}</Link></nav><HeaderControls language={language} onToggleLanguage={()=>setLanguage(v=>v==="en"?"zh":"en")}/>
-    </header>
+    <SiteHeader active="whiteboard" />
     <section className="section-block board-intro"><div><h1>{zh?"有空嗎？畫點什麼吧。":"Got a minute? Doodle something."}</h1><p>{zh?"這是大家共用的塗鴉板。畫個塗鴉、小圖，或隨手留一條線，給下一位訪客看看。":"This board is shared with everyone who visits. Leave a doodle, a little sketch, or just a line for the next person to find."}</p></div><Leaf className="board-intro-leaf" aria-hidden="true"/></section>
     <section className="section-block board-workspace" aria-label={zh?"塗鴉板":"Shared doodle whiteboard"}>
       <div className="board-toolbar"><div className="board-tool-group" aria-label={zh?"繪畫工具":"Drawing tools"}>

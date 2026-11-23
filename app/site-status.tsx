@@ -14,8 +14,10 @@ const [latestDay, ...pastDays] = groupReleasesByDate(history.releases);
 
 const copy = {
   en: {
+    status: "Status",
+    version: "Version",
     updated: "Last updated",
-    visitors: "Total visitors",
+    visitors: "Visitors",
     replay: "Replay date animation",
     updateSummary: "Daily update",
     changelog: "SY / Changelog",
@@ -28,6 +30,8 @@ const copy = {
     note: "Includes the historical baseline and estimated unique visitors counted since the statistics service changed on 2026-10-03. Different browsers or devices may count separately. Powered by Busuanzi / 9420.",
   },
   zh: {
+    status: "狀態",
+    version: "版本",
     updated: "最後更新日期",
     visitors: "總瀏覽人數",
     replay: "重播日期動畫",
@@ -156,7 +160,10 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
 
   return <Localized>{(
     <div className="site-status" ref={root}>
-      <span className="status-register" aria-hidden="true">SY / LOG</span>
+      <div className="status-register">
+        <span className="status-label">{t.status}</span>
+        <strong>SY / LOG</strong>
+      </div>
       <Popover open={summaryOpen} onOpenChange={setSummaryOpen}>
         <PopoverTrigger asChild>
           <button
@@ -248,6 +255,10 @@ export function SiteStatus({ language }: { language: "en" | "zh" }) {
         </span>
         <span className="status-note" role="tooltip">{countState === "unavailable" ? `${t.unavailable}。` : ""}{t.note}</span>
       </button>
+      <div className="status-version">
+        <span className="status-label">{t.version}</span>
+        <strong>{history.releases[0].version}</strong>
+      </div>
     </div>
   )}</Localized>;
 }

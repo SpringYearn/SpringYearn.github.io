@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added CurveDrag OFX, SY_WarpChroma and SY Render development records to LAB."
+      "Rebuilt the portfolio with editorial layouts, a new type system and two color themes."
     ],
     "zh": [
-      "LAB 新增 CurveDrag OFX、SY_WarpChroma 與 SY Render 的開發紀錄。"
+      "重整網站版型與字體，加入暗色和紙本淺色主題。"
     ]
   },
   "releases": [
+    {
+      "version": "V.102",
+      "date": "2026-11-24",
+      "en": ["Rebuilt the portfolio with editorial layouts, a new type system and two color themes."],
+      "zh": ["重整網站版型與字體，加入暗色和紙本淺色主題。"]
+    },
     {
       "version": "V.101",
       "date": "2026-11-20",

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "v102.explore",
+    "en": "Explore Works",
+    "zh": "探索作品",
+    "ja": "作品を見る",
+    "ko": "작품 둘러보기",
+    "ru": "Смотреть работы",
+    "vi": "Khám phá tác phẩm"
+  },
+  {
+    "id": "v102.span",
+    "en": "Creative practice",
+    "zh": "創作跨度",
+    "ja": "制作期間",
+    "ko": "창작 기간",
+    "ru": "Годы работы",
+    "vi": "Thời gian sáng tác"
+  },
+  {
+    "id": "v102.medium",
+    "en": "Primary medium",
+    "zh": "核心媒介",
+    "ja": "主な表現手段",
+    "ko": "주요 분야",
+    "ru": "Основное направление",
+    "vi": "Lĩnh vực chính"
+  },
+  {
+    "id": "v102.editing",
+    "en": "Editing & Motion",
+    "zh": "剪輯與動態設計",
+    "ja": "映像編集とモーション",
+    "ko": "편집과 모션 디자인",
+    "ru": "Монтаж и моушн-дизайн",
+    "vi": "Dựng phim và thiết kế chuyển động"
+  },
+  {
+    "id": "v102.compositing",
+    "en": "3D & Compositing",
+    "zh": "3D 與特效合成",
+    "ja": "3D と合成",
+    "ko": "3D와 합성",
+    "ru": "3D и композитинг",
+    "vi": "3D và compositing"
+  },
+  {
+    "id": "v102.drawing",
+    "en": "Design & Drawing",
+    "zh": "設計與繪畫",
+    "ja": "デザインとイラスト",
+    "ko": "디자인과 드로잉",
+    "ru": "Дизайн и рисунок",
+    "vi": "Thiết kế và vẽ"
+  },
+  {
+    "id": "v102.resources",
+    "en": "Resources // LAB",
+    "zh": "資源區 // LAB",
+    "ja": "リソース // LAB",
+    "ko": "자료실 // LAB",
+    "ru": "Ресурсы // LAB",
+    "vi": "Tài nguyên // LAB"
+  },
+  {
+    "id": "v102.resourcesCaption",
+    "en": "Free project files and tools",
+    "zh": "免費專案檔與開發工具",
+    "ja": "無料のプロジェクトファイルとツール",
+    "ko": "무료 프로젝트 파일과 도구",
+    "ru": "Бесплатные файлы проектов и инструменты",
+    "vi": "Tệp dự án và công cụ miễn phí"
+  },
+  {
+    "id": "v102.theme",
+    "en": "Light theme",
+    "zh": "淺色主題",
+    "ja": "ライトテーマ",
+    "ko": "라이트 테마",
+    "ru": "Светлая тема",
+    "vi": "Giao diện sáng"
+  },
+  {
+    "id": "v102.copy",
+    "en": "COPIED TO CLIPBOARD",
+    "zh": "已複製到剪貼簿",
+    "ja": "クリップボードにコピーしました",
+    "ko": "클립보드에 복사했어요",
+    "ru": "Скопировано в буфер обмена",
+    "vi": "Đã chép vào bộ nhớ tạm"
+  },
+  {
+    "id": "v102.copyError",
+    "en": "Could not copy the address",
+    "zh": "無法複製信箱地址",
+    "ja": "メールアドレスをコピーできませんでした",
+    "ko": "이메일 주소를 복사하지 못했어요",
+    "ru": "Не удалось скопировать адрес",
+    "vi": "Không thể sao chép địa chỉ"
+  },
+  {
+    "id": "v102.section",
+    "en": "Section",
+    "zh": "區段",
+    "ja": "セクション",
+    "ko": "섹션",
+    "ru": "Раздел",
+    "vi": "Mục"
+  },
+  {
+    "id": "v102.siteStatus",
+    "en": "Status",
+    "zh": "狀態",
+    "ja": "ステータス",
+    "ko": "상태",
+    "ru": "Статус",
+    "vi": "Trạng thái"
+  },
+  {
+    "id": "v102.siteVersion",
+    "en": "Version",
+    "zh": "版本",
+    "ja": "バージョン",
+    "ko": "버전",
+    "ru": "Версия",
+    "vi": "Phiên bản"
+  },
+  {
+    "id": "v102.siteVisitors",
+    "en": "Visitors",
+    "zh": "總瀏覽人數",
+    "ja": "訪問者数",
+    "ko": "방문자 수",
+    "ru": "Посетители",
+    "vi": "Lượt khách"
+  },
+  {
+    "id": "v102.release",
+    "en": "Rebuilt the portfolio with editorial layouts, a new type system and two color themes.",
+    "zh": "重整網站版型與字體，加入暗色和紙本淺色主題。",
+    "ja": "ポートフォリオのレイアウトと書体を見直し、ダークと紙をイメージしたライトの切り替えを追加しました。",
+    "ko": "포트폴리오의 레이아웃과 글꼴을 새로 구성하고 어두운 테마와 종이 느낌의 밝은 테마를 추가했어요.",
+    "ru": "Обновлены сетка и типографика портфолио, добавлены тёмная и светлая темы.",
+    "vi": "Sắp xếp lại bố cục và kiểu chữ của portfolio, thêm giao diện tối và giao diện sáng tông giấy."
+  }
+]

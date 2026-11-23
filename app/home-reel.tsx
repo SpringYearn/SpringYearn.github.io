@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ENTRANCE_ATTRIBUTE, REDUCED_MOTION_QUERY } from "./swarm/availability";
+import { REDUCED_MOTION_QUERY } from "./swarm/availability";
 
 export function HomeReel() {
   const video = useRef<HTMLVideoElement>(null);
@@ -14,8 +14,7 @@ export function HomeReel() {
     let visible = false;
 
     const update = () => {
-      if (!reduced.matches && !connection?.saveData && visible && !document.hidden &&
-          !document.documentElement.hasAttribute(ENTRANCE_ATTRIBUTE)) {
+      if (!reduced.matches && !connection?.saveData && visible && !document.hidden) {
         if (!element.hasAttribute("src")) element.src = "/works/home-reel.mp4?v=098";
         element.muted = true;
         if (element.paused) void element.play().catch(() => {});
@@ -29,13 +28,10 @@ export function HomeReel() {
       update();
     }, { threshold: .08 });
     intersection.observe(element);
-    const entrance = new MutationObserver(update);
-    entrance.observe(document.documentElement, { attributes: true, attributeFilter: [ENTRANCE_ATTRIBUTE] });
     document.addEventListener("visibilitychange", update);
     reduced.addEventListener("change", update);
     return () => {
       intersection.disconnect();
-      entrance.disconnect();
       document.removeEventListener("visibilitychange", update);
       reduced.removeEventListener("change", update);
       element.pause();

@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
 import { ArrowDownRight, Check, Clapperboard, Workflow } from "lucide-react";
 import { Localized } from "../localized";
 import { useSiteLanguage } from "../site-language";
 import type { ResourceSection } from "./resource-route";
-import { CardVines } from "../card-vines";
 import "./resource-picker.css";
 
 const choices = [
@@ -30,20 +28,17 @@ export function ResourcePicker({ active, animate, onSelect }: {
   onSelect: (section: ResourceSection) => void;
 }) {
   const { language } = useSiteLanguage();
-  const grid = useRef<HTMLElement>(null);
   const title = language === "zh" ? "資源區" : "Resources";
   return <Localized>
-    {active === null && <CardVines grid={grid} selector=".resource-choice" className="resource-vine-field" />}
     <section className="section-block resource-picker" data-expanded={active === null} data-animate={animate} aria-labelledby="resource-picker-title">
       <div className="resource-picker-heading">
         {active === null ? <h1 id="resource-picker-title">{title}</h1> : <p id="resource-picker-title">{title}</p>}
       </div>
-      <nav ref={grid} className="resource-choice-grid" aria-label={language === "zh" ? "資源分類" : "Resource categories"}>
+      <nav className="resource-choice-grid" aria-label={language === "zh" ? "資源分類" : "Resource categories"}>
         {choices.map(({ id, title, description, Icon }) => <Link
           key={id}
           href={`/resources/#${id}`}
           className={`resource-choice resource-choice-${id}`}
-          data-vine-tone={id === "lab" ? "cool" : undefined}
           aria-current={active === id ? "page" : undefined}
           aria-labelledby={`resource-label-${id}`}
           aria-describedby={active === null ? `resource-description-${id}` : undefined}

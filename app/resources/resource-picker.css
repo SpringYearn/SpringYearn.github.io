@@ -7,16 +7,6 @@
   overflow-anchor: none;
 }
 
-.resource-vine-field {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-}
-
 .resource-picker-heading {
   margin-bottom: clamp(.9rem, 2.2vw, 1.8rem);
   font-size: clamp(2.6rem, 5.5vw, 5.25rem);
@@ -37,11 +27,11 @@
 }
 
 .resource-choice {
-  --choice-surface: #c0cdcb;
-  --choice-text: #192d2e;
-  --choice-edge: #819d9b;
-  --choice-art: #a9bfc0;
-  --choice-line: #345d60;
+  --choice-surface: var(--bg-surface);
+  --choice-text: var(--fg);
+  --choice-edge: var(--border);
+  --choice-art: var(--bg-elevated);
+  --choice-line: var(--fg-muted);
   display: grid;
   grid-template-rows: auto 1fr;
   min-width: 0;
@@ -50,12 +40,8 @@
   color: var(--choice-text);
 }
 
-.resource-choice-lab {
-  --choice-surface: #20312b;
-  --choice-text: var(--foreground);
-  --choice-edge: #5e8375;
-  --choice-art: #263b33;
-  --choice-line: #a4c5b4;
+.resource-choice:is(:hover, :focus-visible, [aria-current="page"]) {
+  --choice-edge: var(--border-strong);
 }
 
 .resource-choice:focus-visible {
@@ -106,7 +92,6 @@
 .resource-edit-timeline {
   align-content: center;
   gap: clamp(.2rem, .5vw, .4rem);
-  transform: rotate(-5deg);
 }
 
 .resource-edit-ruler {
@@ -141,7 +126,7 @@
   position: absolute;
   inset: 19% auto 13% 0;
   width: 100%;
-  background: linear-gradient(#416b64, #416b64) 31% 0 / 1px 100% no-repeat;
+  background: linear-gradient(var(--accent-text), var(--accent-text)) 31% 0 / 1px 100% no-repeat;
   transform: translateX(0);
 }
 
@@ -154,7 +139,7 @@
   height: .62rem;
   transform: translateX(-50%);
   clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
-  background: #416b64;
+  background: var(--accent-text);
 }
 
 .resource-node-graph { grid-template: repeat(3, 1fr) / repeat(3, minmax(0, 1fr)); }
@@ -207,7 +192,7 @@
 }
 
 .resource-node-input { grid-area: 2 / 1; }
-.resource-node-mix { grid-area: 2 / 2; background: #425d51; }
+.resource-node-mix { grid-area: 2 / 2; color: var(--accent-text); }
 .resource-node-output { grid-area: 2 / 3; }
 .resource-node-branch { grid-area: 3 / 2; border-style: dashed; }
 
@@ -223,9 +208,10 @@
 .resource-choice-title {
   display: block;
   margin-bottom: .35rem;
-  font-size: clamp(1.7rem, 3.85vw, 3.9rem);
-  font-weight: 520;
-  letter-spacing: -.055em;
+  font-family: var(--display-type);
+  font-size: clamp(1.7rem, 3.45vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
   line-height: 1.08;
   overflow-wrap: anywhere;
 }
@@ -244,7 +230,6 @@
   width: clamp(2.4rem, 4.8vw, 4rem);
   aspect-ratio: 1;
   border: 1px solid color-mix(in srgb, currentColor 46%, transparent);
-  border-radius: var(--glass-control-radius);
 }
 
 .resource-choice-arrow svg { width: 52%; height: 52%; }
@@ -282,6 +267,7 @@
 }
 
 .resource-picker[data-expanded="false"] .resource-choice-title {
+  font-family: var(--body-type);
   margin-bottom: 0;
   font-size: clamp(.82rem, 1.6vw, 1.08rem);
   font-weight: 560;
@@ -313,15 +299,12 @@
   .resource-picker[data-animate="true"] .resource-choice-title { transition: font-size 430ms var(--resource-ease), margin 430ms var(--resource-ease); }
   .resource-picker[data-animate="true"] .resource-choice-arrow { transition: width 430ms var(--resource-ease), transform 240ms var(--resource-ease); }
   .resource-choice { transition: background 240ms ease, color 240ms ease, border-color 240ms ease; }
-  .resource-edit-timeline { transition: transform 520ms var(--resource-ease); }
   .resource-edit-playhead { transition: transform 650ms var(--resource-ease); }
   .resource-node { transition: background 260ms ease, transform 400ms var(--resource-ease); }
   .resource-node-mix { transition-delay: 60ms; }
   .resource-node-output { transition-delay: 120ms; }
   .resource-node-branch { transition-delay: 85ms; }
-  .resource-choice:is(:hover,:focus-visible) .resource-edit-timeline { transform: rotate(0); }
   .resource-choice:is(:hover,:focus-visible) .resource-edit-playhead { transform: translateX(39%); }
-  .resource-choice:is(:hover,:focus-visible) .resource-node { background: #4a6759; transform: translateY(-3px); }
-  .resource-choice:is(:hover,:focus-visible) .resource-node-mix { background: #628475; }
+  .resource-choice:is(:hover,:focus-visible) .resource-node { background: var(--bg-surface); transform: translateY(-2px); }
   .resource-choice:not([aria-current="page"]):is(:hover,:focus-visible) .resource-choice-arrow { transform: translate(2px, 2px); }
 }

@@ -6,11 +6,10 @@ import {
   useMemo,
   useState,
   type CSSProperties,
-  type PointerEvent as ReactPointerEvent,
 } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowUp, ArrowUpRight, ArrowRight } from "lucide-react";
-import { HeaderControls } from "../header-controls";
+import { SiteHeader } from "../header-controls";
 import { useSiteLanguage } from "../site-language";
 import { Button } from "@/components/ui/button";
 import { projects, type Category } from "../portfolio-data";
@@ -25,7 +24,6 @@ import "./work.css";
 
 const copy = {
   en: {
-    nav: { home: "Home", profile: "Profile", contact: "Contact" },
     title: "Work archive",
     filters: {
       all: "All",
@@ -43,7 +41,6 @@ const copy = {
     backTop: "Back to top",
   },
   zh: {
-    nav: { home: "首頁", profile: "關於我", contact: "聯絡" },
     title: "作品集",
     filters: {
       all: "全部",
@@ -62,33 +59,10 @@ const copy = {
   },
 };
 
-function setPointerPosition(event: ReactPointerEvent<HTMLElement>) {
-  if (event.pointerType === "touch") return;
-
-  const bounds = event.currentTarget.getBoundingClientRect();
-  const x = (event.clientX - bounds.left) / bounds.width;
-  const y = (event.clientY - bounds.top) / bounds.height;
-  const element = event.currentTarget;
-
-  element.style.setProperty("--pointer-x", (x - 0.5).toFixed(3));
-  element.style.setProperty("--pointer-y", (y - 0.5).toFixed(3));
-  element.style.setProperty("--spot-x", `${(x * 100).toFixed(1)}%`);
-  element.style.setProperty("--spot-y", `${(y * 100).toFixed(1)}%`);
-}
-
-function resetPointerPosition(event: ReactPointerEvent<HTMLElement>) {
-  const element = event.currentTarget;
-  element.style.setProperty("--pointer-x", "0");
-  element.style.setProperty("--pointer-y", "0");
-  element.style.setProperty("--spot-x", "50%");
-  element.style.setProperty("--spot-y", "50%");
-}
-
 export default function WorkArchive() {
-  const { language, setLanguage } = useSiteLanguage();
+  const { language } = useSiteLanguage();
   const [filter, setFilter] = useState<Category>("all");
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [hasScrolled, setHasScrolled] = useState(false);
   const [sortKey, setSortKey] = useState<WorkSortKey>("updated");
   const [sortDirection, setSortDirection] = useState<WorkSortDirection>("desc");
   const t = copy[language];
@@ -100,7 +74,6 @@ export default function WorkArchive() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.add("motion-ready");
     const cursor = document.querySelector<HTMLElement>(".art-cursor");
     const supportsCustomCursor = window.matchMedia("(pointer: fine)").matches;
 
@@ -137,31 +110,13 @@ export default function WorkArchive() {
     const updateScroll = () => {
       const maximum = root.scrollHeight - window.innerHeight;
       setScrollProgress(maximum > 0 ? window.scrollY / maximum : 0);
-      setHasScrolled(window.scrollY > 28);
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) =>
-      observer.observe(element),
-    );
     updateScroll();
     window.addEventListener("scroll", updateScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", updateScroll);
-      observer.disconnect();
-      root.classList.remove("motion-ready");
       root.classList.remove("has-art-cursor");
       window.removeEventListener("pointermove", updateCursor);
       window.removeEventListener("pointerover", updateCursorTarget);
@@ -184,22 +139,7 @@ export default function WorkArchive() {
         <span className="cursor-core" />
       </div>
 
-      <header className={`site-header${hasScrolled ? " is-scrolled" : ""}`}>
-        <Link className="wordmark" href="/" aria-label="SpringYearn home">
-          <span className="wordmark-symbol">
-            <img src="/logo.png" alt="" />
-          </span>
-          <span className="wordmark-text">SPRING YEARN</span>
-          <span className="wordmark-reg">®</span>
-        </Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/">{t.nav.home}</Link>
-          <Link href="/resources">{language === "en" ? "Resources" : "資源區"}</Link>
-          <Link href="/#profile">{t.nav.profile}</Link>
-          <Link href="/#contact">{t.nav.contact}</Link>
-        </nav>
-        <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} />
-      </header>
+      <SiteHeader active="work" />
 
       <div className="section-block work-archive-heading">
         <h1 id="archive-title">{t.title}</h1>
@@ -287,10 +227,7 @@ export default function WorkArchive() {
                 className="project-card"
                 key={project.id}
                 data-project-id={project.id}
-                  id={`work-${project.id}`}
-                onPointerMove={setPointerPosition}
-                onPointerLeave={resetPointerPosition}
-                style={{ animationDelay: `${Number(project.id) * 55}ms` }}
+                id={`work-${project.id}`}
               >
                 <Link className="work-detail-link" href={`/work/${project.id}/`} aria-label={`${project.title} — ${t.view}`}><div
                   className={`project-art art-${project.art}${project.frame === "portrait" ? " frame-portrait" : ""}`}

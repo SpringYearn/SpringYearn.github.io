@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ForNever } from "../for-never";
-import { HeaderControls } from "../header-controls";
+import { SiteHeader } from "../header-controls";
 import { Localized } from "../localized";
 import { useSiteLanguage } from "../site-language";
 import { SiteStatus } from "../site-status";
@@ -17,11 +17,10 @@ type Props = {
 };
 
 export function ResourceFrame({ section, onBrowseResources, children }: Props) {
-  const { language, setLanguage } = useSiteLanguage();
+  const { language } = useSiteLanguage();
   const shell = useRef<HTMLElement>(null);
   const cursor = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [hasScrolled, setHasScrolled] = useState(false);
   const chinese = language === "zh";
 
   useEffect(() => {
@@ -47,9 +46,7 @@ export function ResourceFrame({ section, onBrowseResources, children }: Props) {
     const updateScroll = () => {
       const maximum = root.scrollHeight - window.innerHeight;
       setScrollProgress(maximum > 0 ? window.scrollY / maximum : 0);
-      setHasScrolled(window.scrollY > 28);
     };
-    root.classList.add("motion-ready");
     if (fine) {
       root.classList.add("has-art-cursor");
       window.addEventListener("pointermove", move, { passive: true });
@@ -65,7 +62,7 @@ export function ResourceFrame({ section, onBrowseResources, children }: Props) {
     if (shell.current) size.observe(shell.current);
     return () => {
       size.disconnect();
-      root.classList.remove("motion-ready", "has-art-cursor");
+      root.classList.remove("has-art-cursor");
       window.removeEventListener("scroll", updateScroll);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerover", target);
@@ -76,18 +73,6 @@ export function ResourceFrame({ section, onBrowseResources, children }: Props) {
     };
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    shell.current?.querySelectorAll("[data-reveal]").forEach(element => observer.observe(element));
-    return () => observer.disconnect();
-  }, [section]);
-
   const sectionClass = section === "lab" ? " lab-page" : section === "project-files" ? " pf-page" : "";
   const pageClass = onBrowseResources ? " resources-page" : "";
   const footerTitle = section === "lab" ? "LAB / EXPERIMENTS" : section === "project-files" ? "PROJECT FILES" : "Resources";
@@ -97,23 +82,7 @@ export function ResourceFrame({ section, onBrowseResources, children }: Props) {
       <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
       <div ref={cursor} className="art-cursor" aria-hidden="true"><span className="cursor-ring" /><span className="cursor-core" /></div>
-      <header className={`site-header${hasScrolled ? " is-scrolled" : ""}`}>
-        <Link className="wordmark" href="/" aria-label="SpringYearn home">
-          <span className="wordmark-symbol"><img src="/logo.png" alt="" /></span>
-          <span className="wordmark-text">SPRING YEARN</span><span className="wordmark-reg">®</span>
-        </Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/">{chinese ? "首頁" : "Home"}</Link>
-          <Link href="/work">{chinese ? "作品集" : "Work archive"}</Link>
-          <Link href="/resources" aria-current="page" onNavigate={onBrowseResources ? event => {
-            event.preventDefault();
-            onBrowseResources();
-          } : undefined}>{chinese ? "資源區" : "Resources"}</Link>
-          <Link href="/#profile">{chinese ? "關於我" : "Profile"}</Link>
-          <Link href="/#contact">{chinese ? "聯絡" : "Contact"}</Link>
-        </nav>
-        <HeaderControls language={language} onToggleLanguage={() => setLanguage(current => current === "en" ? "zh" : "en")} onBrowseResources={onBrowseResources} />
-      </header>
+      <SiteHeader active="resources" onBrowseResources={onBrowseResources} />
       {children}
       <SiteStatus language={language} />
       <footer className="site-footer">
