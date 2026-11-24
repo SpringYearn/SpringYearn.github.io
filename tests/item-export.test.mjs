@@ -99,9 +99,9 @@ test("homepage headline and section labels lead into a single showreel link", ()
   assert.ok(homeWorks?.includes(archiveEntries[0]), "The archive link belongs in the Works section");
   const card = homeWorks.match(/<a\b[^>]*class="editorial-work-card"[^>]*>[\s\S]*?<\/a>/)?.[0];
   assert.ok(card?.startsWith(archiveEntries[0]));
-  assert.match(card, /class="editorial-work-showreel">Showreel<\/span>/);
-  assert.match(card, /class="editorial-work-archive">ARCHIVE/);
-  assert.match(card, /<h2 id="work-title">Explore Works<\/h2>/);
+  assert.match(card, /class="editorial-work-showreel"><span data-reveal-text="true">Showreel<\/span>/);
+  assert.match(card, /class="editorial-work-archive"><span data-reveal-text="true">ARCHIVE<\/span>/);
+  assert.match(card, /<h2 id="work-title"><span data-reveal-text="true">Explore Works<\/span><\/h2>/);
   const video = card.match(/<video\b[^>]*>/)?.[0];
   assert.ok(video);
   for (const attr of ["autoplay", "muted", "loop", "playsinline"]) {
@@ -117,6 +117,16 @@ test("homepage headline and section labels lead into a single showreel link", ()
     "editorial-history-heading", "editorial-timeline-row", "editorial-contact-info", "editorial-socials"]) {
     assert.ok([...home.matchAll(new RegExp(`class="${panel}"[^>]*>`, "g"))].some(([tag]) => tag.includes("data-reveal=")), panel);
   }
+  const timeline = home.match(/<ol class="editorial-timeline">[\s\S]*?<\/ol>/)?.[0];
+  assert.ok(timeline);
+  assert.equal([...timeline.matchAll(/class="editorial-timeline-row"/g)].length, 7);
+  assert.equal([...timeline.matchAll(/data-linked=""/g)].length, 3);
+  const historyLinks = [...timeline.matchAll(/<a class="editorial-timeline-link" href="([^"]*)" target="_blank" rel="noreferrer"/g)];
+  assert.deepEqual(historyLinks.map(([, href]) => href), [
+    "https://youtu.be/ByVA3G0X1IU?si=8x4yM1sRhwDJtD0b",
+    "https://youtube.com/@dfh-r6869?si=Ck2eNc0wMIyhQmBU",
+    "https://x.com/ValorantEsports/status/2102684410382287046?s=20",
+  ]);
 });
 
 test("archive covers and titles lead to details while sharing stays in individual pages", () => {

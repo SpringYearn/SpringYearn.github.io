@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Opened up the hero text and buttons and added a brief color flash to the scroll reveal."
+      "Refined text entrances and rebuilt the homepage timeline."
     ],
     "zh": [
-      "拉開首屏文字與按鈕的間距，調整捲動入場的速度與色彩。"
+      "調整文字入場效果，重整首頁時間線。"
     ]
   },
   "releases": [
+    {
+      "version": "V.114",
+      "date": "2026-11-24",
+      "en": ["Refined text entrances and rebuilt the homepage timeline."],
+      "zh": ["調整文字入場效果，重整首頁時間線。"]
+    },
     {
       "version": "V.113",
       "date": "2026-11-24",

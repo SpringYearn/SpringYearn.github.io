@@ -334,18 +334,18 @@ export default function Home() {
         <div className="editorial-bento" data-reveal>
           <Link href="/work/" className="editorial-work-card" aria-labelledby="work-title">
             <div className="editorial-work-meta">
-              <span className="editorial-work-showreel">{t.reelLabel}</span>
-              <span className="editorial-work-archive">{t.workArchive}<ArrowUpRight aria-hidden="true" /></span>
+              <span className="editorial-work-showreel"><span data-reveal-text>{t.reelLabel}</span></span>
+              <span className="editorial-work-archive"><span data-reveal-text>{t.workArchive}</span><ArrowUpRight aria-hidden="true" /></span>
             </div>
             <div className="editorial-work-film" aria-hidden="true"><HomeReel /></div>
             <div className="editorial-work-footer">
-              <h2 id="work-title">{t.exploreWorks}</h2>
+              <h2 id="work-title"><span data-reveal-text>{t.exploreWorks}</span></h2>
               <ArrowRight aria-hidden="true" />
             </div>
           </Link>
           <div className="editorial-bento-side">
             <div className="editorial-reels">
-              <h3>{t.showreelTitle}</h3>
+              <h3><span data-reveal-text>{t.showreelTitle}</span></h3>
               <div className="editorial-reel-links">
                 {annualReels.map(reel => (
                   <a href={reel.href} target="_blank" rel="noreferrer"
@@ -360,7 +360,7 @@ export default function Home() {
             </div>
             <Link id="lab" href="/resources/" className="editorial-resources-card">
               <div>
-                <h3>{chinese ? "資源區 // LAB" : "Resources // LAB"}</h3>
+                <h3><span data-reveal-text>{chinese ? "資源區 // LAB" : "Resources // LAB"}</span></h3>
                 <p>{chinese ? "免費專案檔與開發工具" : "Free project files and tools"}</p>
               </div>
               <div className="editorial-resources-visual" aria-hidden="true">
@@ -378,7 +378,7 @@ export default function Home() {
       <section id="profile" className="editorial-band editorial-profile" aria-labelledby="profile-title">
         <SectionIndex label="SECTION 02 // PROFILE" locale={locale} />
         <div className="editorial-profile-intro" data-reveal>
-          <h2 id="profile-title">{t.profileTitle}</h2>
+          <h2 id="profile-title"><span data-reveal-text>{t.profileTitle}</span></h2>
           <div>
             <p>{t.profileBody}</p>
             <p>{t.profileBody2}</p>
@@ -390,7 +390,7 @@ export default function Home() {
             <SpringLogo language={language} />
           </figure>
           <div className="editorial-brand-copy">
-            <h3>{t.brandTitle}</h3>
+            <h3><span data-reveal-text>{t.brandTitle}</span></h3>
             <dl>
               <div><dt lang="en">SPRING</dt><dd>{t.springMeaning}</dd></div>
               <div><dt lang="en">YEARN</dt><dd>{t.yearnMeaning}</dd></div>
@@ -401,7 +401,7 @@ export default function Home() {
 
         <div className="editorial-practice" data-reveal>
           <section aria-labelledby="capabilities-title">
-            <h3 id="capabilities-title">{t.services}</h3>
+            <h3 id="capabilities-title"><span data-reveal-text>{t.services}</span></h3>
             <ol className="editorial-capabilities">
               {capabilities.map((item, index) => (
                 <li key={item}>
@@ -412,7 +412,7 @@ export default function Home() {
             </ol>
           </section>
           <section aria-labelledby="software-title">
-            <h3 id="software-title">{chinese ? "使用軟體 / 工具" : "Software / Toolkit"}</h3>
+            <h3 id="software-title"><span data-reveal-text>{chinese ? "使用軟體 / 工具" : "Software / Toolkit"}</span></h3>
             {toolkits.map(group => (
               <div className="editorial-tool-group" key={group.label}>
                 <h4 className="mono-label">{group.label}</h4>
@@ -433,25 +433,31 @@ export default function Home() {
       <section id="history" className="editorial-band editorial-history" aria-labelledby="history-title">
         <SectionIndex label="SECTION 03 // ALONG THE WAY" locale={locale} />
         <div className="editorial-history-heading" data-reveal>
-          <h2 id="history-title">2020—NOW</h2>
+          <h2 id="history-title"><span data-reveal-text>2020—NOW</span></h2>
           <p>{chinese
             ? "持續進行動態影像、繪畫、平面設計、合成與 3D 的自主創作。"
             : "A self-directed practice across moving image, drawing, graphic design, compositing and 3D."}</p>
         </div>
         <ol className="editorial-timeline">
-          {practiceHistory.map((item, index) => (
-            <li className="editorial-timeline-row" data-official={item.phase.en === "Official project" ? "" : undefined} key={item.title.en} data-reveal>
+          {practiceHistory.map(item => (
+            <li className="editorial-timeline-row" key={item.title.en} data-reveal
+              data-linked={item.href ? "" : undefined} data-official={item.phase.en === "Official project" ? "" : undefined}>
               <div className="editorial-time">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <span aria-hidden="true">/</span>
-                <strong>{item.year[language]}</strong>
+                <strong data-reveal-text>{item.year[language]}</strong>
               </div>
-              <span className="editorial-phase mono-label">{item.phase[language]}</span>
               <div className="editorial-event">
-                <p className="mono-label editorial-partner">{item.partner[language]}</p>
-                <h3>{item.href
-                  ? <a href={item.href} target="_blank" rel="noreferrer">{item.title[language]} <ArrowUpRight aria-hidden="true" /></a>
-                  : item.title[language]}</h3>
+                <div className="editorial-event-meta mono-label">
+                  <span className="editorial-phase">{item.phase[language]}</span>
+                  <span>{item.partner[language]}</span>
+                </div>
+                <h3>
+                  {item.href ? (
+                    <a className="editorial-timeline-link" href={item.href} target="_blank" rel="noreferrer">
+                      <span data-reveal-text>{item.title[language]}</span>
+                      <span className="editorial-timeline-arrow" aria-hidden="true"><ArrowUpRight /></span>
+                    </a>
+                  ) : <span data-reveal-text>{item.title[language]}</span>}
+                </h3>
                 <p>{item.body[language]}</p>
               </div>
             </li>
@@ -463,7 +469,7 @@ export default function Home() {
         <SectionIndex label="SECTION 04 // CONTACT" locale={locale} />
         <div className="editorial-contact-info" data-reveal>
           <div>
-            <h2 id="contact-title">{t.contactTitle}</h2>
+            <h2 id="contact-title"><span data-reveal-text>{t.contactTitle}</span></h2>
             <p>{t.contactBody}</p>
           </div>
           <div className="editorial-contact-actions">
@@ -482,7 +488,7 @@ export default function Home() {
             <li key={social.href}>
               <a href={social.href} target="_blank" rel="noreferrer">
                 <span className="mono-label">{social.label}</span>
-                <strong>{social.handle}</strong>
+                <strong><span data-reveal-text>{social.handle}</span></strong>
                 <ArrowUpRight aria-hidden="true" />
               </a>
             </li>
