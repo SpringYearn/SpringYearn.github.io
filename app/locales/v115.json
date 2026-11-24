@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v115.release",
+    "en": "Staggered the homepage timeline and made the color flash lead each text entrance.",
+    "zh": "首頁時間線改為左右交錯，文字先閃現再顯示正常字形。",
+    "ja": "ホームの年表を左右交互の配置にし、文字が色と形を変えてから表示されるようにしました。",
+    "ko": "홈페이지 타임라인을 좌우로 교차 배치하고 글자가 색과 형태를 바꾼 뒤 나타나도록 했어요.",
+    "ru": "Карточки хронологии чередуются по сторонам оси, а текст появляется после короткой цветной вспышки.",
+    "vi": "Sắp xếp dòng thời gian xen kẽ hai bên và cho chữ lóe màu trước khi hiện rõ."
+  }
+]

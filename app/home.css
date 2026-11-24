@@ -438,19 +438,21 @@
 }
 .editorial-history-heading p { max-width: 45ch; margin: 0; color: var(--fg-muted); }
 .editorial-timeline {
-  --timeline-axis: clamp(7.5rem, 15vw, 13rem);
-  --timeline-padding: clamp(1.15rem, 2.2vw, 1.85rem);
-  --timeline-node-offset: calc(var(--timeline-padding) + .62rem);
+  --timeline-axis: .4rem;
+  --timeline-branch: 1.25rem;
+  --timeline-inset: clamp(1rem, 2.1vw, 1.8rem);
+  --timeline-card-padding: clamp(.95rem, 1.8vw, 1.45rem);
+  --timeline-node-offset: calc(var(--timeline-card-padding) + .66rem);
   position: relative;
   margin: 0;
-  padding: 0;
+  padding: var(--timeline-inset) 0;
   list-style: none;
   border-block: 1px solid var(--border-strong);
 }
 .editorial-timeline::before {
   content: "";
   position: absolute;
-  inset-block: var(--timeline-node-offset) 0;
+  inset-block: calc(var(--timeline-inset) + var(--timeline-node-offset)) var(--timeline-inset);
   inset-inline-start: var(--timeline-axis);
   width: 1px;
   background: var(--border-strong);
@@ -459,16 +461,24 @@
 .editorial-timeline-row {
   position: relative;
   display: grid;
-  grid-template-columns: var(--timeline-axis) minmax(0, 1fr);
-  align-items: start;
-  gap: .6rem clamp(1.5rem, 3.2vw, 3rem);
-  padding-block: var(--timeline-padding);
-  border-radius: var(--radius);
+  padding-inline-start: calc(var(--timeline-axis) + var(--timeline-branch));
+  padding-block-end: clamp(.9rem, 1.65vw, 1.5rem);
 }
-.editorial-timeline-row + li { border-top: 1px solid var(--border); }
+.editorial-timeline-row:last-child { padding-block-end: 0; }
+.editorial-timeline-row::after {
+  content: "";
+  position: absolute;
+  inset-block-start: var(--timeline-node-offset);
+  inset-inline-start: var(--timeline-axis);
+  width: var(--timeline-branch);
+  height: 1px;
+  background: var(--border-strong);
+  pointer-events: none;
+}
 .editorial-timeline-row::before {
   content: "";
   position: absolute;
+  z-index: 1;
   inset-block-start: var(--timeline-node-offset);
   inset-inline-start: calc(var(--timeline-axis) + .5px);
   width: .58rem;
@@ -480,12 +490,17 @@
 }
 .editorial-timeline-row[data-linked]::before { border-color: var(--accent); background: var(--accent); }
 .editorial-time {
-  min-width: 0;
-  padding-inline-end: 1rem;
+  margin-bottom: .75rem;
   font: 500 clamp(.83rem, 1.28vw, 1.14rem)/1.25 var(--code-type);
   font-variant-numeric: tabular-nums;
 }
-.editorial-event { min-width: 0; }
+.editorial-event {
+  min-width: 0;
+  padding: var(--timeline-card-padding);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+}
 .editorial-event-meta {
   display: flex;
   flex-wrap: wrap;
@@ -527,6 +542,21 @@
   border-color: var(--accent);
   background: var(--accent);
   color: var(--action-ink);
+}
+@media (min-width: 761px) {
+  .editorial-timeline {
+    --timeline-axis: 50%;
+    --timeline-branch: clamp(1.1rem, 3vw, 2.7rem);
+  }
+  .editorial-timeline-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: calc(var(--timeline-branch) * 2);
+    padding-inline-start: 0;
+  }
+  .editorial-timeline-row + .editorial-timeline-row { margin-top: calc(-1 * clamp(1.15rem, 2.5vw, 2.4rem)); }
+  .editorial-timeline-row .editorial-event { grid-column: 2; }
+  .editorial-timeline-row:nth-child(odd) .editorial-event { grid-column: 1; }
+  .editorial-timeline-row:nth-child(odd)::after { inset-inline-start: auto; inset-inline-end: 50%; }
 }
 
 .editorial-contact { margin-bottom: clamp(3rem, 7vw, 6.5rem); }
@@ -664,7 +694,5 @@
   .editorial-profile-intro, .editorial-brand, .editorial-practice, .editorial-history-heading, .editorial-contact-info { grid-template-columns: minmax(0, 1fr); }
   .editorial-brand-copy dl div { grid-template-columns: minmax(4.4rem,.3fr) minmax(0,1fr); }
   .editorial-capabilities li { grid-template-columns: 2.35rem minmax(0, 1fr); }
-  .editorial-timeline { --timeline-axis: .4rem; }
-  .editorial-timeline-row { grid-template-columns: minmax(0, 1fr); padding-inline-start: 1.65rem; }
   .editorial-socials { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

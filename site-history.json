@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Refined text entrances and rebuilt the homepage timeline."
+      "Staggered the homepage timeline and made the color flash lead each text entrance."
     ],
     "zh": [
-      "調整文字入場效果，重整首頁時間線。"
+      "首頁時間線改為左右交錯，文字先閃現再顯示正常字形。"
     ]
   },
   "releases": [
+    {
+      "version": "V.115",
+      "date": "2026-11-24",
+      "en": ["Staggered the homepage timeline and made the color flash lead each text entrance."],
+      "zh": ["首頁時間線改為左右交錯，文字先閃現再顯示正常字形。"]
+    },
     {
       "version": "V.114",
       "date": "2026-11-24",

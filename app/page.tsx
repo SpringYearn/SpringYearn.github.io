@@ -440,12 +440,12 @@ export default function Home() {
         </div>
         <ol className="editorial-timeline">
           {practiceHistory.map(item => (
-            <li className="editorial-timeline-row" key={item.title.en} data-reveal
+            <li className="editorial-timeline-row" key={item.title.en}
               data-linked={item.href ? "" : undefined} data-official={item.phase.en === "Official project" ? "" : undefined}>
-              <div className="editorial-time">
-                <strong data-reveal-text>{item.year[language]}</strong>
-              </div>
-              <div className="editorial-event">
+              <div className="editorial-event" data-reveal>
+                <div className="editorial-time">
+                  <strong data-reveal-text>{item.year[language]}</strong>
+                </div>
                 <div className="editorial-event-meta mono-label">
                   <span className="editorial-phase">{item.phase[language]}</span>
                   <span>{item.partner[language]}</span>

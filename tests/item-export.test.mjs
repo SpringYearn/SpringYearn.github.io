@@ -114,7 +114,7 @@ test("homepage headline and section labels lead into a single showreel link", ()
   assert.match(resourcesLink, /href="\/resources\/"/);
   assert.match(resourcesLink, /class="editorial-resources-visual" aria-hidden="true"/);
   for (const panel of ["editorial-bento", "editorial-profile-intro", "editorial-brand", "editorial-practice",
-    "editorial-history-heading", "editorial-timeline-row", "editorial-contact-info", "editorial-socials"]) {
+    "editorial-history-heading", "editorial-event", "editorial-contact-info", "editorial-socials"]) {
     assert.ok([...home.matchAll(new RegExp(`class="${panel}"[^>]*>`, "g"))].some(([tag]) => tag.includes("data-reveal=")), panel);
   }
   const timeline = home.match(/<ol class="editorial-timeline">[\s\S]*?<\/ol>/)?.[0];

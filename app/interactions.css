@@ -130,12 +130,16 @@
     svg:last-child { transform: translate(2px,-2px); }
 
   [data-reveal].is-panel-entering:not(:focus-within) {
-    --panel-enter-duration: 520ms;
-    animation: editorial-panel-in var(--panel-enter-duration) cubic-bezier(.2,.65,.3,1) both;
+    animation: editorial-panel-in 520ms cubic-bezier(.2,.65,.3,1) both;
   }
-  [data-reveal].is-panel-entering:not(:focus-within) [data-reveal-text] {
+  [data-reveal-text].is-reveal-text-pending { opacity: 0; }
+  [data-reveal-text].is-reveal-text-entering {
     transform-origin: left center;
-    animation: editorial-panel-text var(--panel-enter-duration) steps(1, end) both;
+    animation: editorial-panel-text 180ms steps(1, end) both;
+  }
+  [data-reveal]:focus-within :is(.is-reveal-text-pending, .is-reveal-text-entering) {
+    animation: none;
+    opacity: 1;
   }
 }
 @keyframes editorial-panel-in {
@@ -149,14 +153,22 @@
   }
 }
 @keyframes editorial-panel-text {
-  0%, 30%, 100% {
+  0% {
+    opacity: 0;
     color: inherit;
     background-color: transparent;
     transform: none;
   }
-  25% {
+  62% {
+    opacity: 1;
     color: var(--action-ink);
     background-color: var(--accent);
     transform: skewX(-7deg) scale(1.02, .87);
+  }
+  82%, 100% {
+    opacity: 1;
+    color: inherit;
+    background-color: transparent;
+    transform: none;
   }
 }

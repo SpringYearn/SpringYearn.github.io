@@ -2,8 +2,13 @@
 
 import { useEffect } from "react";
 
-const selector = "[data-reveal]";
+const panelSelector = "[data-reveal]";
+const textSelector = "[data-reveal-text]";
+const selector = `${panelSelector}, ${textSelector}`;
 const entering = "is-panel-entering";
+const textPending = "is-reveal-text-pending";
+const textEntering = "is-reveal-text-entering";
+const animationClasses = [entering, textPending, textEntering];
 const bottomInset = 56;
 
 export function ScrollPanels() {
@@ -21,18 +26,24 @@ export function ScrollPanels() {
         down = next > lastY;
         lastY = next;
       }
-      if (!down || !visible.size) return;
+      if (!visible.size) return;
 
       const limit = window.innerHeight - bottomInset;
-      const panels = [...visible].filter(target => {
+      const targets = [...visible].filter(target => {
+        if (!down && !target.matches(textSelector)) return false;
         const bounds = target.getBoundingClientRect();
         return target.isConnected && bounds.height > 0 && bounds.bottom > 0 && bounds.top <= limit;
       });
-      for (const target of panels) {
+      for (const target of targets) {
         visible.delete(target);
         seen.add(target);
         intersection.unobserve(target);
-        if (!reduced.matches && !target.matches(":focus-within")) target.classList.add(entering);
+        target.classList.remove(textPending);
+        const isText = target.matches(textSelector);
+        const panel = isText ? target.closest(panelSelector) : target;
+        if (down && !reduced.matches && !panel?.matches(":focus-within")) {
+          target.classList.add(isText ? textEntering : entering);
+        }
       }
     };
     const intersection = new IntersectionObserver(entries => {
@@ -51,13 +62,17 @@ export function ScrollPanels() {
     const observe = (target: Element) => {
       if (seen.has(target)) return;
       const bounds = target.getBoundingClientRect();
-      // A panel already exposed near the top is ready to read. One peeking
-      // in below the fold can still reveal on the first downward scroll.
-      if (bounds.height > 0 && (bounds.top < innerHeight / 2 || bounds.bottom <= innerHeight)) {
+      const isText = target.matches(textSelector);
+      // Keep already-readable text visible, including on a restored scroll position.
+      const alreadyVisible = isText
+        ? bounds.top < innerHeight
+        : bounds.top < innerHeight / 2 || bounds.bottom <= innerHeight;
+      if (bounds.height > 0 && alreadyVisible) {
         seen.add(target);
         return;
       }
       intersection.observe(target);
+      if (isText) target.classList.add(textPending);
     };
     document.querySelectorAll(selector).forEach(observe);
     const mutations = new MutationObserver(records => {
@@ -68,6 +83,7 @@ export function ScrollPanels() {
             if (!target.isConnected) {
               visible.delete(target);
               intersection.unobserve(target);
+              target.classList.remove(...animationClasses);
             }
           }
         }
@@ -75,9 +91,9 @@ export function ScrollPanels() {
     });
     mutations.observe(document.body, { childList: true, subtree: true });
     const finish = (event: AnimationEvent) => {
-      if (event.animationName === "editorial-panel-in" && event.target instanceof Element) {
-        event.target.classList.remove(entering);
-      }
+      if (!(event.target instanceof Element)) return;
+      if (event.animationName === "editorial-panel-in") event.target.classList.remove(entering);
+      if (event.animationName === "editorial-panel-text") event.target.classList.remove(textEntering);
     };
     window.addEventListener("scroll", revealVisible, { passive: true });
     document.addEventListener("animationend", finish);
@@ -88,7 +104,8 @@ export function ScrollPanels() {
       window.removeEventListener("scroll", revealVisible);
       document.removeEventListener("animationend", finish);
       document.removeEventListener("animationcancel", finish);
-      document.querySelectorAll("." + entering).forEach(el => el.classList.remove(entering));
+      document.querySelectorAll(animationClasses.map(name => "." + name).join(", "))
+        .forEach(el => el.classList.remove(...animationClasses));
     };
   }, []);
 
