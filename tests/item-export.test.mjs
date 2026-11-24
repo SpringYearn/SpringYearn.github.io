@@ -113,6 +113,10 @@ test("homepage headline and section labels lead into a single showreel link", ()
   const resourcesLink = homeWorks.match(/<a\b[^>]*id="lab"[^>]*>[\s\S]*?<\/a>/)?.[0];
   assert.match(resourcesLink, /href="\/resources\/"/);
   assert.match(resourcesLink, /class="editorial-resources-visual" aria-hidden="true"/);
+  for (const panel of ["editorial-bento", "editorial-profile-intro", "editorial-brand", "editorial-practice",
+    "editorial-history-heading", "editorial-timeline-row", "editorial-contact-info", "editorial-socials"]) {
+    assert.ok([...home.matchAll(new RegExp(`class="${panel}"[^>]*>`, "g"))].some(([tag]) => tag.includes("data-reveal=")), panel);
+  }
 });
 
 test("archive covers and titles lead to details while sharing stays in individual pages", () => {

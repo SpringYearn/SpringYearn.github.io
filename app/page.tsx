@@ -432,7 +432,7 @@ export default function Home() {
 
       <section id="history" className="editorial-band editorial-history" aria-labelledby="history-title">
         <SectionIndex label="SECTION 03 // ALONG THE WAY" locale={locale} />
-        <div className="editorial-history-heading">
+        <div className="editorial-history-heading" data-reveal>
           <h2 id="history-title">2020—NOW</h2>
           <p>{chinese
             ? "持續進行動態影像、繪畫、平面設計、合成與 3D 的自主創作。"
@@ -440,7 +440,7 @@ export default function Home() {
         </div>
         <ol className="editorial-timeline">
           {practiceHistory.map((item, index) => (
-            <li className="editorial-timeline-row" data-official={item.phase.en === "Official project" ? "" : undefined} key={item.title.en}>
+            <li className="editorial-timeline-row" data-official={item.phase.en === "Official project" ? "" : undefined} key={item.title.en} data-reveal>
               <div className="editorial-time">
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <span aria-hidden="true">/</span>
@@ -477,7 +477,7 @@ export default function Home() {
           </div>
         </div>
         <h3 className="mono-label editorial-social-title">{t.socials}</h3>
-        <ul className="editorial-socials">
+        <ul className="editorial-socials" data-reveal>
           {socialLinks.map(social => (
             <li key={social.href}>
               <a href={social.href} target="_blank" rel="noreferrer">

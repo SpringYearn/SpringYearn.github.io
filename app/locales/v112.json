@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v112.release",
+    "en": "Added more room between homepage sections and fixed the geometric scroll reveal.",
+    "zh": "拉開首頁區塊間距，修正捲動時的幾何入場。",
+    "ja": "ホームの各セクションに余白を増やし、スクロール時の表示アニメーションを修正しました。",
+    "ko": "홈페이지 섹션 사이 여백을 늘리고 스크롤 등장 애니메이션을 고쳤어요.",
+    "ru": "Увеличены отступы между разделами главной страницы и исправлена анимация появления при прокрутке.",
+    "vi": "Tăng khoảng cách giữa các phần trên trang chủ và sửa hiệu ứng xuất hiện khi cuộn."
+  }
+]

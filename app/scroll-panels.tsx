@@ -4,30 +4,45 @@ import { useEffect } from "react";
 
 const selector = "[data-reveal]";
 const entering = "is-panel-entering";
+const bottomInset = 56;
 
 export function ScrollPanels() {
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduced.matches) return;
 
     const seen = new WeakSet<Element>();
+    const visible = new Set<Element>();
     let lastY = window.scrollY;
     let down = false;
-    const onScroll = () => {
+    const revealVisible = () => {
       const next = window.scrollY;
-      down = next > lastY;
-      lastY = next;
+      if (next !== lastY) {
+        down = next > lastY;
+        lastY = next;
+      }
+      if (!down || !visible.size) return;
+
+      const limit = window.innerHeight - bottomInset;
+      const panels = [...visible].filter(target => {
+        const bounds = target.getBoundingClientRect();
+        return target.isConnected && bounds.height > 0 && bounds.bottom > 0 && bounds.top <= limit;
+      });
+      for (const target of panels) {
+        visible.delete(target);
+        seen.add(target);
+        intersection.unobserve(target);
+        if (!reduced.matches && !target.matches(":focus-within")) target.classList.add(entering);
+      }
     };
     const intersection = new IntersectionObserver(entries => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        intersection.unobserve(entry.target);
-        if (down && !reduced.matches && entry.boundingClientRect.top >= 0) {
-          entry.target.classList.add(entering);
-        }
+        if (seen.has(entry.target)) continue;
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
       }
-    }, { threshold: .09, rootMargin: "0px 0px -4% 0px" });
+      revealVisible();
+    }, { rootMargin: `0px 0px -${bottomInset}px 0px` });
 
     const elementsIn = (node: Node) => {
       if (!(node instanceof Element)) return [];
@@ -35,8 +50,14 @@ export function ScrollPanels() {
     };
     const observe = (target: Element) => {
       if (seen.has(target)) return;
-      seen.add(target);
-      if (target.getBoundingClientRect().top >= innerHeight - 12) intersection.observe(target);
+      const bounds = target.getBoundingClientRect();
+      // A panel already exposed near the top is ready to read. One peeking
+      // in below the fold can still reveal on the first downward scroll.
+      if (bounds.height > 0 && (bounds.top < innerHeight / 2 || bounds.bottom <= innerHeight)) {
+        seen.add(target);
+        return;
+      }
+      intersection.observe(target);
     };
     document.querySelectorAll(selector).forEach(observe);
     const mutations = new MutationObserver(records => {
@@ -44,7 +65,10 @@ export function ScrollPanels() {
         for (const node of addedNodes) elementsIn(node).forEach(observe);
         for (const node of removedNodes) {
           for (const target of elementsIn(node)) {
-            if (!target.isConnected) intersection.unobserve(target);
+            if (!target.isConnected) {
+              visible.delete(target);
+              intersection.unobserve(target);
+            }
           }
         }
       }
@@ -55,13 +79,13 @@ export function ScrollPanels() {
         event.target.classList.remove(entering);
       }
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", revealVisible, { passive: true });
     document.addEventListener("animationend", finish);
     document.addEventListener("animationcancel", finish);
     return () => {
       intersection.disconnect();
       mutations.disconnect();
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", revealVisible);
       document.removeEventListener("animationend", finish);
       document.removeEventListener("animationcancel", finish);
       document.querySelectorAll("." + entering).forEach(el => el.classList.remove(entering));

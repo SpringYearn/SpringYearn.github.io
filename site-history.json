@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added title hover motion and refreshed the homepage resources entrance."
+      "Added more room between homepage sections and fixed the geometric scroll reveal."
     ],
     "zh": [
-      "首屏標題加入懸停互動，更新首頁資源入口。"
+      "拉開首頁區塊間距，修正捲動時的幾何入場。"
     ]
   },
   "releases": [
+    {
+      "version": "V.112",
+      "date": "2026-11-24",
+      "en": ["Added more room between homepage sections and fixed the geometric scroll reveal."],
+      "zh": ["拉開首頁區塊間距，修正捲動時的幾何入場。"]
+    },
     {
       "version": "V.111",
       "date": "2026-11-24",

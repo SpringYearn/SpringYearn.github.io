@@ -129,18 +129,18 @@
     svg:last-child { transform: translate(2px,-2px); }
 
   [data-reveal].is-panel-entering:not(:focus-within) {
-    animation: editorial-panel-in 310ms cubic-bezier(.16,1,.3,1) both;
+    animation: editorial-panel-in 310ms cubic-bezier(.2,.65,.3,1) both;
   }
 }
 @keyframes editorial-panel-in {
   from {
-    opacity: .46;
-    translate: 0 8px;
-    clip-path: polygon(0 0, 83% 0, 96% 25%, 96% 100%, 0 100%);
+    opacity: .48;
+    translate: 0 11px;
+    clip-path: polygon(0 0, 36% 0, 65% 100%, 0 100%);
   }
   to {
     opacity: 1;
     translate: 0 0;
-    clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 }
