@@ -121,7 +121,7 @@
     .editorial-cta, .item-share-button, .item-details-cta, .lab-share-button, .lab-dialog-close,
     .lab-confirm-button, .pf-download-link, .lab-download-button, .board-request-button, .item-preview-link,
     .lab-sort-direction button, .archive-filter-row button, .board-tool-group button,
-    .pf-category-index button, .board-folder-trigger, .resource-choice, .editorial-work-tile, .editorial-all-works, .editorial-resources-card,
+    .pf-category-index button, .board-folder-trigger, .resource-choice, .editorial-resources-card,
     .site-status > button):not(:disabled):active { translate: 0 2px; }
   :is(.text-link, .editorial-mail-links a, .site-footer a, .lab-download-button, .pf-download-link) svg:last-child,
   .language-chevron { transition: transform 180ms cubic-bezier(.16, 1, .3, 1); }

@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Redesigned the homepage headline and selected works showcase."
+      "Restored the showreel as the homepage portfolio entrance."
     ],
     "zh": [
-      "重設首頁主標與精選作品櫥窗。"
+      "首頁作品集入口改回影片卡片。"
     ]
   },
   "releases": [
+    {
+      "version": "V.109",
+      "date": "2026-11-24",
+      "en": ["Restored the showreel as the homepage portfolio entrance."],
+      "zh": ["首頁作品集入口改回影片卡片。"]
+    },
     {
       "version": "V.108",
       "date": "2026-11-24",

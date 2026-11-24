@@ -1,0 +1,20 @@
+[
+  {
+    "id": "v109.reelLabel",
+    "en": "SHOWREEL // SELECTED WORKS",
+    "zh": "影片精華 // 精選作品",
+    "ja": "ショーリール // 精選作品",
+    "ko": "쇼릴 // 선정 작품",
+    "ru": "ШОУРИЛ // ИЗБРАННЫЕ РАБОТЫ",
+    "vi": "VIDEO TỔNG HỢP // TÁC PHẨM NỔI BẬT"
+  },
+  {
+    "id": "v109.release",
+    "en": "Restored the showreel as the homepage portfolio entrance.",
+    "zh": "首頁作品集入口改回影片卡片。",
+    "ja": "ホームの作品一覧への入口をショーリールに戻しました。",
+    "ko": "홈페이지에서 쇼릴을 눌러 작품 목록으로 들어갈 수 있게 복원했어요.",
+    "ru": "Шоурил снова ведёт в портфолио с главной страницы.",
+    "vi": "Khôi phục video tổng hợp làm lối vào danh mục tác phẩm trên trang chủ."
+  }
+]

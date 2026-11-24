@@ -3,7 +3,7 @@ import { Localized } from "./localized";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Copy } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SiteHeader } from "./header-controls";
 import { useSiteLanguage, type Locale } from "./site-language";
@@ -11,8 +11,7 @@ import { localizeText } from "./localization";
 import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
-import { projects, projectTitle } from "./portfolio-data";
-import { featuredWorkIds } from "./work/featured-data";
+import { HomeReel } from "./home-reel";
 import "./home.css";
 
 const copy = {
@@ -23,8 +22,8 @@ const copy = {
     intro: "I work across editing, motion, drawing, graphic design and 3D. If an idea calls for a different medium, I’m happy to try it.",
     heroOrigin: "Independent creative / Taiwan",
     exploreWorks: "Explore Works",
-    selectedWorks: "SELECTED WORKS",
-    allWorks: "ALL WORKS",
+    reelLabel: "SHOWREEL // SELECTED WORKS",
+    workArchive: "WORK ARCHIVE",
     showreelTitle: "A year of edits",
     showreelView: "Watch showreel",
     profileTitle: "Hi, I’m\nSpringYearn.",
@@ -61,8 +60,8 @@ const copy = {
     intro: "創作橫跨剪輯、動態設計、繪畫、平面與 3D。只要點子需要不同的媒材呈現，我都樂於嘗試。",
     heroOrigin: "獨立創作者 / 台灣",
     exploreWorks: "探索作品",
-    selectedWorks: "精選作品",
-    allWorks: "所有作品",
+    reelLabel: "影片精華 // 精選作品",
+    workArchive: "作品集",
     showreelTitle: "這一年剪了什麼",
     showreelView: "觀看 Showreel",
     profileTitle: "嗨，我是\nSpringYearn。",
@@ -240,8 +239,6 @@ const annualReels = [
   },
 ];
 
-const selectedWorks = featuredWorkIds.map(id => projects.find(project => project.id === id)!);
-
 const emphasis: Record<Locale, [string, string]> = {
   en: ["move", "still."],
   zh: ["動起來", "安靜停格。"],
@@ -343,29 +340,19 @@ export default function Home() {
 
       <section id="work" className="editorial-band editorial-works" aria-labelledby="work-title" tabIndex={-1}>
         <SectionIndex label="SECTION 01 // WORKS" locale={locale} />
-        <div className="editorial-bento">
-          <div className="editorial-showcase" data-reveal>
-            <div className="editorial-showcase-heading">
-              <h2 id="work-title">{t.selectedWorks}</h2>
-              <Link href="/work/" className="editorial-all-works">{t.allWorks}<ArrowUpRight aria-hidden="true" /></Link>
+        <div className="editorial-bento" data-reveal>
+          <Link href="/work/" className="editorial-work-card" aria-labelledby="work-title">
+            <div className="editorial-work-meta">
+              <span className="editorial-work-showreel">{t.reelLabel}</span>
+              <span className="editorial-work-archive">{t.workArchive}<ArrowUpRight aria-hidden="true" /></span>
             </div>
-            <div className="editorial-work-grid">
-              {selectedWorks.map(project => (
-                <Link key={project.id} href={`/work/${project.id}/`} className="editorial-work-tile"
-                  aria-labelledby={`home-work-title-${project.id}`}>
-                  <span className="editorial-work-media" aria-hidden="true">
-                    <img src={project.thumbnail} alt="" width="1280" height="720" loading="lazy" decoding="async" />
-                  </span>
-                  <span className="editorial-work-caption">
-                    <span className="editorial-work-type">{project.type[language]}</span>
-                    <span id={`home-work-title-${project.id}`} className="editorial-work-name" data-localize="off">{projectTitle(project, locale)}</span>
-                  </span>
-                  <ArrowUpRight className="editorial-work-arrow" aria-hidden="true" />
-                </Link>
-              ))}
+            <div className="editorial-work-film" aria-hidden="true"><HomeReel /></div>
+            <div className="editorial-work-footer">
+              <h2 id="work-title">{t.exploreWorks}</h2>
+              <ArrowRight aria-hidden="true" />
             </div>
-          </div>
-          <div className="editorial-bento-side" data-reveal>
+          </Link>
+          <div className="editorial-bento-side">
             <div className="editorial-reels">
               <h3>{t.showreelTitle}</h3>
               <div className="editorial-reel-links">
