@@ -82,12 +82,12 @@ test("archive covers and titles lead to details while sharing stays in individua
   const work = read("work/index.html"), files = read("project-files/index.html");
   const home = read("index.html").split("</header>")[1].split("</main>")[0];
   const homeLinks = [...home.matchAll(/<a\b[^>]*>/g)].map(([tag]) => tag);
+  const homeWorks = home.match(/<section id="work"[^>]*>[\s\S]*?<\/section>/)?.[0];
   const archiveEntries = homeLinks.filter(tag => tag.includes('href="/work/"'));
   assert.equal(archiveEntries.length, 1);
-  assert.match(archiveEntries[0], /class="editorial-hero-jump"/);
-  for (const id of featuredWorkIds) {
-    assert.ok(homeLinks.some(tag => tag.includes('class="editorial-work-preview"') && tag.includes(`href="/work/${id}/"`)), id);
-  }
+  assert.ok(homeWorks?.includes(archiveEntries[0]), "The entrance belongs in the Works section");
+  assert.match(homeWorks, /<video\b[^>]*poster="\/works\/home-reel-poster\.webp/);
+  assert.doesNotMatch(homeWorks, /Selected works|href="\/work\/\d+\//i);
   assert.ok(!work.includes('class="item-share-button"'));
   assert.ok(!files.includes('class="item-share-button"'));
   for (const project of projects) {

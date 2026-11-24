@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Corrected the bear study title and simplified the homepage archive entry."
+      "Moved the homepage portfolio entrance into the Works section."
     ],
     "zh": [
-      "更正《卡通熊建模練習》標題，整併首頁的作品集入口。"
+      "將首頁的作品集入口移到作品區。"
     ]
   },
   "releases": [
+    {
+      "version": "V.107",
+      "date": "2026-11-24",
+      "en": ["Moved the homepage portfolio entrance into the Works section."],
+      "zh": ["將首頁的作品集入口移到作品區。"]
+    },
     {
       "version": "V.106",
       "date": "2026-11-24",

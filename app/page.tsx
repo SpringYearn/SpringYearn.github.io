@@ -12,7 +12,6 @@ import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
 import { HomeReel } from "./home-reel";
-import { WorkPreviews } from "./work-previews";
 import "./home.css";
 
 const copy = {
@@ -320,13 +319,6 @@ export default function Home() {
           <p>{t.intro}</p>
           <a href="#contact" className="editorial-cta editorial-cta-secondary">{t.nav.contact}<ArrowUpRight aria-hidden="true" /></a>
         </div>
-        <Link href="/work/" className="editorial-hero-jump">
-          <div className="editorial-hero-film">
-            <HomeReel />
-            <span className="editorial-hero-mark" aria-hidden="true"><ArrowUpRight /></span>
-          </div>
-          <span className="editorial-hero-jump-label">{t.exploreWorks}<ArrowRight aria-hidden="true" /></span>
-        </Link>
         <dl className="editorial-facts">
           <div>
             <dt>{chinese ? "創作跨度" : "Creative practice"}</dt>
@@ -339,10 +331,16 @@ export default function Home() {
         </dl>
       </section>
 
-      <section id="work" className="editorial-band editorial-works" aria-labelledby="work-preview-title">
+      <section id="work" className="editorial-band editorial-works" aria-labelledby="work-title">
         <SectionIndex number="01">{chinese ? "作品" : "Works"}</SectionIndex>
         <div className="editorial-bento" data-reveal>
-          <WorkPreviews />
+          <Link href="/work/" className="editorial-work-entry">
+            <div className="editorial-work-film">
+              <HomeReel />
+              <span className="editorial-work-mark" aria-hidden="true"><ArrowUpRight /></span>
+            </div>
+            <h2 id="work-title" className="editorial-work-entry-label">{t.exploreWorks}<ArrowRight aria-hidden="true" /></h2>
+          </Link>
           <div className="editorial-bento-side">
             <div className="editorial-reels">
               <h3>{t.showreelTitle}</h3>
