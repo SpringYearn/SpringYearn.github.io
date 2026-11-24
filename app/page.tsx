@@ -189,6 +189,15 @@ const practiceHistory = [
     },
   },
   {
+    year: { en: "LATE 2026", zh: "2026 年底" },
+    href: null,
+    phase: { en: "Milestone", zh: "里程碑" },
+    title: {
+      en: "Cumulative earnings from editing projects handled by me officially exceeded $10,000 USD",
+      zh: "經手剪輯專案累積收入正式超過 1 萬美元",
+    },
+  },
+  {
     year: { en: "ONGOING", zh: "持續" },
     href: null,
     phase: { en: "Current practice", zh: "現在" },
@@ -472,7 +481,7 @@ export default function Home() {
                 </div>
                 <div className="editorial-event-meta mono-label">
                   <span className="editorial-phase">{item.phase[language]}</span>
-                  <span>{item.partner[language]}</span>
+                  {item.partner && <span>{item.partner[language]}</span>}
                 </div>
                 <h3>
                   {item.href ? (
@@ -482,7 +491,7 @@ export default function Home() {
                     </a>
                   ) : <span data-reveal-text>{item.title[language]}</span>}
                 </h3>
-                <p>{item.body[language]}</p>
+                {item.body && <p>{item.body[language]}</p>}
               </div>
             </li>
           ))}

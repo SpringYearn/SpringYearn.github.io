@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v119.release",
+    "en": "Added an editing milestone to the homepage timeline.",
+    "zh": "首頁時間線新增剪輯里程碑。",
+    "ja": "ホームの年表に映像編集の節目を追加しました。",
+    "ko": "홈 타임라인에 편집 작업의 이정표를 추가했어요.",
+    "ru": "В хронологию на главной добавлено достижение в видеомонтаже.",
+    "vi": "Đã thêm một cột mốc dựng video vào dòng thời gian trên trang chủ."
+  },
+  {
+    "id": "v119.timeline.earnings-date",
+    "en": "LATE 2026",
+    "zh": "2026 年底",
+    "ja": "2026年末",
+    "ko": "2026년 말",
+    "ru": "Конец 2026 года",
+    "vi": "Cuối năm 2026"
+  },
+  {
+    "id": "v119.timeline.earnings",
+    "en": "Cumulative earnings from editing projects handled by me officially exceeded $10,000 USD",
+    "zh": "經手剪輯專案累積收入正式超過 1 萬美元",
+    "ja": "私が手がけた映像編集案件の累計収入が正式に1万米ドルを超えました",
+    "ko": "제가 맡은 편집 프로젝트의 누적 수입이 공식적으로 미화 1만 달러를 넘었습니다",
+    "ru": "Мой совокупный доход от выполненных проектов по видеомонтажу официально превысил 10 000 долларов США",
+    "vi": "Tổng thu nhập từ các dự án dựng video do tôi thực hiện đã chính thức vượt mốc 10.000 USD"
+  }
+]

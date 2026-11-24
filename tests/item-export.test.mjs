@@ -119,7 +119,11 @@ test("homepage headline and section labels lead into a single showreel link", ()
   }
   const timeline = home.match(/<ol class="editorial-timeline">[\s\S]*?<\/ol>/)?.[0];
   assert.ok(timeline);
-  assert.equal([...timeline.matchAll(/class="editorial-timeline-row"/g)].length, 7);
+  const entries = [...timeline.matchAll(/<li class="editorial-timeline-row"[^>]*>[\s\S]*?<\/li>/g)].map(([entry]) => entry);
+  assert.equal(entries.length, 8);
+  assert.ok(entries.at(-2).includes(">LATE 2026</strong>"));
+  assert.ok(entries.at(-2).includes(">Cumulative earnings from editing projects handled by me officially exceeded $10,000 USD</span>"));
+  assert.ok(entries.at(-1).includes(">ONGOING</strong>"));
   assert.equal([...timeline.matchAll(/data-linked=""/g)].length, 3);
   const historyLinks = [...timeline.matchAll(/<a class="editorial-timeline-link" href="([^"]*)" target="_blank" rel="noreferrer"/g)];
   assert.deepEqual(historyLinks.map(([, href]) => href), [

@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Refined title interactions, scroll entrances and the homepage timeline."
+      "Added an editing milestone to the homepage timeline."
     ],
     "zh": [
-      "調整標題互動、捲動入場與首頁時間線。"
+      "首頁時間線新增剪輯里程碑。"
     ]
   },
   "releases": [
+    {
+      "version": "V.119",
+      "date": "2026-11-24",
+      "en": ["Added an editing milestone to the homepage timeline."],
+      "zh": ["首頁時間線新增剪輯里程碑。"]
+    },
     {
       "version": "V.118",
       "date": "2026-11-24",
