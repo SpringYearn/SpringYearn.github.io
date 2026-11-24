@@ -8,9 +8,9 @@
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   grid-template-areas: "byline byline" "statement statement" "story facts";
   column-gap: clamp(1.4rem, 4vw, 4rem);
-  row-gap: clamp(1.25rem, 3.45vw, 3.2rem);
-  margin-top: clamp(2.15rem, 4.9vw, 5rem);
-  padding: clamp(1rem, 1.75vw, 1.55rem) 0 clamp(1.85rem, 4.25vw, 4.1rem);
+  row-gap: clamp(1.1rem, 2.85vw, 2.8rem);
+  margin-top: clamp(1.8rem, 4vw, 4.2rem);
+  padding: clamp(.9rem, 1.55vw, 1.4rem) 0 clamp(1.35rem, 3vw, 2.75rem);
   border-block: 1px solid var(--border-strong);
 }
 .editorial-hero-overline {
@@ -28,7 +28,7 @@
 .editorial-statement {
   grid-area: statement;
   min-width: 0;
-  margin: 0;
+  margin: 0 0 clamp(1rem, 2.6vw, 3.2rem);
   font: 500 clamp(2.55rem, 8.6cqi, 8.5rem)/.98 var(--body-type);
   letter-spacing: -.062em;
   text-wrap: balance;
@@ -50,7 +50,7 @@
   align-self: start;
   display: grid;
   justify-items: start;
-  gap: clamp(.75rem, 1.65vw, 1.45rem);
+  gap: clamp(1.25rem, 2.7vw, 2.65rem);
   min-width: 0;
 }
 .editorial-hero-story > p {
@@ -101,7 +101,7 @@
 .editorial-facts dd { margin: 0; font-weight: 700; font-size: .96rem; line-height: 1.25; overflow-wrap: anywhere; }
 .editorial-facts > div:first-child dd { font-family: var(--code-type); font-size: .87rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
-.editorial-band { margin-top: clamp(5rem, 11.25vw, 11rem); scroll-margin-top: 90px; }
+.editorial-band { margin-top: clamp(3.75rem, 8.3vw, 8.5rem); scroll-margin-top: 90px; }
 .editorial-index {
   display: flex;
   align-items: baseline;
@@ -121,7 +121,7 @@
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: var(--work-panel-gap);
-  padding-block: clamp(1rem, 2.15vw, 2rem);
+  padding-block: var(--work-panel-gap);
   border-bottom: 1px solid var(--border-strong);
 }
 .editorial-work-card, .editorial-bento-side {
@@ -316,7 +316,7 @@
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: clamp(1.5rem, 5vw, 5rem);
   align-items: start;
-  padding-block: clamp(2.2rem, 5.4vw, 5rem);
+  padding-block: clamp(1.8rem, 4.35vw, 4.15rem);
 }
 .editorial-profile-intro h2, .editorial-contact-info h2 {
   margin: 0;
@@ -473,7 +473,7 @@
 .editorial-event p { margin: 0; color: var(--fg-muted); font-size: .9rem; }
 .editorial-event .editorial-partner { font-size: .66rem; line-height: 1.35; }
 
-.editorial-contact { margin-bottom: clamp(3.6rem, 8.15vw, 7.6rem); }
+.editorial-contact { margin-bottom: clamp(3rem, 7vw, 6.5rem); }
 .editorial-contact-info { align-items: end; }
 .editorial-contact-actions { min-width: 0; }
 .editorial-email {
@@ -597,7 +597,7 @@
 }
 @media (max-width: 620px) {
   .editorial-hero {
-    margin-top: 1.45rem;
+    margin-top: 1.25rem;
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "byline" "statement" "story" "facts";
   }

@@ -129,18 +129,67 @@
     svg:last-child { transform: translate(2px,-2px); }
 
   [data-reveal].is-panel-entering:not(:focus-within) {
-    animation: editorial-panel-in 310ms cubic-bezier(.2,.65,.3,1) both;
+    --panel-enter-duration: 520ms;
+    animation: editorial-panel-in var(--panel-enter-duration) cubic-bezier(.2,.65,.3,1) both;
+    transform-origin: top center;
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+  }
+
+  .home-page [data-reveal].is-panel-entering:not(:focus-within) { position: relative; }
+  .home-page [data-reveal].is-panel-entering:not(:focus-within)::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    inset: 0 0 auto;
+    height: clamp(2.1rem, 5.5vw, 3.6rem);
+    border-top: 1px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 30%, transparent);
+    clip-path: polygon(0 0, 100% 0, 94% 100%, 0 62%);
+    pointer-events: none;
+    animation: editorial-panel-flash var(--panel-enter-duration) steps(1, end) both;
   }
 }
 @keyframes editorial-panel-in {
   from {
-    opacity: .48;
-    translate: 0 11px;
-    clip-path: polygon(0 0, 36% 0, 65% 100%, 0 100%);
+    opacity: .54;
+    translate: 0 13px;
+    scale: .987 .976;
+    clip-path: polygon(0 0, 32% 0, 61% 100%, 0 100%);
+    outline-color: transparent;
+  }
+  24% {
+    opacity: .77;
+    translate: 0 7px;
+    scale: .996 .986;
+    clip-path: polygon(0 0, 57% 0, 79% 100%, 0 100%);
+    outline-color: transparent;
+    animation-timing-function: step-end;
+  }
+  25% {
+    opacity: .92;
+    translate: 5px 3px;
+    scale: 1.012 .965;
+    clip-path: polygon(0 0, 88% 0, 100% 100%, 0 100%);
+    outline-color: var(--accent);
+    animation-timing-function: step-end;
+  }
+  30% {
+    opacity: .86;
+    translate: 0 5px;
+    scale: 1 .992;
+    clip-path: polygon(0 0, 74% 0, 89% 100%, 0 100%);
+    outline-color: transparent;
   }
   to {
     opacity: 1;
     translate: 0 0;
+    scale: 1;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    outline-color: transparent;
   }
+}
+@keyframes editorial-panel-flash {
+  0%, 30%, 100% { opacity: 0; }
+  25% { opacity: 1; }
 }

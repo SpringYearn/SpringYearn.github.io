@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added more room between homepage sections and fixed the geometric scroll reveal."
+      "Opened up the hero text and buttons and added a brief color flash to the scroll reveal."
     ],
     "zh": [
-      "拉開首頁區塊間距，修正捲動時的幾何入場。"
+      "拉開首屏文字與按鈕的間距，調整捲動入場的速度與色彩。"
     ]
   },
   "releases": [
+    {
+      "version": "V.113",
+      "date": "2026-11-24",
+      "en": ["Opened up the hero text and buttons and added a brief color flash to the scroll reveal."],
+      "zh": ["拉開首屏文字與按鈕的間距，調整捲動入場的速度與色彩。"]
+    },
     {
       "version": "V.112",
       "date": "2026-11-24",

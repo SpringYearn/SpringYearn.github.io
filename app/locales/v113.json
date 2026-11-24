@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v113.release",
+    "en": "Opened up the hero text and buttons and added a brief color flash to the scroll reveal.",
+    "zh": "拉開首屏文字與按鈕的間距，調整捲動入場的速度與色彩。",
+    "ja": "ホームの見出し、説明文、ボタンの間隔を広げ、スクロール時の登場演出に短い色の変化を加えました。",
+    "ko": "홈페이지 첫 화면의 글과 버튼 사이 간격을 넓히고 스크롤 등장 효과에 짧은 색 변화를 넣었어요.",
+    "ru": "Увеличены отступы между заголовком, текстом и кнопками, а при прокрутке добавлена короткая цветная вспышка.",
+    "vi": "Tăng khoảng cách giữa tiêu đề, phần giới thiệu và các nút, đồng thời thêm một nhịp đổi màu khi nội dung xuất hiện."
+  }
+]
