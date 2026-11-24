@@ -110,6 +110,9 @@ test("homepage headline and section labels lead into a single showreel link", ()
   assert.match(video, /poster="\/works\/home-reel-poster\.webp/);
   assert.doesNotMatch(video, /\bsrc=/, "Video loading is deferred until the card enters view");
   assert.doesNotMatch(homeWorks, /href="\/work\/\d+\//);
+  const resourcesLink = homeWorks.match(/<a\b[^>]*id="lab"[^>]*>[\s\S]*?<\/a>/)?.[0];
+  assert.match(resourcesLink, /href="\/resources\/"/);
+  assert.match(resourcesLink, /class="editorial-resources-visual" aria-hidden="true"/);
 });
 
 test("archive covers and titles lead to details while sharing stays in individual pages", () => {

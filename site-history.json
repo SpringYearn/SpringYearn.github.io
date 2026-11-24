@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Refined the homepage grid, labels and corner styles."
+      "Added title hover motion and refreshed the homepage resources entrance."
     ],
     "zh": [
-      "微調首頁作品區與全站圓角規範。"
+      "首屏標題加入懸停互動，更新首頁資源入口。"
     ]
   },
   "releases": [
+    {
+      "version": "V.111",
+      "date": "2026-11-24",
+      "en": ["Added title hover motion and refreshed the homepage resources entrance."],
+      "zh": ["首屏標題加入懸停互動，更新首頁資源入口。"]
+    },
     {
       "version": "V.110",
       "date": "2026-11-24",

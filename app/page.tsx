@@ -3,7 +3,7 @@ import { Localized } from "./localized";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight, Copy } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Clapperboard, Copy, Workflow } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SiteHeader } from "./header-controls";
 import { useSiteLanguage, type Locale } from "./site-language";
@@ -363,7 +363,13 @@ export default function Home() {
                 <h3>{chinese ? "資源區 // LAB" : "Resources // LAB"}</h3>
                 <p>{chinese ? "免費專案檔與開發工具" : "Free project files and tools"}</p>
               </div>
-              <ArrowUpRight aria-hidden="true" />
+              <div className="editorial-resources-visual" aria-hidden="true">
+                <div className="editorial-resources-stack">
+                  <span className="editorial-resource-frame editorial-resource-frame-files"><Clapperboard /></span>
+                  <span className="editorial-resource-frame editorial-resource-frame-lab"><Workflow /></span>
+                </div>
+                <span className="editorial-resources-arrow"><ArrowUpRight /></span>
+              </div>
             </Link>
           </div>
         </div>

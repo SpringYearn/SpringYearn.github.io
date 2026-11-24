@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v111.release",
+    "en": "Added title hover motion and refreshed the homepage resources entrance.",
+    "zh": "首屏標題加入懸停互動，更新首頁資源入口。",
+    "ja": "ホームの見出しにホバー演出を加え、リソースへの入口を更新しました。",
+    "ko": "홈페이지 제목에 호버 동작을 추가하고 자료실 입구를 새로 꾸몄어요.",
+    "ru": "Добавлена анимация заголовка при наведении и обновлён вход в раздел ресурсов.",
+    "vi": "Thêm hiệu ứng khi rê chuột lên tiêu đề và làm mới lối vào mục tài nguyên trên trang chủ."
+  }
+]
