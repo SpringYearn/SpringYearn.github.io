@@ -17,13 +17,12 @@ import "./home.css";
 const copy = {
   en: {
     contact: "Contact",
-    heroRole: "Visual Artist / Editor",
+    heroEyebrow: "VISUAL ARTIST & EDITOR // TAIWAN",
     heroStatement: "I make images move, and sometimes stay still.",
     intro: "I work across editing, motion, drawing, graphic design and 3D. If an idea calls for a different medium, I’m happy to try it.",
-    heroOrigin: "Independent creative / Taiwan",
     exploreWorks: "Explore Works",
-    reelLabel: "SHOWREEL // SELECTED WORKS",
-    workArchive: "WORK ARCHIVE",
+    reelLabel: "Showreel",
+    workArchive: "ARCHIVE",
     showreelTitle: "A year of edits",
     showreelView: "Watch showreel",
     profileTitle: "Hi, I’m\nSpringYearn.",
@@ -55,13 +54,12 @@ const copy = {
   },
   zh: {
     contact: "聯絡",
-    heroRole: "視覺藝術家 / 剪輯師",
+    heroEyebrow: "視覺藝術家與剪輯師 // 台灣",
     heroStatement: "讓畫面動起來，有時也讓它安靜停格。",
     intro: "創作橫跨剪輯、動態設計、繪畫、平面與 3D。只要點子需要不同的媒材呈現，我都樂於嘗試。",
-    heroOrigin: "獨立創作者 / 台灣",
     exploreWorks: "探索作品",
-    reelLabel: "影片精華 // 精選作品",
-    workArchive: "作品集",
+    reelLabel: "作品精華",
+    workArchive: "總覽",
     showreelTitle: "這一年剪了什麼",
     showreelView: "觀看 Showreel",
     profileTitle: "嗨，我是\nSpringYearn。",
@@ -310,14 +308,7 @@ export default function Home() {
       <SiteHeader />
 
       <section className="editorial-hero" aria-labelledby="hero-title">
-        <div className="editorial-hero-overline mono-label">
-          <span className="editorial-byline" lang="en" data-localize="off">SPRINGYEARN</span>
-          <span className="editorial-hero-role">
-            <span>{t.heroOrigin}</span>
-            <span aria-hidden="true"> · </span>
-            <span>{t.heroRole}</span>
-          </span>
-        </div>
+        <p className="editorial-hero-overline mono-label">{t.heroEyebrow}</p>
         <HeroStatement text={t.heroStatement} locale={locale} />
         <div className="editorial-hero-story">
           <p>{t.intro}</p>

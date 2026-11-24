@@ -179,7 +179,6 @@
 .board-archive-zoom { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .board-archive-list button[aria-pressed="true"] { background: var(--spring-soft); border-color: var(--spring-ink); }
 .board-archive-zoom output { min-width: 3.5ch; text-align: center; font-variant-numeric: tabular-nums; }
-.board-archive-read-only { border-left: 1px solid rgba(var(--spring-ink-rgb), .4); padding-inline-start: .6rem; }
 .board-archive-viewport {
   overflow: auto;
   box-sizing: content-box;

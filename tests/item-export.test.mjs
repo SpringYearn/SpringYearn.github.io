@@ -80,6 +80,7 @@ test("the three work stories retain supplied results, software versions and link
 
 test("homepage headline and section labels lead into a single showreel link", () => {
   const home = read("index.html").split("</header>")[1].split("</main>")[0];
+  assert.match(home, /<p class="editorial-hero-overline mono-label">VISUAL ARTIST &amp; EDITOR \/\/ TAIWAN<\/p>/);
   const headline = home.match(/<h1 id="hero-title"[^>]*>([\s\S]*?)<\/h1>/)?.[1];
   assert.ok(headline);
   assert.equal(headline.replace(/<[^>]*>/g, ""), "I make images move, and sometimes stay still.");
@@ -98,8 +99,8 @@ test("homepage headline and section labels lead into a single showreel link", ()
   assert.ok(homeWorks?.includes(archiveEntries[0]), "The archive link belongs in the Works section");
   const card = homeWorks.match(/<a\b[^>]*class="editorial-work-card"[^>]*>[\s\S]*?<\/a>/)?.[0];
   assert.ok(card?.startsWith(archiveEntries[0]));
-  assert.match(card, /SHOWREEL \/\/ SELECTED WORKS/);
-  assert.match(card, /WORK ARCHIVE/);
+  assert.match(card, /class="editorial-work-showreel">Showreel<\/span>/);
+  assert.match(card, /class="editorial-work-archive">ARCHIVE/);
   assert.match(card, /<h2 id="work-title">Explore Works<\/h2>/);
   const video = card.match(/<video\b[^>]*>/)?.[0];
   assert.ok(video);

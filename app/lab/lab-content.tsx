@@ -81,7 +81,9 @@ export function LabContent({ showResourceSections = false }: { showResourceSecti
                   {experiment.checkpoint && <details className="lab-checkpoint-full"><summary>{language === "en" ? "Full 0.3.5 validation record" : "完整 0.3.5 驗證紀錄"}</summary><p>{experiment.checkpoint.body[language]}</p></details>}
                 </details>
               </div>
-              <div className="lab-card-foot"><span className="lab-status-dot" aria-hidden="true" /><span>{experiment.status[language]}</span></div>
+              <div className="lab-card-foot">
+                <span className="status-pill"><span className="lab-status-dot" aria-hidden="true" />{experiment.status[language]}</span>
+              </div>
               <LabDownload project={experiment} language={language} />
             </article>
           ))}

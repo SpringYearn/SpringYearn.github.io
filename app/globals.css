@@ -86,7 +86,8 @@
   --accent-foreground: var(--action-ink);
   --input: var(--border-strong);
   --ring: var(--accent);
-  --radius: 0;
+  --radius: 0px;
+  --radius-pill: 999px;
 }
 
 @theme inline {
@@ -2482,7 +2483,7 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
   width: clamp(56px,6vw,78px);
   aspect-ratio: 1;
   border: 1px solid #F4F3EE;
-  border-radius: 50%;
+  border-radius: var(--radius);
   background: #0A0A0C;
   color: #F4F3EE;
   transform: translate(-50%,-50%);
@@ -2518,7 +2519,7 @@ html:has(.lab-download-dialog[open]) .cursor-trail-mark { visibility: hidden; }
 .board-toolbar svg { width: 16px; height: 16px; flex-shrink: 0; }
 .board-tool-group button[aria-pressed="true"] { background: var(--spring-ink); color: var(--background); border-color: var(--spring-ink); }
 .board-colors { display: inline-flex; align-items: center; gap: .35rem; }
-.board-colors button { width: 26px; height: 26px; min-height: 26px; border-radius: var(--glass-control-radius); padding: 0; border: 3px solid var(--background); outline: 1px solid transparent; }
+.board-colors button { width: 26px; height: 26px; min-height: 26px; border-radius: var(--radius); padding: 0; border: 3px solid var(--background); outline: 1px solid transparent; }
 .board-colors button[aria-pressed="true"] { outline-color: var(--spring-ink); }
 .board-custom-color,.board-width,.board-switch { display: inline-flex; align-items: center; gap: .65rem; color: var(--spring-ink); font-size: .8rem; }
 .board-custom-color input { width: 30px; height: 30px; padding: 0; background: transparent; border: 0; }

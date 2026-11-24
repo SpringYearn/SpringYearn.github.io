@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Restored the showreel as the homepage portfolio entrance."
+      "Refined the homepage grid, labels and corner styles."
     ],
     "zh": [
-      "首頁作品集入口改回影片卡片。"
+      "微調首頁作品區與全站圓角規範。"
     ]
   },
   "releases": [
+    {
+      "version": "V.110",
+      "date": "2026-11-24",
+      "en": ["Refined the homepage grid, labels and corner styles."],
+      "zh": ["微調首頁作品區與全站圓角規範。"]
+    },
     {
       "version": "V.109",
       "date": "2026-11-24",

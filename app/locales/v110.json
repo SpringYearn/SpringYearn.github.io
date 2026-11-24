@@ -1,0 +1,29 @@
+[
+  {
+    "id": "v110.eyebrow",
+    "en": "VISUAL ARTIST & EDITOR // TAIWAN",
+    "zh": "視覺藝術家與剪輯師 // 台灣",
+    "ja": "ビジュアルアーティスト＆映像編集 // 台湾",
+    "ko": "비주얼 아티스트 & 편집자 // 대만",
+    "ru": "ВИЗУАЛЬНЫЙ ХУДОЖНИК И МОНТАЖЁР // ТАЙВАНЬ",
+    "vi": "NGHỆ SĨ THỊ GIÁC & DỰNG PHIM // ĐÀI LOAN"
+  },
+  {
+    "id": "v110.archive",
+    "en": "ARCHIVE",
+    "zh": "總覽",
+    "ja": "作品一覧",
+    "ko": "아카이브",
+    "ru": "АРХИВ",
+    "vi": "KHO TÁC PHẨM"
+  },
+  {
+    "id": "v110.release",
+    "en": "Refined the homepage grid, labels and corner styles.",
+    "zh": "微調首頁作品區與全站圓角規範。",
+    "ja": "ホームのグリッドとラベルを整え、角のスタイルを統一しました。",
+    "ko": "홈페이지의 그리드와 라벨을 다듬고 모서리 스타일을 통일했어요.",
+    "ru": "Уточнены сетка, подписи и оформление углов на главной странице.",
+    "vi": "Tinh chỉnh lưới, nhãn trên trang chủ và thống nhất kiểu bo góc."
+  }
+]

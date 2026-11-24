@@ -7,6 +7,15 @@ h1, h2, h3 { font-family: var(--display-type); }
 :where(.mono-label, .eyebrow, time, .site-status, .status-update-meta) {
   font-variant-numeric: tabular-nums;
 }
+.status-pill, .site-status .status-version strong {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  max-width: 100%;
+  padding: .2rem .6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+}
 :where(a, button, input, summary, [role="combobox"]):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;

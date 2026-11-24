@@ -182,7 +182,7 @@ export function BoardArchive({ boards }: { boards: number[] }) {
                 {boards.length === 1 ? <span>{number(boards[0])}</span> : boards.map(id =>
                   <button key={id} type="button" onClick={() => { if (board !== id) selectBoard(id); }} aria-pressed={board === id}>{number(id)}</button>
                 )}
-                <span className="board-archive-read-only">{zh ? "唯讀" : "Read-only"}</span>
+                <span className="status-pill">{zh ? "唯讀" : "Read-only"}</span>
               </div>
               <div className="board-archive-zoom" aria-label={zh ? "畫布縮放" : "Canvas zoom"}>
                 <button type="button" onClick={() => zoomTo(scaleRef.current - 25)} disabled={scale <= MIN_ZOOM} aria-label={zh ? "縮小畫布" : "Zoom out"}><ZoomOut aria-hidden="true" /></button>
