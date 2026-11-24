@@ -30,6 +30,14 @@ export function SiteHeader({ active, onBrowseResources }: SiteHeaderProps) {
   const chinese = language === "zh";
   const languageLabel = chinese ? "選擇顯示語言" : "Choose display language";
   const themeLabel = chinese ? "淺色主題" : "Light theme";
+  const themeSwitch = (
+    <button type="button" className="theme-switch" aria-label={themeLabel} title={themeLabel}
+      aria-pressed={resolvedTheme === "light"}
+      onClick={() => setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light")}>
+      <Sun className="theme-sun" aria-hidden="true" />
+      <Moon className="theme-moon" aria-hidden="true" />
+    </button>
+  );
   const picker = (mobile = false) => (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger className={mobile ? "mobile-language-switch" : "language-switch header-language-switch"}
@@ -81,12 +89,7 @@ export function SiteHeader({ active, onBrowseResources }: SiteHeaderProps) {
       <Link className="whiteboard-nav-link" href={whiteboard.href}
         aria-current={active === "whiteboard" ? "page" : undefined}>{whiteboard[language]}</Link>
       {picker()}
-      <button type="button" className="theme-switch" aria-label={themeLabel} title={themeLabel}
-        aria-pressed={resolvedTheme === "light"}
-        onClick={() => setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light")}>
-        <Sun className="theme-sun" aria-hidden="true" />
-        <Moon className="theme-moon" aria-hidden="true" />
-      </button>
+      {themeSwitch}
     </div>
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
@@ -99,7 +102,7 @@ export function SiteHeader({ active, onBrowseResources }: SiteHeaderProps) {
             <Dialog.Title>{chinese ? "網站導覽" : "Navigation"}</Dialog.Title>
             <Dialog.Close asChild><button type="button" className="mobile-menu-close" aria-label={chinese ? "關閉導覽選單" : "Close navigation menu"}><X aria-hidden="true" /></button></Dialog.Close>
           </div>
-          <Dialog.Description className="sr-only">{chinese ? "前往網站各頁面，或切換顯示語言。" : "Explore the site or change the display language."}</Dialog.Description>
+          <Dialog.Description className="sr-only">{chinese ? "前往網站各頁面，或切換語言與主題。" : "Explore the site or change its language and theme."}</Dialog.Description>
           <nav className="mobile-nav-links" aria-label={navLabel}>
             {mobilePages.map(page => <Link
               key={page.id}
@@ -112,7 +115,11 @@ export function SiteHeader({ active, onBrowseResources }: SiteHeaderProps) {
               <ArrowUpRight aria-hidden="true" />
             </Link>)}
           </nav>
-          <div className="mobile-nav-language"><span className="mono-label">{chinese ? "語言" : "Language"}</span>{picker(true)}</div>
+          <div className="mobile-nav-settings">
+            <span className="mono-label">{chinese ? "語言" : "Language"}</span>
+            {picker(true)}
+            {themeSwitch}
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

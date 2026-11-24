@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Scroll entrances now briefly change the text color and shape."
+      "Moved the mobile theme switch beside the language picker in the side menu."
     ],
     "zh": [
-      "捲動入場時，文字短暫變色與變形。"
+      "手機版主題切換移至側邊欄的語言選單旁。"
     ]
   },
   "releases": [
+    {
+      "version": "V.117",
+      "date": "2026-11-24",
+      "en": ["Moved the mobile theme switch beside the language picker in the side menu."],
+      "zh": ["手機版主題切換移至側邊欄的語言選單旁。"]
+    },
     {
       "version": "V.116",
       "date": "2026-11-24",

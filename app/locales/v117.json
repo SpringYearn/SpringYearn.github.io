@@ -1,0 +1,20 @@
+[
+  {
+    "id": "v117.release",
+    "en": "Moved the mobile theme switch beside the language picker in the side menu.",
+    "zh": "手機版主題切換移至側邊欄的語言選單旁。",
+    "ja": "モバイル版のテーマ切り替えをサイドメニューの言語選択の隣に移動しました。",
+    "ko": "모바일 테마 전환 버튼을 사이드 메뉴의 언어 선택 옆으로 옮겼어요.",
+    "ru": "На мобильных устройствах переключатель темы перенесён в боковое меню рядом с выбором языка.",
+    "vi": "Đã chuyển nút đổi giao diện trên điện thoại vào menu bên, cạnh mục chọn ngôn ngữ."
+  },
+  {
+    "id": "v117.mobile-menu-description",
+    "en": "Explore the site or change its language and theme.",
+    "zh": "前往網站各頁面，或切換語言與主題。",
+    "ja": "サイト内の各ページに移動したり、言語やテーマを切り替えたりできます。",
+    "ko": "사이트의 각 페이지로 이동하거나 언어와 테마를 바꿀 수 있어요.",
+    "ru": "Переходите по страницам сайта или меняйте язык и тему.",
+    "vi": "Mở các trang của website hoặc đổi ngôn ngữ và giao diện."
+  }
+]
