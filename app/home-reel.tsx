@@ -40,13 +40,3 @@ export function useVisibleVideo(source: string | undefined) {
 
   return video;
 }
-
-export function HomeReel() {
-  const video = useVisibleVideo("/works/home-reel.mp4?v=098");
-
-  return (
-    <div className="hero-reel" aria-hidden="true">
-      <video ref={video} poster="/works/home-reel-poster.webp?v=096" loop muted playsInline preload="none" tabIndex={-1} />
-    </div>
-  );
-}

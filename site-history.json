@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Moved the homepage portfolio entrance into the Works section."
+      "Redesigned the homepage headline and selected works showcase."
     ],
     "zh": [
-      "將首頁的作品集入口移到作品區。"
+      "重設首頁主標與精選作品櫥窗。"
     ]
   },
   "releases": [
+    {
+      "version": "V.108",
+      "date": "2026-11-24",
+      "en": ["Redesigned the homepage headline and selected works showcase."],
+      "zh": ["重設首頁主標與精選作品櫥窗。"]
+    },
     {
       "version": "V.107",
       "date": "2026-11-24",

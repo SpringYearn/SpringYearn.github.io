@@ -1,0 +1,56 @@
+[
+  {
+    "id": "v108.allWorks",
+    "en": "ALL WORKS",
+    "zh": "所有作品",
+    "ja": "すべての作品",
+    "ko": "전체 작품",
+    "ru": "ВСЕ РАБОТЫ",
+    "vi": "TẤT CẢ TÁC PHẨM"
+  },
+  {
+    "id": "v108.sectionWorks",
+    "en": "SECTION 01 // WORKS",
+    "zh": "SECTION 01 // 作品",
+    "ja": "SECTION 01 // 作品",
+    "ko": "SECTION 01 // 작품",
+    "ru": "SECTION 01 // РАБОТЫ",
+    "vi": "SECTION 01 // TÁC PHẨM"
+  },
+  {
+    "id": "v108.sectionProfile",
+    "en": "SECTION 02 // PROFILE",
+    "zh": "SECTION 02 // 關於我",
+    "ja": "SECTION 02 // プロフィール",
+    "ko": "SECTION 02 // 프로필",
+    "ru": "SECTION 02 // ОБО МНЕ",
+    "vi": "SECTION 02 // GIỚI THIỆU"
+  },
+  {
+    "id": "v108.sectionHistory",
+    "en": "SECTION 03 // ALONG THE WAY",
+    "zh": "SECTION 03 // 一路以來",
+    "ja": "SECTION 03 // これまで",
+    "ko": "SECTION 03 // 걸어온 길",
+    "ru": "SECTION 03 // МОЙ ПУТЬ",
+    "vi": "SECTION 03 // HÀNH TRÌNH"
+  },
+  {
+    "id": "v108.sectionContact",
+    "en": "SECTION 04 // CONTACT",
+    "zh": "SECTION 04 // 聯絡",
+    "ja": "SECTION 04 // お問い合わせ",
+    "ko": "SECTION 04 // 연락",
+    "ru": "SECTION 04 // КОНТАКТЫ",
+    "vi": "SECTION 04 // LIÊN HỆ"
+  },
+  {
+    "id": "v108.release",
+    "en": "Redesigned the homepage headline and selected works showcase.",
+    "zh": "重設首頁主標與精選作品櫥窗。",
+    "ja": "ホームのメイン見出しと精選作品の展示を作り直しました。",
+    "ko": "홈페이지의 메인 제목과 선정 작품 영역을 새로 디자인했어요.",
+    "ru": "Обновлены главный заголовок и витрина избранных работ на главной странице.",
+    "vi": "Thiết kế lại tiêu đề chính và khu trưng bày tác phẩm nổi bật trên trang chủ."
+  }
+]

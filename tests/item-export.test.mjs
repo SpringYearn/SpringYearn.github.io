@@ -78,16 +78,34 @@ test("the three work stories retain supplied results, software versions and link
   assert.ok(read('work/14/index.html').includes('class="section-block item-story"'));
 });
 
-test("archive covers and titles lead to details while sharing stays in individual pages", () => {
-  const work = read("work/index.html"), files = read("project-files/index.html");
+test("homepage headline and section labels lead into the three selected works", () => {
   const home = read("index.html").split("</header>")[1].split("</main>")[0];
+  const headline = home.match(/<h1 id="hero-title"[^>]*>([\s\S]*?)<\/h1>/)?.[1];
+  assert.ok(headline);
+  assert.equal(headline.replace(/<[^>]*>/g, ""), "I make images move, and sometimes stay still.");
+  assert.match(headline, /<strong>move<\/strong>/);
+  assert.match(headline, /<em>still\.<\/em>/);
+  assert.match(home, /href="#work" class="editorial-cta editorial-cta-primary"/);
+  assert.match(home, /href="#contact" class="editorial-cta editorial-cta-secondary"/);
+  assert.deepEqual([...home.matchAll(/<div class="editorial-index mono-label"[^>]*>([\s\S]*?)<\/div>/g)]
+    .map(([, label]) => label.replace(/<[^>]*>/g, "")), [
+    "SECTION 01 // WORKS", "SECTION 02 // PROFILE", "SECTION 03 // ALONG THE WAY", "SECTION 04 // CONTACT",
+  ]);
   const homeLinks = [...home.matchAll(/<a\b[^>]*>/g)].map(([tag]) => tag);
   const homeWorks = home.match(/<section id="work"[^>]*>[\s\S]*?<\/section>/)?.[0];
   const archiveEntries = homeLinks.filter(tag => tag.includes('href="/work/"'));
   assert.equal(archiveEntries.length, 1);
-  assert.ok(homeWorks?.includes(archiveEntries[0]), "The entrance belongs in the Works section");
-  assert.match(homeWorks, /<video\b[^>]*poster="\/works\/home-reel-poster\.webp/);
-  assert.doesNotMatch(homeWorks, /Selected works|href="\/work\/\d+\//i);
+  assert.ok(homeWorks?.includes(archiveEntries[0]), "The archive link belongs in the Works section");
+  assert.match(homeWorks, /<h2 id="work-title">SELECTED WORKS<\/h2>/);
+  const selectedLinks = [...homeWorks.matchAll(/<a\b[^>]*class="editorial-work-tile"[^>]*href="\/work\/(\d+)\/"/g)];
+  assert.deepEqual(selectedLinks.map(([, id]) => id), featuredWorkIds);
+  for (const id of featuredWorkIds) {
+    assert.ok(homeWorks.includes(`src="${projects.find(project => project.id === id).thumbnail}"`));
+  }
+});
+
+test("archive covers and titles lead to details while sharing stays in individual pages", () => {
+  const work = read("work/index.html"), files = read("project-files/index.html");
   assert.ok(!work.includes('class="item-share-button"'));
   assert.ok(!files.includes('class="item-share-button"'));
   for (const project of projects) {

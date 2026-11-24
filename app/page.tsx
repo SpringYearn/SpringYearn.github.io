@@ -3,7 +3,7 @@ import { Localized } from "./localized";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Copy } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Copy } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SiteHeader } from "./header-controls";
 import { useSiteLanguage, type Locale } from "./site-language";
@@ -11,17 +11,20 @@ import { localizeText } from "./localization";
 import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
-import { HomeReel } from "./home-reel";
+import { projects, projectTitle } from "./portfolio-data";
+import { featuredWorkIds } from "./work/featured-data";
 import "./home.css";
 
 const copy = {
   en: {
-    nav: { profile: "Profile", contact: "Contact" },
-    heroTop: "Visual Artist / Editor",
-    heroBottom: "I make images move, and sometimes stay still.",
+    contact: "Contact",
+    heroRole: "Visual Artist / Editor",
+    heroStatement: "I make images move, and sometimes stay still.",
     intro: "I work across editing, motion, drawing, graphic design and 3D. If an idea calls for a different medium, I’m happy to try it.",
-    index: "Independent creative / Taiwan",
+    heroOrigin: "Independent creative / Taiwan",
     exploreWorks: "Explore Works",
+    selectedWorks: "SELECTED WORKS",
+    allWorks: "ALL WORKS",
     showreelTitle: "A year of edits",
     showreelView: "Watch showreel",
     profileTitle: "Hi, I’m\nSpringYearn.",
@@ -36,7 +39,6 @@ const copy = {
       "Yearn is the urge to learn something new and make the next thing a little better.",
     brandClosing: "Put them together: stay curious, keep learning, keep making.",
     services: "What I do",
-    experience: "Along the way",
     contactTitle: "Contact me",
     contactBody:
       "Tell me about your project, share an idea, or debate whether a hotdog is a sandwich. I’m happy to chat.",
@@ -53,12 +55,14 @@ const copy = {
     backTop: "Back to top",
   },
   zh: {
-    nav: { profile: "關於我", contact: "聯絡" },
-    heroTop: "視覺藝術家 / 剪輯師",
-    heroBottom: "讓畫面動起來，有時也讓它安靜停格。",
+    contact: "聯絡",
+    heroRole: "視覺藝術家 / 剪輯師",
+    heroStatement: "讓畫面動起來，有時也讓它安靜停格。",
     intro: "創作橫跨剪輯、動態設計、繪畫、平面與 3D。只要點子需要不同的媒材呈現，我都樂於嘗試。",
-    index: "獨立創作者 / 台灣",
+    heroOrigin: "獨立創作者 / 台灣",
     exploreWorks: "探索作品",
+    selectedWorks: "精選作品",
+    allWorks: "所有作品",
     showreelTitle: "這一年剪了什麼",
     showreelView: "觀看 Showreel",
     profileTitle: "嗨，我是\nSpringYearn。",
@@ -71,7 +75,6 @@ const copy = {
     yearnMeaning: "代表對新知與未知作品的渴望，期許每一次創作都能更進一步。",
     brandClosing: "合在一起，就是保持好奇、繼續學、繼續做。",
     services: "我會做的事",
-    experience: "一路以來",
     contactTitle: "聯絡我",
     contactBody: "有專案想聊、點子想分享，或想討論鳳梨到底該不該放在披薩上，都歡迎寫信給我。",
     email: "bbal96421@gmail.com",
@@ -237,6 +240,8 @@ const annualReels = [
   },
 ];
 
+const selectedWorks = featuredWorkIds.map(id => projects.find(project => project.id === id)!);
+
 const emphasis: Record<Locale, [string, string]> = {
   en: ["move", "still."],
   zh: ["動起來", "安靜停格。"],
@@ -252,17 +257,18 @@ function HeroStatement({ text, locale }: { text: string; locale: Locale }) {
   const first = statement.indexOf(move);
   const last = statement.lastIndexOf(still);
   if (first < 0 || last < first + move.length) {
-    return <p className="editorial-statement" data-localize="off">{statement}</p>;
+    return <h1 id="hero-title" className="editorial-statement" data-localize="off">{statement}</h1>;
   }
-  return <p className="editorial-statement" data-localize="off">
+  return <h1 id="hero-title" className="editorial-statement" data-localize="off">
     {statement.slice(0, first)}<strong>{move}</strong>
     {statement.slice(first + move.length, last)}<em>{still}</em>{statement.slice(last + still.length)}
-  </p>;
+  </h1>;
 }
 
-function SectionIndex({ number, children }: { number: string; children: string }) {
-  return <div className="editorial-index mono-label">
-    <span>SECTION {number}</span><span aria-hidden="true">//</span><span>{children}</span>
+function SectionIndex({ label, locale }: { label: string; locale: Locale }) {
+  const [section, name] = localizeText(label, locale).split(" // ");
+  return <div className="editorial-index mono-label" data-localize="off">
+    <span>{section}</span>{" "}<span aria-hidden="true">//</span>{" "}<span>{name}</span>
   </div>;
 }
 
@@ -307,17 +313,21 @@ export default function Home() {
       <SiteHeader />
 
       <section className="editorial-hero" aria-labelledby="hero-title">
-        <div className="editorial-hero-identity">
-          <div className="editorial-hero-overline">
-            <span className="editorial-capsule mono-label">{t.index}</span>
-            <p className="editorial-role">{t.heroTop}</p>
-          </div>
-          <h1 id="hero-title" className="editorial-name" lang="en" data-localize="off"><span>SPRINGYEARN</span></h1>
+        <div className="editorial-hero-overline mono-label">
+          <span className="editorial-byline" lang="en" data-localize="off">SPRINGYEARN</span>
+          <span className="editorial-hero-role">
+            <span>{t.heroOrigin}</span>
+            <span aria-hidden="true"> · </span>
+            <span>{t.heroRole}</span>
+          </span>
         </div>
+        <HeroStatement text={t.heroStatement} locale={locale} />
         <div className="editorial-hero-story">
-          <HeroStatement text={t.heroBottom} locale={locale} />
           <p>{t.intro}</p>
-          <a href="#contact" className="editorial-cta editorial-cta-secondary">{t.nav.contact}<ArrowUpRight aria-hidden="true" /></a>
+          <div className="editorial-hero-actions">
+            <a href="#work" className="editorial-cta editorial-cta-primary">{t.exploreWorks}<ArrowDown aria-hidden="true" /></a>
+            <a href="#contact" className="editorial-cta editorial-cta-secondary">{t.contact}<ArrowUpRight aria-hidden="true" /></a>
+          </div>
         </div>
         <dl className="editorial-facts">
           <div>
@@ -331,17 +341,31 @@ export default function Home() {
         </dl>
       </section>
 
-      <section id="work" className="editorial-band editorial-works" aria-labelledby="work-title">
-        <SectionIndex number="01">{chinese ? "作品" : "Works"}</SectionIndex>
-        <div className="editorial-bento" data-reveal>
-          <Link href="/work/" className="editorial-work-entry">
-            <div className="editorial-work-film">
-              <HomeReel />
-              <span className="editorial-work-mark" aria-hidden="true"><ArrowUpRight /></span>
+      <section id="work" className="editorial-band editorial-works" aria-labelledby="work-title" tabIndex={-1}>
+        <SectionIndex label="SECTION 01 // WORKS" locale={locale} />
+        <div className="editorial-bento">
+          <div className="editorial-showcase" data-reveal>
+            <div className="editorial-showcase-heading">
+              <h2 id="work-title">{t.selectedWorks}</h2>
+              <Link href="/work/" className="editorial-all-works">{t.allWorks}<ArrowUpRight aria-hidden="true" /></Link>
             </div>
-            <h2 id="work-title" className="editorial-work-entry-label">{t.exploreWorks}<ArrowRight aria-hidden="true" /></h2>
-          </Link>
-          <div className="editorial-bento-side">
+            <div className="editorial-work-grid">
+              {selectedWorks.map(project => (
+                <Link key={project.id} href={`/work/${project.id}/`} className="editorial-work-tile"
+                  aria-labelledby={`home-work-title-${project.id}`}>
+                  <span className="editorial-work-media" aria-hidden="true">
+                    <img src={project.thumbnail} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                  </span>
+                  <span className="editorial-work-caption">
+                    <span className="editorial-work-type">{project.type[language]}</span>
+                    <span id={`home-work-title-${project.id}`} className="editorial-work-name" data-localize="off">{projectTitle(project, locale)}</span>
+                  </span>
+                  <ArrowUpRight className="editorial-work-arrow" aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="editorial-bento-side" data-reveal>
             <div className="editorial-reels">
               <h3>{t.showreelTitle}</h3>
               <div className="editorial-reel-links">
@@ -349,7 +373,7 @@ export default function Home() {
                   <a href={reel.href} target="_blank" rel="noreferrer"
                     aria-label={reel.year + " — " + t.showreelView} key={reel.year}>
                     <span className="editorial-reel-cover">
-                      <img src={reel.thumbnail} alt="" loading="lazy" width="480" height="270" />
+                      <img src={reel.thumbnail} alt="" loading="lazy" width="480" height="360" />
                     </span>
                     <span className="editorial-reel-year"><strong>{reel.year}</strong><ArrowUpRight aria-hidden="true" /></span>
                   </a>
@@ -368,7 +392,7 @@ export default function Home() {
       </section>
 
       <section id="profile" className="editorial-band editorial-profile" aria-labelledby="profile-title">
-        <SectionIndex number="02">{t.nav.profile}</SectionIndex>
+        <SectionIndex label="SECTION 02 // PROFILE" locale={locale} />
         <div className="editorial-profile-intro" data-reveal>
           <h2 id="profile-title">{t.profileTitle}</h2>
           <div>
@@ -423,7 +447,7 @@ export default function Home() {
       </section>
 
       <section id="history" className="editorial-band editorial-history" aria-labelledby="history-title">
-        <SectionIndex number="03">{t.experience}</SectionIndex>
+        <SectionIndex label="SECTION 03 // ALONG THE WAY" locale={locale} />
         <div className="editorial-history-heading">
           <h2 id="history-title">2020—NOW</h2>
           <p>{chinese
@@ -452,7 +476,7 @@ export default function Home() {
       </section>
 
       <section id="contact" className="editorial-band editorial-contact" aria-labelledby="contact-title">
-        <SectionIndex number="04">{t.nav.contact}</SectionIndex>
+        <SectionIndex label="SECTION 04 // CONTACT" locale={locale} />
         <div className="editorial-contact-info" data-reveal>
           <div>
             <h2 id="contact-title">{t.contactTitle}</h2>
