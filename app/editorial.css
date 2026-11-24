@@ -7,7 +7,7 @@ h1, h2, h3 { font-family: var(--display-type); }
 :where(.mono-label, .eyebrow, time, .site-status, .status-update-meta) {
   font-variant-numeric: tabular-nums;
 }
-.status-pill, .site-status .status-version strong {
+.status-pill {
   display: inline-flex;
   align-items: center;
   gap: .45rem;

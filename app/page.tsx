@@ -254,9 +254,12 @@ function HeroStatement({ text, locale }: { text: string; locale: Locale }) {
   if (first < 0 || last < first + move.length) {
     return <h1 id="hero-title" className="editorial-statement" data-localize="off">{statement}</h1>;
   }
-  return <h1 id="hero-title" className="editorial-statement" data-localize="off">
+  const middle = statement.slice(first + move.length, last);
+  const lineBreak = locale === "zh" ? middle.indexOf("，") + 1 : 0;
+  return <h1 id="hero-title" className="editorial-statement" lang={locale === "zh" ? "zh-Hant" : undefined} data-localize="off">
     {statement.slice(0, first)}<strong>{move}</strong>
-    {statement.slice(first + move.length, last)}<em>{still}</em>{statement.slice(last + still.length)}
+    {middle.slice(0, lineBreak)}{lineBreak > 0 && <br />}{middle.slice(lineBreak)}
+    <em>{still}</em>{statement.slice(last + still.length)}
   </h1>;
 }
 
@@ -271,10 +274,31 @@ export default function Home() {
   const { language, locale } = useSiteLanguage();
   const [copyResult, setCopyResult] = useState<"success" | "failed" | null>(null);
   const copyTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const timelineRef = useRef<HTMLOListElement>(null);
   const t = copy[language];
   const chinese = language === "zh";
 
   useEffect(() => () => clearTimeout(copyTimer.current), []);
+
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    const lastRow = timeline?.lastElementChild;
+    if (!timeline || !lastRow || !("ResizeObserver" in window && "IntersectionObserver" in window)) return;
+
+    const syncEnd = () => timeline.style.setProperty("--timeline-last-height", `${lastRow.getBoundingClientRect().height}px`);
+    syncEnd();
+    const resize = new ResizeObserver(syncEnd);
+    resize.observe(lastRow, { box: "border-box" });
+    const viewport = new IntersectionObserver(([entry]) =>
+      timeline.classList.toggle("is-timeline-visible", entry.isIntersecting));
+    viewport.observe(timeline);
+    return () => {
+      resize.disconnect();
+      viewport.disconnect();
+      timeline.classList.remove("is-timeline-visible");
+      timeline.style.removeProperty("--timeline-last-height");
+    };
+  }, []);
 
   const copyEmailAddress = async () => {
     let copied = false;
@@ -392,8 +416,8 @@ export default function Home() {
           <div className="editorial-brand-copy">
             <h3><span data-reveal-text>{t.brandTitle}</span></h3>
             <dl>
-              <div><dt lang="en">SPRING</dt><dd>{t.springMeaning}</dd></div>
-              <div><dt lang="en">YEARN</dt><dd>{t.yearnMeaning}</dd></div>
+              <div><dt className="editorial-brand-spring" lang="en" data-localize="off"><span>SPRING</span></dt><dd>{t.springMeaning}</dd></div>
+              <div><dt className="editorial-brand-yearn" lang="en" data-localize="off"><span>YEARN</span></dt><dd>{t.yearnMeaning}</dd></div>
             </dl>
             <p>{t.brandClosing}</p>
           </div>
@@ -438,7 +462,7 @@ export default function Home() {
             ? "持續進行動態影像、繪畫、平面設計、合成與 3D 的自主創作。"
             : "A self-directed practice across moving image, drawing, graphic design, compositing and 3D."}</p>
         </div>
-        <ol className="editorial-timeline">
+        <ol className="editorial-timeline" ref={timelineRef}>
           {practiceHistory.map(item => (
             <li className="editorial-timeline-row" key={item.title.en}
               data-linked={item.href ? "" : undefined} data-official={item.phase.en === "Official project" ? "" : undefined}>

@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Moved the mobile theme switch beside the language picker in the side menu."
+      "Refined title interactions, scroll entrances and the homepage timeline."
     ],
     "zh": [
-      "手機版主題切換移至側邊欄的語言選單旁。"
+      "調整標題互動、捲動入場與首頁時間線。"
     ]
   },
   "releases": [
+    {
+      "version": "V.118",
+      "date": "2026-11-24",
+      "en": ["Refined title interactions, scroll entrances and the homepage timeline."],
+      "zh": ["調整標題互動、捲動入場與首頁時間線。"]
+    },
     {
       "version": "V.117",
       "date": "2026-11-24",

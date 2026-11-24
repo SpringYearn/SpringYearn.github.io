@@ -8,8 +8,16 @@ const selector = `${panelSelector}, ${textSelector}`;
 const entering = "is-panel-entering";
 const textPending = "is-reveal-text-pending";
 const textEntering = "is-reveal-text-entering";
+const textDelay = "--reveal-text-delay";
 const animationClasses = [entering, textPending, textEntering];
 const bottomInset = 56;
+const textInterval = 72;
+const maxTextDelay = 432;
+
+function clearEntrance(target: Element) {
+  target.classList.remove(...animationClasses);
+  if (target instanceof HTMLElement) target.style.removeProperty(textDelay);
+}
 
 export function ScrollPanels() {
   useEffect(() => {
@@ -19,6 +27,7 @@ export function ScrollPanels() {
     const seen = new WeakSet<Element>();
     const visible = new Set<Element>();
     let lastY = window.scrollY;
+    let nextTextStart = 0;
     let down = false;
     const revealVisible = () => {
       const next = window.scrollY;
@@ -29,21 +38,28 @@ export function ScrollPanels() {
       if (!visible.size) return;
 
       const limit = window.innerHeight - bottomInset;
-      const targets = [...visible].filter(target => {
-        if (!down && !target.matches(textSelector)) return false;
-        const bounds = target.getBoundingClientRect();
-        return target.isConnected && bounds.height > 0 && bounds.bottom > 0 && bounds.top <= limit;
-      });
-      for (const target of targets) {
+      const targets = [...visible].flatMap(target => {
+        const isText = target.matches(textSelector);
+        if (!target.isConnected || (!down && !isText)) return [];
+        const { top, left, bottom, height } = target.getBoundingClientRect();
+        return height > 0 && bottom > 0 && top <= limit ? [{ target, isText, top, left }] : [];
+      }).sort((a, b) => a.top - b.top || a.left - b.left);
+      const now = performance.now();
+      for (const { target, isText } of targets) {
         visible.delete(target);
         seen.add(target);
         intersection.unobserve(target);
         target.classList.remove(textPending);
-        const isText = target.matches(textSelector);
         const panel = isText ? target.closest(panelSelector) : target;
-        if (down && !reduced.matches && !panel?.matches(":focus-within")) {
-          target.classList.add(isText ? textEntering : entering);
+        if (!down || reduced.matches || panel?.matches(":focus-within")) continue;
+        if (isText && target instanceof HTMLElement) {
+          const delay = Math.max(0, nextTextStart - now);
+          // During a large scroll jump, show extra labels immediately instead of keeping them hidden.
+          if (delay > maxTextDelay) continue;
+          target.style.setProperty(textDelay, `${delay}ms`);
+          nextTextStart = now + delay + textInterval;
         }
+        target.classList.add(isText ? textEntering : entering);
       }
     };
     const intersection = new IntersectionObserver(entries => {
@@ -83,7 +99,7 @@ export function ScrollPanels() {
             if (!target.isConnected) {
               visible.delete(target);
               intersection.unobserve(target);
-              target.classList.remove(...animationClasses);
+              clearEntrance(target);
             }
           }
         }
@@ -93,7 +109,7 @@ export function ScrollPanels() {
     const finish = (event: AnimationEvent) => {
       if (!(event.target instanceof Element)) return;
       if (event.animationName === "editorial-panel-in") event.target.classList.remove(entering);
-      if (event.animationName === "editorial-panel-text") event.target.classList.remove(textEntering);
+      if (event.animationName === "editorial-panel-text") clearEntrance(event.target);
     };
     window.addEventListener("scroll", revealVisible, { passive: true });
     document.addEventListener("animationend", finish);
@@ -105,7 +121,7 @@ export function ScrollPanels() {
       document.removeEventListener("animationend", finish);
       document.removeEventListener("animationcancel", finish);
       document.querySelectorAll(animationClasses.map(name => "." + name).join(", "))
-        .forEach(el => el.classList.remove(...animationClasses));
+        .forEach(clearEntrance);
     };
   }, []);
 
