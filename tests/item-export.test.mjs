@@ -80,6 +80,14 @@ test("the three work stories retain supplied results, software versions and link
 
 test("archive covers and titles lead to details while sharing stays in individual pages", () => {
   const work = read("work/index.html"), files = read("project-files/index.html");
+  const home = read("index.html").split("</header>")[1].split("</main>")[0];
+  const homeLinks = [...home.matchAll(/<a\b[^>]*>/g)].map(([tag]) => tag);
+  const archiveEntries = homeLinks.filter(tag => tag.includes('href="/work/"'));
+  assert.equal(archiveEntries.length, 1);
+  assert.match(archiveEntries[0], /class="editorial-hero-jump"/);
+  for (const id of featuredWorkIds) {
+    assert.ok(homeLinks.some(tag => tag.includes('class="editorial-work-preview"') && tag.includes(`href="/work/${id}/"`)), id);
+  }
   assert.ok(!work.includes('class="item-share-button"'));
   assert.ok(!files.includes('class="item-share-button"'));
   for (const project of projects) {

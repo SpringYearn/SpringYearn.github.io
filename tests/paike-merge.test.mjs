@@ -11,7 +11,7 @@ test('PAIKE preserves both images and every unrelated work record',()=>{
    if (item.id === '21') {
      expected.title = 'Cartoon Bear Modeling Study';
      expected.localizedTitle = {
-       zh: '卡通雄建模練習',
+       zh: '卡通熊建模練習',
        ja: 'カートゥーンのクマのモデリング練習',
        ko: '카툰 곰 모델링 연습',
        ru: 'Учебная модель мультяшного медведя',

@@ -12,7 +12,7 @@ import { SiteStatus } from "./site-status";
 import { ForNever } from "./for-never";
 import { SpringLogo } from "./spring-logo";
 import { HomeReel } from "./home-reel";
-import { WorkGateway } from "./work-gateway";
+import { WorkPreviews } from "./work-previews";
 import "./home.css";
 
 const copy = {
@@ -339,10 +339,10 @@ export default function Home() {
         </dl>
       </section>
 
-      <section id="work" className="editorial-band editorial-works" aria-labelledby="work-gateway-title">
+      <section id="work" className="editorial-band editorial-works" aria-labelledby="work-preview-title">
         <SectionIndex number="01">{chinese ? "作品" : "Works"}</SectionIndex>
         <div className="editorial-bento" data-reveal>
-          <WorkGateway />
+          <WorkPreviews />
           <div className="editorial-bento-side">
             <div className="editorial-reels">
               <h3>{t.showreelTitle}</h3>
