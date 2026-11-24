@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Staggered the homepage timeline and made the color flash lead each text entrance."
+      "Scroll entrances now briefly change the text color and shape."
     ],
     "zh": [
-      "首頁時間線改為左右交錯，文字先閃現再顯示正常字形。"
+      "捲動入場時，文字短暫變色與變形。"
     ]
   },
   "releases": [
+    {
+      "version": "V.116",
+      "date": "2026-11-24",
+      "en": ["Scroll entrances now briefly change the text color and shape."],
+      "zh": ["捲動入場時，文字短暫變色與變形。"]
+    },
     {
       "version": "V.115",
       "date": "2026-11-24",

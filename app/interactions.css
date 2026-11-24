@@ -156,19 +156,16 @@
   0% {
     opacity: 0;
     color: inherit;
-    background-color: transparent;
     transform: none;
   }
   62% {
     opacity: 1;
-    color: var(--action-ink);
-    background-color: var(--accent);
+    color: color-mix(in srgb, var(--accent-text) 75%, var(--fg));
     transform: skewX(-7deg) scale(1.02, .87);
   }
   82%, 100% {
     opacity: 1;
     color: inherit;
-    background-color: transparent;
     transform: none;
   }
 }

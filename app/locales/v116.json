@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v116.release",
+    "en": "Scroll entrances now briefly change the text color and shape.",
+    "zh": "捲動入場時，文字短暫變色與變形。",
+    "ja": "スクロール時の登場演出で、文字の色と形が一瞬変わるようにしました。",
+    "ko": "스크롤할 때 나타나는 글자의 색과 모양이 잠깐 바뀌도록 했어요.",
+    "ru": "При появлении во время прокрутки текст ненадолго меняет цвет и форму.",
+    "vi": "Chữ thoáng đổi màu và biến dạng khi cuộn đến."
+  }
+]
