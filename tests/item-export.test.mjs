@@ -117,12 +117,15 @@ test("homepage headline and section labels lead into a single showreel link", ()
     "editorial-history-heading", "editorial-event", "editorial-contact-info", "editorial-socials"]) {
     assert.ok([...home.matchAll(new RegExp(`class="${panel}"[^>]*>`, "g"))].some(([tag]) => tag.includes("data-reveal=")), panel);
   }
+  assert.ok(home.includes('<h2 id="history-title"><span data-reveal-text="true">Milestones</span></h2>'));
   const timeline = home.match(/<ol class="editorial-timeline">[\s\S]*?<\/ol>/)?.[0];
   assert.ok(timeline);
   const entries = [...timeline.matchAll(/<li class="editorial-timeline-row"[^>]*>[\s\S]*?<\/li>/g)].map(([entry]) => entry);
   assert.equal(entries.length, 8);
   assert.ok(entries.at(-2).includes(">LATE 2026</strong>"));
-  assert.ok(entries.at(-2).includes(">Cumulative earnings from editing projects handled by me officially exceeded $10,000 USD</span>"));
+  assert.ok(entries.at(-2).includes("<span>Commercial &amp; Freelance</span>"));
+  assert.ok(entries.at(-2).includes('<h3><span data-reveal-text="true">$10,000+ in Editing Projects</span></h3>'));
+  assert.ok(entries.at(-2).includes("<p>Cumulative earnings from independent and commercial editing projects officially exceeded $10,000 USD.</p>"));
   assert.ok(entries.at(-1).includes(">ONGOING</strong>"));
   assert.equal([...timeline.matchAll(/data-linked=""/g)].length, 3);
   const historyLinks = [...timeline.matchAll(/<a class="editorial-timeline-link" href="([^"]*)" target="_blank" rel="noreferrer"/g)];

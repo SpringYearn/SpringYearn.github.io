@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Added an editing milestone to the homepage timeline."
+      "Refined the Milestones section and its editing income entry."
     ],
     "zh": [
-      "首頁時間線新增剪輯里程碑。"
+      "調整里程碑區標題及剪輯收入紀錄。"
     ]
   },
   "releases": [
+    {
+      "version": "V.120",
+      "date": "2026-11-26",
+      "en": ["Refined the Milestones section and its editing income entry."],
+      "zh": ["調整里程碑區標題及剪輯收入紀錄。"]
+    },
     {
       "version": "V.119",
       "date": "2026-11-24",

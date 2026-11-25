@@ -1,0 +1,47 @@
+[
+  {
+    "id": "v120.release",
+    "en": "Refined the Milestones section and its editing income entry.",
+    "zh": "調整里程碑區標題及剪輯收入紀錄。",
+    "ja": "年表の見出しと映像編集の収入に関する項目を整えました。",
+    "ko": "이정표 섹션과 편집 수입 항목을 다듬었어요.",
+    "ru": "Обновлены название раздела «Вехи» и запись о доходе от монтажа.",
+    "vi": "Đã chỉnh lại mục Cột mốc và mốc thu nhập từ dựng video."
+  },
+  {
+    "id": "v120.timeline.heading",
+    "en": "Milestones",
+    "zh": "里程碑",
+    "ja": "主な節目",
+    "ko": "주요 이정표",
+    "ru": "Вехи",
+    "vi": "Cột mốc"
+  },
+  {
+    "id": "v120.timeline.earnings-label",
+    "en": "Commercial & Freelance",
+    "zh": "商業與自由接案",
+    "ja": "商業案件とフリーランス",
+    "ko": "상업 작업 및 프리랜스",
+    "ru": "Коммерческие и фриланс-проекты",
+    "vi": "Thương mại và nhận dự án tự do"
+  },
+  {
+    "id": "v120.timeline.earnings-title",
+    "en": "$10,000+ in Editing Projects",
+    "zh": "剪輯收入突破 1 萬美元",
+    "ja": "映像編集で1万米ドル突破",
+    "ko": "편집 수입 미화 1만 달러 돌파",
+    "ru": "Свыше 10 000 долларов за монтаж",
+    "vi": "Hơn 10.000 USD từ dựng video"
+  },
+  {
+    "id": "v120.timeline.earnings-description",
+    "en": "Cumulative earnings from independent and commercial editing projects officially exceeded $10,000 USD.",
+    "zh": "獨立接案與商業剪輯專案的累積收入正式超過 1 萬美元。",
+    "ja": "個人で受託した案件や商業案件の映像編集で、累計収入が正式に1万米ドルを超えました。",
+    "ko": "독립적으로 맡은 편집 프로젝트와 상업 편집 프로젝트의 누적 수입이 공식적으로 미화 1만 달러를 넘었습니다.",
+    "ru": "Совокупный доход от независимых и коммерческих проектов по видеомонтажу официально превысил 10 000 долларов США.",
+    "vi": "Tổng thu nhập từ các dự án dựng video độc lập và thương mại đã chính thức vượt 10.000 USD."
+  }
+]

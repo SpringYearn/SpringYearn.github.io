@@ -192,9 +192,14 @@ const practiceHistory = [
     year: { en: "LATE 2026", zh: "2026 年底" },
     href: null,
     phase: { en: "Milestone", zh: "里程碑" },
+    partner: { en: "Commercial & Freelance", zh: "商業與自由接案" },
     title: {
-      en: "Cumulative earnings from editing projects handled by me officially exceeded $10,000 USD",
-      zh: "經手剪輯專案累積收入正式超過 1 萬美元",
+      en: "$10,000+ in Editing Projects",
+      zh: "剪輯收入突破 1 萬美元",
+    },
+    body: {
+      en: "Cumulative earnings from independent and commercial editing projects officially exceeded $10,000 USD.",
+      zh: "獨立接案與商業剪輯專案的累積收入正式超過 1 萬美元。",
     },
   },
   {
@@ -466,7 +471,7 @@ export default function Home() {
       <section id="history" className="editorial-band editorial-history" aria-labelledby="history-title">
         <SectionIndex label="SECTION 03 // ALONG THE WAY" locale={locale} />
         <div className="editorial-history-heading" data-reveal>
-          <h2 id="history-title"><span data-reveal-text>2020—NOW</span></h2>
+          <h2 id="history-title"><span data-reveal-text>Milestones</span></h2>
           <p>{chinese
             ? "持續進行動態影像、繪畫、平面設計、合成與 3D 的自主創作。"
             : "A self-directed practice across moving image, drawing, graphic design, compositing and 3D."}</p>
@@ -481,7 +486,7 @@ export default function Home() {
                 </div>
                 <div className="editorial-event-meta mono-label">
                   <span className="editorial-phase">{item.phase[language]}</span>
-                  {item.partner && <span>{item.partner[language]}</span>}
+                  <span>{item.partner[language]}</span>
                 </div>
                 <h3>
                   {item.href ? (
@@ -491,7 +496,7 @@ export default function Home() {
                     </a>
                   ) : <span data-reveal-text>{item.title[language]}</span>}
                 </h3>
-                {item.body && <p>{item.body[language]}</p>}
+                <p>{item.body[language]}</p>
               </div>
             </li>
           ))}
