@@ -455,6 +455,7 @@
   line-height: 1.3;
 }
 .editorial-tool-group li img { width: 17px; height: 17px; flex: 0 0 17px; object-fit: contain; filter: grayscale(1); opacity: .75; }
+[data-theme="dark"] .editorial-tool-group img[src="/toolkit/capcut.svg"] { filter: invert(1); }
 .editorial-tool-group li:hover { border-color: var(--border-strong); color: var(--fg); }
 .editorial-tool-group li:hover img { opacity: 1; }
 

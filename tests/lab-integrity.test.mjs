@@ -46,10 +46,10 @@ test("all eight original records and the full checkpoint survive the new LAB pro
   assert.equal(records[12].platform, "blender");
 });
 
-test("V.120 extends V.119 without changing existing releases or date automation", () => {
-  const before = JSON.parse(execFileSync("git", ["show", "9b3203c2208081f1be64b13e928de79e87972fd5:site-history.json"], { encoding: "utf8" }));
+test("V.121 extends V.120 without changing existing releases or date automation", () => {
+  const before = JSON.parse(execFileSync("git", ["show", "750e50e238f2f6bde5f777f559d78d2d9da91f0f:site-history.json"], { encoding: "utf8" }));
   const after = JSON.parse(read("site-history.json"));
-  assert.equal(after.releases[0].version, "V.120");
+  assert.equal(after.releases[0].version, "V.121");
   assert.deepEqual(after.releases.slice(1), before.releases);
   for (const key of ["initialLastUpdated", "previousReleaseCommit", "timeZone"]) {
     assert.equal(after[key], before[key]);

@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Refined the Milestones section and its editing income entry."
+      "Cleaned up Resolve and Fusion logo edges and improved CapCut contrast."
     ],
     "zh": [
-      "調整里程碑區標題及剪輯收入紀錄。"
+      "修整 Resolve 與 Fusion 圖示的白邊，提升深色主題下 CapCut 的辨識度。"
     ]
   },
   "releases": [
+    {
+      "version": "V.121",
+      "date": "2026-11-26",
+      "en": ["Cleaned up Resolve and Fusion logo edges and improved CapCut contrast."],
+      "zh": ["修整 Resolve 與 Fusion 圖示的白邊，提升深色主題下 CapCut 的辨識度。"]
+    },
     {
       "version": "V.120",
       "date": "2026-11-26",
