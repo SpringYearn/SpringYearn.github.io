@@ -1,0 +1,11 @@
+[
+  {
+    "id": "v122.release",
+    "en": "Fixed repeated clicks on the header logo so it always returns to the top.",
+    "zh": "修正重複點擊導覽列 Logo 無法回到首頁頂端的問題。",
+    "ja": "ヘッダーのロゴを再度クリックしてもホームの先頭に戻れるようにしました。",
+    "ko": "상단 로고를 다시 눌러도 홈페이지 맨 위로 이동하도록 수정했어요.",
+    "ru": "Повторное нажатие на логотип в шапке снова прокручивает главную страницу вверх.",
+    "vi": "Đã sửa lỗi nhấn lại logo ở đầu trang mà không cuộn về đầu trang chủ."
+  }
+]

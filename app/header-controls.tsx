@@ -74,7 +74,13 @@ export function SiteHeader({ active, onBrowseResources }: SiteHeaderProps) {
   }, []);
 
   return <Localized><header className="site-header">
-    <Link className="wordmark" href="/#top" aria-label="SpringYearn home">
+    <Link className="wordmark" href="/#top" aria-label="SpringYearn home" onNavigate={event => {
+      const { pathname, search, hash } = window.location;
+      if (pathname !== "/" || search || hash !== "#top") return;
+      // The router does not scroll when the destination fragment is already in the URL.
+      event.preventDefault();
+      window.scrollTo({ top: 0 });
+    }}>
       <span className="wordmark-symbol"><img src="/logo.png" alt="" width="30" height="32" /></span>
       <span className="wordmark-text" lang="en" data-localize="off">SPRINGYEARN</span>
     </Link>

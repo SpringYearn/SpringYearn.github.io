@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Cleaned up Resolve and Fusion logo edges and improved CapCut contrast."
+      "Fixed repeated clicks on the header logo so it always returns to the top."
     ],
     "zh": [
-      "修整 Resolve 與 Fusion 圖示的白邊，提升深色主題下 CapCut 的辨識度。"
+      "修正重複點擊導覽列 Logo 無法回到首頁頂端的問題。"
     ]
   },
   "releases": [
+    {
+      "version": "V.122",
+      "date": "2026-11-26",
+      "en": ["Fixed repeated clicks on the header logo so it always returns to the top."],
+      "zh": ["修正重複點擊導覽列 Logo 無法回到首頁頂端的問題。"]
+    },
     {
       "version": "V.121",
       "date": "2026-11-26",
