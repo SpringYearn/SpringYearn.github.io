@@ -32,17 +32,26 @@ test("all 34 current individual pages export with their own canonical URL, title
 });
 
 test("every preview cover is a distinct, valid 1200 by 630 PNG", () => {
+  const home = read("index.html");
+  assert.equal(meta(home, "og:title"), "SpringYearn — Visual Artist & Editor");
+  assert.equal(meta(home, "og:image"), "https://springyearn.github.io/share/home-cover.png");
+  assert.equal(meta(home, "og:image:type"), "image/png");
+  assert.equal(meta(home, "twitter:image"), meta(home, "og:image"));
+
+  const covers = [
+    "home-cover.png",
+    ...projects.map(item => `work/${item.id}/cover.png`),
+    ...projectFiles.map(item => `project-files/${item.id}/cover.png`),
+  ];
   const hashes = new Set();
-  for (const [kind, items] of [["work", projects], ["project-files", projectFiles]]) {
-    for (const item of items) {
-      const png = readFileSync(new URL(`../out/share/${kind}/${item.id}/cover.png`, import.meta.url));
-      assert.equal(png.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
-      assert.equal(png.readUInt32BE(16), 1200);
-      assert.equal(png.readUInt32BE(20), 630);
-      hashes.add(createHash("sha256").update(png).digest("hex"));
-    }
+  for (const cover of covers) {
+    const png = readFileSync(new URL(`../out/share/${cover}`, import.meta.url));
+    assert.equal(png.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+    assert.equal(png.readUInt32BE(16), 1200);
+    assert.equal(png.readUInt32BE(20), 630);
+    hashes.add(createHash("sha256").update(png).digest("hex"));
   }
-  assert.equal(hashes.size, projects.length + projectFiles.length);
+  assert.equal(hashes.size, covers.length);
 });
 
 test("the three chosen works are featured remain selected after combining PAIKE into 27 archive projects", () => {

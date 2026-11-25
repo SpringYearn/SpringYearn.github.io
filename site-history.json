@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Fixed repeated clicks on the header logo so it always returns to the top."
+      "Updated the homepage link preview to match the current portfolio design."
     ],
     "zh": [
-      "修正重複點擊導覽列 Logo 無法回到首頁頂端的問題。"
+      "更新首頁的連結分享預覽。"
     ]
   },
   "releases": [
+    {
+      "version": "V.123",
+      "date": "2026-11-26",
+      "en": ["Updated the homepage link preview to match the current portfolio design."],
+      "zh": ["更新首頁的連結分享預覽。"]
+    },
     {
       "version": "V.122",
       "date": "2026-11-26",

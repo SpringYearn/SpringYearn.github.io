@@ -15,31 +15,34 @@ const siteOrigin =
 const googleFonts = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=LXGW+WenKai+TC:wght@300;400;700&family=Syne:wght@400..800&display=swap";
 const fontshare = "https://api.fontshare.com/v2/css?f%5B%5D=satoshi@300,400,500,700,900&display=swap";
 
+const shareTitle = "SpringYearn — Visual Artist & Editor";
+const shareDescription = "Editing, motion design, drawing, graphic design and 3D, made in Taiwan.";
+const shareCover = {
+  url: `${siteOrigin}/share/home-cover.png`,
+  width: 1200,
+  height: 630,
+  type: "image/png",
+  alt: "SpringYearn. I make images move, and sometimes stay still.",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
   title: "SpringYearn",
   description:
     "SpringYearn’s portfolio: editing, motion, drawing, graphic design and 3D, made in Taiwan.",
   openGraph: {
-    title: "SpringYearn — Editor / Motion Designer",
-    description: "Editing, motion, design and a few experiments along the way.",
+    title: shareTitle,
+    description: shareDescription,
     type: "website",
     locale: "en_US",
     alternateLocale: ["zh_TW","ja_JP","ko_KR","ru_RU","vi_VN"],
-    images: [
-      {
-        url: `${siteOrigin}/og.png`,
-        width: 1200,
-        height: 630,
-        alt: "SpringYearn — Editor / Motion Designer",
-      },
-    ],
+    images: [shareCover],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SpringYearn — Editor / Motion Designer",
-    description: "Editing, motion, design and a few experiments along the way.",
-    images: [`${siteOrigin}/og.png`],
+    title: shareTitle,
+    description: shareDescription,
+    images: [shareCover],
   },
   icons: {
     icon: [{ url: "/logo.png", type: "image/png" }],
