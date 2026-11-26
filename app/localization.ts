@@ -79,11 +79,12 @@ import update120 from './locales/v120.json';
 import update121 from './locales/v121.json';
 import update122 from './locales/v122.json';
 import update123 from './locales/v123.json';
+import update124 from './locales/v124.json';
 
 const dictionaries:Record<Locale,Record<string,string>>={en,zh,ja,ko,ru,vi};
 const index:Record<string,string>=aliases;
 const normalize=(value:string)=>value.replace(/\s+/g,' ').trim().toLowerCase();
-for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073,...update074,...update075,...update076,...update077,...update078,...update079,...update080,...update081,...update082,...update083,...update084,...update085,...update086,...update087,...update088,...update089,...update090,...update091,...update092,...update093,...update094,...update095,...update096,...update097,...update098,...update099,...update100,...update101,...update102,...update103,...update104,...update105,...update106,...update107,...update108,...update109,...update110,...update111,...update112,...update113,...update114,...update115,...update116,...update117,...update118,...update119,...update120,...update121,...update122,...update123]){
+for(const row of [...additional,...update052,...update053,...update054,...update055,...update056,...update057,...update058,...update059,...update060,...update061,...update062,...update063,...update064,...update065,...update066,...update067,...update068,...update069,...update070,...update071,...update072,...update073,...update074,...update075,...update076,...update077,...update078,...update079,...update080,...update081,...update082,...update083,...update084,...update085,...update086,...update087,...update088,...update089,...update090,...update091,...update092,...update093,...update094,...update095,...update096,...update097,...update098,...update099,...update100,...update101,...update102,...update103,...update104,...update105,...update106,...update107,...update108,...update109,...update110,...update111,...update112,...update113,...update114,...update115,...update116,...update117,...update118,...update119,...update120,...update121,...update122,...update123,...update124]){
   for(const locale of ['en','zh','ja','ko','ru','vi'] as const)dictionaries[locale][row.id]=row[locale];
   index[normalize(row.en)]=row.id;index[normalize(row.zh)]=row.id;
 }

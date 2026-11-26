@@ -4,13 +4,19 @@
   "timeZone": "Asia/Taipei",
   "latestUpdate": {
     "en": [
-      "Updated the homepage link preview to match the current portfolio design."
+      "Matched the Milestones heading to the homepage section typography."
     ],
     "zh": [
-      "更新首頁的連結分享預覽。"
+      "統一首頁「里程碑」的標題字型。"
     ]
   },
   "releases": [
+    {
+      "version": "V.124",
+      "date": "2026-11-26",
+      "en": ["Matched the Milestones heading to the homepage section typography."],
+      "zh": ["統一首頁「里程碑」的標題字型。"]
+    },
     {
       "version": "V.123",
       "date": "2026-11-26",

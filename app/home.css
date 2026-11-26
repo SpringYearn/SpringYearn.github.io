@@ -343,7 +343,7 @@
   align-items: start;
   padding-block: clamp(1.8rem, 4.35vw, 4.15rem);
 }
-.editorial-profile-intro h2, .editorial-contact-info h2 {
+.editorial-profile-intro h2, .editorial-history-heading h2, .editorial-contact-info h2 {
   margin: 0;
   font-size: clamp(1.95rem, 3.6vw, 3.6rem);
   font-weight: 650;
@@ -460,12 +460,6 @@
 .editorial-tool-group li:hover img { opacity: 1; }
 
 .editorial-history-heading { align-items: end; border: 0; }
-.editorial-history-heading h2 {
-  margin: 0;
-  font: 500 clamp(2rem, 4.25vw, 4.2rem)/1 var(--code-type);
-  letter-spacing: -.055em;
-  font-variant-numeric: tabular-nums;
-}
 .editorial-history-heading p { max-width: 45ch; margin: 0; color: var(--fg-muted); }
 .editorial-timeline {
   --timeline-axis: .4rem;
